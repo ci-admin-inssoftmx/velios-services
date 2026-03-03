@@ -6,6 +6,7 @@ using velios.Api.Models.Proveedores;
 
 namespace velios.Api.Controllers;
 
+<<<<<<< HEAD
 /// <summary>
 /// Controlador encargado de la gestión de trabajadores pertenecientes a un proveedor.
 ///
@@ -19,11 +20,14 @@ namespace velios.Api.Controllers;
 /// - Se implementa soft delete mediante IsDeleted.
 /// - Se registra DateCreated en UTC.
 /// </summary>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 [ApiController]
 [Route("api/Trabajadores")]
 public class TrabajadoresController : ControllerBase
 {
     private readonly AppDbContext _db;
+<<<<<<< HEAD
 
     /// <summary>
     /// Constructor con inyección del DbContext.
@@ -45,6 +49,10 @@ public class TrabajadoresController : ControllerBase
     /// </summary>
     /// <param name="model">Datos del trabajador a registrar.</param>
     /// <returns>Identificador del trabajador creado.</returns>
+=======
+    public TrabajadoresController(AppDbContext db) => _db = db;
+
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpPost("Alta")]
     public async Task<ActionResult<ApiResponse<object>>> Alta([FromBody] TrabajadorCreateRequest model)
     {
@@ -63,9 +71,15 @@ public class TrabajadoresController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar proveedor
             var existeProveedor = await _db.Proveedores.AsNoTracking()
                 .AnyAsync(x => x.ProveedorId == model.ProveedorId && x.IsDeleted != true);
+=======
+            // proveedor existe
+            var existeProveedor = await _db.Proveedores.AsNoTracking()
+     .AnyAsync(x => x.ProveedorId == model.ProveedorId && x.IsDeleted != true);
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 
             if (!existeProveedor)
             {
@@ -78,7 +92,11 @@ public class TrabajadoresController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar duplicado por CURP
+=======
+            // anti-duplicado por CURP (si viene)
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var curp = (model.CURP ?? "").Trim();
             if (!string.IsNullOrWhiteSpace(curp))
             {
@@ -110,7 +128,11 @@ public class TrabajadoresController : ControllerBase
                 NSS = model.NSS?.Trim(),
                 Correo = model.Correo?.Trim(),
                 Telefono = model.Telefono?.Trim(),
+<<<<<<< HEAD
                 EstatusTrabajadorId = 1, // Activo
+=======
+                EstatusTrabajadorId = 1,
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
                 DateCreated = DateTime.UtcNow,
                 IsDeleted = false
             };
@@ -140,6 +162,7 @@ public class TrabajadoresController : ControllerBase
         }
     }
 
+<<<<<<< HEAD
     // =========================================================
     // GET api/Trabajadores/Proveedor/{proveedorId}
     // =========================================================
@@ -156,6 +179,8 @@ public class TrabajadoresController : ControllerBase
     /// </summary>
     /// <param name="proveedorId">Identificador del proveedor.</param>
     /// <returns>Listado de trabajadores.</returns>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpGet("Proveedor/{proveedorId:int}")]
     public async Task<ActionResult<ApiResponse<object>>> GetByProveedor(int proveedorId)
     {

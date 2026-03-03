@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using velios.Api.Data;
 using velios.Api.Models.Common;
+<<<<<<< HEAD
 using velios.Api.Services.CodigosPostales;
 using velios.Api.Services.Email;
 using velios.Api.Services.ProveedoresDocs;
@@ -93,6 +94,26 @@ var jwtKey = builder.Configuration["Jwt:Key"]
 /// </summary>
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+=======
+using velios.Api.Services.Email;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("Smtp"));
+builder.Services.AddScoped<IEmailSender, BrevoSmtpEmailSender>();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// ✅ DbContext: apunta a la BD donde está tb_AccesoUsuariosColaborador
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("VeliosConnection")));
+
+// ✅ JWT
+var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new Exception("Jwt:Key missing");
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -101,6 +122,7 @@ builder.Services
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
+<<<<<<< HEAD
 
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
@@ -109,10 +131,16 @@ builder.Services
                 Encoding.UTF8.GetBytes(jwtKey)),
 
             // Permite una pequeña tolerancia de tiempo para expiración
+=======
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             ClockSkew = TimeSpan.FromMinutes(1)
         };
     });
 
+<<<<<<< HEAD
 /// <summary>
 /// Habilita el sistema de autorización basado en roles o políticas.
 /// </summary>
@@ -128,12 +156,19 @@ var app = builder.Build();
 /// Habilita Swagger para documentación y pruebas de API.
 /// En producción puede restringirse a entorno Development.
 /// </summary>
+=======
+builder.Services.AddAuthorization();
+
+var app = builder.Build();
+
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 //if (app.Environment.IsDevelopment())
 //{
     app.UseSwagger();
     app.UseSwaggerUI();
 //}
 
+<<<<<<< HEAD
 /// <summary>
 /// Fuerza redirección HTTPS.
 /// </summary>
@@ -160,4 +195,10 @@ app.MapControllers();
 /// <summary>
 /// Inicia la aplicación.
 /// </summary>
+=======
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 app.Run();

@@ -7,6 +7,7 @@ using velios.Api.Models.Proveedores;
 
 namespace velios.Api.Controllers;
 
+<<<<<<< HEAD
 /// <summary>
 /// Controlador encargado de la gestión pública de proveedores.
 ///
@@ -20,21 +21,27 @@ namespace velios.Api.Controllers;
 /// - Solo actualiza registros previamente creados durante la activación.
 /// - Evita materializar entidades incompletas para prevenir errores de NULL.
 /// </summary>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 [ApiController]
 [Route("api/[controller]")]
 public class ProveedoresController : ControllerBase
 {
     private readonly AppDbContext _db;
 
+<<<<<<< HEAD
     /// <summary>
     /// Constructor con inyección de dependencia del DbContext.
     /// </summary>
     /// <param name="db">Contexto de base de datos.</param>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     public ProveedoresController(AppDbContext db)
     {
         _db = db;
     }
 
+<<<<<<< HEAD
     // =========================================================
     // POST /api/Proveedores/CreateProveedor
     // =========================================================
@@ -70,6 +77,12 @@ public class ProveedoresController : ControllerBase
     // =========================================================
     // POST /api/Proveedores/CreateProveedor
     // =========================================================
+=======
+    // =========================
+    // POST /api/Proveedores
+    // Alta pública
+    // =========================
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpPost("CreateProveedor")]
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> CreateProveedor([FromBody] ProveedorCreateRequest model)
@@ -93,6 +106,7 @@ public class ProveedoresController : ControllerBase
             var rfc = (model.RFC ?? "").Trim();
             var razonSocial = (model.RazonSocial ?? "").Trim();
 
+<<<<<<< HEAD
             // ✅ Nuevos campos de dirección
             var calle = (model.Calle ?? "").Trim();
             var codigoPostal = (model.CodigoPostal ?? "").Trim();
@@ -102,6 +116,8 @@ public class ProveedoresController : ControllerBase
             var estado = (model.Estado ?? "").Trim();
             var pais = (model.Pais ?? "").Trim();
 
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             if (string.IsNullOrWhiteSpace(correo))
             {
                 return BadRequest(new ApiResponse<object>
@@ -113,9 +129,13 @@ public class ProveedoresController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // =========================================================
             // 1) Validar que el proveedor exista (registro previo activación)
             // =========================================================
+=======
+            // 1) NO cargamos el entity completo (evita "Data is Null..." al materializar)
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var proveedorMin = await _db.Proveedores
                 .AsNoTracking()
                 .Where(p => p.CorreoContacto.ToLower() == correo && p.IsDeleted != true)
@@ -137,9 +157,13 @@ public class ProveedoresController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // =========================================================
             // 2) Validar que esté ACTIVADO
             // =========================================================
+=======
+            // 2) Validar ACTIVADO
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             if (proveedorMin.EstatusProveedorId != 1) // 1 = ACTIVO
             {
                 return BadRequest(new ApiResponse<object>
@@ -151,17 +175,27 @@ public class ProveedoresController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // =========================================================
             // 3) Validar RFC duplicado
             // =========================================================
+=======
+            // 3) Validar RFC duplicado (si RFC viene)
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             if (!string.IsNullOrWhiteSpace(rfc))
             {
                 var existeRFC = await _db.Proveedores
                     .AsNoTracking()
+<<<<<<< HEAD
                     .AnyAsync(p =>
                         p.ProveedorId != proveedorMin.ProveedorId &&
                         p.RFC == rfc &&
                         p.IsDeleted != true);
+=======
+                    .AnyAsync(p => p.ProveedorId != proveedorMin.ProveedorId
+                                   && p.RFC == rfc
+                                   && p.IsDeleted != true);
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 
                 if (existeRFC)
                 {
@@ -175,9 +209,13 @@ public class ProveedoresController : ControllerBase
                 }
             }
 
+<<<<<<< HEAD
             // =========================================================
             // 4) UPDATE vía SQL directo (incluye dirección)
             // =========================================================
+=======
+            // 4) UPDATE por SQL (sin materializar entidad)
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             await _db.Database.ExecuteSqlInterpolatedAsync($@"
             UPDATE dbo.tb_Proveedores
             SET RFC = {rfc},
@@ -185,6 +223,7 @@ public class ProveedoresController : ControllerBase
                 NombreComercial = {model.NombreComercial},
                 TelefonoContacto = {model.TelefonoContacto},
                 RepresentanteLegal = {model.RepresentanteLegal},
+<<<<<<< HEAD
 
                 Calle = {calle},
                 CodigoPostal = {codigoPostal},
@@ -194,6 +233,8 @@ public class ProveedoresController : ControllerBase
                 Estado = {estado},
                 Pais = {pais},
 
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
                 DateModified = {DateTime.UtcNow},
                 ModifiedBy = 'PUBLIC'
             WHERE ProveedorId = {proveedorMin.ProveedorId};

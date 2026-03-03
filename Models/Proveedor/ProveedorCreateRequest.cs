@@ -21,6 +21,7 @@ public class ProveedorCreateRequest
 
     [MaxLength(250)]
     public string? RepresentanteLegal { get; set; }
+<<<<<<< HEAD
 
     public string? Calle { get; set; }
     public string? CodigoPostal { get; set; }
@@ -29,4 +30,6 @@ public class ProveedorCreateRequest
     public string? Ciudad { get; set; }
     public string? Estado { get; set; }
     public string? Pais { get; set; }
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 }

@@ -6,6 +6,7 @@ using velios.Api.Models.Proveedores;
 
 namespace velios.Api.Controllers;
 
+<<<<<<< HEAD
 /// <summary>
 /// Controlador encargado de la gestión de trabajadores asignados a proyectos de proveedores.
 ///
@@ -22,11 +23,14 @@ namespace velios.Api.Controllers;
 /// - El trabajador debe pertenecer al proveedor.
 /// - No permite duplicados.
 /// </summary>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 [ApiController]
 [Route("api/ProyectoTrabajadores")]
 public class ProyectoTrabajadoresController : ControllerBase
 {
     private readonly AppDbContext _db;
+<<<<<<< HEAD
 
     /// <summary>
     /// Constructor con inyección del DbContext.
@@ -49,6 +53,10 @@ public class ProyectoTrabajadoresController : ControllerBase
     /// </summary>
     /// <param name="model">Datos de asignación del trabajador al proyecto.</param>
     /// <returns>Id de la asignación creada.</returns>
+=======
+    public ProyectoTrabajadoresController(AppDbContext db) => _db = db;
+
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpPost("Asignar")]
     public async Task<ActionResult<ApiResponse<object>>> Asignar([FromBody] ProyectoTrabajadorAssignRequest model)
     {
@@ -67,7 +75,11 @@ public class ProyectoTrabajadoresController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar proyecto y proveedor
+=======
+            // validar proyecto existe y proveedor coincide
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var proyecto = await _db.ProveedorProyectos.AsNoTracking()
                 .FirstOrDefaultAsync(x => x.ProveedorProyectoId == model.ProveedorProyectoId && !x.IsDeleted);
 
@@ -82,7 +94,11 @@ public class ProyectoTrabajadoresController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar trabajador y pertenencia al proveedor
+=======
+            // validar trabajador existe y pertenece al proveedor
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var trabajador = await _db.ProveedorTrabajadores.AsNoTracking()
                 .FirstOrDefaultAsync(x => x.TrabajadorId == model.TrabajadorId && !x.IsDeleted);
 
@@ -97,7 +113,11 @@ public class ProyectoTrabajadoresController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar duplicado
+=======
+            // anti-duplicado (índice también lo impone)
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var yaAsignado = await _db.ProveedorProyectoTrabajadores
                 .AnyAsync(x => x.ProveedorProyectoId == model.ProveedorProyectoId
                             && x.TrabajadorId == model.TrabajadorId
@@ -148,6 +168,7 @@ public class ProyectoTrabajadoresController : ControllerBase
         }
     }
 
+<<<<<<< HEAD
     // =========================================================
     // GET api/ProyectoTrabajadores/Proyecto/{proveedorProyectoId}
     // =========================================================
@@ -162,6 +183,8 @@ public class ProyectoTrabajadoresController : ControllerBase
     /// </summary>
     /// <param name="proveedorProyectoId">Identificador del proyecto.</param>
     /// <returns>Listado de trabajadores asignados.</returns>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpGet("Proyecto/{proveedorProyectoId:long}")]
     public async Task<ActionResult<ApiResponse<object>>> GetByProyecto(long proveedorProyectoId)
     {

@@ -1,13 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using velios.Api.Models.Asistencia;
+<<<<<<< HEAD
 using velios.Api.Models.Clientes;
 using velios.Api.Models.CodigosPostales;
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 using velios.Api.Models.Empleado;
 using velios.Api.Models.Proveedores;
 using velios.Api.Models.Security;
 
 namespace velios.Api.Data;
 
+<<<<<<< HEAD
 /// <summary>
 /// Contexto principal de base de datos de la API Velios.
 /// 
@@ -183,12 +187,49 @@ public class AppDbContext : DbContext
     /// - Restricciones
     /// - Índices únicos
     /// </summary>
+=======
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+    // =============================
+    // SEGURIDAD
+    // =============================
+    public DbSet<AccesoUsuarioColaborador> AccesosUsuarios => Set<AccesoUsuarioColaborador>();
+
+    // =============================
+    // EMPLEADOS
+    // =============================
+    public DbSet<Empleado> Empleados => Set<Empleado>();
+
+    // =============================
+    // ASISTENCIA
+    // =============================
+    public DbSet<AsistenciaRegistroRequest> AsistenciaRegistros => Set<AsistenciaRegistroRequest>();
+    public DbSet<CatOrigen> CatOrigen => Set<CatOrigen>();
+    public DbSet<CatPaquete> CatPaquetes => Set<CatPaquete>();
+    public DbSet<ProveedorSuscripcion> ProveedorSuscripciones => Set<ProveedorSuscripcion>();
+
+    public DbSet<CatTipoRegistro> CatTipoRegistro => Set<CatTipoRegistro>();
+    public DbSet<Proveedor> Proveedores => Set<Proveedor>();
+    public DbSet<CatTipoServicio> CatTipoServicio => Set<CatTipoServicio>();
+    public DbSet<ProveedorTipoServicio> ProveedorTipoServicios => Set<ProveedorTipoServicio>();
+    public DbSet<ProveedorProyecto> ProveedorProyectos => Set<ProveedorProyecto>();
+
+    public DbSet<ProveedorPresupuesto> ProveedorPresupuestos => Set<ProveedorPresupuesto>();
+
+    public DbSet<ProveedorTrabajador> ProveedorTrabajadores => Set<ProveedorTrabajador>();
+    public DbSet<ProveedorProyectoTrabajador> ProveedorProyectoTrabajadores => Set<ProveedorProyectoTrabajador>();
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
+<<<<<<< HEAD
         base.OnModelCreating(modelBuilder);
 
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
         // =============================
         // ACCESOS
         // =============================
@@ -308,6 +349,7 @@ public class AppDbContext : DbContext
             e.HasKey(x => x.ProveedorSuscripcionId);
         });
 
+<<<<<<< HEAD
         modelBuilder.Entity<Cliente>()
         .HasIndex(x => x.CorreoContacto)
         .IsUnique()
@@ -330,5 +372,7 @@ public class AppDbContext : DbContext
             e.ToTable("tb_ProveedorDocumentos", "dbo");
             e.HasKey(x => x.ProveedorDocumentoId);
         });
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     }
 }

@@ -7,6 +7,7 @@ using velios.Api.Models.Common;
 
 namespace velios.Api.Controllers;
 
+<<<<<<< HEAD
 /// <summary>
 /// Controlador responsable de la gestión de registros de asistencia.
 ///
@@ -19,21 +20,27 @@ namespace velios.Api.Controllers;
 /// - Aplica validaciones para evitar duplicados.
 /// - Implementa soft-delete mediante IsDeleted.
 /// </summary>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 [ApiController]
 [Route("api/[controller]")]
 public class AsistenciaController : ControllerBase
 {
     private readonly AppDbContext _db;
 
+<<<<<<< HEAD
     /// <summary>
     /// Constructor con inyección de dependencia del DbContext.
     /// </summary>
     /// <param name="db">Contexto de base de datos.</param>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     public AsistenciaController(AppDbContext db)
     {
         _db = db;
     }
 
+<<<<<<< HEAD
     /// <summary>
     /// Identificador del origen del registro.
     /// 1 = Sistema (CatOrigen = S).
@@ -65,6 +72,13 @@ public class AsistenciaController : ControllerBase
     /// - success = true si se crea correctamente.
     /// - AsistenciaId generado.
     /// </returns>
+=======
+    private const int ORIGEN_SISTEMA = 1; // CatOrigen = S
+
+    // =========================
+    // POST CreateRegistroAsistencia
+    // =========================
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpPost("CreateRegistroAsistencia")]
     [Authorize]
     public async Task<ActionResult<ApiResponse<object>>> CreateRegistroAsistencia(
@@ -85,7 +99,11 @@ public class AsistenciaController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar existencia del empleado
+=======
+            // Validar empleado
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var existeEmpleado = await _db.Empleados
                 .AnyAsync(x => x.IdEmpleado == model.IdEmpleado);
 
@@ -102,14 +120,22 @@ public class AsistenciaController : ControllerBase
 
             var fecha = model.Fecha.Date;
 
+<<<<<<< HEAD
             // Validaciones por tipo de registro
+=======
+            // Validar tipo registro
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             if (model.TipoRegistroId == 1 && model.HoraEntrada == null)
                 return BadRequest("HoraEntrada requerida.");
 
             if (model.TipoRegistroId == 2 && model.HoraSalida == null)
                 return BadRequest("HoraSalida requerida.");
 
+<<<<<<< HEAD
             // Validación anti-duplicado
+=======
+            // Anti duplicado
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var existe = await _db.AsistenciaRegistros.AnyAsync(r =>
                 r.IdEmpleado == model.IdEmpleado &&
                 r.Fecha == fecha &&
@@ -165,6 +191,7 @@ public class AsistenciaController : ControllerBase
         }
     }
 
+<<<<<<< HEAD
     // =========================================================
     // GET GetRegistrosAsistencia
     // =========================================================
@@ -187,6 +214,11 @@ public class AsistenciaController : ControllerBase
     /// </summary>
     /// <param name="model">Filtros de consulta (IdEmpleado + rango fechas).</param>
     /// <returns>Listado agrupado por fecha.</returns>
+=======
+    // =========================
+    // GET Registros
+    // =========================
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpGet("GetRegistrosAsistencia")]
     [Authorize]
     public async Task<ActionResult<ApiResponse<object>>> GetRegistrosAsistencia(

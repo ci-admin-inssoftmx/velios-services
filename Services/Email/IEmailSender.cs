@@ -1,5 +1,6 @@
 ﻿namespace velios.Api.Services.Email;
 
+<<<<<<< HEAD
 /// <summary>
 /// Define el contrato para el servicio de envío de correos electrónicos.
 /// 
@@ -34,4 +35,9 @@ public interface IEmailSender
     /// - El método debe ser no bloqueante (async/await).
     /// </remarks>
     Task Send(string to, string subject, string htmlBody);
+=======
+public interface IEmailSender
+{
+    void Send(string to, string subject, string htmlBody);
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 }

@@ -1,5 +1,6 @@
 ﻿namespace velios.Api.Models.Common;
 
+<<<<<<< HEAD
 /// <summary>
 /// Modelo genérico estandarizado para las respuestas de la API.
 ///
@@ -84,5 +85,16 @@ public class ApiResponse<T>
     /// 
     /// Se utiliza cuando hay múltiples validaciones fallidas.
     /// </summary>
+=======
+public class ApiResponse<T>
+{
+    public string request_id { get; set; } = Guid.NewGuid().ToString();
+    public bool success { get; set; }
+    public string message { get; set; } = "";
+    public T? data { get; set; }
+    public int statusCode { get; set; }
+    public string? field { get; set; }
+    public string? code { get; set; }
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     public List<string>? errors { get; set; }
 }

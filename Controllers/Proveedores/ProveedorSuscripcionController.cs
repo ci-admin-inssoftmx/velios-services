@@ -7,6 +7,7 @@ using velios.Api.Models.Proveedores;
 
 namespace velios.Api.Controllers;
 
+<<<<<<< HEAD
 /// <summary>
 /// Controlador encargado de la gestión de suscripciones de proveedores.
 ///
@@ -24,21 +25,27 @@ namespace velios.Api.Controllers;
 ///
 /// Soporta historial completo mediante soft-delete (IsDeleted).
 /// </summary>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 [ApiController]
 [Route("api/Proveedores/{proveedorId:int}/Suscripcion")]
 public class ProveedorSuscripcionController : ControllerBase
 {
     private readonly AppDbContext _db;
+<<<<<<< HEAD
 
     /// <summary>
     /// Constructor con inyección del DbContext.
     /// </summary>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     public ProveedorSuscripcionController(AppDbContext db) => _db = db;
 
     private const int ESTATUS_ACTIVA = 1;
     private const int ESTATUS_SUSPENDIDA = 2;
     private const int ESTATUS_CANCELADA = 3;
 
+<<<<<<< HEAD
     // =========================================================
     // POST Alta o Cambio de paquete
     // =========================================================
@@ -61,6 +68,15 @@ public class ProveedorSuscripcionController : ControllerBase
     public async Task<ActionResult<ApiResponse<object>>> Upsert(
         int proveedorId,
         [FromBody] ProveedorSuscripcionUpsertRequest model)
+=======
+    // =========================
+    // POST /api/Proveedores/{proveedorId}/Suscripcion
+    // Alta o Cambio de paquete
+    // =========================
+    [HttpPost]
+    [AllowAnonymous] // lo dejaste público en módulo 1
+    public async Task<ActionResult<ApiResponse<object>>> Upsert(int proveedorId, [FromBody] ProveedorSuscripcionUpsertRequest model)
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     {
         var requestId = Guid.NewGuid().ToString();
 
@@ -77,10 +93,14 @@ public class ProveedorSuscripcionController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar proveedor
             var existeProveedor = await _db.Proveedores.AsNoTracking()
                 .AnyAsync(p => p.ProveedorId == proveedorId && p.IsDeleted != true);
 
+=======
+            var existeProveedor = await _db.Proveedores.AsNoTracking().AnyAsync(p => p.ProveedorId == proveedorId && p.IsDeleted != true);    
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             if (!existeProveedor)
             {
                 return BadRequest(new ApiResponse<object>
@@ -92,7 +112,10 @@ public class ProveedorSuscripcionController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar paquete
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var paqueteValido = await _db.CatPaquetes.AsNoTracking()
                 .AnyAsync(p => p.PaqueteId == model.PaqueteId && p.Activo && !p.IsDeleted);
 
@@ -110,6 +133,7 @@ public class ProveedorSuscripcionController : ControllerBase
             var hoy = DateTime.UtcNow.Date;
             var fechaInicio = (model.FechaInicio ?? hoy).Date;
 
+<<<<<<< HEAD
             // Buscar suscripción activa actual
             var activa = await _db.ProveedorSuscripciones
                 .FirstOrDefaultAsync(x =>
@@ -118,6 +142,13 @@ public class ProveedorSuscripcionController : ControllerBase
                     !x.IsDeleted);
 
             // Si ya tiene el mismo paquete activo
+=======
+            // Busca activa actual
+            var activa = await _db.ProveedorSuscripciones
+                .FirstOrDefaultAsync(x => x.ProveedorId == proveedorId && x.EstatusSuscripcionId == ESTATUS_ACTIVA && !x.IsDeleted);
+
+            // Si existe activa y es el mismo paquete -> no hacer nada
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             if (activa != null && activa.PaqueteId == model.PaqueteId)
             {
                 return Ok(new ApiResponse<object>
@@ -130,7 +161,11 @@ public class ProveedorSuscripcionController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Cancelar activa anterior
+=======
+            // Si existe activa, cancelarla (histórico)
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             if (activa != null)
             {
                 activa.EstatusSuscripcionId = ESTATUS_CANCELADA;
@@ -148,6 +183,10 @@ public class ProveedorSuscripcionController : ControllerBase
                 FechaInicio = fechaInicio,
                 FechaFin = null,
                 Motivo = null,
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
                 DateCreated = DateTime.UtcNow,
                 CreatedBy = "API",
                 IsDeleted = false
@@ -178,6 +217,7 @@ public class ProveedorSuscripcionController : ControllerBase
         }
     }
 
+<<<<<<< HEAD
     // =========================================================
     // POST Suspender suscripción activa
     // =========================================================
@@ -195,16 +235,29 @@ public class ProveedorSuscripcionController : ControllerBase
     public async Task<ActionResult<ApiResponse<object>>> Suspend(
         int proveedorId,
         [FromBody] ProveedorSuscripcionSuspendRequest model)
+=======
+    // =========================
+    // POST /api/Proveedores/{proveedorId}/Suscripcion/Suspend
+    // Suspender suscripción activa
+    // =========================
+    [HttpPost("Suspend")]
+    [AllowAnonymous]
+    public async Task<ActionResult<ApiResponse<object>>> Suspend(int proveedorId, [FromBody] ProveedorSuscripcionSuspendRequest model)
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     {
         var requestId = Guid.NewGuid().ToString();
 
         try
         {
             var activa = await _db.ProveedorSuscripciones
+<<<<<<< HEAD
                 .FirstOrDefaultAsync(x =>
                     x.ProveedorId == proveedorId &&
                     x.EstatusSuscripcionId == ESTATUS_ACTIVA &&
                     !x.IsDeleted);
+=======
+                .FirstOrDefaultAsync(x => x.ProveedorId == proveedorId && x.EstatusSuscripcionId == ESTATUS_ACTIVA && !x.IsDeleted);
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 
             if (activa == null)
             {
@@ -245,6 +298,7 @@ public class ProveedorSuscripcionController : ControllerBase
         }
     }
 
+<<<<<<< HEAD
     // =========================================================
     // GET Suscripción activa + historial
     // =========================================================
@@ -257,6 +311,12 @@ public class ProveedorSuscripcionController : ControllerBase
     /// - Suscripción activa (si existe).
     /// - Historial completo ordenado por más reciente.
     /// </summary>
+=======
+    // =========================
+    // GET /api/Proveedores/{proveedorId}/Suscripcion
+    // Devuelve activa + historial
+    // =========================
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpGet]
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> Get(int proveedorId)

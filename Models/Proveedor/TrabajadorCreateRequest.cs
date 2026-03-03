@@ -16,5 +16,8 @@ public class TrabajadorCreateRequest
 
     public string? Correo { get; set; }
     public string? Telefono { get; set; }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 }

@@ -7,6 +7,7 @@ using velios.Api.Models.Proveedores;
 
 namespace velios.Api.Controllers;
 
+<<<<<<< HEAD
 /// <summary>
 /// Controlador encargado de la gestión de presupuestos de proveedores.
 ///
@@ -23,21 +24,27 @@ namespace velios.Api.Controllers;
 /// Se implementa versionamiento automático por proyecto.
 /// Soporta soft-delete mediante IsDeleted.
 /// </summary>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
 [ApiController]
 [Route("api/Presupuestos")]
 public class PresupuestosController : ControllerBase
 {
     private readonly AppDbContext _db;
+<<<<<<< HEAD
 
     /// <summary>
     /// Constructor con inyección del DbContext.
     /// </summary>
+=======
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     public PresupuestosController(AppDbContext db) => _db = db;
 
     private const int ENVIADO = 1;
     private const int APROBADO = 2;
     private const int RECHAZADO = 3;
 
+<<<<<<< HEAD
     // =========================================================
     // POST /api/Presupuestos/Enviar
     // =========================================================
@@ -55,6 +62,11 @@ public class PresupuestosController : ControllerBase
     /// </summary>
     /// <param name="model">Datos del presupuesto.</param>
     /// <returns>PresupuestoId y número de versión generada.</returns>
+=======
+    // =========================
+    // POST /api/Presupuestos/Enviar
+    // =========================
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpPost("Enviar")]
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> Enviar([FromBody] PresupuestoCreateRequest model)
@@ -74,7 +86,11 @@ public class PresupuestosController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar existencia del proyecto
+=======
+            // validar proyecto existe
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var proyecto = await _db.ProveedorProyectos.AsNoTracking()
                 .FirstOrDefaultAsync(x => x.ProveedorProyectoId == model.ProveedorProyectoId && !x.IsDeleted);
 
@@ -89,7 +105,11 @@ public class PresupuestosController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar que proveedor corresponda al proyecto
+=======
+            // validar proveedor coincide con proyecto
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             if (proyecto.ProveedorId != model.ProveedorId)
             {
                 return BadRequest(new ApiResponse<object>
@@ -101,7 +121,11 @@ public class PresupuestosController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Validar que no exista presupuesto ENVIADO abierto
+=======
+            // validar no exista uno "enviado" abierto (índice también lo impone)
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var existeEnviado = await _db.ProveedorPresupuestos
                 .AnyAsync(x => x.ProveedorProyectoId == model.ProveedorProyectoId
                             && x.EstatusPresupuestoId == ENVIADO
@@ -118,7 +142,11 @@ public class PresupuestosController : ControllerBase
                 });
             }
 
+<<<<<<< HEAD
             // Generar versión automática
+=======
+            // versión = max + 1
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
             var maxVersion = await _db.ProveedorPresupuestos.AsNoTracking()
                 .Where(x => x.ProveedorProyectoId == model.ProveedorProyectoId && !x.IsDeleted)
                 .Select(x => (int?)x.Version)
@@ -164,6 +192,7 @@ public class PresupuestosController : ControllerBase
         }
     }
 
+<<<<<<< HEAD
     // =========================================================
     // POST /api/Presupuestos/{presupuestoId}/Decision
     // =========================================================
@@ -178,6 +207,11 @@ public class PresupuestosController : ControllerBase
     /// </summary>
     /// <param name="presupuestoId">Identificador del presupuesto.</param>
     /// <param name="model">Decisión y motivo opcional.</param>
+=======
+    // =========================
+    // POST /api/Presupuestos/{presupuestoId}/Decision
+    // =========================
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpPost("{presupuestoId:long}/Decision")]
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> Decision(long presupuestoId, [FromBody] PresupuestoDecisionRequest model)
@@ -244,9 +278,13 @@ public class PresupuestosController : ControllerBase
             {
                 request_id = requestId,
                 success = true,
+<<<<<<< HEAD
                 message = model.EstatusPresupuestoId == APROBADO
                     ? "Presupuesto aprobado."
                     : "Presupuesto rechazado.",
+=======
+                message = model.EstatusPresupuestoId == APROBADO ? "Presupuesto aprobado." : "Presupuesto rechazado.",
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
                 statusCode = 200
             });
         }
@@ -263,6 +301,7 @@ public class PresupuestosController : ControllerBase
         }
     }
 
+<<<<<<< HEAD
     // =========================================================
     // GET /api/Presupuestos/Proyecto/{proveedorProyectoId}
     // =========================================================
@@ -279,6 +318,11 @@ public class PresupuestosController : ControllerBase
     /// - Fecha de decisión
     /// </summary>
     /// <param name="proveedorProyectoId">Identificador del proyecto.</param>
+=======
+    // =========================
+    // GET /api/Presupuestos/Proyecto/{proveedorProyectoId}
+    // =========================
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     [HttpGet("Proyecto/{proveedorProyectoId:long}")]
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> GetByProyecto(long proveedorProyectoId)

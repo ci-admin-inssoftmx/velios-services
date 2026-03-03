@@ -1,5 +1,6 @@
 ﻿namespace velios.Api.Models.Common;
 
+<<<<<<< HEAD
 /// <summary>
 /// Modelo de configuración para el servicio SMTP.
 ///
@@ -63,5 +64,14 @@ public class SmtpSettings
     /// 
     /// Valor por defecto: "Velios".
     /// </summary>
+=======
+public class SmtpSettings
+{
+    public string Host { get; set; } = "";
+    public int Port { get; set; }
+    public string User { get; set; } = "";
+    public string Pass { get; set; } = "";
+    public string FromEmail { get; set; } = "";
+>>>>>>> 9ea7874ac31375d8ad49080bcd0defe49c1bcd59
     public string FromName { get; set; } = "Velios";
 }
