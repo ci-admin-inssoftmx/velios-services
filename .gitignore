@@ -1,0 +1,24 @@
+cat > .gitignore <<'EOF'
+# Visual Studio
+.vs/
+
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (ajusta según tu proyecto)
+**/appsettings.Development.json
+EOF
