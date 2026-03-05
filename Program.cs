@@ -1,0 +1,184 @@
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
+using velios.Api.Data;
+using velios.Api.Models.Common;
+using velios.Api.Services.CodigosPostales;
+using velios.Api.Services.Email;
+using velios.Api.Services.ProveedoresDocs;
+using velios.Api.Services.Security;
+
+/// <summary>
+/// Punto de entrada de Velios API (Minimal Hosting .NET 6+).
+/// 
+/// REGLA CLAVE:
+/// - Todo builder.Services.* debe ir ANTES de builder.Build()
+/// - Todo app.Use* y app.Map* debe ir DESPUÉS de builder.Build()
+/// </summary>
+var builder = WebApplication.CreateBuilder(args);
+
+#region ============================= CONFIGURACIÓN DE SERVICIOS =============================
+
+// ------------------------------------------------------------
+// 1) Configuración de opciones (Settings)
+// ------------------------------------------------------------
+
+// SMTP settings (appsettings.json -> "Smtp")
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("Smtp"));
+
+
+// ------------------------------------------------------------
+// 2) Registro de servicios (DI - Dependency Injection)
+// ------------------------------------------------------------
+
+// Email sender
+builder.Services.AddScoped<IEmailSender, BrevoSmtpEmailSender>();
+
+// Códigos postales
+builder.Services.AddScoped<ICodigoPostalService, CodigoPostalService>();
+
+// Password hasher (legacy)
+builder.Services.AddSingleton<IPasswordHasher, LegacyPasswordHasher>();
+
+// Proveedor documentos
+builder.Services.AddScoped<IProveedorDocumentService, ProveedorDocumentService>();
+
+
+// ------------------------------------------------------------
+// 3) MVC / Controllers
+// ------------------------------------------------------------
+builder.Services.AddControllers();
+
+
+// ------------------------------------------------------------
+// 4) Swagger/OpenAPI
+// ------------------------------------------------------------
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Velios API", Version = "v1" });
+
+    // 👇 Esto evita que Swagger reviente con IFormFile y lo dibuja como "binary"
+    c.MapType<IFormFile>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Format = "binary"
+    });
+});
+
+// ------------------------------------------------------------
+// 5) Base de datos (DbContext)
+// ------------------------------------------------------------
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("VeliosConnection")));
+
+
+// ------------------------------------------------------------
+// 6) CORS (IMPORTANTE para llamadas desde Browser local)
+// ------------------------------------------------------------
+// Nota: Pon el nombre de la policy y úsala igual en app.UseCors("...")
+// Si luego quieres restringir, cambia AllowAnyOrigin por WithOrigins("http://localhost:xxxx")
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("LocalDevCors", p =>
+        p.AllowAnyHeader()
+         .AllowAnyMethod()
+         .AllowAnyOrigin());
+});
+
+#endregion
+
+#region ============================= CONFIGURACIÓN JWT =============================
+
+// JWT Key
+var jwtKey = builder.Configuration["Jwt:Key"]
+    ?? throw new Exception("Jwt:Key missing (configura Jwt:Key en appsettings o variables de entorno)");
+
+// Autenticación JWT Bearer
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+
+            // Tolerancia de tiempo para expiración
+            ClockSkew = TimeSpan.FromMinutes(1)
+        };
+    });
+
+// Autorización (atributos [Authorize])
+builder.Services.AddAuthorization();
+
+#endregion
+
+// ✅ A partir de aquí, ya NO se pueden modificar builder.Services
+var app = builder.Build();
+
+#region ============================= PIPELINE HTTP =============================
+
+// ------------------------------------------------------------
+// Diagnóstico: confirma si la request llega al pipeline (antes de MVC)
+// (No leer Body aquí, especialmente multipart)
+// ------------------------------------------------------------
+app.Use(async (ctx, next) =>
+{
+    app.Logger.LogInformation("Incoming: {Method} {Path}{Query} CT={CT} Len={Len}",
+        ctx.Request.Method,
+        ctx.Request.Path,
+        ctx.Request.QueryString,
+        ctx.Request.ContentType,
+        ctx.Request.ContentLength);
+
+    await next();
+});
+
+
+// ------------------------------------------------------------
+// Swagger UI
+// (si quieres solo en Development, envuélvelo en if(app.Environment.IsDevelopment()))
+// ------------------------------------------------------------
+app.UseSwagger();
+app.UseSwaggerUI();
+
+
+// ------------------------------------------------------------
+// HTTPS Redirection
+// ------------------------------------------------------------
+app.UseHttpsRedirection();
+
+
+// ------------------------------------------------------------
+// CORS (DEBE IR ANTES de Authentication/Authorization)
+// ------------------------------------------------------------
+app.UseCors("LocalDevCors");
+
+
+// ------------------------------------------------------------
+// Seguridad: AuthN / AuthZ
+// ------------------------------------------------------------
+app.UseAuthentication();
+app.UseAuthorization();
+
+
+// ------------------------------------------------------------
+// Endpoints Controllers
+// ------------------------------------------------------------
+app.MapControllers();
+
+#endregion
+
+Console.WriteLine($"API started at {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+
+app.Run();
