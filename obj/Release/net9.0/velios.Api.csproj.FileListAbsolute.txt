@@ -166,3 +166,15 @@ D:\Proyectos_NET\velios.Api\obj\Release\net9.0\refint\velios.Api.dll
 D:\Proyectos_NET\velios.Api\obj\Release\net9.0\velios.Api.pdb
 D:\Proyectos_NET\velios.Api\obj\Release\net9.0\velios.Api.genruntimeconfig.cache
 D:\Proyectos_NET\velios.Api\obj\Release\net9.0\ref\velios.Api.dll
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\velios.Api.csproj.AssemblyReference.cache
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\rpswa.dswa.cache.json
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\velios.Api.GeneratedMSBuildEditorConfig.editorconfig
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\velios.Api.AssemblyInfoInputs.cache
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\velios.Api.AssemblyInfo.cs
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\velios.Api.csproj.CoreCompileInputs.cache
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\velios.Api.MvcApplicationPartsAssemblyInfo.cs
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\velios.Api.MvcApplicationPartsAssemblyInfo.cache
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\velios.Api.sourcelink.json
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\velios.Api.dll
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\refint\velios.Api.dll
+D:\Proyectos_NET\velios-services\obj\Release\net9.0\velios.Api.pdb

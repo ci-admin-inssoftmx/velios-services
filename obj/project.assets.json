@@ -4859,11 +4859,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Proyectos_NET\\velios.Api\\velios.Api.csproj",
+      "projectUniqueName": "D:\\Proyectos_NET\\velios-services\\velios.Api.csproj",
       "projectName": "velios.Api",
-      "projectPath": "D:\\Proyectos_NET\\velios.Api\\velios.Api.csproj",
+      "projectPath": "D:\\Proyectos_NET\\velios-services\\velios.Api.csproj",
       "packagesPath": "C:\\Users\\rvoma\\.nuget\\packages\\",
-      "outputPath": "D:\\Proyectos_NET\\velios.Api\\obj\\",
+      "outputPath": "D:\\Proyectos_NET\\velios-services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

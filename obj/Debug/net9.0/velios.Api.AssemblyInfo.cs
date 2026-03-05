@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("velios.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f88eab36311c67cedd8fd8743aaa25a5bdc8965")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7874c8c2fc6ca8ab62cb2aa136d3b39c45e8a07c")]
 [assembly: System.Reflection.AssemblyProductAttribute("velios.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("velios.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

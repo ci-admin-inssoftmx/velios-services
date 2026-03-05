@@ -60,16 +60,18 @@ public class ProveedorDocumentosController : ControllerBase
     [AllowAnonymous]
     [RequestSizeLimit(15 * 1024 * 1024)]
     public async Task<ActionResult<ApiResponse<object>>> Upload(
-        int proveedorId,
-        [FromQuery] int tipoDocumentoId,
-        [FromForm] DateTime? fechaFinVigencia,
-        IFormFile file)
+           [FromRoute] int proveedorId,
+           [FromQuery] int tipoDocumentoId,
+           [FromForm] DateTime? fechaFinVigencia,
+           [FromForm] IFormFile file)
     {
         var requestId = Guid.NewGuid().ToString();
 
         try
         {
+            Console.WriteLine($"UPLOAD HIT proveedorId={proveedorId} tipoDocumentoId={tipoDocumentoId} fileNull={(file == null)} len={(file?.Length ?? 0)} fecha={fechaFinVigencia}");
             if (tipoDocumentoId <= 0 || file == null)
+            {
                 return BadRequest(new ApiResponse<object>
                 {
                     request_id = requestId,
@@ -77,10 +79,11 @@ public class ProveedorDocumentosController : ControllerBase
                     message = "tipoDocumentoId y archivo son obligatorios.",
                     statusCode = 400
                 });
+            }
 
             var actor = User?.Identity?.Name ?? "PUBLIC";
 
-            // ✅ Firma nueva: incluye fechaFinVigencia
+            // Firma nueva: incluye fechaFinVigencia
             var id = await _service.UploadAsync(proveedorId, tipoDocumentoId, file, fechaFinVigencia, actor);
 
             return Ok(new ApiResponse<object>
@@ -98,9 +101,8 @@ public class ProveedorDocumentosController : ControllerBase
             {
                 request_id = requestId,
                 success = false,
-                message = "Error al cargar documento.",
-                statusCode = 400,
-                errors = new List<string> { ex.Message }
+                message = $"INVALID: proveedorId={proveedorId}, tipoDocumentoId={tipoDocumentoId}, fileNull={(file == null)}, len={(file?.Length ?? 0)}, fecha={fechaFinVigencia}",
+                statusCode = 400
             });
         }
     }

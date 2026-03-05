@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "h4J1CT809jc=",
+  "dgSpecHash": "xEEkeXWTLr4=",
   "success": true,
-  "projectFilePath": "D:\\Proyectos_NET\\velios.Api\\velios.Api.csproj",
+  "projectFilePath": "D:\\Proyectos_NET\\velios-services\\velios.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rvoma\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\rvoma\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
