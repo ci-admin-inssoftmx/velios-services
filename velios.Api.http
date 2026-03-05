@@ -1,6 +1,0 @@
-@velios.Api_HostAddress = http://localhost:5275
-
-GET {{velios.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
