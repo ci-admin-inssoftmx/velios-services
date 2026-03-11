@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Mail;
@@ -12,6 +13,7 @@ using velios.Api.Data;
 using velios.Api.Models.Auth;
 using velios.Api.Models.Auth.Security;
 using velios.Api.Models.Common;
+using velios.Api.Models.Proveedores;
 using velios.Api.Models.Security;
 using velios.Api.Services.Email;
 using velios.Api.Services.Security;
@@ -40,7 +42,7 @@ public class AuthenticateController : ControllerBase
     private readonly IConfiguration _config;
     private readonly IEmailSender _email;
     private readonly IPasswordHasher _passwordHasher;
-
+    private readonly ILogger<AuthenticateController> _logger;
 
     /// <summary>
     /// Constructor con inyección de dependencias.
@@ -48,12 +50,13 @@ public class AuthenticateController : ControllerBase
     /// <param name="db">DbContext EF Core.</param>
     /// <param name="config">Configuración (Jwt, Front URLs, Smtp).</param>
     /// <param name="email">Servicio de envío de correo (abstracción).</param>
-    public AuthenticateController(AppDbContext db, IConfiguration config, IEmailSender email, IPasswordHasher passwordHasher)
+    public AuthenticateController(AppDbContext db, IConfiguration config, IEmailSender email, IPasswordHasher passwordHasher, ILogger<AuthenticateController> logger)
     {
         _db = db;
         _config = config;
         _email = email;
         _passwordHasher = passwordHasher;
+        _logger = logger;
     }
 
     // =========================================================
@@ -92,17 +95,26 @@ public class AuthenticateController : ControllerBase
         // Guardar proveedor si no existe (idempotente).
         try
         {
-            await _db.Database.ExecuteSqlInterpolatedAsync($@"
-                IF NOT EXISTS (SELECT 1 FROM dbo.tb_Proveedores WHERE CorreoContacto = {email})
-                BEGIN
-                    INSERT INTO dbo.tb_Proveedores (CorreoContacto)
-                    VALUES ({email});
-                END
-            ");
+            var exists = await _db.Proveedores
+                .AnyAsync(x => x.CorreoContacto == email && !x.IsDeleted);
+
+            if (!exists)
+            {
+                var proveedor = new Proveedor
+                {
+                    CorreoContacto = email,
+                    IsDeleted = false,
+                    DateCreated = DateTime.UtcNow,
+                    EstatusProveedorId = 4 
+                };
+
+                _db.Proveedores.Add(proveedor);
+                await _db.SaveChangesAsync();
+            }
         }
-        catch
+        catch (Exception ex)
         {
-            // Respuesta neutra: no revelar detalles (puedes loguear internamente).
+            _logger.LogError(ex, "Error insertando proveedor para email {Email}", email);
         }
 
         var token = CreateAccountActivationToken(email, TimeSpan.FromHours(24));
@@ -303,7 +315,7 @@ public class AuthenticateController : ControllerBase
             proveedor.EstatusProveedorId = 1;
             proveedor.DateModified = DateTime.UtcNow;
             proveedor.ModifiedBy = "ACTIVATION";
-            proveedor.IsDeleted = proveedor.IsDeleted ?? false;
+            proveedor.IsDeleted = proveedor.IsDeleted;
 
             await _db.SaveChangesAsync();
 
@@ -344,6 +356,17 @@ public class AuthenticateController : ControllerBase
     /// - Compara hash legacy.
     /// - Retorna JWT + datos del empleado.
     /// </summary>
+    // =========================================================
+    // POST /api/Authenticate/Login
+    // =========================================================
+
+    /// <summary>
+    /// Autentica un proveedor por correo + contraseña.
+    /// - Busca en tb_Proveedores.
+    /// - Valida que el proveedor esté activo.
+    /// - Compara PasswordHash con hash legacy.
+    /// - Retorna JWT + datos básicos del proveedor.
+    /// </summary>
     [HttpPost("Login")]
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<LoginDataResponse>>> Login([FromBody] LoginRequest model)
@@ -356,20 +379,38 @@ public class AuthenticateController : ControllerBase
             {
                 return BadRequest(new ApiResponse<LoginDataResponse>
                 {
-                    success = false,
                     request_id = requestId,
+                    success = false,
                     message = "Solicitud inválida: verifique los datos ingresados.",
-                    data = null
+                    data = null,
+                    statusCode = 400
                 });
             }
 
-            var userName = (model.UsuarioColaborador ?? "").Trim();
+            var email = (model.Email ?? "").Trim().ToLowerInvariant();
             var password = model.Password ?? "";
 
-            var user = await _db.AccesosUsuarios
-                .FirstOrDefaultAsync(x => x.UsuarioColaborador == userName);
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                return BadRequest(new ApiResponse<LoginDataResponse>
+                {
+                    request_id = requestId,
+                    success = false,
+                    message = "Email y contraseña son obligatorios.",
+                    data = null,
+                    statusCode = 400
+                });
+            }
 
-            if (user == null || user.IdEstatus != 1)
+            // Buscar proveedor por correo
+            var proveedor = await _db.Proveedores
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x =>
+                    x.CorreoContacto != null &&
+                    x.CorreoContacto.ToLower() == email &&
+                    !x.IsDeleted);
+
+            if (proveedor == null)
             {
                 return Unauthorized(new ApiResponse<LoginDataResponse>
                 {
@@ -378,31 +419,30 @@ public class AuthenticateController : ControllerBase
                     message = "Credenciales inválidas.",
                     data = null,
                     statusCode = 401,
-                    errors = new List<string> { "Usuario o contraseña incorrectos." }
+                    errors = new List<string> { "Correo o contraseña incorrectos." }
                 });
             }
 
-            if (user.Intentos >= 5)
+            // Validar que el proveedor esté activo
+            if (proveedor.EstatusProveedorId != 1)
             {
                 return Unauthorized(new ApiResponse<LoginDataResponse>
                 {
                     request_id = requestId,
                     success = false,
-                    message = "Cuenta bloqueada por intentos fallidos.",
+                    message = "La cuenta del proveedor no está activa.",
                     data = null,
                     statusCode = 401,
-                    errors = new List<string> { "Cuenta bloqueada. Contacte a soporte." }
+                    errors = new List<string> { "La cuenta aún no está activa o fue deshabilitada." }
                 });
             }
 
-            var hash = _passwordHasher.HashLegacy(password); 
-            var storedHash = (user.PasswordEncriptado ?? "").Trim();
+            // Comparar hash legacy
+            var hash = _passwordHasher.HashLegacy(password);
+            var storedHash = (proveedor.PasswordHash ?? "").Trim();
 
             if (!string.Equals(hash, storedHash, StringComparison.Ordinal))
             {
-                user.Intentos += 1;
-                await _db.SaveChangesAsync();
-
                 return Unauthorized(new ApiResponse<LoginDataResponse>
                 {
                     request_id = requestId,
@@ -410,56 +450,26 @@ public class AuthenticateController : ControllerBase
                     message = "Credenciales inválidas.",
                     data = null,
                     statusCode = 401,
-                    errors = new List<string> { "Usuario o contraseña incorrectos." }
+                    errors = new List<string> { "Correo o contraseña incorrectos." }
                 });
             }
 
-            // Login OK: obtener datos de empleado (con decryptValue)
-            var empleado = await _db.Empleados
-                .FromSqlInterpolated($@"
-                    SELECT
-                        IdEmpleado,
-                        NoColaborador,
-                        dbo.decryptValue(Nombres) AS Nombres,
-                        dbo.decryptValue(ApellidoPaterno) AS ApellidoPaterno,
-                        dbo.decryptValue(ApellidoMaterno) AS ApellidoMaterno,
-                        dbo.decryptValue(Calle) AS Calle,
-                        dbo.decryptValue(Numero) AS Numero,
-                        IdCP,
-                        dbo.decryptValue(EMail) AS EMail
-                    FROM dbo.tb_Empleados
-                    WHERE IdEmpleado = {user.IdEmpleado}
-                ")
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-
-            if (empleado == null)
-            {
-                return Unauthorized(new ApiResponse<LoginDataResponse>
-                {
-                    request_id = requestId,
-                    success = false,
-                    message = "Empleado no encontrado.",
-                    statusCode = 401
-                });
-            }
-
-            user.Intentos = 0;
-            user.FechaUltimoAcceso = DateTime.UtcNow;
-            await _db.SaveChangesAsync();
-
-            var token = CreateJwt(user);
+            // Login OK: generar JWT de proveedor
+            var token = CreateJwtProveedor(proveedor);
 
             var data = new LoginDataResponse
             {
-                Email = empleado.EMail ?? "",
-                IdUsuario = user.IdAccesoUsuarioColaborador.ToString(),
-                EmpleadoId = empleado.IdEmpleado,
-                NumeroEmpleado = empleado.NoColaborador ?? "",
+                Email = proveedor.CorreoContacto ?? "",
+                IdUsuario = proveedor.ProveedorId.ToString(),
 
-                Nombres = empleado.Nombres,
-                ApellidoPaterno = empleado.ApellidoPaterno ?? "",
-                ApellidoMaterno = empleado.ApellidoMaterno ?? "",
+                // No aplica para proveedor, pero se llenan por compatibilidad
+                EmpleadoId = proveedor.ProveedorId,
+                NumeroEmpleado = proveedor.ProveedorId.ToString(),
+
+                // Reutilizamos estos campos para mostrar nombre del proveedor
+                Nombres = proveedor.NombreComercial ?? proveedor.RazonSocial ?? "",
+                ApellidoPaterno = "",
+                ApellidoMaterno = "",
 
                 IdUnidad = 0,
                 NombreUnidad = "",
@@ -470,20 +480,20 @@ public class AuthenticateController : ControllerBase
 
                 UnidadDireccion = new UnidadDireccionDto
                 {
-                    Calle = empleado.Calle ?? "",
+                    Calle = proveedor.Calle ?? "",
                     NumeroInterior = "",
-                    NumeroExterior = empleado.Numero ?? "",
+                    NumeroExterior = "",
                     EstadoId = 0,
-                    Estado = "",
+                    Estado = proveedor.Estado ?? "",
                     ColoniaId = 0,
-                    Colonia = "",
+                    Colonia = proveedor.Colonia ?? "",
                     MunicipioId = 0,
-                    Municipio = "",
-                    CodigoPostalId = empleado.IdCP ?? 0,
-                    CodigoPostal = ""
+                    Municipio = proveedor.DelegacionMunicipio ?? "",
+                    CodigoPostalId = 0,
+                    CodigoPostal = proveedor.CodigoPostal ?? ""
                 },
 
-                Roles = new List<string> { "Admin" },
+                Roles = new List<string> { "Proveedor" },
                 Token = token
             };
 
@@ -501,13 +511,58 @@ public class AuthenticateController : ControllerBase
         }
         catch (Exception ex)
         {
-            return BadRequest(new
+            _logger.LogError(ex, "Error en login de proveedor para email {Email}", model.Email);
+
+            return BadRequest(new ApiResponse<LoginDataResponse>
             {
+                request_id = requestId,
                 success = false,
-                message = "Solicitud inválida: verifique los datos ingresados.",
-                detail = ex.Message
+                message = "Error al iniciar sesión.",
+                data = null,
+                statusCode = 400,
+                errors = new List<string> { ex.Message }
             });
         }
+    }
+
+    private TokenResponse CreateJwtProveedor(Proveedor proveedor)
+    {
+        var key = _config["Jwt:Key"]!;
+        var issuer = _config["Jwt:Issuer"];
+        var audience = _config["Jwt:Audience"];
+
+        var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.NameIdentifier, proveedor.ProveedorId.ToString()),
+        new Claim(ClaimTypes.Name, proveedor.CorreoContacto ?? ""),
+        new Claim(ClaimTypes.Email, proveedor.CorreoContacto ?? ""),
+        new Claim(ClaimTypes.Role, "Proveedor"),
+        new Claim("ProveedorId", proveedor.ProveedorId.ToString()),
+        new Claim("RazonSocial", proveedor.RazonSocial ?? ""),
+        new Claim("NombreComercial", proveedor.NombreComercial ?? "")
+    };
+
+        var creds = new SigningCredentials(
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+            SecurityAlgorithms.HmacSha256);
+
+        var validFrom = DateTime.UtcNow;
+        var validTo = validFrom.AddHours(24);
+
+        var token = new JwtSecurityToken(
+            issuer: issuer,
+            audience: audience,
+            claims: claims,
+            notBefore: validFrom,
+            expires: validTo,
+            signingCredentials: creds);
+
+        return new TokenResponse
+        {
+            bearerToken = new JwtSecurityTokenHandler().WriteToken(token),
+            validFrom = validFrom,
+            validTo = validTo
+        };
     }
 
     // =========================================================
@@ -536,76 +591,75 @@ public class AuthenticateController : ControllerBase
             });
         }
 
-        var userName = (model.Email ?? "").Trim();
+        var email = (model.Email ?? "").Trim().ToLowerInvariant();
 
-        var user = await _db.AccesosUsuarios
-            .FirstOrDefaultAsync(x => x.UsuarioColaborador == userName);
+        // Buscar proveedor por correo
+        var proveedor = await _db.Proveedores
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p =>
+                p.CorreoContacto != null &&
+                p.CorreoContacto.ToLower() == email &&
+                !p.IsDeleted);
 
-        // Respuesta neutra para no filtrar existencia
-        if (user == null)
+        // Respuesta neutra para evitar enumeración de usuarios
+        if (proveedor == null)
         {
             return Ok(new ApiResponse<object>
             {
                 request_id = requestId,
                 success = true,
-                message = "Si el usuario existe se enviará un enlace.",
+                message = "Si el correo existe se enviará un enlace para restablecer la contraseña.",
                 data = null,
                 statusCode = 200
             });
         }
 
-        // Obtener correo real del empleado
-        var empleado = await _db.Empleados
-            .FromSqlInterpolated($@"
-                SELECT
-                    IdEmpleado,
-                    dbo.decryptValue(EMail) AS EMail
-                FROM dbo.tb_Empleados
-                WHERE IdEmpleado = {user.IdEmpleado}
-            ")
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
+        var correoDestino = proveedor.CorreoContacto;
 
-        var correoDestino = (empleado?.EMail ?? "").Trim();
         if (string.IsNullOrWhiteSpace(correoDestino))
         {
             return Ok(new ApiResponse<object>
             {
                 request_id = requestId,
                 success = true,
-                message = "Si el usuario existe se enviará un enlace.",
+                message = "Si el correo existe se enviará un enlace para restablecer la contraseña.",
                 data = null,
                 statusCode = 200
             });
         }
 
-        // Token 15 min
-        var token = CreatePasswordResetToken(user, TimeSpan.FromMinutes(15));
+        // Token de recuperación válido por 15 minutos
+        var token = CreateAccountActivationToken(correoDestino, TimeSpan.FromMinutes(15));
 
         var baseUrl = _config["Front:ResetPasswordUrlBase"] ?? "";
-        var resetLink = $"{baseUrl}?uid={user.IdEmpleado}&token={Uri.EscapeDataString(token)}";
+        var resetLink = $"{baseUrl}?email={Uri.EscapeDataString(correoDestino)}&token={Uri.EscapeDataString(token)}";
 
-        var asunto = "Restablecer contraseña";
+        var subject = "Restablecer contraseña - Velios";
+
         var body = $@"
-            <h2>Restablecer contraseña</h2>
-            <p>Se solicitó un restablecimiento de contraseña.</p>
-            <p><a href=""{resetLink}"">Haz clic aquí para restablecer tu contraseña</a></p>
-            <p>Este enlace expira en 15 minutos.</p>
-            <p>Si tú no solicitaste esto, puedes ignorar este mensaje.</p>
-        ";
+        <h2>Restablecer contraseña</h2>
+        <p>Se solicitó un restablecimiento de contraseña para tu cuenta de proveedor.</p>
+        <p>
+            <a href=""{resetLink}"">
+                Haz clic aquí para restablecer tu contraseña
+            </a>
+        </p>
+        <p>Este enlace expira en 15 minutos.</p>
+        <p>Si tú no solicitaste esto, puedes ignorar este mensaje.</p>
+    ";
 
         try
         {
-            await _email.Send(correoDestino, asunto, body);
+            await _email.Send(correoDestino, subject, body);
         }
         catch
         {
-            // Respuesta neutra
+            // respuesta neutra
             return Ok(new ApiResponse<object>
             {
                 request_id = requestId,
                 success = true,
-                message = "Si el usuario existe se enviará un enlace.",
+                message = "Si el correo existe se enviará un enlace para restablecer la contraseña.",
                 data = null,
                 statusCode = 200
             });
@@ -615,7 +669,7 @@ public class AuthenticateController : ControllerBase
         {
             request_id = requestId,
             success = true,
-            message = "Si el usuario existe se enviará un enlace.",
+            message = "Si el correo existe se enviará un enlace para restablecer la contraseña.",
             data = null,
             statusCode = 200
         });
@@ -646,9 +700,28 @@ public class AuthenticateController : ControllerBase
             });
         }
 
+        var email = (model.Email ?? "").Trim().ToLowerInvariant();
+        var token = (model.Token ?? "").Trim();
+        var newPassword = (model.NewPassword ?? "").Trim();
+
+        if (string.IsNullOrWhiteSpace(email) ||
+            string.IsNullOrWhiteSpace(token) ||
+            string.IsNullOrWhiteSpace(newPassword))
+        {
+            return BadRequest(new ApiResponse<object>
+            {
+                request_id = requestId,
+                success = false,
+                message = "Email, token y nueva contraseña son obligatorios.",
+                data = null,
+                statusCode = 400
+            });
+        }
+
         var secret = _config["Jwt:Key"]!;
 
-        if (!TryValidatePasswordResetToken(model.Token, secret, out int idEmpleadoToken, out _, out var snapshot))
+        // Validar token firmado por email
+        if (!TryValidateAccountActivationToken(token, secret, out string tokenEmail, out _))
         {
             return BadRequest(new ApiResponse<object>
             {
@@ -660,49 +733,42 @@ public class AuthenticateController : ControllerBase
             });
         }
 
-        if (idEmpleadoToken != model.IdEmpleado)
+        tokenEmail = (tokenEmail ?? "").Trim().ToLowerInvariant();
+
+        if (!string.Equals(tokenEmail, email, StringComparison.Ordinal))
         {
             return BadRequest(new ApiResponse<object>
             {
                 request_id = requestId,
                 success = false,
-                message = "Token no corresponde al usuario.",
+                message = "El token no corresponde al correo indicado.",
                 data = null,
                 statusCode = 400
             });
         }
 
-        var user = await _db.AccesosUsuarios
-            .FirstOrDefaultAsync(x => x.IdEmpleado == model.IdEmpleado);
+        var proveedor = await _db.Proveedores
+            .FirstOrDefaultAsync(p =>
+                p.CorreoContacto != null &&
+                p.CorreoContacto.ToLower() == email &&
+                !p.IsDeleted);
 
-        if (user == null)
+        if (proveedor == null)
         {
             return BadRequest(new ApiResponse<object>
             {
                 request_id = requestId,
                 success = false,
-                message = "Usuario inválido.",
+                message = "Proveedor inválido.",
                 data = null,
                 statusCode = 400
             });
         }
 
-        // Snapshot validation
-        if (!string.Equals((user.PasswordEncriptado ?? "").Trim(), snapshot, StringComparison.Ordinal))
-        {
-            return BadRequest(new ApiResponse<object>
-            {
-                request_id = requestId,
-                success = false,
-                message = "Token ya no es válido.",
-                data = null,
-                statusCode = 400
-            });
-        }
+        var newHash = _passwordHasher.HashLegacy(newPassword);
 
-        // Nueva != actual
-        var newHash = _passwordHasher.HashLegacy(model.NewPassword);
-        if (string.Equals(user.PasswordEncriptado, newHash, StringComparison.Ordinal))
+        // Validar que la nueva contraseña no sea igual a la actual
+        if (string.Equals((proveedor.PasswordHash ?? "").Trim(), newHash, StringComparison.Ordinal))
         {
             return BadRequest(new ApiResponse<object>
             {
@@ -714,11 +780,10 @@ public class AuthenticateController : ControllerBase
             });
         }
 
-        // Guardar
-        user.PasswordEncriptado = newHash;
-        user.ContraseniaColaborador = model.NewPassword;
-        user.EstatusCambioContrasena = 0;
-        user.Intentos = 0;
+        proveedor.PasswordHash = newHash;
+        proveedor.PasswordSetAt = DateTime.UtcNow;
+        proveedor.DateModified = DateTime.UtcNow;
+        proveedor.ModifiedBy = "RESET_PASSWORD";
 
         await _db.SaveChangesAsync();
 
@@ -747,36 +812,48 @@ public class AuthenticateController : ControllerBase
 
         try
         {
+            _logger.LogInformation("IsAuthenticated: {Auth}", User.Identity?.IsAuthenticated);
+            _logger.LogInformation("Claims: {Claims}",
+                string.Join(" | ", User.Claims.Select(c => $"{c.Type}={c.Value}")));
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    success = false,
                     request_id = requestId,
+                    success = false,
                     message = "Solicitud inválida: verifique los datos ingresados.",
-                    data = null
+                    data = null,
+                    statusCode = 400,
+                    errors = ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage)
+                        .ToList()
                 });
             }
 
-            var empleadoIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrWhiteSpace(empleadoIdStr))
+            var proveedorIdStr =
+                User.FindFirstValue(ClaimTypes.NameIdentifier) ??
+                User.FindFirstValue("ProveedorId");
+
+            if (string.IsNullOrWhiteSpace(proveedorIdStr) || !int.TryParse(proveedorIdStr, out int proveedorId))
             {
                 return Unauthorized(new ApiResponse<object>
                 {
                     request_id = requestId,
                     success = false,
-                    message = "No autorizado.",
+                    message = "No autorizado. No se pudo identificar al proveedor desde el token.",
                     data = null,
                     statusCode = 401
                 });
             }
 
-            var empleadoId = int.Parse(empleadoIdStr);
+            var proveedor = await _db.Proveedores
+                .FirstOrDefaultAsync(p =>
+                    p.ProveedorId == proveedorId &&
+                    !p.IsDeleted);
 
-            var user = await _db.AccesosUsuarios
-                .FirstOrDefaultAsync(x => x.IdEmpleado == empleadoId);
-
-            if (user == null)
+            if (proveedor == null)
             {
                 return Unauthorized(new ApiResponse<object>
                 {
@@ -790,7 +867,7 @@ public class AuthenticateController : ControllerBase
 
             var currentHash = _passwordHasher.HashLegacy(model.OldPassword ?? "");
 
-            if (!string.Equals((user.PasswordEncriptado ?? "").Trim(), currentHash, StringComparison.Ordinal))
+            if (!string.Equals((proveedor.PasswordHash ?? "").Trim(), currentHash, StringComparison.Ordinal))
             {
                 return BadRequest(new ApiResponse<object>
                 {
@@ -803,21 +880,23 @@ public class AuthenticateController : ControllerBase
                 });
             }
 
-            if (string.Equals(model.OldPassword?.Trim(), model.NewPassword?.Trim(), StringComparison.Ordinal))
+            if (string.Equals((model.OldPassword ?? "").Trim(), (model.NewPassword ?? "").Trim(), StringComparison.Ordinal))
             {
                 return BadRequest(new ApiResponse<object>
                 {
                     request_id = requestId,
                     success = false,
                     message = "La nueva contraseña no puede ser igual a la actual.",
+                    data = null,
                     statusCode = 400,
                     errors = new List<string> { "La nueva contraseña no puede ser igual a la actual." }
                 });
             }
 
-            user.PasswordEncriptado = _passwordHasher.HashLegacy(model.NewPassword ?? "");
-            user.ContraseniaColaborador = model.NewPassword;
-            user.EstatusCambioContrasena = 0;
+            proveedor.PasswordHash = _passwordHasher.HashLegacy(model.NewPassword ?? "");
+            proveedor.PasswordSetAt = DateTime.UtcNow;
+            proveedor.DateModified = DateTime.UtcNow;
+            proveedor.ModifiedBy = "CHANGE_PASSWORD";
 
             await _db.SaveChangesAsync();
 
@@ -825,18 +904,23 @@ public class AuthenticateController : ControllerBase
             {
                 request_id = requestId,
                 success = true,
-                message = "Solicitud ejecutada con éxito.",
+                message = "Contraseña actualizada con éxito.",
                 data = null,
                 statusCode = 200
             });
         }
         catch (Exception ex)
         {
-            return BadRequest(new
+            _logger.LogError(ex, "Error al cambiar contraseña del proveedor.");
+
+            return BadRequest(new ApiResponse<object>
             {
+                request_id = requestId,
                 success = false,
-                message = "Solicitud inválida: verifique los datos ingresados.",
-                detail = ex.Message
+                message = "Error al cambiar la contraseña.",
+                data = null,
+                statusCode = 400,
+                errors = new List<string> { ex.Message }
             });
         }
     }
@@ -953,7 +1037,7 @@ public class AuthenticateController : ControllerBase
             .Where(p =>
                 p.CorreoContacto != null &&
                 p.CorreoContacto.ToLower() == email &&
-                !(p.IsDeleted ?? false))
+                !(p.IsDeleted))
             .Select(p => p.ProveedorId)
             .FirstOrDefaultAsync();
 

@@ -1,34 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Proyectos_NET\\velios.Api\\",
+  "WorkspaceRootPath": "D:\\Proyectos_NET\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios.api\\controllers\\proveedores\\proveedorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\proveedores\\proveedorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios.api\\models\\proveedor\\proveedores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\proveedor\\proveedores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\models\\auth\\resetpasswordrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\auth\\resetpasswordrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios.api\\controllers\\authenticatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\controllers\\authenticatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\authenticatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios.api\\controllers\\proveedores\\trabajadorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\proveedores\\trabajadorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios.api\\controllers\\proveedores\\proveedorsuscripcioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\proveedores\\proveedorsuscripcioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios.api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,93 +34,55 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TrabajadoresController.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios.Api\\Controllers\\Proveedores\\TrabajadoresController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Proveedores\\TrabajadoresController.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios.Api\\Controllers\\Proveedores\\TrabajadoresController.cs",
-              "RelativeToolTip": "Controllers\\Proveedores\\TrabajadoresController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAkwCMAAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T17:05:21.935Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ProveedorSuscripcionController.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios.Api\\Controllers\\Proveedores\\ProveedorSuscripcionController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Proveedores\\ProveedorSuscripcionController.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios.Api\\Controllers\\Proveedores\\ProveedorSuscripcionController.cs",
-              "RelativeToolTip": "Controllers\\Proveedores\\ProveedorSuscripcionController.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAA5wCsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T17:03:29.825Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProveedoresController.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios.Api\\Controllers\\Proveedores\\ProveedoresController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Proveedores\\ProveedoresController.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios.Api\\Controllers\\Proveedores\\ProveedoresController.cs",
-              "RelativeToolTip": "Controllers\\Proveedores\\ProveedoresController.cs",
-              "ViewState": "AgIAAIUAAAAAAAAAAAAQwJcAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T16:55:08.832Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Proveedores.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios.Api\\Models\\Proveedor\\Proveedores.cs",
-              "RelativeDocumentMoniker": "Models\\Proveedor\\Proveedores.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios.Api\\Models\\Proveedor\\Proveedores.cs",
-              "RelativeToolTip": "Models\\Proveedor\\Proveedores.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAwwCQAAAABAAAAAAAAAA==",
+              "Title": "ResetPasswordRequest.cs",
+              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Models\\Auth\\ResetPasswordRequest.cs",
+              "RelativeDocumentMoniker": "Models\\Auth\\ResetPasswordRequest.cs",
+              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Models\\Auth\\ResetPasswordRequest.cs",
+              "RelativeToolTip": "Models\\Auth\\ResetPasswordRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T16:40:56.981Z",
+              "WhenOpened": "2026-03-10T16:51:39.105Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "AuthenticateController.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios.Api\\Controllers\\AuthenticateController.cs",
+              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Controllers\\AuthenticateController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthenticateController.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios.Api\\Controllers\\AuthenticateController.cs",
+              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Controllers\\AuthenticateController.cs",
               "RelativeToolTip": "Controllers\\AuthenticateController.cs",
-              "ViewState": "AgIAADQBAAAAAAAAAAAQwE8BAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAKgCAAAAAAAAAAAMwK4CAABmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T15:52:18.139Z",
+              "WhenOpened": "2026-03-10T16:31:34.032Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAmwIcAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T16:14:01.68Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios.Api\\appsettings.json",
+              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "D:\\Proyectos_NET\\velios.Api\\appsettings.json",
+              "ToolTip": "D:\\Proyectos_NET\\velios-services\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-02-26T15:49:47.938Z",
+              "WhenOpened": "2026-03-10T16:12:02.739Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios.Api\\Data\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios.Api\\Data\\AppDbContext.cs",
-              "RelativeToolTip": "Data\\AppDbContext.cs",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAAAHcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T23:50:44.815Z"
             }
           ]
         }

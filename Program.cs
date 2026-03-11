@@ -60,11 +60,35 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Velios API", Version = "v1" });
 
-    // 👇 Esto evita que Swagger reviente con IFormFile y lo dibuja como "binary"
     c.MapType<IFormFile>(() => new OpenApiSchema
     {
         Type = "string",
         Format = "binary"
+    });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Ingresa el token JWT. Ejemplo: Bearer eyJhbGciOi..."
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
     });
 });
 
@@ -73,6 +97,9 @@ builder.Services.AddSwaggerGen(c =>
 // ------------------------------------------------------------
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("VeliosConnection")));
+
+builder.Services.AddDbContext<NomclickDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("nomclickConnection")));
 
 
 // ------------------------------------------------------------
@@ -96,11 +123,13 @@ builder.Services.AddCors(opt =>
 var jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new Exception("Jwt:Key missing (configura Jwt:Key en appsettings o variables de entorno)");
 
-// Autenticación JWT Bearer
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -110,14 +139,25 @@ builder.Services
 
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
-
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-
-            // Tolerancia de tiempo para expiración
             ClockSkew = TimeSpan.FromMinutes(1)
         };
-    });
 
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine("JWT Authentication failed: " + context.Exception.Message);
+                return Task.CompletedTask;
+            },
+            OnChallenge = context =>
+            {
+                Console.WriteLine("JWT Challenge error: " + context.Error);
+                Console.WriteLine("JWT Challenge description: " + context.ErrorDescription);
+                return Task.CompletedTask;
+            }
+        };
+    });
 // Autorización (atributos [Authorize])
 builder.Services.AddAuthorization();
 

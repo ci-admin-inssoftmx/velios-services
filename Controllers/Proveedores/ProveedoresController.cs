@@ -9,64 +9,25 @@ namespace velios.Api.Controllers;
 
 /// <summary>
 /// Controlador encargado de la gestión pública de proveedores.
-///
-/// Flujo funcional:
-/// 1) El proveedor solicita activación (correo).
-/// 2) Activa su cuenta mediante token.
-/// 3) Completa sus datos mediante este endpoint.
-/// 
-/// Este controlador:
-/// - No crea proveedores desde cero.
-/// - Solo actualiza registros previamente creados durante la activación.
-/// - Evita materializar entidades incompletas para prevenir errores de NULL.
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class ProveedoresController : ControllerBase
 {
     private readonly AppDbContext _db;
+    private readonly NomclickDbContext _nomclickDb;
 
     /// <summary>
-    /// Constructor con inyección de dependencia del DbContext.
+    /// Constructor con inyección de ambos contextos:
+    /// - _db: base principal Velios
+    /// - _nomclickDb: base secundaria Nomclick
     /// </summary>
-    /// <param name="db">Contexto de base de datos.</param>
-    public ProveedoresController(AppDbContext db)
+    public ProveedoresController(AppDbContext db, NomclickDbContext nomclickDb)
     {
         _db = db;
+        _nomclickDb = nomclickDb;
     }
 
-    // =========================================================
-    // POST /api/Proveedores/CreateProveedor
-    // =========================================================
-
-    /// <summary>
-    /// Completa el registro público de un proveedor previamente activado.
-    ///
-    /// Flujo:
-    /// 1) Valida que exista un registro previo (creado en activación).
-    /// 2) Verifica que la cuenta esté activada (EstatusProveedorId = 1).
-    /// 3) Valida que el RFC no esté duplicado.
-    /// 4) Actualiza los datos mediante SQL directo (sin materializar entidad).
-    ///
-    /// Reglas importantes:
-    /// - El proveedor debe haber solicitado y activado su cuenta.
-    /// - No permite duplicar RFC activos.
-    /// - Solo actualiza registros no eliminados (IsDeleted != true).
-    /// </summary>
-    /// <param name="model">Datos del proveedor a completar.</param>
-    /// <returns>
-    /// ApiResponse con:
-    /// - success = true si se actualiza correctamente.
-    /// - ProveedorId actualizado.
-    /// </returns>
-    /// <remarks>
-    /// Este método usa proyección mínima (Select anónimo) para evitar el error:
-    /// "Data is Null. This method or property cannot be called on Null values."
-    /// 
-    /// Se ejecuta UPDATE vía SQL para:
-    /// - Evitar problemas de tracking.
-    /// - Prevenir materialización de columnas obligatorias NULL.
-    /// </remarks>
     // =========================================================
     // POST /api/Proveedores/CreateProveedor
     // =========================================================
@@ -78,6 +39,9 @@ public class ProveedoresController : ControllerBase
 
         try
         {
+            // =========================================================
+            // 0) Validación básica del modelo
+            // =========================================================
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>
@@ -89,14 +53,18 @@ public class ProveedoresController : ControllerBase
                 });
             }
 
+            // Normalización de datos de entrada
             var correo = (model.CorreoContacto ?? "").Trim().ToLowerInvariant();
             var rfc = (model.RFC ?? "").Trim();
             var razonSocial = (model.RazonSocial ?? "").Trim();
+            var nombreComercial = (model.NombreComercial ?? "").Trim();
+            var telefonoContacto = (model.TelefonoContacto ?? "").Trim();
+            var representanteLegal = (model.RepresentanteLegal ?? "").Trim();
 
-            // ✅ Nuevos campos de dirección
+            // Campos de dirección
             var calle = (model.Calle ?? "").Trim();
             var codigoPostal = (model.CodigoPostal ?? "").Trim();
-            var colonia = (model.Colonia ?? "").Trim(); // OJO: antes decía "Fin de vigencia", aquí es Colonia
+            var colonia = (model.Colonia ?? "").Trim();
             var delegacionMunicipio = (model.DelegacionMunicipio ?? "").Trim();
             var ciudad = (model.Ciudad ?? "").Trim();
             var estado = (model.Estado ?? "").Trim();
@@ -114,7 +82,7 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 1) Validar que el proveedor exista (registro previo activación)
+            // 1) Buscar proveedor existente en Velios
             // =========================================================
             var proveedorMin = await _db.Proveedores
                 .AsNoTracking()
@@ -122,7 +90,13 @@ public class ProveedoresController : ControllerBase
                 .Select(p => new
                 {
                     p.ProveedorId,
-                    p.EstatusProveedorId
+                    p.EstatusProveedorId,
+                    p.CreatedBy,
+                    p.DateCreated,
+                    p.CorreoContacto,
+                    p.IsDeleted,
+                    p.PasswordHash,
+                    p.PasswordSetAt
                 })
                 .FirstOrDefaultAsync();
 
@@ -138,9 +112,9 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 2) Validar que esté ACTIVADO
+            // 2) Validar que esté activo
             // =========================================================
-            if (proveedorMin.EstatusProveedorId != 1) // 1 = ACTIVO
+            if (proveedorMin.EstatusProveedorId != 1)
             {
                 return BadRequest(new ApiResponse<object>
                 {
@@ -152,7 +126,7 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 3) Validar RFC duplicado
+            // 3) Validar RFC duplicado en Velios
             // =========================================================
             if (!string.IsNullOrWhiteSpace(rfc))
             {
@@ -175,35 +149,127 @@ public class ProveedoresController : ControllerBase
                 }
             }
 
+            var fechaActual = DateTime.UtcNow;
+
             // =========================================================
-            // 4) UPDATE vía SQL directo (incluye dirección)
+            // 4) Actualizar en Velios
             // =========================================================
             await _db.Database.ExecuteSqlInterpolatedAsync($@"
-            UPDATE dbo.tb_Proveedores
-            SET RFC = {rfc},
-                RazonSocial = {razonSocial},
-                NombreComercial = {model.NombreComercial},
-                TelefonoContacto = {model.TelefonoContacto},
-                RepresentanteLegal = {model.RepresentanteLegal},
+                UPDATE dbo.tb_Proveedores
+                SET RFC = {rfc},
+                    RazonSocial = {razonSocial},
+                    NombreComercial = {nombreComercial},
+                    TelefonoContacto = {telefonoContacto},
+                    RepresentanteLegal = {representanteLegal},
+                    Calle = {calle},
+                    CodigoPostal = {codigoPostal},
+                    Colonia = {colonia},
+                    DelegacionMunicipio = {delegacionMunicipio},
+                    Ciudad = {ciudad},
+                    Estado = {estado},
+                    Pais = {pais},
+                    DateModified = {fechaActual},
+                    ModifiedBy = {"PUBLIC"}
+                WHERE ProveedorId = {proveedorMin.ProveedorId};
+            ");
 
-                Calle = {calle},
-                CodigoPostal = {codigoPostal},
-                Colonia = {colonia},
-                DelegacionMunicipio = {delegacionMunicipio},
-                Ciudad = {ciudad},
-                Estado = {estado},
-                Pais = {pais},
+            // =========================================================
+            // 5) Replicar en Nomclick
+            //    Si ya existe: UPDATE
+            //    Si no existe: INSERT
+            // =========================================================
+            var existeEnNomclick = await _nomclickDb.Proveedores
+                .AsNoTracking()
+                .AnyAsync(p => p.ProveedorId == proveedorMin.ProveedorId);
 
-                DateModified = {DateTime.UtcNow},
-                ModifiedBy = 'PUBLIC'
-            WHERE ProveedorId = {proveedorMin.ProveedorId};
-        ");
+            if (existeEnNomclick)
+            {
+                // Si ya existe en Nomclick, solo actualizamos
+                await _nomclickDb.Database.ExecuteSqlInterpolatedAsync($@"
+                    UPDATE dbo.tb_Proveedores
+                    SET RFC = {rfc},
+                        RazonSocial = {razonSocial},
+                        NombreComercial = {nombreComercial},
+                        CorreoContacto = {correo},
+                        TelefonoContacto = {telefonoContacto},
+                        RepresentanteLegal = {representanteLegal},
+                        EstatusProveedorId = {proveedorMin.EstatusProveedorId},
+                        Calle = {calle},
+                        CodigoPostal = {codigoPostal},
+                        Colonia = {colonia},
+                        DelegacionMunicipio = {delegacionMunicipio},
+                        Ciudad = {ciudad},
+                        Estado = {estado},
+                        Pais = {pais},
+                        DateModified = {fechaActual},
+                        ModifiedBy = {"PUBLIC"}
+                    WHERE ProveedorId = {proveedorMin.ProveedorId};
+                ");
+            }
+            else
+            {
+                // Si no existe en Nomclick, lo insertamos con el mismo ProveedorId
+                await _nomclickDb.Database.ExecuteSqlInterpolatedAsync($@"
+                    INSERT INTO dbo.tb_Proveedores
+                    (
+                        ProveedorId,
+                        RFC,
+                        RazonSocial,
+                        NombreComercial,
+                        CorreoContacto,
+                        TelefonoContacto,
+                        RepresentanteLegal,
+                        EstatusProveedorId,
+                        CreatedBy,
+                        ModifiedBy,
+                        DateCreated,
+                        DateModified,
+                        IsDeleted,
+                        PasswordHash,
+                        PasswordSetAt,
+                        Calle,
+                        CodigoPostal,
+                        Colonia,
+                        DelegacionMunicipio,
+                        Ciudad,
+                        Estado,
+                        Pais,
+                        LogoUrl
+                    )
+                    VALUES
+                    (
+                        {proveedorMin.ProveedorId},
+                        {rfc},
+                        {razonSocial},
+                        {nombreComercial},
+                        {correo},
+                        {telefonoContacto},
+                        {representanteLegal},
+                        {proveedorMin.EstatusProveedorId},
+                        {proveedorMin.CreatedBy},
+                        {"PUBLIC"},
+                        {proveedorMin.DateCreated},
+                        {fechaActual},
+                        {proveedorMin.IsDeleted},
+                        {proveedorMin.PasswordHash},
+                        {proveedorMin.PasswordSetAt},
+                        {calle},
+                        {codigoPostal},
+                        {colonia},
+                        {delegacionMunicipio},
+                        {ciudad},
+                        {estado},
+                        {pais},
+                        {null}
+                    );
+                ");
+            }
 
             return Ok(new ApiResponse<object>
             {
                 request_id = requestId,
                 success = true,
-                message = "Proveedor actualizado con éxito.",
+                message = "Proveedor actualizado con éxito en Velios y Nomclick.",
                 data = new { proveedorMin.ProveedorId },
                 statusCode = 200
             });

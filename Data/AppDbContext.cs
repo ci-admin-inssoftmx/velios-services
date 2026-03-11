@@ -29,15 +29,6 @@ public class AppDbContext : DbContext
     /// <param name="options">Opciones de configuración de EF Core.</param>
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    // =========================================================
-    // SEGURIDAD
-    // =========================================================
-
-    /// <summary>
-    /// Tabla de accesos de usuarios colaboradores.
-    /// Contiene credenciales, intentos de login y estado de acceso.
-    /// </summary>
-    public DbSet<AccesoUsuarioColaborador> AccesosUsuarios => Set<AccesoUsuarioColaborador>();
 
     // =========================================================
     // EMPLEADOS
@@ -185,7 +176,6 @@ public class AppDbContext : DbContext
     /// </summary>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
 

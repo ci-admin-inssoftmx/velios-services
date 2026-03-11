@@ -111,7 +111,7 @@ public class Proveedor
     /// false = Activo
     /// null  = Valor legacy (considerar como no eliminado)
     /// </summary>
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
     // ================================
     // Seguridad
@@ -176,4 +176,7 @@ public class Proveedor
     /// </summary>
     [MaxLength(80)]
     public string? Pais { get; set; }
+    
+    public string? LogoUrl { get; set; }
+
 }
