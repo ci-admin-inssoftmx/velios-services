@@ -46,8 +46,9 @@ public class AppDbContext : DbContext
     /// <summary>
     /// Registros de asistencia diaria de empleados.
     /// </summary>
-    public DbSet<AsistenciaRegistroRequest> AsistenciaRegistros => Set<AsistenciaRegistroRequest>();
+    /// 
 
+    public DbSet<AsistenciaRegistro> AsistenciaRegistros { get; set; }
     /// <summary>
     /// Catálogo de orígenes de registro (ej. App, Web, Biométrico).
     /// </summary>
@@ -161,6 +162,8 @@ public class AppDbContext : DbContext
 
     public DbSet<CatTipoDocumentoProveedor> CatTipoDocumentoProveedor => Set<CatTipoDocumentoProveedor>();
 
+
+
     // =========================================================
     // CONFIGURACIÓN DE MODELOS
     // =========================================================
@@ -200,42 +203,7 @@ public class AppDbContext : DbContext
         // =============================
         // ASISTENCIA REGISTRO
         // =============================
-        modelBuilder.Entity<AsistenciaRegistroRequest>(e =>
-        {
-            e.ToTable("AsistenciaRegistro", "dbo"); // nombre REAL
-
-            e.HasKey(x => x.AsistenciaId);
-
-            e.Property(x => x.Fecha)
-                .HasColumnType("date");
-
-            e.Property(x => x.HoraEntrada)
-                .HasColumnType("time");
-
-            e.Property(x => x.HoraSalida)
-                .HasColumnType("time");
-
-            e.Property(x => x.Observaciones)
-                .HasMaxLength(300);
-
-            // FK -> Empleado
-            e.HasOne<Empleado>()
-                .WithMany()
-                .HasForeignKey(x => x.IdEmpleado)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // FK -> CatOrigen
-            e.HasOne<CatOrigen>()
-                .WithMany()
-                .HasForeignKey(x => x.OrigenId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // FK -> CatTipoRegistro
-            e.HasOne<CatTipoRegistro>()
-                .WithMany()
-                .HasForeignKey(x => x.TipoRegistroId)
-                .OnDelete(DeleteBehavior.Restrict);
-        });
+       
 
         // =============================
         // CAT ORIGEN

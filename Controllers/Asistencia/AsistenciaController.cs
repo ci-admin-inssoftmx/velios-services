@@ -11,9 +11,9 @@ namespace velios.Api.Controllers;
 /// Controlador responsable de la gestión de registros de asistencia.
 ///
 /// Funcionalidades:
-/// - Crear registro de entrada/salida.
-/// - Consultar registros por rango de fechas.
-/// 
+/// - Crear registro de asistencia.
+/// - Consultar registros por trabajador y rango de fechas.
+///
 /// Seguridad:
 /// - Requiere autenticación JWT.
 /// - Aplica validaciones para evitar duplicados.
@@ -21,54 +21,33 @@ namespace velios.Api.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class AsistenciaController : ControllerBase
 {
     private readonly AppDbContext _db;
+    private readonly ILogger<AsistenciaController> _logger;
 
     /// <summary>
-    /// Constructor con inyección de dependencia del DbContext.
+    /// Inicializa una nueva instancia del controlador de asistencia.
     /// </summary>
     /// <param name="db">Contexto de base de datos.</param>
-    public AsistenciaController(AppDbContext db)
+    /// <param name="logger">Logger para eventos y errores.</param>
+    public AsistenciaController(AppDbContext db, ILogger<AsistenciaController> logger)
     {
         _db = db;
+        _logger = logger;
     }
 
     /// <summary>
-    /// Identificador del origen del registro.
-    /// 1 = Sistema (CatOrigen = S).
+    /// Crea un nuevo registro de asistencia para un trabajador.
     /// </summary>
-    private const int ORIGEN_SISTEMA = 1;
-
-    // =========================================================
-    // POST CreateRegistroAsistencia
-    // =========================================================
-
-    /// <summary>
-    /// Crea un nuevo registro de asistencia (Entrada o Salida).
-    ///
-    /// Validaciones:
-    /// - El empleado debe existir.
-    /// - Si TipoRegistroId = 1 → HoraEntrada es obligatoria.
-    /// - Si TipoRegistroId = 2 → HoraSalida es obligatoria.
-    /// - No permite duplicados por:
-    ///     (Empleado + Fecha + TipoRegistro + OrigenSistema).
-    /// 
-    /// El registro se guarda con:
-    /// - DateCreated = UTC
-    /// - IsDeleted = false
-    /// - OrigenId = Sistema
-    /// </summary>
-    /// <param name="model">Datos para crear el registro.</param>
-    /// <returns>
-    /// ApiResponse con:
-    /// - success = true si se crea correctamente.
-    /// - AsistenciaId generado.
-    /// </returns>
+    /// <param name="model">Modelo de creación de registro.</param>
+    /// <returns>Respuesta estándar de la API.</returns>
     [HttpPost("CreateRegistroAsistencia")]
-    [Authorize]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ApiResponse<object>>> CreateRegistroAsistencia(
-        [FromBody] RegistroAsistenciaCreateRequest model)
+        [FromBody] AsistenciaRegistroCreateModel model)
     {
         var requestId = Guid.NewGuid().ToString();
 
@@ -81,63 +60,89 @@ public class AsistenciaController : ControllerBase
                     request_id = requestId,
                     success = false,
                     message = "Solicitud inválida.",
-                    statusCode = 400
+                    statusCode = 400,
+                    errors = ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage)
+                        .ToList()
                 });
             }
 
-            // Validar existencia del empleado
-            var existeEmpleado = await _db.Empleados
-                .AnyAsync(x => x.IdEmpleado == model.IdEmpleado);
+            var tipoRegistro = (model.TipoRegistro ?? string.Empty).Trim();
+            var origen = (model.Origen ?? string.Empty).Trim().ToUpperInvariant();
 
-            if (!existeEmpleado)
+            if (string.IsNullOrWhiteSpace(tipoRegistro))
             {
                 return BadRequest(new ApiResponse<object>
                 {
                     request_id = requestId,
                     success = false,
-                    message = "Empleado inválido.",
+                    message = "El tipo de registro es obligatorio.",
                     statusCode = 400
                 });
             }
 
-            var fecha = model.Fecha.Date;
-
-            // Validaciones por tipo de registro
-            if (model.TipoRegistroId == 1 && model.HoraEntrada == null)
-                return BadRequest("HoraEntrada requerida.");
-
-            if (model.TipoRegistroId == 2 && model.HoraSalida == null)
-                return BadRequest("HoraSalida requerida.");
-
-            // Validación anti-duplicado
-            var existe = await _db.AsistenciaRegistros.AnyAsync(r =>
-                r.IdEmpleado == model.IdEmpleado &&
-                r.Fecha == fecha &&
-                r.TipoRegistroId == model.TipoRegistroId &&
-                r.OrigenId == ORIGEN_SISTEMA &&
-                !r.IsDeleted);
-
-            if (existe)
+            if (string.IsNullOrWhiteSpace(origen))
             {
                 return BadRequest(new ApiResponse<object>
                 {
                     request_id = requestId,
                     success = false,
-                    message = "Ya existe registro.",
+                    message = "El origen es obligatorio.",
                     statusCode = 400
                 });
             }
 
-            var entity = new AsistenciaRegistroRequest
+            var existeTrabajador = await _db.ProveedorTrabajadores
+                .AsNoTracking()
+                .AnyAsync(x => x.TrabajadorId == model.TrabajadorId && !x.IsDeleted);
+
+            if (!existeTrabajador)
             {
-                IdEmpleado = model.IdEmpleado,
-                Fecha = fecha,
-                TipoRegistroId = model.TipoRegistroId,
-                HoraEntrada = model.TipoRegistroId == 1 ? model.HoraEntrada : null,
-                HoraSalida = model.TipoRegistroId == 2 ? model.HoraSalida : null,
-                Observaciones = model.Observaciones,
-                OrigenId = ORIGEN_SISTEMA,
+                return BadRequest(new ApiResponse<object>
+                {
+                    request_id = requestId,
+                    success = false,
+                    message = "Trabajador inválido.",
+                    statusCode = 400
+                });
+            }
+
+            var existeDuplicado = await _db.AsistenciaRegistros
+                .AsNoTracking()
+                .AnyAsync(r =>
+                    r.TrabajadorId == model.TrabajadorId &&
+                    r.Fecha == model.FechaRegistro.Date &&
+                    r.TipoRegistro == tipoRegistro &&
+                    r.Origen == origen &&
+                    !r.IsDeleted);
+
+            if (existeDuplicado)
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    request_id = requestId,
+                    success = false,
+                    message = "Ya existe un registro de asistencia con los mismos datos.",
+                    statusCode = 400
+                });
+            }
+
+            var entity = new AsistenciaRegistro
+            {
+                TrabajadorId = model.TrabajadorId,
+                Fecha = model.FechaRegistro.Date,
+                HoraEntrada = model.HoraEntrada,
+                HoraSalida = model.HoraSalida,
+                TipoRegistro = tipoRegistro,
+                Origen = origen,
+                Latitud = model.Latitud,
+                Longitud = model.Longitud,
+                Observacion = model.Observacion,
+                CreatedBy = "API",
                 DateCreated = DateTime.UtcNow,
+                ModifiedBy = null,
+                DateModified = null,
                 IsDeleted = false
             };
 
@@ -148,82 +153,158 @@ public class AsistenciaController : ControllerBase
             {
                 request_id = requestId,
                 success = true,
-                message = "Registro creado.",
-                data = new { entity.AsistenciaId },
+                message = "Registro de asistencia creado con éxito.",
+                data = new
+                {
+                    entity.AsistenciaRegistroId,
+                    entity.TrabajadorId,
+                    entity.Fecha,
+                    entity.HoraEntrada,
+                    entity.HoraSalida,
+                    entity.TipoRegistro,
+                    entity.Origen,
+                    entity.Latitud,
+                    entity.Longitud,
+                    entity.Observacion,
+                    entity.DateCreated
+                },
                 statusCode = 200
             });
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Error al crear registro de asistencia.");
+
+            var errors = new List<string>();
+            var current = ex;
+            while (current != null)
+            {
+                errors.Add(current.Message);
+                current = current.InnerException;
+            }
+
             return BadRequest(new ApiResponse<object>
             {
                 request_id = requestId,
                 success = false,
-                message = ex.Message,
-                statusCode = 400
+                message = "Error al crear registro de asistencia.",
+                statusCode = 400,
+                errors = errors
             });
         }
     }
 
-    // =========================================================
-    // GET GetRegistrosAsistencia
-    // =========================================================
-
     /// <summary>
-    /// Obtiene los registros de asistencia de un empleado
-    /// dentro de un rango de fechas.
-    ///
-    /// Si no se envían fechas:
-    /// - FechaInicio = Hoy - 7 días.
-    /// - FechaFin = Hoy.
-    ///
-    /// La respuesta agrupa por fecha y devuelve:
-    /// - HoraEntrada (TipoRegistroId = 1)
-    /// - HoraSalida (TipoRegistroId = 2)
-    ///
-    /// Solo devuelve registros:
-    /// - No eliminados (IsDeleted = false)
-    /// - Origen = Sistema
+    /// Obtiene los registros de asistencia de un trabajador dentro de un rango de fechas.
     /// </summary>
-    /// <param name="model">Filtros de consulta (IdEmpleado + rango fechas).</param>
-    /// <returns>Listado agrupado por fecha.</returns>
+    /// <param name="model">Modelo de filtros para consulta.</param>
+    /// <returns>Listado de registros encontrados.</returns>
     [HttpGet("GetRegistrosAsistencia")]
-    [Authorize]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ApiResponse<object>>> GetRegistrosAsistencia(
-        [FromQuery] RegistroAsistenciaQuery model)
+        [FromQuery] AsistenciaRegistroGetModel model)
     {
         var requestId = Guid.NewGuid().ToString();
 
-        var fi = (model.FechaInicio ?? DateTime.Today.AddDays(-7)).Date;
-        var ff = (model.FechaFin ?? DateTime.Today).Date;
-
-        var data = await _db.AsistenciaRegistros
-            .Where(r =>
-                r.IdEmpleado == model.IdEmpleado &&
-                r.Fecha >= fi &&
-                r.Fecha <= ff &&
-                !r.IsDeleted &&
-                r.OrigenId == ORIGEN_SISTEMA)
-            .GroupBy(r => r.Fecha)
-            .Select(g => new
-            {
-                Fecha = g.Key,
-                HoraEntrada = g.Where(x => x.TipoRegistroId == 1)
-                               .Select(x => x.HoraEntrada)
-                               .FirstOrDefault(),
-                HoraSalida = g.Where(x => x.TipoRegistroId == 2)
-                              .Select(x => x.HoraSalida)
-                              .FirstOrDefault()
-            })
-            .ToListAsync();
-
-        return Ok(new ApiResponse<object>
+        try
         {
-            request_id = requestId,
-            success = true,
-            message = "Consulta exitosa.",
-            data = data,
-            statusCode = 200
-        });
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    request_id = requestId,
+                    success = false,
+                    message = "Solicitud inválida.",
+                    statusCode = 400,
+                    errors = ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage)
+                        .ToList()
+                });
+            }
+
+            if (model.FechaInicio.Date > model.FechaFin.Date)
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    request_id = requestId,
+                    success = false,
+                    message = "La FechaInicio no puede ser mayor que la FechaFin.",
+                    statusCode = 400
+                });
+            }
+
+            var origen = (model.Origen ?? string.Empty).Trim().ToUpperInvariant();
+            var tipoRegistro = (model.TipoRegistro ?? string.Empty).Trim();
+
+            var query = _db.AsistenciaRegistros
+                .AsNoTracking()
+                .Where(r =>
+                    r.TrabajadorId == model.TrabajadorId &&
+                    r.Fecha >= model.FechaInicio.Date &&
+                    r.Fecha <= model.FechaFin.Date &&
+                    !r.IsDeleted);
+
+            if (!string.IsNullOrWhiteSpace(origen))
+            {
+                query = query.Where(r => r.Origen == origen);
+            }
+
+            if (!string.IsNullOrWhiteSpace(tipoRegistro))
+            {
+                query = query.Where(r => r.TipoRegistro == tipoRegistro);
+            }
+
+            var data = await query
+                .OrderByDescending(r => r.Fecha)
+                .ThenByDescending(r => r.HoraEntrada)
+                .Select(r => new
+                {
+                    r.AsistenciaRegistroId,
+                    r.TrabajadorId,
+                    r.Fecha,
+                    r.HoraEntrada,
+                    r.HoraSalida,
+                    r.TipoRegistro,
+                    r.Origen,
+                    r.Latitud,
+                    r.Longitud,
+                    r.Observacion,
+                    r.DateCreated,
+                    r.DateModified
+                })
+                .ToListAsync();
+
+            return Ok(new ApiResponse<object>
+            {
+                request_id = requestId,
+                success = true,
+                message = "Consulta exitosa.",
+                data = data,
+                statusCode = 200
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al consultar registros de asistencia.");
+
+            var errors = new List<string>();
+            var current = ex;
+            while (current != null)
+            {
+                errors.Add(current.Message);
+                current = current.InnerException;
+            }
+
+            return BadRequest(new ApiResponse<object>
+            {
+                request_id = requestId,
+                success = false,
+                message = "Error al consultar registros de asistencia.",
+                statusCode = 400,
+                errors = errors
+            });
+        }
     }
 }
