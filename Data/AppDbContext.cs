@@ -5,6 +5,7 @@ using velios.Api.Models.CodigosPostales;
 using velios.Api.Models.Empleado;
 using velios.Api.Models.Proveedores;
 using velios.Api.Models.Security;
+using velios.Api.Models.Tareas;
 
 namespace velios.Api.Data;
 
@@ -116,7 +117,8 @@ public class AppDbContext : DbContext
     /// <summary>
     /// Tabla principal de clientes.
     /// </summary>
-    public DbSet<Cliente> Clientes => Set<Cliente>();
+    public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<EstatusCliente> EstatusClientes { get; set; }
 
     /// <summary>
     /// Relación entre clientes y proveedores.
@@ -162,7 +164,12 @@ public class AppDbContext : DbContext
 
     public DbSet<CatTipoDocumentoProveedor> CatTipoDocumentoProveedor => Set<CatTipoDocumentoProveedor>();
 
-
+    public DbSet<Tarea> Tareas { get; set; }
+    public DbSet<EstatusTarea> EstatusTareas { get; set; }
+    public DbSet<TipoEventoTarea> TipoEventoTareas { get; set; }
+    public DbSet<TareaObservacion> TareaObservaciones { get; set; }
+    public DbSet<TareaEvidencia> TareaEvidencias { get; set; }
+    public DbSet<TareaTimeline> TareaTimeline { get; set; }
 
     // =========================================================
     // CONFIGURACIÓN DE MODELOS
