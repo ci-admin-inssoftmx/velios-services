@@ -102,6 +102,7 @@ public class AuthenticateController : ControllerBase
             {
                 var proveedor = new Proveedor
                 {
+                    RFC = null,
                     CorreoContacto = email,
                     IsDeleted = false,
                     DateCreated = DateTime.UtcNow,

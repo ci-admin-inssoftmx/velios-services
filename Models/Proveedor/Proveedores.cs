@@ -31,7 +31,7 @@ public class Proveedor
     /// Longitud máxima: 20 caracteres.
     /// </summary>
     [Required, MaxLength(20)]
-    public string RFC { get; set; } = "";
+    public string? RFC { get; set; }
 
     /// <summary>
     /// Razón social registrada legalmente.
