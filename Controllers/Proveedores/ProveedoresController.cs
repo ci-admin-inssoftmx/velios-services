@@ -9,6 +9,11 @@ namespace velios.Api.Controllers;
 
 /// <summary>
 /// Controlador encargado de la gestión pública de proveedores.
+/// 
+/// Funcionalidades principales:
+/// - Completar el registro de un proveedor previamente creado.
+/// - Actualizar la información fiscal, comercial y de contacto.
+/// - Replicar la información en la base secundaria Nomclick.
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
@@ -18,10 +23,10 @@ public class ProveedoresController : ControllerBase
     private readonly NomclickDbContext _nomclickDb;
 
     /// <summary>
-    /// Constructor con inyección de ambos contextos:
-    /// - _db: base principal Velios
-    /// - _nomclickDb: base secundaria Nomclick
+    /// Inicializa una nueva instancia del controlador de proveedores.
     /// </summary>
+    /// <param name="db">Contexto principal de la base de datos Velios.</param>
+    /// <param name="nomclickDb">Contexto secundario de la base de datos Nomclick.</param>
     public ProveedoresController(AppDbContext db, NomclickDbContext nomclickDb)
     {
         _db = db;
@@ -31,6 +36,27 @@ public class ProveedoresController : ControllerBase
     // =========================================================
     // POST /api/Proveedores/CreateProveedor
     // =========================================================
+
+    /// <summary>
+    /// Completa el registro de un proveedor previamente creado en el sistema,
+    /// actualizando sus datos fiscales, comerciales, de contacto, dirección
+    /// y geolocalización.
+    /// 
+    /// Flujo general:
+    /// 1. Valida el modelo recibido.
+    /// 2. Normaliza los datos de entrada.
+    /// 3. Busca al proveedor existente por correo en Velios.
+    /// 4. Verifica que la cuenta esté activa.
+    /// 5. Valida que el RFC no esté duplicado.
+    /// 6. Actualiza la información en Velios.
+    /// 7. Replica la información en Nomclick:
+    ///    - Si ya existe, actualiza.
+    ///    - Si no existe, inserta.
+    /// </summary>
+    /// <param name="model">Datos de actualización del proveedor.</param>
+    /// <returns>
+    /// Respuesta estándar de la API con el identificador del proveedor actualizado.
+    /// </returns>
     [HttpPost("CreateProveedor")]
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> CreateProveedor([FromBody] ProveedorCreateRequest model)
@@ -53,22 +79,30 @@ public class ProveedoresController : ControllerBase
                 });
             }
 
-            // Normalización de datos de entrada
+            // =========================================================
+            // 1) Normalización de datos de entrada
+            // =========================================================
             var correo = (model.CorreoContacto ?? "").Trim().ToLowerInvariant();
-            var rfc = (model.RFC ?? "").Trim();
-            var razonSocial = (model.RazonSocial ?? "").Trim();
-            var nombreComercial = (model.NombreComercial ?? "").Trim();
-            var telefonoContacto = (model.TelefonoContacto ?? "").Trim();
-            var representanteLegal = (model.RepresentanteLegal ?? "").Trim();
+
+            // Se convierten cadenas vacías a null para evitar guardar ""
+            var rfc = string.IsNullOrWhiteSpace(model.RFC) ? null : model.RFC.Trim();
+            var razonSocial = string.IsNullOrWhiteSpace(model.RazonSocial) ? null : model.RazonSocial.Trim();
+            var nombreComercial = string.IsNullOrWhiteSpace(model.NombreComercial) ? null : model.NombreComercial.Trim();
+            var telefonoContacto = string.IsNullOrWhiteSpace(model.TelefonoContacto) ? null : model.TelefonoContacto.Trim();
+            var representanteLegal = string.IsNullOrWhiteSpace(model.RepresentanteLegal) ? null : model.RepresentanteLegal.Trim();
+
+            // Coordenadas geográficas
+            var latitud = model.Latitud;
+            var longitud = model.Longitud;
 
             // Campos de dirección
-            var calle = (model.Calle ?? "").Trim();
-            var codigoPostal = (model.CodigoPostal ?? "").Trim();
-            var colonia = (model.Colonia ?? "").Trim();
-            var delegacionMunicipio = (model.DelegacionMunicipio ?? "").Trim();
-            var ciudad = (model.Ciudad ?? "").Trim();
-            var estado = (model.Estado ?? "").Trim();
-            var pais = (model.Pais ?? "").Trim();
+            var calle = string.IsNullOrWhiteSpace(model.Calle) ? null : model.Calle.Trim();
+            var codigoPostal = string.IsNullOrWhiteSpace(model.CodigoPostal) ? null : model.CodigoPostal.Trim();
+            var colonia = string.IsNullOrWhiteSpace(model.Colonia) ? null : model.Colonia.Trim();
+            var delegacionMunicipio = string.IsNullOrWhiteSpace(model.DelegacionMunicipio) ? null : model.DelegacionMunicipio.Trim();
+            var ciudad = string.IsNullOrWhiteSpace(model.Ciudad) ? null : model.Ciudad.Trim();
+            var estado = string.IsNullOrWhiteSpace(model.Estado) ? null : model.Estado.Trim();
+            var pais = string.IsNullOrWhiteSpace(model.Pais) ? null : model.Pais.Trim();
 
             if (string.IsNullOrWhiteSpace(correo))
             {
@@ -82,11 +116,39 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 1) Buscar proveedor existente en Velios
+            // 2) Validación de coordenadas
+            // =========================================================
+            if (latitud.HasValue && (latitud < -90 || latitud > 90))
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    request_id = requestId,
+                    success = false,
+                    message = "La latitud es inválida. Debe estar entre -90 y 90.",
+                    statusCode = 400
+                });
+            }
+
+            if (longitud.HasValue && (longitud < -180 || longitud > 180))
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    request_id = requestId,
+                    success = false,
+                    message = "La longitud es inválida. Debe estar entre -180 y 180.",
+                    statusCode = 400
+                });
+            }
+
+            // =========================================================
+            // 3) Buscar proveedor existente en Velios
             // =========================================================
             var proveedorMin = await _db.Proveedores
                 .AsNoTracking()
-                .Where(p => p.CorreoContacto.ToLower() == correo && p.IsDeleted != true)
+                .Where(p =>
+                    p.CorreoContacto != null &&
+                    p.CorreoContacto.ToLower() == correo &&
+                    !p.IsDeleted)
                 .Select(p => new
                 {
                     p.ProveedorId,
@@ -112,7 +174,7 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 2) Validar que esté activo
+            // 4) Validar que el proveedor esté activo
             // =========================================================
             if (proveedorMin.EstatusProveedorId != 1)
             {
@@ -126,7 +188,7 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 3) Validar RFC duplicado en Velios
+            // 5) Validar RFC duplicado en Velios
             // =========================================================
             if (!string.IsNullOrWhiteSpace(rfc))
             {
@@ -135,7 +197,7 @@ public class ProveedoresController : ControllerBase
                     .AnyAsync(p =>
                         p.ProveedorId != proveedorMin.ProveedorId &&
                         p.RFC == rfc &&
-                        p.IsDeleted != true);
+                        !p.IsDeleted);
 
                 if (existeRFC)
                 {
@@ -152,7 +214,7 @@ public class ProveedoresController : ControllerBase
             var fechaActual = DateTime.UtcNow;
 
             // =========================================================
-            // 4) Actualizar en Velios
+            // 6) Actualizar en Velios
             // =========================================================
             await _db.Database.ExecuteSqlInterpolatedAsync($@"
                 UPDATE dbo.tb_Proveedores
@@ -168,13 +230,15 @@ public class ProveedoresController : ControllerBase
                     Ciudad = {ciudad},
                     Estado = {estado},
                     Pais = {pais},
+                    Latitud = {latitud},
+                    Longitud = {longitud},
                     DateModified = {fechaActual},
                     ModifiedBy = {"PUBLIC"}
                 WHERE ProveedorId = {proveedorMin.ProveedorId};
             ");
 
             // =========================================================
-            // 5) Replicar en Nomclick
+            // 7) Replicar en Nomclick
             //    Si ya existe: UPDATE
             //    Si no existe: INSERT
             // =========================================================
@@ -184,7 +248,9 @@ public class ProveedoresController : ControllerBase
 
             if (existeEnNomclick)
             {
-                // Si ya existe en Nomclick, solo actualizamos
+                // -----------------------------------------------------
+                // 7.1) Actualizar proveedor existente en Nomclick
+                // -----------------------------------------------------
                 await _nomclickDb.Database.ExecuteSqlInterpolatedAsync($@"
                     UPDATE dbo.tb_Proveedores
                     SET RFC = {rfc},
@@ -201,6 +267,8 @@ public class ProveedoresController : ControllerBase
                         Ciudad = {ciudad},
                         Estado = {estado},
                         Pais = {pais},
+                        Latitud = {latitud},
+                        Longitud = {longitud},
                         DateModified = {fechaActual},
                         ModifiedBy = {"PUBLIC"}
                     WHERE ProveedorId = {proveedorMin.ProveedorId};
@@ -208,7 +276,10 @@ public class ProveedoresController : ControllerBase
             }
             else
             {
-                // Si no existe en Nomclick, lo insertamos con el mismo ProveedorId
+                // -----------------------------------------------------
+                // 7.2) Insertar proveedor nuevo en Nomclick
+                //      conservando el mismo ProveedorId
+                // -----------------------------------------------------
                 await _nomclickDb.Database.ExecuteSqlInterpolatedAsync($@"
                     INSERT INTO dbo.tb_Proveedores
                     (
@@ -234,6 +305,8 @@ public class ProveedoresController : ControllerBase
                         Ciudad,
                         Estado,
                         Pais,
+                        Latitud,
+                        Longitud,
                         LogoUrl
                     )
                     VALUES
@@ -260,17 +333,27 @@ public class ProveedoresController : ControllerBase
                         {ciudad},
                         {estado},
                         {pais},
+                        {latitud},
+                        {longitud},
                         {null}
                     );
                 ");
             }
 
+            // =========================================================
+            // 8) Respuesta exitosa
+            // =========================================================
             return Ok(new ApiResponse<object>
             {
                 request_id = requestId,
                 success = true,
                 message = "Proveedor actualizado con éxito en Velios y Nomclick.",
-                data = new { proveedorMin.ProveedorId },
+                data = new
+                {
+                    proveedorMin.ProveedorId,
+                    Latitud = latitud,
+                    Longitud = longitud
+                },
                 statusCode = 200
             });
         }

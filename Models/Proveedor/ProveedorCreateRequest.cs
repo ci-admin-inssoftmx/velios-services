@@ -29,4 +29,7 @@ public class ProveedorCreateRequest
     public string? Ciudad { get; set; }
     public string? Estado { get; set; }
     public string? Pais { get; set; }
+
+    public decimal? Latitud { get; set; }
+    public decimal? Longitud { get; set; }
 }

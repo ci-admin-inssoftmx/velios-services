@@ -102,7 +102,7 @@ public class AuthenticateController : ControllerBase
             {
                 var proveedor = new Proveedor
                 {
-                    RFC = null,
+                     RFC = null,
                     CorreoContacto = email,
                     IsDeleted = false,
                     DateCreated = DateTime.UtcNow,
@@ -295,10 +295,11 @@ public class AuthenticateController : ControllerBase
 
         try
         {
+            var emailNormalizado = email.Trim();
             var proveedor = await _db.Proveedores
                 .FirstOrDefaultAsync(p =>
-                    p.CorreoContacto.ToLower() == email &&
-                    (p.IsDeleted == null || p.IsDeleted == false));
+                    p.CorreoContacto == emailNormalizado &&
+                    !p.IsDeleted);
 
             if (proveedor == null)
             {
@@ -493,6 +494,10 @@ public class AuthenticateController : ControllerBase
                     CodigoPostalId = 0,
                     CodigoPostal = proveedor.CodigoPostal ?? ""
                 },
+
+                // 🔹 NUEVOS CAMPOS DE GEOLOCALIZACIÓN
+                Latitud = proveedor.Latitud,
+                Longitud = proveedor.Longitud,
 
                 Roles = new List<string> { "Proveedor" },
                 Token = token
