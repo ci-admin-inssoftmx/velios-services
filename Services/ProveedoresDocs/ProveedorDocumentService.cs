@@ -117,6 +117,8 @@ public class ProveedorDocumentService : IProveedorDocumentService
 
         // --------------- Preparar ruta destino ---------------
         var root = _config["Storage:ProveedorDocsRoot"];
+        var rootArchivo = _config["AppSettings:BaseUrl"];
+
         if (string.IsNullOrWhiteSpace(root))
             throw new Exception("Falta configuración: Storage:ProveedorDocsRoot");
 
@@ -174,7 +176,7 @@ public class ProveedorDocumentService : IProveedorDocumentService
             TamanoBytes = file.Length,
             Sha256 = sha256Hex,
 
-            RutaRelativa = Path.Combine(relDir, storedName).Replace("\\", "/"),
+            RutaRelativa = rootArchivo +"/"+ Path.Combine(relDir, storedName).Replace("\\", "/"),
             EstatusDocumentoId = 1, // 1=SUBIDO (ajusta según tu catálogo)
             Observaciones = null,
 

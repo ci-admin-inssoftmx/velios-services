@@ -49,6 +49,20 @@ public class ProveedorLogoController : ControllerBase
         return root;
     }
 
+
+    /// <summary>
+    /// Obtiene la ruta raíz de archivos definida en appsettings.json
+    /// </summary>
+    private string GetRootArchivoPath()
+    {
+        var root = _config["AppSettings:BaseUrl"];
+
+        if (string.IsNullOrWhiteSpace(root))
+            throw new Exception("BaseUrl no está configurado en appsettings.json");
+
+        return root;
+    }
+
     // =========================================================
     // POST /api/proveedor-logo/{proveedorId}/upload
     // =========================================================
@@ -90,6 +104,7 @@ public class ProveedorLogoController : ControllerBase
             }
 
             var root = GetRootPath();
+            var rootArchivos = GetRootArchivoPath();
 
             var folder = Path.Combine(root, "proveedores", proveedorId.ToString());
 
@@ -107,7 +122,7 @@ public class ProveedorLogoController : ControllerBase
                 await file.CopyToAsync(stream);
             }
 
-            proveedor.LogoUrl = $"/proveedores/{proveedorId}/{fileName}";
+            proveedor.LogoUrl = $"{rootArchivos}/proveedores/{proveedorId}/{fileName}";
             proveedor.DateModified = DateTime.UtcNow;
 
             await _db.SaveChangesAsync();

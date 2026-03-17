@@ -43,6 +43,7 @@ public class AuthenticateController : ControllerBase
     private readonly IEmailSender _email;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ILogger<AuthenticateController> _logger;
+    private readonly IConfiguration _configuration;
 
     /// <summary>
     /// Constructor con inyección de dependencias.
@@ -50,13 +51,15 @@ public class AuthenticateController : ControllerBase
     /// <param name="db">DbContext EF Core.</param>
     /// <param name="config">Configuración (Jwt, Front URLs, Smtp).</param>
     /// <param name="email">Servicio de envío de correo (abstracción).</param>
-    public AuthenticateController(AppDbContext db, IConfiguration config, IEmailSender email, IPasswordHasher passwordHasher, ILogger<AuthenticateController> logger)
+    public AuthenticateController(AppDbContext db, IConfiguration config, IEmailSender email, IPasswordHasher passwordHasher, ILogger<AuthenticateController> logger, IConfiguration configuration)
     {
         _db = db;
         _config = config;
         _email = email;
         _passwordHasher = passwordHasher;
         _logger = logger;
+        _configuration = configuration;
+
     }
 
     // =========================================================
