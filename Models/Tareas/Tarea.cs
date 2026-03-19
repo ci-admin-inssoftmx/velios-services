@@ -57,4 +57,8 @@ public class Tarea
 
     [Column("IsDeleted")]
     public bool IsDeleted { get; set; }
+
+    [Column("ImagenUrl")]
+    [MaxLength(500)]
+    public string? ImagenUrl { get; set; }
 }
