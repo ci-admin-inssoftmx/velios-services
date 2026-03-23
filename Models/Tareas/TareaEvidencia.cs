@@ -14,9 +14,8 @@ public class TareaEvidencia
     public int TareaId { get; set; }
 
     [Column("Tipo")]
-    [MaxLength(20)]
+    [MaxLength(50)] // Cambiado de 20 a 50
     public string Tipo { get; set; } = string.Empty;
-
     [Column("UrlArchivo")]
     [MaxLength(500)]
     public string? UrlArchivo { get; set; }

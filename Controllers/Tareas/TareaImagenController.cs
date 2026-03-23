@@ -5,24 +5,6 @@ using velios.Api.Models.Common;
 
 namespace velios.Api.Controllers.Tareas
 {
-    /// <summary>
-    /// Controlador encargado de la gestión de la IMAGEN de tareas.
-    ///
-    /// Permite:
-    /// - Subir imagen
-    /// - Consultar imagen
-    /// - Modificar imagen
-    /// - Eliminar imagen
-    ///
-    /// Los archivos se almacenan en disco en la ruta configurada en:
-    /// appsettings.json -> Storage:TareaImagenesRoot
-    ///
-    /// Ejemplo:
-    /// D:\archivosVelios\archivos\ImagenesTareas\dev\42\imagen.png
-    ///
-    /// En base de datos se guarda la URL completa:
-    /// {BaseUrl}/ImagenesTareas/{tareaId}/imagen.png
-    /// </summary>
     [ApiController]
     [Route("api/tarea-imagen")]
     public class TareaImagenController : ControllerBase
@@ -36,241 +18,115 @@ namespace velios.Api.Controllers.Tareas
             _config = config;
         }
 
-        /// <summary>
-        /// Obtiene la ruta raíz de imágenes de tareas definida en appsettings.json
-        /// </summary>
-        private string GetRootPath()
-        {
-            var root = _config["Storage:TareaImagenesRoot"];
-
-            if (string.IsNullOrWhiteSpace(root))
-                throw new Exception("TareaImagenesRoot no está configurado en appsettings.json");
-
-            return root;
-        }
-
-        /// <summary>
-        /// Obtiene la URL base definida en appsettings.json
-        /// </summary>
-        private string GetRootArchivoPath()
-        {
-            var root = _config["AppSettings:BaseUrl"];
-
-            if (string.IsNullOrWhiteSpace(root))
-                throw new Exception("BaseUrl no está configurado en appsettings.json");
-
-            return root;
-        }
+        private string GetRootPath() => _config["Storage:ProveedorDocsRoot"] ?? throw new Exception("Configuración faltante.");
+        private string GetBaseUrl() => _config["AppSettings:BaseUrl"] ?? throw new Exception("Configuración faltante.");
 
         // =========================================================
-        // POST /api/tarea-imagen/{tareaId}/upload
+        // POST: Sube una imagen física y retorna la URL generada
         // =========================================================
-
-        /// <summary>
-        /// Permite subir la imagen de una tarea.
-        /// </summary>
-        [HttpPost("{tareaId}/upload")]
+        [HttpPost("{taskCode}/upload")]
         [Consumes("multipart/form-data")]
-        public async Task<ActionResult<ApiResponse<object>>> UploadImagen(long tareaId, IFormFile file)
+        public async Task<ActionResult<ApiResponse<object>>> UploadImagen(string taskCode, IFormFile file)
         {
             var requestId = Guid.NewGuid().ToString();
-
             try
             {
-                if (file == null || file.Length == 0)
-                {
-                    return BadRequest(new ApiResponse<object>
-                    {
-                        request_id = requestId,
-                        success = false,
-                        message = "Archivo inválido.",
-                        statusCode = 400
-                    });
-                }
+                if (file == null || file.Length == 0) return BadRequest(new ApiResponse<object> { request_id = requestId, message = "Archivo inválido", statusCode = 400 });
 
-                var tarea = await _db.Tareas
-                    .FirstOrDefaultAsync(x => x.TareaId == tareaId && !x.IsDeleted);
-
-                if (tarea == null)
-                {
-                    return BadRequest(new ApiResponse<object>
-                    {
-                        request_id = requestId,
-                        success = false,
-                        message = "Tarea no encontrada.",
-                        statusCode = 400
-                    });
-                }
+                var tarea = await _db.Tareas.FirstOrDefaultAsync(x => x.TaskCode == taskCode && !x.IsDeleted);
+                if (tarea == null) return NotFound(new ApiResponse<object> { request_id = requestId, message = "Tarea no encontrada", statusCode = 404 });
 
                 var root = GetRootPath();
-                var rootArchivos = GetRootArchivoPath();
+                var baseUrl = GetBaseUrl();
+                var folder = Path.Combine(root, taskCode);
 
-                var folder = Path.Combine(root, tareaId.ToString());
+                if (!Directory.Exists(folder)) Directory.Exists(Directory.CreateDirectory(folder).FullName);
 
-                if (!Directory.Exists(folder))
-                    Directory.CreateDirectory(folder);
-
-                var extension = Path.GetExtension(file.FileName);
-                var fileName = $"imagen{extension}";
-                var filePath = Path.Combine(folder, fileName);
+                var uniqueName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                var filePath = Path.Combine(folder, uniqueName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
 
-                tarea.ImagenUrl = $"{rootArchivos}/ImagenesTareas/{tareaId}/{fileName}";
-                tarea.DateModified = DateTime.UtcNow;
-
-                await _db.SaveChangesAsync();
+                var finalUrl = $"{baseUrl}/ImagenesTareas/dev/{taskCode}/{uniqueName}";
 
                 return Ok(new ApiResponse<object>
                 {
                     request_id = requestId,
                     success = true,
-                    message = "Imagen subida correctamente.",
+                    message = "Imagen subida. Copie la URL para el PUT final.",
                     statusCode = 200,
-                    data = new { tarea.ImagenUrl }
+                    data = new { tarea.TareaId, tarea.TaskCode, imagenUrl = finalUrl }
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new ApiResponse<object>
-                {
-                    request_id = requestId,
-                    success = false,
-                    message = "Error al subir imagen.",
-                    statusCode = 400,
-                    errors = new List<string> { ex.Message }
-                });
+                return BadRequest(new ApiResponse<object> { request_id = requestId, message = "Error", errors = new List<string> { ex.Message } });
             }
         }
 
         // =========================================================
-        // GET /api/tarea-imagen/{tareaId}
+        // GET: Obtiene la lista de imágenes de la tarea
         // =========================================================
-
-        /// <summary>
-        /// Obtiene la URL de la imagen de la tarea.
-        /// </summary>
-        [HttpGet("{tareaId}")]
-        public async Task<ActionResult<ApiResponse<object>>> GetImagen(long tareaId)
+        [HttpGet("{taskCode}")]
+        public async Task<ActionResult<ApiResponse<object>>> GetImagenes(string taskCode)
         {
             var requestId = Guid.NewGuid().ToString();
+            var tarea = await _db.Tareas.AsNoTracking().FirstOrDefaultAsync(x => x.TaskCode == taskCode && !x.IsDeleted);
 
-            var tarea = await _db.Tareas
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.TareaId == tareaId && !x.IsDeleted);
+            if (tarea == null) return NotFound(new ApiResponse<object> { request_id = requestId, message = "Tarea no encontrada" });
 
-            if (tarea == null)
-            {
-                return BadRequest(new ApiResponse<object>
-                {
-                    request_id = requestId,
-                    success = false,
-                    message = "Tarea no encontrada.",
-                    statusCode = 400
-                });
-            }
+            // Si hay URLs guardadas (separadas por coma), las convertimos en una lista real
+            var listaUrls = string.IsNullOrEmpty(tarea.ImagenUrl)
+                            ? new List<string>()
+                            : tarea.ImagenUrl.Split(',').ToList();
 
             return Ok(new ApiResponse<object>
             {
                 request_id = requestId,
                 success = true,
                 message = "Consulta exitosa.",
-                statusCode = 200,
                 data = new
                 {
                     tarea.TareaId,
-                    tarea.ImagenUrl
+                    tarea.TaskCode,
+                    imagenes = listaUrls,
+                    total = listaUrls.Count
                 }
             });
         }
 
         // =========================================================
-        // PUT /api/tarea-imagen/{tareaId}
+        // PUT: Recibe todas las URLs y las guarda de forma definitiva
         // =========================================================
-
-        /// <summary>
-        /// Permite reemplazar la imagen existente de una tarea.
-        /// </summary>
-        [HttpPut("{tareaId}")]
-        [Consumes("multipart/form-data")]
-        public async Task<ActionResult<ApiResponse<object>>> UpdateImagen(long tareaId, IFormFile file)
-        {
-            return await UploadImagen(tareaId, file);
-        }
-
-        // =========================================================
-        // DELETE /api/tarea-imagen/{tareaId}
-        // =========================================================
-
-        /// <summary>
-        /// Elimina la imagen de la tarea.
-        /// </summary>
-        [HttpDelete("{tareaId}")]
-        public async Task<ActionResult<ApiResponse<object>>> DeleteImagen(long tareaId)
+        [HttpPut("{taskCode}/finalizar")]
+        public async Task<ActionResult<ApiResponse<object>>> FinalizarSubida(string taskCode, [FromBody] TaskImagesUpdateDto model)
         {
             var requestId = Guid.NewGuid().ToString();
+            var tarea = await _db.Tareas.FirstOrDefaultAsync(x => x.TaskCode == taskCode && !x.IsDeleted);
 
-            try
+            if (tarea == null) return NotFound(new ApiResponse<object> { request_id = requestId, message = "Tarea no encontrada" });
+
+            // Guardamos todas las URLs enviadas por el jefe separadas por coma
+            tarea.ImagenUrl = string.Join(",", model.ImagenesUrls);
+            tarea.DateModified = DateTime.UtcNow;
+
+            await _db.SaveChangesAsync();
+
+            return Ok(new ApiResponse<object>
             {
-                var tarea = await _db.Tareas
-                    .FirstOrDefaultAsync(x => x.TareaId == tareaId && !x.IsDeleted);
-
-                if (tarea == null)
-                {
-                    return BadRequest(new ApiResponse<object>
-                    {
-                        request_id = requestId,
-                        success = false,
-                        message = "Tarea no encontrada.",
-                        statusCode = 400
-                    });
-                }
-
-                if (string.IsNullOrWhiteSpace(tarea.ImagenUrl))
-                {
-                    return Ok(new ApiResponse<object>
-                    {
-                        request_id = requestId,
-                        success = true,
-                        message = "La tarea no tiene imagen.",
-                        statusCode = 200
-                    });
-                }
-
-                var root = GetRootPath();
-
-                var fullPath = Path.Combine(root, tarea.ImagenUrl.TrimStart('/').Replace("/", "\\"));
-
-                if (System.IO.File.Exists(fullPath))
-                    System.IO.File.Delete(fullPath);
-
-                tarea.ImagenUrl = null;
-                tarea.DateModified = DateTime.UtcNow;
-
-                await _db.SaveChangesAsync();
-
-                return Ok(new ApiResponse<object>
-                {
-                    request_id = requestId,
-                    success = true,
-                    message = "Imagen eliminada.",
-                    statusCode = 200
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new ApiResponse<object>
-                {
-                    request_id = requestId,
-                    success = false,
-                    message = "Error al eliminar imagen.",
-                    statusCode = 400,
-                    errors = new List<string> { ex.Message }
-                });
-            }
+                request_id = requestId,
+                success = true,
+                message = "Tarea actualizada correctamente.",
+                data = new { tarea.TaskCode, imagenesGuardadas = model.ImagenesUrls }
+            });
         }
+    }
+
+    public class TaskImagesUpdateDto
+    {
+        public List<string> ImagenesUrls { get; set; } = new List<string>();
     }
 }

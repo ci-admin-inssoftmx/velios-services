@@ -3,28 +3,24 @@
   "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\tareas\\tareaimagencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\tareas\\tareaimagencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\proveedoresdocs\\iproveedordocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\proveedoresdocs\\iproveedordocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\tareaevidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\tareaevidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\proveedores\\proveedorlogocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\proveedores\\proveedorlogocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\requests\\tareaupdaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\requests\\tareaupdaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\login\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\login\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\tareas\\tareaimagencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\tareas\\tareaimagencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,80 +38,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-03-18T21:32:31.104Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TareaImagenController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareaImagenController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Tareas\\TareaImagenController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareaImagenController.cs",
-              "RelativeToolTip": "Controllers\\Tareas\\TareaImagenController.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAtwHwAAAAtAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "TareaEvidencia.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\TareaEvidencia.cs",
+              "RelativeDocumentMoniker": "Models\\Tareas\\TareaEvidencia.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\TareaEvidencia.cs",
+              "RelativeToolTip": "Models\\Tareas\\TareaEvidencia.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-18T21:20:00.191Z",
+              "WhenOpened": "2026-03-23T20:55:40.211Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "IProveedorDocumentService.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ProveedoresDocs\\IProveedorDocumentService.cs",
-              "RelativeDocumentMoniker": "Services\\ProveedoresDocs\\IProveedorDocumentService.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ProveedoresDocs\\IProveedorDocumentService.cs",
-              "RelativeToolTip": "Services\\ProveedoresDocs\\IProveedorDocumentService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "TareaUpdateRequest.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
+              "RelativeDocumentMoniker": "Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
+              "RelativeToolTip": "Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAYwB0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-18T21:10:05.355Z",
+              "WhenOpened": "2026-03-23T20:43:39.09Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TareasController.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Tareas\\TareasController.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
+              "RelativeToolTip": "Controllers\\Tareas\\TareasController.cs",
+              "ViewState": "AgIAALAAAAAAAAAAAAAqwMgAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-23T20:33:01.448Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "ProveedorLogoController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Proveedores\\ProveedorLogoController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Proveedores\\ProveedorLogoController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Proveedores\\ProveedorLogoController.cs",
-              "RelativeToolTip": "Controllers\\Proveedores\\ProveedorLogoController.cs",
-              "ViewState": "AgIAAPsAAAAAAAAAAAAswBUBAAABAAAAAAAAAA==",
+              "Title": "TareaImagenController.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareaImagenController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Tareas\\TareaImagenController.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareaImagenController.cs",
+              "RelativeToolTip": "Controllers\\Tareas\\TareaImagenController.cs",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAcwIMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-18T21:08:29.188Z",
+              "WhenOpened": "2026-03-23T17:56:03.146Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Data\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Data\\AppDbContext.cs",
-              "RelativeToolTip": "Data\\AppDbContext.cs",
-              "ViewState": "AgIAABABAAAAAAAAAAAswCoBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-18T17:00:39.932Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Login\\AccountController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Login\\AccountController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Login\\AccountController.cs",
-              "RelativeToolTip": "Controllers\\Login\\AccountController.cs",
-              "ViewState": "AgIAADsAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-18T16:13:40.686Z",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAiwBAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-23T17:56:00.196Z",
               "EditorCaption": ""
             }
           ]
