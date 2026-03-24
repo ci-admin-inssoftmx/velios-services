@@ -70,7 +70,7 @@ public class ProveedorSuscripcionController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solicitud inválida.",
                     statusCode = 400
@@ -85,7 +85,7 @@ public class ProveedorSuscripcionController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Proveedor inválido.",
                     statusCode = 400
@@ -100,7 +100,7 @@ public class ProveedorSuscripcionController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Paquete inválido o inactivo.",
                     statusCode = 400
@@ -122,7 +122,7 @@ public class ProveedorSuscripcionController : ControllerBase
             {
                 return Ok(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = true,
                     message = "El proveedor ya tiene ese paquete activo.",
                     statusCode = 200,
@@ -158,7 +158,7 @@ public class ProveedorSuscripcionController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Suscripción actualizada con éxito.",
                 statusCode = 200,
@@ -169,7 +169,7 @@ public class ProveedorSuscripcionController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al actualizar suscripción.",
                 statusCode = 400,
@@ -210,7 +210,7 @@ public class ProveedorSuscripcionController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "No existe suscripción activa para suspender.",
                     statusCode = 400
@@ -226,7 +226,7 @@ public class ProveedorSuscripcionController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Suscripción suspendida.",
                 statusCode = 200
@@ -236,7 +236,7 @@ public class ProveedorSuscripcionController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al suspender suscripción.",
                 statusCode = 400,
@@ -283,7 +283,7 @@ public class ProveedorSuscripcionController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Solicitud ejecutada con éxito.",
                 statusCode = 200,
@@ -294,7 +294,7 @@ public class ProveedorSuscripcionController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al consultar suscripción.",
                 statusCode = 400,

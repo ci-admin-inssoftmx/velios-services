@@ -86,7 +86,7 @@ public class ProveedorDocumentosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "proveedorId es obligatorio.",
                     statusCode = 400
@@ -97,7 +97,7 @@ public class ProveedorDocumentosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "tipoDocumentoId y archivo son obligatorios.",
                     statusCode = 400
@@ -109,7 +109,7 @@ public class ProveedorDocumentosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = reason,
                     statusCode = 400
@@ -121,7 +121,7 @@ public class ProveedorDocumentosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = sigReason,
                     statusCode = 400
@@ -139,7 +139,7 @@ public class ProveedorDocumentosController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Documento cargado.",
                 statusCode = 200,
@@ -152,7 +152,7 @@ public class ProveedorDocumentosController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al cargar documento.",
                 statusCode = 400,
@@ -179,7 +179,7 @@ public class ProveedorDocumentosController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "OK",
             statusCode = 200,
@@ -222,7 +222,7 @@ public class ProveedorDocumentosController : ControllerBase
         {
             return NotFound(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Documento no encontrado.",
                 statusCode = 404
@@ -231,7 +231,7 @@ public class ProveedorDocumentosController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Documento eliminado.",
             statusCode = 200

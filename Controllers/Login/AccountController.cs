@@ -50,15 +50,6 @@ namespace velios.Api.Controllers
             {
                 _logger.LogInformation("Intentando iniciar sesión para el correo: {Email}", model.Email);
 
-                // =========================================================
-                // VALIDACIÓN TEMPORAL
-                // =========================================================
-                // Reemplaza esta parte por tu llamada real al servicio/API:
-                //
-                // var result = await _authenticationService.LoginAsync(model.Email, model.Password);
-                // if (!result.Success) { ... }
-                // =========================================================
-
                 var loginValido =
                     model.Email.Equals("proveedor@velios.com", StringComparison.OrdinalIgnoreCase) &&
                     model.Password == "Velios123!";
@@ -70,13 +61,16 @@ namespace velios.Api.Controllers
                     return View(model);
                 }
 
-                // Claims del usuario autenticado
+                // Este ID normalmente debe venir de tu servicio o base de datos
+                var proveedorId = 123;
+
                 var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, model.Email),
-                    new Claim(ClaimTypes.Email, model.Email),
-                    new Claim(ClaimTypes.Role, "Proveedor")
-                };
+                    {
+                        new Claim(ClaimTypes.Name, model.Email),
+                        new Claim(ClaimTypes.Email, model.Email),
+                        new Claim(ClaimTypes.Role, "Proveedor"),
+                        new Claim("ProveedorID", proveedorId.ToString())
+                    };
 
                 var claimsIdentity = new ClaimsIdentity(
                     claims,

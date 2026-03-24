@@ -72,7 +72,7 @@ public class ProveedoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solicitud inválida.",
                     statusCode = 400
@@ -108,7 +108,7 @@ public class ProveedoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "El correo de contacto es obligatorio.",
                     statusCode = 400
@@ -122,7 +122,7 @@ public class ProveedoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "La latitud es inválida. Debe estar entre -90 y 90.",
                     statusCode = 400
@@ -133,7 +133,7 @@ public class ProveedoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "La longitud es inválida. Debe estar entre -180 y 180.",
                     statusCode = 400
@@ -166,7 +166,7 @@ public class ProveedoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Debe solicitar primero el enlace de activación.",
                     statusCode = 400
@@ -180,7 +180,7 @@ public class ProveedoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Debe activar su cuenta desde el enlace enviado al correo antes de continuar.",
                     statusCode = 400
@@ -203,7 +203,7 @@ public class ProveedoresController : ControllerBase
                 {
                     return BadRequest(new ApiResponse<object>
                     {
-                        request_id = requestId,
+                        
                         success = false,
                         message = "Ya existe un proveedor con ese RFC.",
                         statusCode = 400
@@ -345,7 +345,7 @@ public class ProveedoresController : ControllerBase
             // =========================================================
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Proveedor actualizado con éxito en Velios y Nomclick.",
                 data = new
@@ -361,7 +361,7 @@ public class ProveedoresController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al registrar proveedor.",
                 errors = new List<string> { ex.Message },

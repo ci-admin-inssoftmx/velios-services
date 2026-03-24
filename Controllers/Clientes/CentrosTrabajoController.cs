@@ -23,11 +23,11 @@ public class CentrosTrabajoController : ControllerBase
 
         var clienteOk = await _db.Clientes.AsNoTracking().AnyAsync(c => c.ClienteId == model.ClienteId && c.EstatusClienteId == 1 && c.IsDeleted == false);
         if (!clienteOk)
-            return BadRequest(new ApiResponse<object> { request_id = requestId, success = false, message = "Cliente inválido o no activo.", statusCode = 400 });
+            return BadRequest(new ApiResponse<object> {  success = false, message = "Cliente inválido o no activo.", statusCode = 400 });
 
         var nombre = (model.Nombre ?? "").Trim();
         if (string.IsNullOrWhiteSpace(nombre))
-            return BadRequest(new ApiResponse<object> { request_id = requestId, success = false, message = "Nombre es obligatorio.", statusCode = 400 });
+            return BadRequest(new ApiResponse<object> {  success = false, message = "Nombre es obligatorio.", statusCode = 400 });
 
         var entity = new CentroTrabajo
         {
@@ -52,7 +52,7 @@ public class CentrosTrabajoController : ControllerBase
         _db.CentrosTrabajo.Add(entity);
         await _db.SaveChangesAsync();
 
-        return Ok(new ApiResponse<object> { request_id = requestId, success = true, message = "Centro de trabajo creado.", statusCode = 200, data = new { entity.CentroTrabajoId } });
+        return Ok(new ApiResponse<object> {  success = true, message = "Centro de trabajo creado.", statusCode = 200, data = new { entity.CentroTrabajoId } });
     }
 
     [HttpGet("ByCliente/{clienteId:int}")]
@@ -69,7 +69,7 @@ public class CentrosTrabajoController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "OK",
             statusCode = 200,
@@ -84,11 +84,11 @@ public class CentrosTrabajoController : ControllerBase
         var requestId = Guid.NewGuid().ToString();
 
         if (model.RadioMetros <= 0)
-            return BadRequest(new ApiResponse<object> { request_id = requestId, success = false, message = "RadioMetros debe ser > 0.", statusCode = 400 });
+            return BadRequest(new ApiResponse<object> {  success = false, message = "RadioMetros debe ser > 0.", statusCode = 400 });
 
         var centro = await _db.CentrosTrabajo.FirstOrDefaultAsync(x => x.CentroTrabajoId == centroId && x.IsDeleted == false);
         if (centro == null)
-            return NotFound(new ApiResponse<object> { request_id = requestId, success = false, message = "Centro no encontrado.", statusCode = 404 });
+            return NotFound(new ApiResponse<object> {  success = false, message = "Centro no encontrado.", statusCode = 404 });
 
         // Limpia polígono anterior (soft delete)
         var puntos = await _db.CentroTrabajoPoligonos.Where(p => p.CentroTrabajoId == centroId && p.IsDeleted == false).ToListAsync();
@@ -103,7 +103,7 @@ public class CentrosTrabajoController : ControllerBase
 
         await _db.SaveChangesAsync();
 
-        return Ok(new ApiResponse<object> { request_id = requestId, success = true, message = "Geocerca por radio configurada.", statusCode = 200 });
+        return Ok(new ApiResponse<object> {  success = true, message = "Geocerca por radio configurada.", statusCode = 200 });
     }
 
     [HttpPost("{centroId:int}/Geocerca/Poligono")]
@@ -113,11 +113,11 @@ public class CentrosTrabajoController : ControllerBase
         var requestId = Guid.NewGuid().ToString();
 
         if (model.Puntos == null || model.Puntos.Count < 3)
-            return BadRequest(new ApiResponse<object> { request_id = requestId, success = false, message = "El polígono requiere al menos 3 puntos.", statusCode = 400 });
+            return BadRequest(new ApiResponse<object> {  success = false, message = "El polígono requiere al menos 3 puntos.", statusCode = 400 });
 
         var centro = await _db.CentrosTrabajo.FirstOrDefaultAsync(x => x.CentroTrabajoId == centroId && x.IsDeleted == false);
         if (centro == null)
-            return NotFound(new ApiResponse<object> { request_id = requestId, success = false, message = "Centro no encontrado.", statusCode = 404 });
+            return NotFound(new ApiResponse<object> {  success = false, message = "Centro no encontrado.", statusCode = 404 });
 
         // Limpia radio
         centro.RadioMetros = null;
@@ -147,6 +147,6 @@ public class CentrosTrabajoController : ControllerBase
 
         await _db.SaveChangesAsync();
 
-        return Ok(new ApiResponse<object> { request_id = requestId, success = true, message = "Geocerca por polígono configurada.", statusCode = 200 });
+        return Ok(new ApiResponse<object> {  success = true, message = "Geocerca por polígono configurada.", statusCode = 200 });
     }
 }

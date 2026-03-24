@@ -57,7 +57,7 @@ public class ClienteProveedoresController : ControllerBase
         if (cliente == null || cliente.EstatusClienteId != 1)
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Cliente inválido o no activo.",
                 statusCode = 400
@@ -69,7 +69,7 @@ public class ClienteProveedoresController : ControllerBase
         if (!proveedorOk)
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Proveedor no encontrado.",
                 statusCode = 400
@@ -81,7 +81,7 @@ public class ClienteProveedoresController : ControllerBase
         if (rel != null)
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Relación ya existe.",
                 statusCode = 200,
@@ -103,7 +103,7 @@ public class ClienteProveedoresController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Relación creada.",
             statusCode = 200,
@@ -161,7 +161,7 @@ public class ClienteProveedoresController : ControllerBase
         if (rel == null)
             return NotFound(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Relación no encontrada.",
                 statusCode = 404
@@ -175,7 +175,7 @@ public class ClienteProveedoresController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Notas actualizadas.",
             statusCode = 200
@@ -208,7 +208,7 @@ public class ClienteProveedoresController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "OK",
             statusCode = 200,
@@ -238,7 +238,7 @@ public class ClienteProveedoresController : ControllerBase
         if (rel == null)
             return NotFound(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Relación no encontrada. Primero da de alta.",
                 statusCode = 404
@@ -254,7 +254,7 @@ public class ClienteProveedoresController : ControllerBase
             if (!proveedorActivo)
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "El proveedor no está ACTIVO globalmente.",
                     statusCode = 400
@@ -269,7 +269,7 @@ public class ClienteProveedoresController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = msg,
             statusCode = 200

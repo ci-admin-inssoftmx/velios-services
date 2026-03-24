@@ -79,13 +79,11 @@ public class AuthenticateController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> SendActivationEmail([FromBody] SendActivationRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
 
         if (!ModelState.IsValid)
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Solicitud inválida.",
                 statusCode = 400,
@@ -184,7 +182,6 @@ public class AuthenticateController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
             success = true,
             message = "Si el correo es válido, se enviará un enlace de activación.",
             statusCode = 200,
@@ -204,13 +201,11 @@ public class AuthenticateController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> ActivateAccount([FromBody] ActivateAccountRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
 
         if (!ModelState.IsValid)
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Solicitud inválida.",
                 statusCode = 400,
@@ -225,7 +220,6 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Token y email son obligatorios.",
                 statusCode = 400,
@@ -247,7 +241,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "JWT inválido o expirado.",
                     statusCode = 401,
@@ -260,7 +253,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "El JWT no contiene el claim de email.",
                     statusCode = 401,
@@ -275,7 +267,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "Token de activación inválido o expirado.",
                     statusCode = 401,
@@ -288,7 +279,6 @@ public class AuthenticateController : ControllerBase
         {
             return Unauthorized(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "El email no coincide con el token.",
                 statusCode = 401,
@@ -308,7 +298,6 @@ public class AuthenticateController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "No existe un proveedor pendiente para ese correo. Solicita primero el enlace de activación.",
                     statusCode = 400,
@@ -326,7 +315,6 @@ public class AuthenticateController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = true,
                 message = "Cuenta activada con éxito.",
                 statusCode = 200,
@@ -341,7 +329,6 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Error al activar la cuenta.",
                 statusCode = 400,
@@ -376,7 +363,6 @@ public class AuthenticateController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<LoginDataResponse>>> Login([FromBody] LoginRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
 
         try
         {
@@ -384,7 +370,6 @@ public class AuthenticateController : ControllerBase
             {
                 return BadRequest(new ApiResponse<LoginDataResponse>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "Solicitud inválida: verifique los datos ingresados.",
                     data = null,
@@ -399,7 +384,6 @@ public class AuthenticateController : ControllerBase
             {
                 return BadRequest(new ApiResponse<LoginDataResponse>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "Email y contraseña son obligatorios.",
                     data = null,
@@ -419,7 +403,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<LoginDataResponse>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "Credenciales inválidas.",
                     data = null,
@@ -433,7 +416,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<LoginDataResponse>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "La cuenta del proveedor no está activa.",
                     data = null,
@@ -450,7 +432,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<LoginDataResponse>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "Credenciales inválidas.",
                     data = null,
@@ -464,24 +445,12 @@ public class AuthenticateController : ControllerBase
 
             var data = new LoginDataResponse
             {
+                ProveedorID = proveedor.ProveedorId,
                 Email = proveedor.CorreoContacto ?? "",
-                IdUsuario = proveedor.ProveedorId.ToString(),
 
-                // No aplica para proveedor, pero se llenan por compatibilidad
-                EmpleadoId = proveedor.ProveedorId,
-                NumeroEmpleado = proveedor.ProveedorId.ToString(),
 
                 // Reutilizamos estos campos para mostrar nombre del proveedor
-                Nombres = proveedor.NombreComercial ?? proveedor.RazonSocial ?? "",
-                ApellidoPaterno = "",
-                ApellidoMaterno = "",
-
-                IdUnidad = 0,
-                NombreUnidad = "",
-                NombreTipoUnidad = "",
-
-                HorarioId = 0,
-                Horarios = new List<HorarioDto>(),
+                NombreCompleto = proveedor.NombreComercial ?? proveedor.RazonSocial ?? "",
 
                 UnidadDireccion = new UnidadDireccionDto
                 {
@@ -508,13 +477,10 @@ public class AuthenticateController : ControllerBase
 
             return Ok(new ApiResponse<LoginDataResponse>
             {
-                request_id = requestId,
                 success = true,
                 message = "Solicitud ejecutada con éxito.",
                 data = data,
                 statusCode = 200,
-                field = null,
-                code = null,
                 errors = null
             });
         }
@@ -524,7 +490,6 @@ public class AuthenticateController : ControllerBase
 
             return BadRequest(new ApiResponse<LoginDataResponse>
             {
-                request_id = requestId,
                 success = false,
                 message = "Error al iniciar sesión.",
                 data = null,
@@ -586,13 +551,11 @@ public class AuthenticateController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> ForgotPassword([FromBody] ForgotPasswordRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
 
         if (!ModelState.IsValid)
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Solicitud inválida: verifique los datos ingresados.",
                 data = null,
@@ -615,7 +578,6 @@ public class AuthenticateController : ControllerBase
         {
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = true,
                 message = "Si el correo existe se enviará un enlace para restablecer la contraseña.",
                 data = null,
@@ -629,7 +591,6 @@ public class AuthenticateController : ControllerBase
         {
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = true,
                 message = "Si el correo existe se enviará un enlace para restablecer la contraseña.",
                 data = null,
@@ -666,7 +627,6 @@ public class AuthenticateController : ControllerBase
             // respuesta neutra
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = true,
                 message = "Si el correo existe se enviará un enlace para restablecer la contraseña.",
                 data = null,
@@ -676,7 +636,6 @@ public class AuthenticateController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
             success = true,
             message = "Si el correo existe se enviará un enlace para restablecer la contraseña.",
             data = null,
@@ -695,13 +654,11 @@ public class AuthenticateController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> ResetPassword([FromBody] ResetPasswordRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
 
         if (!ModelState.IsValid)
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Solicitud inválida: verifique los datos ingresados.",
                 data = null,
@@ -719,7 +676,6 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Email, token y nueva contraseña son obligatorios.",
                 data = null,
@@ -734,7 +690,6 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Token inválido o expirado.",
                 data = null,
@@ -748,7 +703,6 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "El token no corresponde al correo indicado.",
                 data = null,
@@ -766,7 +720,6 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Proveedor inválido.",
                 data = null,
@@ -781,7 +734,6 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "La nueva contraseña no puede ser la misma que la actual.",
                 data = null,
@@ -798,7 +750,6 @@ public class AuthenticateController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
             success = true,
             message = "Contraseña restablecida con éxito.",
             data = null,
@@ -817,7 +768,6 @@ public class AuthenticateController : ControllerBase
     [Authorize]
     public async Task<ActionResult<ApiResponse<object>>> ChangePassword([FromBody] ChangePasswordRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
 
         try
         {
@@ -829,7 +779,6 @@ public class AuthenticateController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "Solicitud inválida: verifique los datos ingresados.",
                     data = null,
@@ -849,7 +798,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "No autorizado. No se pudo identificar al proveedor desde el token.",
                     data = null,
@@ -866,7 +814,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "No autorizado.",
                     data = null,
@@ -880,7 +827,6 @@ public class AuthenticateController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "Contraseña actual incorrecta.",
                     data = null,
@@ -893,7 +839,6 @@ public class AuthenticateController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "La nueva contraseña no puede ser igual a la actual.",
                     data = null,
@@ -911,7 +856,6 @@ public class AuthenticateController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = true,
                 message = "Contraseña actualizada con éxito.",
                 data = null,
@@ -924,7 +868,6 @@ public class AuthenticateController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Error al cambiar la contraseña.",
                 data = null,
@@ -950,13 +893,11 @@ public class AuthenticateController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> SetProveedorPassword([FromBody] SetProveedorPasswordRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
 
         if (!ModelState.IsValid)
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Solicitud inválida.",
                 statusCode = 400
@@ -973,7 +914,6 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Email, Password y Token son obligatorios.",
                 statusCode = 400
@@ -993,7 +933,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "JWT inválido o expirado.",
                     statusCode = 401
@@ -1005,7 +944,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "El JWT no contiene el claim de email.",
                     statusCode = 401
@@ -1021,7 +959,6 @@ public class AuthenticateController : ControllerBase
             {
                 return Unauthorized(new ApiResponse<object>
                 {
-                    request_id = requestId,
                     success = false,
                     message = "Token de activación inválido o expirado.",
                     statusCode = 401
@@ -1033,7 +970,6 @@ public class AuthenticateController : ControllerBase
         {
             return Unauthorized(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "El email no coincide con el token.",
                 statusCode = 401
@@ -1054,7 +990,6 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
                 success = false,
                 message = "Proveedor no encontrado.",
                 statusCode = 400
@@ -1074,7 +1009,6 @@ public class AuthenticateController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
             success = true,
             message = "Contraseña establecida correctamente.",
             statusCode = 200

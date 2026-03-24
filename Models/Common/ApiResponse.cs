@@ -19,13 +19,6 @@
 /// </typeparam>
 public class ApiResponse<T>
 {
-    /// <summary>
-    /// Identificador único de la solicitud.
-    /// 
-    /// Permite rastrear peticiones en logs, monitoreo o auditoría.
-    /// Se genera automáticamente si no se establece manualmente.
-    /// </summary>
-    public string request_id { get; set; } = Guid.NewGuid().ToString();
 
     /// <summary>
     /// Indica si la operación fue exitosa.

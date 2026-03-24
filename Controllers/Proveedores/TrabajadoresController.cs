@@ -56,7 +56,7 @@ public class TrabajadoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solicitud inválida.",
                     statusCode = 400
@@ -71,7 +71,7 @@ public class TrabajadoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Proveedor inválido.",
                     statusCode = 400
@@ -91,7 +91,7 @@ public class TrabajadoresController : ControllerBase
                 {
                     return BadRequest(new ApiResponse<object>
                     {
-                        request_id = requestId,
+                        
                         success = false,
                         message = "Ya existe un trabajador con esa CURP para este proveedor.",
                         statusCode = 400
@@ -120,7 +120,7 @@ public class TrabajadoresController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Trabajador dado de alta.",
                 statusCode = 200,
@@ -131,7 +131,7 @@ public class TrabajadoresController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al dar de alta trabajador.",
                 statusCode = 400,
@@ -181,7 +181,7 @@ public class TrabajadoresController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Solicitud ejecutada con éxito.",
             statusCode = 200,

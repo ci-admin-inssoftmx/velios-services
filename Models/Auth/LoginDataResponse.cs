@@ -10,64 +10,19 @@
 public class LoginDataResponse
 {
     /// <summary>
+    /// Identificador del id de proveedor.
+    /// </summary>
+    public int ProveedorID { get; set; } = 0;
+
+    /// <summary>
     /// Correo electrónico del usuario autenticado.
     /// </summary>
     public string Email { get; set; } = "";
 
     /// <summary>
-    /// Identificador único del usuario dentro del sistema de identidad.
-    /// </summary>
-    public string IdUsuario { get; set; } = "";
-
-    /// <summary>
-    /// Identificador del empleado asociado al usuario.
-    /// </summary>
-    public int EmpleadoId { get; set; }
-
-    /// <summary>
-    /// Número interno de empleado dentro de la organización.
-    /// </summary>
-    public string NumeroEmpleado { get; set; } = "";
-
-    /// <summary>
     /// Nombre(s) del empleado.
     /// </summary>
-    public string Nombres { get; set; } = "";
-
-    /// <summary>
-    /// Apellido paterno del empleado.
-    /// </summary>
-    public string ApellidoPaterno { get; set; } = "";
-
-    /// <summary>
-    /// Apellido materno del empleado.
-    /// </summary>
-    public string ApellidoMaterno { get; set; } = "";
-
-    /// <summary>
-    /// Identificador de la unidad organizacional a la que pertenece el empleado.
-    /// </summary>
-    public int IdUnidad { get; set; }
-
-    /// <summary>
-    /// Nombre de la unidad organizacional.
-    /// </summary>
-    public string NombreUnidad { get; set; } = "";
-
-    /// <summary>
-    /// Tipo de unidad organizacional (Ejemplo: Planta, Oficina, Centro de trabajo).
-    /// </summary>
-    public string NombreTipoUnidad { get; set; } = "";
-
-    /// <summary>
-    /// Identificador del horario laboral asignado al empleado.
-    /// </summary>
-    public int HorarioId { get; set; }
-
-    /// <summary>
-    /// Lista de horarios configurados para el empleado.
-    /// </summary>
-    public List<HorarioDto> Horarios { get; set; } = new();
+    public string NombreCompleto { get; set; } = "";
 
     /// <summary>
     /// Dirección física de la unidad organizacional.

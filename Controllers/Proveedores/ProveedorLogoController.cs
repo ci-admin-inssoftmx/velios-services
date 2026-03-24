@@ -82,7 +82,7 @@ public class ProveedorLogoController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Archivo inválido.",
                     statusCode = 400
@@ -96,7 +96,7 @@ public class ProveedorLogoController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Proveedor no encontrado.",
                     statusCode = 400
@@ -129,7 +129,7 @@ public class ProveedorLogoController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Logo subido correctamente.",
                 statusCode = 200,
@@ -140,7 +140,7 @@ public class ProveedorLogoController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al subir logo.",
                 statusCode = 400,
@@ -169,7 +169,7 @@ public class ProveedorLogoController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Proveedor no encontrado.",
                 statusCode = 400
@@ -178,7 +178,7 @@ public class ProveedorLogoController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Consulta exitosa.",
             statusCode = 200,
@@ -225,7 +225,7 @@ public class ProveedorLogoController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Proveedor no encontrado.",
                     statusCode = 400
@@ -236,7 +236,7 @@ public class ProveedorLogoController : ControllerBase
             {
                 return Ok(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = true,
                     message = "El proveedor no tiene logo.",
                     statusCode = 200
@@ -257,7 +257,7 @@ public class ProveedorLogoController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Logo eliminado.",
                 statusCode = 200
@@ -267,7 +267,7 @@ public class ProveedorLogoController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al eliminar logo.",
                 statusCode = 400,

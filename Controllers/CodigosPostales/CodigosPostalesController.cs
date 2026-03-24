@@ -31,7 +31,7 @@ public class CodigosPostalesController : ControllerBase
         {
             return NotFound(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Código Postal no encontrado.",
                 statusCode = 404
@@ -40,7 +40,7 @@ public class CodigosPostalesController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "OK",
             statusCode = 200,
@@ -61,7 +61,7 @@ public class CodigosPostalesController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "OK",
             statusCode = 200,

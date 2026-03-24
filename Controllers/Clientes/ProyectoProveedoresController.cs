@@ -63,7 +63,7 @@ public class ProyectoProveedoresController : ControllerBase
         if (proyecto == null)
             return NotFound(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Proyecto no encontrado.",
                 statusCode = 404
@@ -72,7 +72,7 @@ public class ProyectoProveedoresController : ControllerBase
         if (proyecto.EstatusProyectoId != 1)
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Proyecto no está activo.",
                 statusCode = 400
@@ -88,7 +88,7 @@ public class ProyectoProveedoresController : ControllerBase
         if (!aprobado)
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "El proveedor no está aprobado para este cliente.",
                 statusCode = 400
@@ -102,7 +102,7 @@ public class ProyectoProveedoresController : ControllerBase
         if (!tipoServicioOk)
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "TipoServicioId inválido.",
                 statusCode = 400
@@ -125,7 +125,7 @@ public class ProyectoProveedoresController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Proveedor reasignado al proyecto.",
                 statusCode = 200
@@ -148,7 +148,7 @@ public class ProyectoProveedoresController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Proveedor asignado al proyecto.",
             statusCode = 200,
@@ -180,7 +180,7 @@ public class ProyectoProveedoresController : ControllerBase
         if (entity == null)
             return NotFound(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Asignación no encontrada.",
                 statusCode = 404
@@ -194,7 +194,7 @@ public class ProyectoProveedoresController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Proveedor desasignado.",
             statusCode = 200
@@ -225,7 +225,7 @@ public class ProyectoProveedoresController : ControllerBase
         if (entity == null)
             return NotFound(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Asignación no encontrada.",
                 statusCode = 404
@@ -239,7 +239,7 @@ public class ProyectoProveedoresController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Tipo de servicio actualizado.",
             statusCode = 200

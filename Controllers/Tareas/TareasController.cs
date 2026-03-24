@@ -9,6 +9,14 @@ using velios.Api.Models.Tareas.Requests;
 
 namespace velios.Api.Controllers;
 
+/// <summary>
+/// Controlador encargado del módulo de tareas.
+///
+/// Endpoints:
+/// - GET /api/tasks
+/// - GET /api/tasks/{taskId}
+/// - PUT /api/tasks/{taskId}
+/// </summary>
 [ApiController]
 [Route("api/tasks")]
 [Authorize]
@@ -23,10 +31,14 @@ public class TareasController : ControllerBase
         _logger = logger;
     }
 
+    /// <summary>
+    /// Obtiene el listado de tareas.
+    /// </summary>
     [HttpGet]
     public async Task<ActionResult<ApiResponse<object>>> List()
     {
         var requestId = Guid.NewGuid().ToString();
+
         try
         {
             var data = await (
@@ -56,7 +68,7 @@ public class TareasController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Consulta exitosa.",
                 data = new { tasks = data },
@@ -66,14 +78,26 @@ public class TareasController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error al listar tareas.");
-            return BadRequest(new ApiResponse<object> { request_id = requestId, success = false, message = "Error al consultar tareas.", statusCode = 400, errors = GetErrorMessages(ex) });
+
+            return BadRequest(new ApiResponse<object>
+            {
+                
+                success = false,
+                message = "Error al consultar tareas.",
+                statusCode = 400,
+                errors = GetErrorMessages(ex)
+            });
         }
     }
 
+    /// <summary>
+    /// Obtiene el detalle de una tarea por TaskCode.
+    /// </summary>
     [HttpGet("{taskId}")]
     public async Task<ActionResult<ApiResponse<object>>> Get(string taskId)
     {
         var requestId = Guid.NewGuid().ToString();
+
         try
         {
             var tarea = await (
@@ -81,29 +105,44 @@ public class TareasController : ControllerBase
                 join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
                 join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
                 where !t.IsDeleted && !c.IsDeleted && t.TaskCode == taskId
-                select new { Tarea = t, Cliente = c, Estatus = e }).FirstOrDefaultAsync();
+                select new
+                {
+                    Tarea = t,
+                    Cliente = c,
+                    Estatus = e
+                }).FirstOrDefaultAsync();
 
             if (tarea == null)
             {
-                return NotFound(new ApiResponse<object> { request_id = requestId, success = false, message = "Tarea no encontrada.", statusCode = 404 });
+                return NotFound(new ApiResponse<object>
+                {
+                    
+                    success = false,
+                    message = "Tarea no encontrada.",
+                    statusCode = 404
+                });
             }
 
-            var observaciones = await _db.TareaObservaciones.AsNoTracking()
-                .Where(x => x.TareaId == tarea.Tarea.TareaId)
-                .OrderByDescending(x => x.ObservacionId)
-                .Select(x => x.Observacion).ToListAsync();
+            var observaciones = await _db.TareaObservaciones
+             .AsNoTracking()
+             .Where(x => x.TareaId == tarea.Tarea.TareaId)
+             .OrderByDescending(x => x.ObservacionId)
+             .Select(x => x.Observacion)
+             .ToListAsync();
 
-            // CORRECCIÓN AQUÍ: Manejo de nulos en evidencias
-            var evidencias = await _db.TareaEvidencias.AsNoTracking()
-                .Where(x => x.TareaId == tarea.Tarea.TareaId)
-                .OrderByDescending(x => x.EvidenciaId)
-                .Select(x => new
-                {
-                    type = x.Tipo ?? "IMAGE",
-                    url = x.UrlArchivo ?? "",
-                    mimeType = x.MimeType ?? "image/png", // Evita el error "Data is Null"
-                    sizeInBytes = x.SizeBytes ?? 0        // Evita el error "Data is Null"
-                }).ToListAsync();
+            var evidencias = await _db.TareaEvidencias
+            .AsNoTracking()
+            .Where(x => x.TareaId == tarea.Tarea.TareaId)
+            .OrderByDescending(x => x.EvidenciaId)
+            .Select(x => new
+            {
+                type = x.Tipo,
+                url = x.UrlArchivo,
+                fileName = (string?)null,
+                mimeType = x.MimeType,
+                sizeInBytes = x.SizeBytes
+            })
+            .ToListAsync();
 
             var timeline = await (
                 from tl in _db.TareaTimeline.AsNoTracking()
@@ -119,41 +158,147 @@ public class TareasController : ControllerBase
                     performedAt = tl.PerformedAt
                 }).ToListAsync();
 
-            return Ok(new
+            var response = new
             {
                 taskId = tarea.Tarea.TaskCode,
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
                 statusCode = tarea.Estatus.Codigo,
-                client = new { name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE" },
+                client = new
+                {
+                    name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE",
+                    logoUrl = (string?)null
+                },
                 observations = observaciones,
+                supervisor = (object?)null,
+                schedule = new
+                {
+                    assignedDate = tarea.Tarea.FechaAsignacion,
+                    programmedDate = tarea.Tarea.FechaProgramada,
+                    dueDate = tarea.Tarea.FechaVencimiento
+                },
+                budget = new
+                {
+                    assigned = tarea.Tarea.PresupuestoAsignado,
+                    currency = tarea.Tarea.Moneda
+                },
                 evidences = evidencias,
                 timeline = timeline,
-                schedule = new { assignedDate = tarea.Tarea.FechaAsignacion, dueDate = tarea.Tarea.FechaVencimiento }
-            });
+                createdAt = tarea.Tarea.DateCreated,
+                updatedAt = tarea.Tarea.DateModified ?? tarea.Tarea.DateCreated
+            };
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error al consultar detalle.");
-            // Agregué GetErrorMessages para que puedas ver qué falla exactamente en el log si sigue el error
-            return BadRequest(new ApiResponse<object> { request_id = requestId, success = false, message = "Error al consultar tarea.", statusCode = 400, errors = GetErrorMessages(ex) });
+            _logger.LogError(ex, "Error al consultar tarea {TaskId}.", taskId);
+
+            return BadRequest(new ApiResponse<object>
+            {
+                
+                success = false,
+                message = "Error al consultar tarea.",
+                statusCode = 400,
+                errors = GetErrorMessages(ex)
+            });
         }
     }
 
+    /// <summary>
+    /// Actualiza una tarea agregando evidencias, observación y/o cambio de estatus.
+    /// </summary>
     [HttpPut("{taskId}")]
     public async Task<ActionResult<object>> Update(string taskId, [FromBody] TareaUpdateRequest model)
     {
         try
         {
-            if (model == null) return BadRequest(new { success = false, message = "Solicitud inválida" });
+            if (model == null)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Solicitud inválida",
+                    errors = new[]
+                    {
+                        new { field = "body", message = "El cuerpo de la solicitud es obligatorio." }
+                    }
+                });
+            }
 
             var tarea = await _db.Tareas.FirstOrDefaultAsync(x => x.TaskCode == taskId && !x.IsDeleted);
-            if (tarea == null) return NotFound(new { success = false, message = "Tarea no encontrada" });
+
+            if (tarea == null)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "Tarea no encontrada"
+                });
+            }
+
+            var tieneEvidencias = model.EvidencePhotos != null && model.EvidencePhotos.Any();
+            var tieneObservacion = !string.IsNullOrWhiteSpace(model.Observations);
+            var tieneNuevoEstado = !string.IsNullOrWhiteSpace(model.NewStatusCode);
+
+            if (!tieneEvidencias && !tieneObservacion && !tieneNuevoEstado)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Solicitud inválida",
+                    errors = new[]
+                    {
+                        new
+                        {
+                            field = "request",
+                            message = "Debe enviar al menos uno de: evidencePhotos, observations o newStatusCode."
+                        }
+                    }
+                });
+            }
+
+            if (model.UpdatedAt == default)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Solicitud inválida",
+                    errors = new[]
+                    {
+                        new
+                        {
+                            field = "updatedAt",
+                            message = "updatedAt es obligatorio."
+                        }
+                    }
+                });
+            }
 
             if (!string.IsNullOrWhiteSpace(model.NewStatusCode))
             {
-                var nuevoEstatus = await _db.EstatusTareas.AsNoTracking().FirstOrDefaultAsync(x => x.Codigo == model.NewStatusCode);
-                if (nuevoEstatus != null) tarea.EstatusTareaId = nuevoEstatus.EstatusTareaId;
+                var nuevoEstatus = await _db.EstatusTareas
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.Codigo == model.NewStatusCode);
+
+                if (nuevoEstatus == null)
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "statusCode inválido",
+                        errors = new[]
+                        {
+                            new
+                            {
+                                field = "newStatusCode",
+                                message = $"El código '{model.NewStatusCode}' no existe en el catálogo"
+                            }
+                        }
+                    });
+                }
+
+                tarea.EstatusTareaId = nuevoEstatus.EstatusTareaId;
             }
 
             if (!string.IsNullOrWhiteSpace(model.Observations))
@@ -174,27 +319,82 @@ public class TareasController : ControllerBase
                     _db.TareaEvidencias.Add(new TareaEvidencia
                     {
                         TareaId = tarea.TareaId,
-                        Tipo = item.Type ?? "IMAGE",
-                        UrlArchivo = item.Url,
-                        DateCreated = DateTime.UtcNow,
+                        Tipo = item.Type?.Trim() ?? string.Empty,
+                        UrlArchivo = null, // aquí luego puedes guardar la URL real cuando subas el archivo
+                        MimeType = item.MimeType,
+                        SizeBytes = item.SizeInBytes,
                         Latitud = item.Location?.Latitude,
                         Longitud = item.Location?.Longitude,
                         Direccion = item.Address?.FormattedAddress,
                         Plataforma = item.DeviceInfo?.Platform,
-                        ModeloDispositivo = item.DeviceInfo?.DeviceModel
+                        VersionApp = item.DeviceInfo?.AppVersion,
+                        ModeloDispositivo = item.DeviceInfo?.DeviceModel,
+                        VersionOS = item.DeviceInfo?.OsVersion,
+                        DateCreated = DateTime.UtcNow
                     });
                 }
             }
 
-            tarea.DateModified = model.UpdatedAt != default ? model.UpdatedAt : DateTime.UtcNow;
+            if (model.TimelineEvents != null && model.TimelineEvents.Any())
+            {
+                foreach (var item in model.TimelineEvents)
+                {
+                    var tipoEvento = await _db.TipoEventoTareas
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(x => x.Codigo == item.Type);
+
+                    if (tipoEvento == null)
+                    {
+                        return BadRequest(new
+                        {
+                            success = false,
+                            message = "timelineType inválido",
+                            errors = new[]
+                            {
+                                new
+                                {
+                                    field = "timelineEvents.type",
+                                    message = $"El código '{item.Type}' no existe en el catálogo"
+                                }
+                            }
+                        });
+                    }
+
+                    _db.TareaTimeline.Add(new TareaTimeline
+                    {
+                        TareaId = tarea.TareaId,
+                        TipoEventoTareaId = tipoEvento.TipoEventoTareaId,
+                        Descripcion = item.Description,
+                        ValorAnterior = item.PreviousValue,
+                        ValorNuevo = item.NewValue,
+                        PerformedBy = item.PerformedBy,
+                        PerformedAt = item.PerformedAt,
+                        DateCreated = DateTime.UtcNow,
+                    });
+                }
+            }
+
+            tarea.DateModified = model.UpdatedAt;
+
             await _db.SaveChangesAsync();
 
-            return Ok(new { success = true, message = "Actualizado correctamente", taskId = tarea.TaskCode });
+            return Ok(new
+            {
+                success = true,
+                message = "Tarea actualizada correctamente",
+                taskId = tarea.TaskCode
+            });
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error en Update.");
-            return BadRequest(new { success = false, errors = GetErrorMessages(ex) });
+            _logger.LogError(ex, "Error al actualizar tarea {TaskId}.", taskId);
+
+            return BadRequest(new
+            {
+                success = false,
+                message = "Ocurrió un error al actualizar la tarea",
+                errors = GetErrorMessages(ex)
+            });
         }
     }
 
@@ -202,7 +402,13 @@ public class TareasController : ControllerBase
     {
         var errors = new List<string>();
         var current = ex;
-        while (current != null) { errors.Add(current.Message); current = current.InnerException; }
+
+        while (current != null)
+        {
+            errors.Add(current.Message);
+            current = current.InnerException;
+        }
+
         return errors;
     }
 }

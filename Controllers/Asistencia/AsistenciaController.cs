@@ -57,7 +57,7 @@ public class AsistenciaController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solicitud inválida.",
                     statusCode = 400,
@@ -75,7 +75,7 @@ public class AsistenciaController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "El tipo de registro es obligatorio.",
                     statusCode = 400
@@ -86,7 +86,7 @@ public class AsistenciaController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "El origen es obligatorio.",
                     statusCode = 400
@@ -101,7 +101,7 @@ public class AsistenciaController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Trabajador inválido.",
                     statusCode = 400
@@ -121,7 +121,7 @@ public class AsistenciaController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Ya existe un registro de asistencia con los mismos datos.",
                     statusCode = 400
@@ -151,7 +151,7 @@ public class AsistenciaController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Registro de asistencia creado con éxito.",
                 data = new
@@ -185,7 +185,7 @@ public class AsistenciaController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al crear registro de asistencia.",
                 statusCode = 400,
@@ -213,7 +213,7 @@ public class AsistenciaController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solicitud inválida.",
                     statusCode = 400,
@@ -228,7 +228,7 @@ public class AsistenciaController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "La FechaInicio no puede ser mayor que la FechaFin.",
                     statusCode = 400
@@ -278,7 +278,7 @@ public class AsistenciaController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Consulta exitosa.",
                 data = data,
@@ -299,7 +299,7 @@ public class AsistenciaController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al consultar registros de asistencia.",
                 statusCode = 400,

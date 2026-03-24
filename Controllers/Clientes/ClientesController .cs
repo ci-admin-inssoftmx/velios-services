@@ -72,7 +72,7 @@ public class ClientesController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solicitud inválida.",
                     statusCode = 400
@@ -85,7 +85,7 @@ public class ClientesController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "CorreoContacto es obligatorio.",
                     statusCode = 400
@@ -100,7 +100,7 @@ public class ClientesController : ControllerBase
             {
                 return Conflict(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Ya existe un cliente con ese correo.",
                     statusCode = 409
@@ -118,7 +118,7 @@ public class ClientesController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "No existe el estatus activo configurado en catálogo.",
                     statusCode = 400
@@ -143,7 +143,7 @@ public class ClientesController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Cliente creado.",
                 statusCode = 200,
@@ -156,7 +156,7 @@ public class ClientesController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al crear cliente.",
                 statusCode = 400,
@@ -202,7 +202,7 @@ public class ClientesController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Consulta exitosa.",
                 statusCode = 200,
@@ -215,7 +215,7 @@ public class ClientesController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al consultar clientes.",
                 statusCode = 400,
@@ -248,7 +248,7 @@ public class ClientesController : ControllerBase
             {
                 return NotFound(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Cliente no encontrado.",
                     statusCode = 404
@@ -257,7 +257,7 @@ public class ClientesController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Consulta exitosa.",
                 statusCode = 200,
@@ -270,7 +270,7 @@ public class ClientesController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al consultar cliente.",
                 statusCode = 400,
@@ -311,7 +311,7 @@ public class ClientesController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solicitud inválida.",
                     statusCode = 400
@@ -325,7 +325,7 @@ public class ClientesController : ControllerBase
             {
                 return NotFound(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Cliente no encontrado.",
                     statusCode = 404
@@ -338,7 +338,7 @@ public class ClientesController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "CorreoContacto es obligatorio.",
                     statusCode = 400
@@ -356,7 +356,7 @@ public class ClientesController : ControllerBase
             {
                 return Conflict(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Ese correo ya está registrado en otro cliente.",
                     statusCode = 409
@@ -375,7 +375,7 @@ public class ClientesController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Cliente actualizado.",
                 statusCode = 200,
@@ -388,7 +388,7 @@ public class ClientesController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al actualizar cliente.",
                 statusCode = 400,
@@ -422,7 +422,7 @@ public class ClientesController : ControllerBase
             {
                 return NotFound(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Cliente no encontrado.",
                     statusCode = 404
@@ -437,7 +437,7 @@ public class ClientesController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Cliente eliminado correctamente.",
                 statusCode = 200
@@ -449,7 +449,7 @@ public class ClientesController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al eliminar cliente.",
                 statusCode = 400,
@@ -505,7 +505,7 @@ public class ClientesController : ControllerBase
             {
                 return NotFound(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Cliente no encontrado.",
                     statusCode = 404
@@ -520,7 +520,7 @@ public class ClientesController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "El estatus solicitado no es válido.",
                     statusCode = 400
@@ -535,7 +535,7 @@ public class ClientesController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = msg,
                 statusCode = 200,
@@ -552,7 +552,7 @@ public class ClientesController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al cambiar estatus del cliente.",
                 statusCode = 400,

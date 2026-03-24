@@ -60,7 +60,7 @@ public class ProyectoTrabajadoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solicitud inválida.",
                     statusCode = 400
@@ -75,7 +75,7 @@ public class ProyectoTrabajadoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Proyecto inválido o proveedor no corresponde.",
                     statusCode = 400
@@ -90,7 +90,7 @@ public class ProyectoTrabajadoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Trabajador inválido o no pertenece al proveedor.",
                     statusCode = 400
@@ -107,7 +107,7 @@ public class ProyectoTrabajadoresController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "El trabajador ya está asignado a este proyecto.",
                     statusCode = 400
@@ -128,7 +128,7 @@ public class ProyectoTrabajadoresController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Trabajador asignado al proyecto.",
                 statusCode = 200,
@@ -139,7 +139,7 @@ public class ProyectoTrabajadoresController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al asignar trabajador.",
                 statusCode = 400,
@@ -190,7 +190,7 @@ public class ProyectoTrabajadoresController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Solicitud ejecutada con éxito.",
             statusCode = 200,

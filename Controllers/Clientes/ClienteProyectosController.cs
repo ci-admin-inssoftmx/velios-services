@@ -61,7 +61,7 @@ public class ClienteProyectosController : ControllerBase
         if (!clienteOk)
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Cliente inválido o no activo.",
                 statusCode = 400
@@ -72,7 +72,7 @@ public class ClienteProyectosController : ControllerBase
         if (string.IsNullOrWhiteSpace(nombre))
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Nombre es obligatorio.",
                 statusCode = 400
@@ -96,7 +96,7 @@ public class ClienteProyectosController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Proyecto creado.",
             statusCode = 200,
@@ -134,7 +134,7 @@ public class ClienteProyectosController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "OK",
             statusCode = 200,
@@ -173,7 +173,7 @@ public class ClienteProyectosController : ControllerBase
         if (entity == null)
             return NotFound(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Proyecto no encontrado.",
                 statusCode = 404
@@ -182,7 +182,7 @@ public class ClienteProyectosController : ControllerBase
         if (entity.EstatusProyectoId != 1)
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Solo puedes modificar proyectos activos.",
                 statusCode = 400
@@ -193,7 +193,7 @@ public class ClienteProyectosController : ControllerBase
         if (string.IsNullOrWhiteSpace(nombre))
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Nombre es obligatorio.",
                 statusCode = 400
@@ -210,7 +210,7 @@ public class ClienteProyectosController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Proyecto actualizado.",
             statusCode = 200
@@ -242,7 +242,7 @@ public class ClienteProyectosController : ControllerBase
         if (entity == null)
             return NotFound(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Proyecto no encontrado.",
                 statusCode = 404
@@ -256,7 +256,7 @@ public class ClienteProyectosController : ControllerBase
 
         return Ok(new ApiResponse<object>
         {
-            request_id = requestId,
+            
             success = true,
             message = "Proyecto cerrado.",
             statusCode = 200

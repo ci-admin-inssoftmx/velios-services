@@ -67,7 +67,7 @@ public class PresupuestosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solicitud inválida.",
                     statusCode = 400
@@ -82,7 +82,7 @@ public class PresupuestosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Proyecto inválido.",
                     statusCode = 400
@@ -94,7 +94,7 @@ public class PresupuestosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Proveedor no corresponde al proyecto.",
                     statusCode = 400
@@ -111,7 +111,7 @@ public class PresupuestosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Ya existe un presupuesto ENVIADO pendiente para este proyecto.",
                     statusCode = 400
@@ -144,7 +144,7 @@ public class PresupuestosController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Presupuesto enviado.",
                 statusCode = 200,
@@ -155,7 +155,7 @@ public class PresupuestosController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al enviar presupuesto.",
                 statusCode = 400,
@@ -190,7 +190,7 @@ public class PresupuestosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solicitud inválida.",
                     statusCode = 400
@@ -201,7 +201,7 @@ public class PresupuestosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "EstatusPresupuestoId inválido. Use 2 (Aprobado) o 3 (Rechazado).",
                     statusCode = 400
@@ -215,7 +215,7 @@ public class PresupuestosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Presupuesto inválido.",
                     statusCode = 400
@@ -226,7 +226,7 @@ public class PresupuestosController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    request_id = requestId,
+                    
                     success = false,
                     message = "Solo se puede decidir un presupuesto en estado ENVIADO.",
                     statusCode = 400
@@ -242,7 +242,7 @@ public class PresupuestosController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = model.EstatusPresupuestoId == APROBADO
                     ? "Presupuesto aprobado."
@@ -254,7 +254,7 @@ public class PresupuestosController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al decidir presupuesto.",
                 statusCode = 400,
@@ -306,7 +306,7 @@ public class PresupuestosController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = true,
                 message = "Solicitud ejecutada con éxito.",
                 statusCode = 200,
@@ -317,7 +317,7 @@ public class PresupuestosController : ControllerBase
         {
             return BadRequest(new ApiResponse<object>
             {
-                request_id = requestId,
+                
                 success = false,
                 message = "Error al consultar presupuestos.",
                 statusCode = 400,
