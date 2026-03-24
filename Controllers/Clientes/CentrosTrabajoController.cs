@@ -19,7 +19,7 @@ public class CentrosTrabajoController : ControllerBase
     [Authorize]
     public async Task<ActionResult<ApiResponse<object>>> Create([FromBody] CentroTrabajoCreateRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var clienteOk = await _db.Clientes.AsNoTracking().AnyAsync(c => c.ClienteId == model.ClienteId && c.EstatusClienteId == 1 && c.IsDeleted == false);
         if (!clienteOk)
@@ -59,7 +59,7 @@ public class CentrosTrabajoController : ControllerBase
     [Authorize]
     public async Task<ActionResult<ApiResponse<object>>> ListByCliente(int clienteId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var data = await _db.CentrosTrabajo.AsNoTracking()
             .Where(x => x.ClienteId == clienteId && x.IsDeleted == false)
@@ -81,7 +81,7 @@ public class CentrosTrabajoController : ControllerBase
     [Authorize]
     public async Task<ActionResult<ApiResponse<object>>> SetRadio(int centroId, [FromBody] GeocercaRadioRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         if (model.RadioMetros <= 0)
             return BadRequest(new ApiResponse<object> {  success = false, message = "RadioMetros debe ser > 0.", statusCode = 400 });
@@ -110,7 +110,7 @@ public class CentrosTrabajoController : ControllerBase
     [Authorize]
     public async Task<ActionResult<ApiResponse<object>>> SetPoligono(int centroId, [FromBody] GeocercaPoligonoRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         if (model.Puntos == null || model.Puntos.Count < 3)
             return BadRequest(new ApiResponse<object> {  success = false, message = "El polígono requiere al menos 3 puntos.", statusCode = 400 });

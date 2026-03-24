@@ -52,7 +52,7 @@ public class ProyectoTrabajadoresController : ControllerBase
     [HttpPost("Asignar")]
     public async Task<ActionResult<ApiResponse<object>>> Asignar([FromBody] ProyectoTrabajadorAssignRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -165,7 +165,7 @@ public class ProyectoTrabajadoresController : ControllerBase
     [HttpGet("Proyecto/{proveedorProyectoId:long}")]
     public async Task<ActionResult<ApiResponse<object>>> GetByProyecto(long proveedorProyectoId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var items = await _db.ProveedorProyectoTrabajadores.AsNoTracking()
             .Where(x => x.ProveedorProyectoId == proveedorProyectoId && !x.IsDeleted)

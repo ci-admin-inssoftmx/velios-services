@@ -70,7 +70,7 @@ public class ProveedorDocumentosController : ControllerBase
         [FromQuery] int tipoDocumentoId,
         [FromForm] UploadProveedorDocumentoRequest request)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -148,7 +148,7 @@ public class ProveedorDocumentosController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error al cargar documento (requestId={RequestId})", requestId);
+            _logger.LogError(ex, "Error al cargar documento");
 
             return BadRequest(new ApiResponse<object>
             {
@@ -174,7 +174,7 @@ public class ProveedorDocumentosController : ControllerBase
     [Produces("application/json")]
     public async Task<ActionResult<ApiResponse<object>>> List([FromRoute] int proveedorId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
         var items = await _service.ListAsync(proveedorId);
 
         return Ok(new ApiResponse<object>
@@ -215,7 +215,7 @@ public class ProveedorDocumentosController : ControllerBase
     [Produces("application/json")]
     public async Task<ActionResult<ApiResponse<object>>> Delete([FromRoute] int proveedorId, [FromRoute] long docId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
         var ok = await _service.DeleteAsync(docId, User?.Identity?.Name ?? "API");
 
         if (!ok)

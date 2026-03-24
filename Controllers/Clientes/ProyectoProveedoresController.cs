@@ -55,7 +55,7 @@ public class ProyectoProveedoresController : ControllerBase
         int proyectoId,
         [FromBody] AsignarProveedorProyectoRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var proyecto = await _db.ClienteProyectos.AsNoTracking()
             .FirstOrDefaultAsync(p => p.ProyectoId == proyectoId && p.IsDeleted == false);
@@ -169,7 +169,7 @@ public class ProyectoProveedoresController : ControllerBase
         int proyectoId,
         [FromBody] AsignarProveedorProyectoRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var entity = await _db.ClienteProyectoProveedores
             .FirstOrDefaultAsync(x =>
@@ -214,7 +214,7 @@ public class ProyectoProveedoresController : ControllerBase
         int proyectoId,
         [FromBody] AsignarProveedorProyectoRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var entity = await _db.ClienteProyectoProveedores
             .FirstOrDefaultAsync(x =>

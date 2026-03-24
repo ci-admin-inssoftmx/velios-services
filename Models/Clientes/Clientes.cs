@@ -18,17 +18,25 @@ public class Cliente
     [MaxLength(250)]
     public string? NombreComercial { get; set; }
 
-    [Required, MaxLength(150)]
-    public string CorreoContacto { get; set; } = "";
+    [MaxLength(150)]
+    public string? CorreoContacto { get; set; }
 
     [MaxLength(20)]
     public string? TelefonoContacto { get; set; }
 
-    public int EstatusClienteId { get; set; } = 1; // 1=ACTIVO
+    public int EstatusClienteId { get; set; } = 1;
 
+    [MaxLength(100)]
     public string? CreatedBy { get; set; }
+
+    [MaxLength(100)]
     public string? ModifiedBy { get; set; }
+
     public DateTime DateCreated { get; set; } = DateTime.UtcNow;
     public DateTime? DateModified { get; set; }
+
     public bool IsDeleted { get; set; } = false;
+
+    public decimal? Latitud { get; set; }
+    public decimal? Longitud { get; set; }
 }

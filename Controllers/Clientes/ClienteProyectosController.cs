@@ -51,7 +51,7 @@ public class ClienteProyectosController : ControllerBase
         int clienteId,
         [FromBody] ProyectoCreateRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var clienteOk = await _db.Clientes.AsNoTracking()
             .AnyAsync(x => x.ClienteId == clienteId
@@ -117,7 +117,7 @@ public class ClienteProyectosController : ControllerBase
     [Authorize]
     public async Task<ActionResult<ApiResponse<object>>> List(int clienteId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var data = await _db.ClienteProyectos.AsNoTracking()
             .Where(x => x.ClienteId == clienteId && x.IsDeleted == false)
@@ -163,7 +163,7 @@ public class ClienteProyectosController : ControllerBase
         int proyectoId,
         [FromBody] ProyectoUpdateRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var entity = await _db.ClienteProyectos.FirstOrDefaultAsync(x =>
             x.ProyectoId == proyectoId
@@ -232,7 +232,7 @@ public class ClienteProyectosController : ControllerBase
         int clienteId,
         int proyectoId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var entity = await _db.ClienteProyectos.FirstOrDefaultAsync(x =>
             x.ProyectoId == proyectoId

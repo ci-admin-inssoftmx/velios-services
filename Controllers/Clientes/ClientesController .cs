@@ -27,7 +27,6 @@ namespace velios.Api.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
 public class ClientesController : ControllerBase
 {
     private readonly AppDbContext _db;
@@ -64,7 +63,7 @@ public class ClientesController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status409Conflict)]
     public async Task<ActionResult<ApiResponse<object>>> CreateCliente([FromBody] ClienteCreateRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -176,30 +175,28 @@ public class ClientesController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
     public async Task<ActionResult<ApiResponse<object>>> List()
     {
-        var requestId = Guid.NewGuid().ToString();
 
         try
         {
             var data = await _db.Clientes
-                .AsNoTracking()
-                .Where(x => x.IsDeleted == false)
-                .OrderByDescending(x => x.ClienteId)
-                .Select(x => new
-                {
-                    x.ClienteId,
-                    x.RFC,
-                    x.RazonSocial,
-                    x.NombreComercial,
-                    x.CorreoContacto,
-                    x.TelefonoContacto,
-                    x.EstatusClienteId,
-                    x.CreatedBy,
-                    x.ModifiedBy,
-                    x.DateCreated,
-                    x.DateModified
-                })
-                .ToListAsync();
-
+     .AsNoTracking()
+     .Where(x => x.IsDeleted == false)
+     .OrderByDescending(x => x.ClienteId)
+     .Select(x => new
+     {
+         x.ClienteId,
+         x.RFC,
+         x.RazonSocial,
+         x.NombreComercial,
+         x.CorreoContacto,
+         x.TelefonoContacto,
+         x.EstatusClienteId,
+         x.CreatedBy,
+         x.ModifiedBy,
+         x.DateCreated,
+         x.DateModified
+     })
+     .ToListAsync();
             return Ok(new ApiResponse<object>
             {
                 
@@ -236,7 +233,7 @@ public class ClientesController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ApiResponse<object>>> Get(int clienteId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -303,7 +300,7 @@ public class ClientesController : ControllerBase
         int clienteId,
         [FromBody] ClienteUpdateRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -411,7 +408,7 @@ public class ClientesController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ApiResponse<object>>> Delete(int clienteId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -494,7 +491,7 @@ public class ClientesController : ControllerBase
         int estatus,
         string msg)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {

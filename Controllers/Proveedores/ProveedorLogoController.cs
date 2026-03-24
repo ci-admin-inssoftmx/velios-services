@@ -74,7 +74,7 @@ public class ProveedorLogoController : ControllerBase
     [Consumes("multipart/form-data")]
     public async Task<ActionResult<ApiResponse<object>>> UploadLogo(long proveedorId, IFormFile file)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -159,7 +159,7 @@ public class ProveedorLogoController : ControllerBase
     [HttpGet("{proveedorId}")]
     public async Task<ActionResult<ApiResponse<object>>> GetLogo(long proveedorId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var proveedor = await _db.Proveedores
             .AsNoTracking()
@@ -214,7 +214,7 @@ public class ProveedorLogoController : ControllerBase
     [HttpDelete("{proveedorId}")]
     public async Task<ActionResult<ApiResponse<object>>> DeleteLogo(long proveedorId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {

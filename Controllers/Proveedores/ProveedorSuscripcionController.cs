@@ -62,7 +62,7 @@ public class ProveedorSuscripcionController : ControllerBase
         int proveedorId,
         [FromBody] ProveedorSuscripcionUpsertRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -196,7 +196,7 @@ public class ProveedorSuscripcionController : ControllerBase
         int proveedorId,
         [FromBody] ProveedorSuscripcionSuspendRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -261,7 +261,7 @@ public class ProveedorSuscripcionController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> Get(int proveedorId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {

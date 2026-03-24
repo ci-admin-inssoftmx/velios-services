@@ -49,7 +49,7 @@ public class ClienteProveedoresController : ControllerBase
     [Authorize]
     public async Task<ActionResult<ApiResponse<object>>> Alta(int clienteId, int proveedorId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var cliente = await _db.Clientes.AsNoTracking()
             .FirstOrDefaultAsync(x => x.ClienteId == clienteId && x.IsDeleted == false);
@@ -153,7 +153,7 @@ public class ClienteProveedoresController : ControllerBase
         int proveedorId,
         [FromBody] ClienteProveedorNotasRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var rel = await _db.ClienteProveedor.FirstOrDefaultAsync(x =>
             x.ClienteId == clienteId && x.ProveedorId == proveedorId && x.IsDeleted == false);
@@ -193,7 +193,7 @@ public class ClienteProveedoresController : ControllerBase
     [Authorize]
     public async Task<ActionResult<ApiResponse<object>>> List(int clienteId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var data = await _db.ClienteProveedor.AsNoTracking()
             .Where(x => x.ClienteId == clienteId && x.IsDeleted == false)
@@ -230,7 +230,7 @@ public class ClienteProveedoresController : ControllerBase
         int estatusRelacionId,
         string msg)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var rel = await _db.ClienteProveedor.FirstOrDefaultAsync(x =>
             x.ClienteId == clienteId && x.ProveedorId == proveedorId && x.IsDeleted == false);

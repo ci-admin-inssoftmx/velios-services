@@ -48,7 +48,7 @@ public class TrabajadoresController : ControllerBase
     [HttpPost("Alta")]
     public async Task<ActionResult<ApiResponse<object>>> Alta([FromBody] TrabajadorCreateRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -159,7 +159,7 @@ public class TrabajadoresController : ControllerBase
     [HttpGet("Proveedor/{proveedorId:int}")]
     public async Task<ActionResult<ApiResponse<object>>> GetByProveedor(int proveedorId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var items = await _db.ProveedorTrabajadores.AsNoTracking()
             .Where(x => x.ProveedorId == proveedorId && !x.IsDeleted)

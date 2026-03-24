@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\Proyectos_NET\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\controllers\\authenticatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\authenticatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\controllers\\clientes\\clientescontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\clientes\\clientescontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\models\\auth\\logindataresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\auth\\logindataresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\models\\clientes\\clientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\clientes\\clientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\models\\proveedor\\proveedores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\proveedor\\proveedores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\models\\auth\\security\\accesousuariocolaborador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\auth\\security\\accesousuariocolaborador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AuthenticateController.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Controllers\\AuthenticateController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AuthenticateController.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Controllers\\AuthenticateController.cs",
-              "RelativeToolTip": "Controllers\\AuthenticateController.cs",
-              "ViewState": "AgIAALoBAAAAAAAAAAAkwMQBAAAeAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Proveedores.cs",
+              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Models\\Proveedor\\Proveedores.cs",
+              "RelativeDocumentMoniker": "Models\\Proveedor\\Proveedores.cs",
+              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Models\\Proveedor\\Proveedores.cs",
+              "RelativeToolTip": "Models\\Proveedor\\Proveedores.cs",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAAAGcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-24T16:52:10.029Z",
+              "WhenOpened": "2026-03-24T17:35:12.1Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AccesoUsuarioColaborador.cs",
+              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Models\\Auth\\Security\\AccesoUsuarioColaborador.cs",
+              "RelativeDocumentMoniker": "Models\\Auth\\Security\\AccesoUsuarioColaborador.cs",
+              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Models\\Auth\\Security\\AccesoUsuarioColaborador.cs",
+              "RelativeToolTip": "Models\\Auth\\Security\\AccesoUsuarioColaborador.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-24T17:34:41.583Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "LoginDataResponse.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Models\\Auth\\LoginDataResponse.cs",
-              "RelativeDocumentMoniker": "Models\\Auth\\LoginDataResponse.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Models\\Auth\\LoginDataResponse.cs",
-              "RelativeToolTip": "Models\\Auth\\LoginDataResponse.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAowBgAAAA0AAAAAAAAAA==",
+              "Title": "Clientes.cs",
+              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Models\\Clientes\\Clientes.cs",
+              "RelativeDocumentMoniker": "Models\\Clientes\\Clientes.cs",
+              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Models\\Clientes\\Clientes.cs",
+              "RelativeToolTip": "Models\\Clientes\\Clientes.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAwwCkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-24T16:51:41.647Z",
+              "WhenOpened": "2026-03-24T17:28:27.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ClientesController .cs",
+              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Controllers\\Clientes\\ClientesController .cs",
+              "RelativeDocumentMoniker": "Controllers\\Clientes\\ClientesController .cs",
+              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Controllers\\Clientes\\ClientesController .cs",
+              "RelativeToolTip": "Controllers\\Clientes\\ClientesController .cs",
+              "ViewState": "AgIAAK8AAAAAAAAAAAA0wMYAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-24T17:10:59.732Z",
               "EditorCaption": ""
             }
           ]

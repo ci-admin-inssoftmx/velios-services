@@ -23,7 +23,7 @@ public class CodigosPostalesController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> GetInfo(string cp)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var result = await _service.GetInfoAsync(cp);
 
@@ -55,7 +55,7 @@ public class CodigosPostalesController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> Colonias(string cp, [FromQuery] string? q)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         var data = await _service.SearchColoniasAsync(cp, q);
 

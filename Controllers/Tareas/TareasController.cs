@@ -37,7 +37,7 @@ public class TareasController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ApiResponse<object>>> List()
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -96,7 +96,7 @@ public class TareasController : ControllerBase
     [HttpGet("{taskId}")]
     public async Task<ActionResult<ApiResponse<object>>> Get(string taskId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {

@@ -59,7 +59,7 @@ public class PresupuestosController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> Enviar([FromBody] PresupuestoCreateRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -182,7 +182,7 @@ public class PresupuestosController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> Decision(long presupuestoId, [FromBody] PresupuestoDecisionRequest model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -283,7 +283,7 @@ public class PresupuestosController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> GetByProyecto(long proveedorProyectoId)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {

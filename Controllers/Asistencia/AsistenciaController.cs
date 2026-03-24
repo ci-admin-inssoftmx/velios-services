@@ -49,7 +49,7 @@ public class AsistenciaController : ControllerBase
     public async Task<ActionResult<ApiResponse<object>>> CreateRegistroAsistencia(
         [FromBody] AsistenciaRegistroCreateModel model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
@@ -205,7 +205,7 @@ public class AsistenciaController : ControllerBase
     public async Task<ActionResult<ApiResponse<object>>> GetRegistrosAsistencia(
         [FromQuery] AsistenciaRegistroGetModel model)
     {
-        var requestId = Guid.NewGuid().ToString();
+        
 
         try
         {
