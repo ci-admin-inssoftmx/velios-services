@@ -96,8 +96,7 @@ public class TareasController : ControllerBase
     [HttpGet("{taskId}")]
     public async Task<ActionResult<ApiResponse<object>>> Get(string taskId)
     {
-        
-
+        var requestId = Guid.NewGuid().ToString();
         try
         {
             var tarea = await (
@@ -105,44 +104,30 @@ public class TareasController : ControllerBase
                 join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
                 join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
                 where !t.IsDeleted && !c.IsDeleted && t.TaskCode == taskId
-                select new
-                {
-                    Tarea = t,
-                    Cliente = c,
-                    Estatus = e
-                }).FirstOrDefaultAsync();
+                select new { Tarea = t, Cliente = c, Estatus = e }).FirstOrDefaultAsync();
 
             if (tarea == null)
             {
-                return NotFound(new ApiResponse<object>
-                {
-                    
-                    success = false,
-                    message = "Tarea no encontrada.",
-                    statusCode = 404
-                });
+                return NotFound(new ApiResponse<object> { request_id = requestId, success = false, message = "Tarea no encontrada.", statusCode = 404 });
             }
 
-            var observaciones = await _db.TareaObservaciones
-             .AsNoTracking()
-             .Where(x => x.TareaId == tarea.Tarea.TareaId)
-             .OrderByDescending(x => x.ObservacionId)
-             .Select(x => x.Observacion)
-             .ToListAsync();
+            var observaciones = await _db.TareaObservaciones.AsNoTracking()
+                .Where(x => x.TareaId == tarea.Tarea.TareaId)
+                .OrderByDescending(x => x.ObservacionId)
+                .Select(x => x.Observacion)
+                .ToListAsync();
 
-            var evidencias = await _db.TareaEvidencias
-            .AsNoTracking()
-            .Where(x => x.TareaId == tarea.Tarea.TareaId)
-            .OrderByDescending(x => x.EvidenciaId)
-            .Select(x => new
-            {
-                type = x.Tipo,
-                url = x.UrlArchivo,
-                fileName = (string?)null,
-                mimeType = x.MimeType,
-                sizeInBytes = x.SizeBytes
-            })
-            .ToListAsync();
+            // Evidencias: mantener mimeType y sizeInBytes en null cuando no apliquen
+            var evidencias = await _db.TareaEvidencias.AsNoTracking()
+                .Where(x => x.TareaId == tarea.Tarea.TareaId)
+                .OrderByDescending(x => x.EvidenciaId)
+                .Select(x => new
+                {
+                    type = x.Tipo ?? "IMAGE",
+                    url = x.UrlArchivo ?? "",
+                    mimeType = x.MimeType ?? null,     // Mantener como null cuando no se tenga
+                    sizeInBytes = x.SizeBytes ?? null    // Mantener como null cuando no se tenga
+                }).ToListAsync();
 
             var timeline = await (
                 from tl in _db.TareaTimeline.AsNoTracking()
@@ -158,50 +143,23 @@ public class TareasController : ControllerBase
                     performedAt = tl.PerformedAt
                 }).ToListAsync();
 
-            var response = new
+            return Ok(new
             {
                 taskId = tarea.Tarea.TaskCode,
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
                 statusCode = tarea.Estatus.Codigo,
-                client = new
-                {
-                    name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE",
-                    logoUrl = (string?)null
-                },
+                client = new { name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE" },
                 observations = observaciones,
-                supervisor = (object?)null,
-                schedule = new
-                {
-                    assignedDate = tarea.Tarea.FechaAsignacion,
-                    programmedDate = tarea.Tarea.FechaProgramada,
-                    dueDate = tarea.Tarea.FechaVencimiento
-                },
-                budget = new
-                {
-                    assigned = tarea.Tarea.PresupuestoAsignado,
-                    currency = tarea.Tarea.Moneda
-                },
                 evidences = evidencias,
                 timeline = timeline,
-                createdAt = tarea.Tarea.DateCreated,
-                updatedAt = tarea.Tarea.DateModified ?? tarea.Tarea.DateCreated
-            };
-
-            return Ok(response);
+                schedule = new { assignedDate = tarea.Tarea.FechaAsignacion, dueDate = tarea.Tarea.FechaVencimiento }
+            });
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error al consultar tarea {TaskId}.", taskId);
-
-            return BadRequest(new ApiResponse<object>
-            {
-                
-                success = false,
-                message = "Error al consultar tarea.",
-                statusCode = 400,
-                errors = GetErrorMessages(ex)
-            });
+            _logger.LogError(ex, "Error al consultar detalle.");
+            return BadRequest(new ApiResponse<object> { request_id = requestId, success = false, message = "Error al consultar tarea.", statusCode = 400, errors = GetErrorMessages(ex) });
         }
     }
 
@@ -319,10 +277,13 @@ public class TareasController : ControllerBase
                     _db.TareaEvidencias.Add(new TareaEvidencia
                     {
                         TareaId = tarea.TareaId,
-                        Tipo = item.Type?.Trim() ?? string.Empty,
-                        UrlArchivo = null, // aquí luego puedes guardar la URL real cuando subas el archivo
-                        MimeType = item.MimeType,
-                        SizeBytes = item.SizeInBytes,
+                        Tipo = item.Type?.Trim() ?? "IMAGE",
+                        UrlArchivo = item.Url, // <-- Usa la nueva propiedad Url
+
+                        // Como las borraste del Request, las mandamos como null a la BD
+                        MimeType = null,
+                        SizeBytes = null,
+
                         Latitud = item.Location?.Latitude,
                         Longitud = item.Location?.Longitude,
                         Direccion = item.Address?.FormattedAddress,
