@@ -50,7 +50,7 @@ namespace velios.Api.Controllers.Tareas
                     await file.CopyToAsync(stream);
                 }
 
-                var finalUrl = $"{baseUrl}/ImagenesTareas/dev/{taskCode}/{uniqueName}";
+                var finalUrl = $"{baseUrl}/{taskCode}/{uniqueName}";
 
                 return Ok(new ApiResponse<object>
                 {

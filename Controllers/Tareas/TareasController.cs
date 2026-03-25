@@ -119,15 +119,33 @@ public class TareasController : ControllerBase
 
             // Evidencias: mantener mimeType y sizeInBytes en null cuando no apliquen
             var evidencias = await _db.TareaEvidencias.AsNoTracking()
-                .Where(x => x.TareaId == tarea.Tarea.TareaId)
-                .OrderByDescending(x => x.EvidenciaId)
-                .Select(x => new
-                {
-                    type = x.Tipo ?? "IMAGE",
-                    url = x.UrlArchivo ?? "",
-                    mimeType = x.MimeType ?? null,     // Mantener como null cuando no se tenga
-                    sizeInBytes = x.SizeBytes ?? null    // Mantener como null cuando no se tenga
-                }).ToListAsync();
+    .Where(x => x.TareaId == tarea.Tarea.TareaId)
+    .OrderByDescending(x => x.EvidenciaId)
+    .Select(x => new
+    {
+        type = x.Tipo ?? "IMAGE",
+        url = x.UrlArchivo ?? "",
+        mimeType = x.MimeType ?? null,
+        sizeInBytes = x.SizeBytes ?? null,
+
+        // --- NUEVOS CAMPOS ---
+        location = new
+        {
+            latitude = x.Latitud,
+            longitude = x.Longitud
+        },
+        address = new
+        {
+            formattedAddress = x.Direccion
+        },
+        deviceInfo = new
+        {
+            platform = x.Plataforma,
+            appVersion = x.VersionApp,
+            deviceModel = x.ModeloDispositivo,
+            osVersion = x.VersionOS
+        }
+    }).ToListAsync();
 
             var timeline = await (
                 from tl in _db.TareaTimeline.AsNoTracking()
