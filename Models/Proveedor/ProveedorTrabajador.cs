@@ -24,6 +24,15 @@ public class ProveedorTrabajador
     public string? Correo { get; set; }
     public string? Telefono { get; set; }
 
+    // --- NUEVOS CAMPOS ---
+    public string? TipoDeMiembro { get; set; } // 'Trabajador' o 'Supervisor'
+    public string? Nivel { get; set; }         // 'Junior', 'Semi', 'Senior'
+
+    // Estos se guardan como string (JSON) en la DB: "[1,2,3]"
+    public string? Clientes { get; set; }
+    public string? CentroDeTrabajo { get; set; }
+    // ---------------------
+
     public int EstatusTrabajadorId { get; set; }
     public bool IsDeleted { get; set; }
 

@@ -117,35 +117,41 @@ public class TareasController : ControllerBase
                 .Select(x => x.Observacion)
                 .ToListAsync();
 
-            // Evidencias: mantener mimeType y sizeInBytes en null cuando no apliquen
             var evidencias = await _db.TareaEvidencias.AsNoTracking()
-    .Where(x => x.TareaId == tarea.Tarea.TareaId)
-    .OrderByDescending(x => x.EvidenciaId)
-    .Select(x => new
-    {
-        type = x.Tipo ?? "IMAGE",
-        url = x.UrlArchivo ?? "",
-        mimeType = x.MimeType ?? null,
-        sizeInBytes = x.SizeBytes ?? null,
+                .Where(x => x.TareaId == tarea.Tarea.TareaId)
+                .OrderByDescending(x => x.EvidenciaId)
+                .Select(x => new
+                {
+                    type = x.Tipo ?? "IMAGE",
+                    url = x.UrlArchivo ?? "",
+                    mimeType = x.MimeType ?? null,
+                    sizeInBytes = x.SizeBytes ?? null,
+                    createdAt = x.DateCreated, // Complemento: Fecha de la evidencia
 
-        // --- NUEVOS CAMPOS ---
-        location = new
-        {
-            latitude = x.Latitud,
-            longitude = x.Longitud
-        },
-        address = new
-        {
-            formattedAddress = x.Direccion
-        },
-        deviceInfo = new
-        {
-            platform = x.Plataforma,
-            appVersion = x.VersionApp,
-            deviceModel = x.ModeloDispositivo,
-            osVersion = x.VersionOS
-        }
-    }).ToListAsync();
+                    location = new
+                    {
+                        latitude = x.Latitud,
+                        longitude = x.Longitud,
+                        accuracyMeters = x.PrecisionMetros,
+                        altitude = x.Altitud,
+                        heading = x.DireccionGrados,
+                        speed = x.Velocidad,
+                        speedAccuracy = x.PrecisionVelocidad,
+                        timestamp = x.TimestampGps,
+                        isMocked = x.EsSimulado
+                    },
+                    address = new
+                    {
+                        formattedAddress = x.Direccion
+                    },
+                    deviceInfo = new
+                    {
+                        platform = x.Plataforma,
+                        appVersion = x.VersionApp,
+                        deviceModel = x.ModeloDispositivo,
+                        osVersion = x.VersionOS
+                    }
+                }).ToListAsync();
 
             var timeline = await (
                 from tl in _db.TareaTimeline.AsNoTracking()
@@ -157,6 +163,9 @@ public class TareasController : ControllerBase
                     eventId = $"EVT-{tl.TimelineId:D3}",
                     type = te.Codigo,
                     description = tl.Descripcion,
+                    // Complemento: Valores de cambio si existen en tu tabla timeline
+                    previousValue = tl.ValorAnterior,
+                    newValue = tl.ValorNuevo,
                     performedBy = tl.PerformedBy,
                     performedAt = tl.PerformedAt
                 }).ToListAsync();
@@ -167,11 +176,18 @@ public class TareasController : ControllerBase
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
                 statusCode = tarea.Estatus.Codigo,
+                createdAt = tarea.Tarea.DateCreated,   // Complemento: Fecha creación tarea
+                updatedAt = tarea.Tarea.DateModified,  // Complemento: Última modificación tarea
                 client = new { name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE" },
                 observations = observaciones,
                 evidences = evidencias,
                 timeline = timeline,
-                schedule = new { assignedDate = tarea.Tarea.FechaAsignacion, dueDate = tarea.Tarea.FechaVencimiento }
+                schedule = new
+                {
+                    assignedDate = tarea.Tarea.FechaAsignacion,
+                    programmedDate = tarea.Tarea.FechaProgramada, // Complemento: Fecha programada
+                    dueDate = tarea.Tarea.FechaVencimiento
+                }
             });
         }
         catch (Exception ex)
@@ -180,7 +196,6 @@ public class TareasController : ControllerBase
             return BadRequest(new ApiResponse<object> { request_id = requestId, success = false, message = "Error al consultar tarea.", statusCode = 400, errors = GetErrorMessages(ex) });
         }
     }
-
     /// <summary>
     /// Actualiza una tarea agregando evidencias, observación y/o cambio de estatus.
     /// </summary>
