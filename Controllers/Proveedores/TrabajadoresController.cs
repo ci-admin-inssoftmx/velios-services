@@ -110,7 +110,13 @@ public class TrabajadoresController : ControllerBase
                 NSS = model.NSS?.Trim(),
                 Correo = model.Correo?.Trim(),
                 Telefono = model.Telefono?.Trim(),
-                EstatusTrabajadorId = 1, // Activo
+                // --- NUEVOS CAMPOS ---
+                TipoDeMiembro = model.TipoDeMiembro?.Trim(),
+                Nivel = model.Nivel?.Trim(),
+                Clientes = model.Clientes?.Trim(),
+                CentroDeTrabajo = model.CentroDeTrabajo?.Trim(),
+                // ---------------------
+                EstatusTrabajadorId = 1,
                 DateCreated = DateTime.UtcNow,
                 IsDeleted = false
             };
@@ -175,6 +181,10 @@ public class TrabajadoresController : ControllerBase
                 x.NSS,
                 x.Correo,
                 x.Telefono,
+                x.TipoDeMiembro,
+                x.Nivel,
+                x.Clientes,
+                x.CentroDeTrabajo,
                 x.EstatusTrabajadorId
             })
             .ToListAsync();
@@ -188,4 +198,5 @@ public class TrabajadoresController : ControllerBase
             data = new { total = items.Count, items }
         });
     }
+
 }
