@@ -25,11 +25,16 @@ public class ProveedorTrabajador
     public string? Telefono { get; set; }
 
     // --- NUEVOS CAMPOS ---
+    [Column("tipo_de_miembro")]
     public string? TipoDeMiembro { get; set; } // 'Trabajador' o 'Supervisor'
+
+    [Column("nivel")]
     public string? Nivel { get; set; }         // 'Junior', 'Semi', 'Senior'
 
-    // Estos se guardan como string (JSON) en la DB: "[1,2,3]"
+    [Column("clientes")]
     public string? Clientes { get; set; }
+
+    [Column("centros_de_trabajo")]
     public string? CentroDeTrabajo { get; set; }
     // ---------------------
 
