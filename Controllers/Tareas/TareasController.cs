@@ -311,14 +311,24 @@ public class TareasController : ControllerBase
                     {
                         TareaId = tarea.TareaId,
                         Tipo = item.Type?.Trim() ?? "IMAGE",
-                        UrlArchivo = item.Url, // <-- Usa la nueva propiedad Url
-
-                        // Como las borraste del Request, las mandamos como null a la BD
+                        UrlArchivo = item.Url,
                         MimeType = null,
                         SizeBytes = null,
 
+                        // Coordenadas básicas
                         Latitud = item.Location?.Latitude,
                         Longitud = item.Location?.Longitude,
+
+                        // --- COMPLEMENTOS DE GPS (AQUÍ ES DONDE SE QUITAN LOS NULLS) ---
+                        PrecisionMetros = item.Location?.AccuracyMeters,
+                        Altitud = item.Location?.Altitude,
+                        DireccionGrados = item.Location?.Heading,
+                        Velocidad = item.Location?.Speed,
+                        PrecisionVelocidad = item.Location?.SpeedAccuracy,
+                        TimestampGps = item.Location?.Timestamp,
+                        EsSimulado = item.Location?.IsMocked,
+                        // --------------------------------------------------------------
+
                         Direccion = item.Address?.FormattedAddress,
                         Plataforma = item.DeviceInfo?.Platform,
                         VersionApp = item.DeviceInfo?.AppVersion,
