@@ -59,4 +59,6 @@ public class LoginDataResponse
     /// Información del token de autenticación generado para la sesión.
     /// </summary>
     public TokenResponse Token { get; set; } = new();
+
+    public long? TrabajadorId { get; set; }
 }
