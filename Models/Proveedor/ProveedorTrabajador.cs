@@ -43,4 +43,7 @@ public class ProveedorTrabajador
 
     public DateTime DateCreated { get; set; }
     public DateTime? DateModified { get; set; }
+
+    [Column("PasswordHash")]
+    public string? PasswordHash { get; set; }
 }
