@@ -15,15 +15,8 @@ public class EvidenciaFotoRequest
 
     // AGREGAMOS ESTA LÍNEA (Indispensable para el controlador)
     public string Url { get; set; } = string.Empty;
-
-    // ELIMINAMOS O COMENTAMOS ESTOS (Ya no se usan porque mandas la URL)
-    /*
-    public string ImageBase64 { get; set; } = string.Empty;
-    public string FileName { get; set; } = string.Empty;
-    public string MimeType { get; set; } = string.Empty;
-    public long SizeInBytes { get; set; }
-    */
-
+    public string? Comentario { get; set; }
+    public int? Progreso { get; set; }
     public UbicacionRequest? Location { get; set; }
     public DireccionRequest? Address { get; set; }
     public DispositivoRequest? DeviceInfo { get; set; }
