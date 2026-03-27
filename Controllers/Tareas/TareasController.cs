@@ -42,29 +42,37 @@ public class TareasController : ControllerBase
         try
         {
             var data = await (
-                from t in _db.Tareas.AsNoTracking()
-                join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
-                join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
-                where !t.IsDeleted && !c.IsDeleted
-                orderby t.TareaId descending
-                select new
-                {
-                    taskId = t.TaskCode,
-                    title = t.Titulo,
-                    description = t.Descripcion,
-                    statusCode = e.Codigo,
-                    client = new
-                    {
-                        name = c.RazonSocial ?? c.NombreComercial ?? "SIN NOMBRE",
-                        logoUrl = (string?)null
-                    },
-                    schedule = new
-                    {
-                        assignedDate = t.FechaAsignacion,
-                        programmedDate = t.FechaProgramada,
-                        dueDate = t.FechaVencimiento
-                    }
-                }).ToListAsync();
+      from t in _db.Tareas.AsNoTracking()
+      join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
+      join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
+      join tr in _db.ProveedorTrabajadores.AsNoTracking() on t.TrabajadorId equals tr.TrabajadorId into trGroup
+      from tr in trGroup.DefaultIfEmpty()
+      where !t.IsDeleted && !c.IsDeleted
+      orderby t.TareaId descending
+      select new
+      {
+          taskId = t.TaskCode,
+          title = t.Titulo,
+          description = t.Descripcion,
+          statusCode = e.Codigo,
+          client = new
+          {
+              name = c.RazonSocial ?? c.NombreComercial ?? "SIN NOMBRE",
+              logoUrl = (string?)null
+          },
+          schedule = new
+          {
+              assignedDate = t.FechaAsignacion,
+              programmedDate = t.FechaProgramada,
+              dueDate = t.FechaVencimiento
+          },
+          worker = new
+          {
+              trabajadorId = tr == null ? (long?)null : tr.TrabajadorId,
+              nombre = tr == null ? null : $"{tr.Nombre} {tr.ApellidoPaterno}".Trim(),
+              tipoDeMiembro = tr == null ? null : tr.TipoDeMiembro
+          }
+      }).ToListAsync();
 
             return Ok(new ApiResponse<object>
             {
@@ -126,8 +134,7 @@ public class TareasController : ControllerBase
                     url = x.UrlArchivo ?? "",
                     mimeType = x.MimeType ?? null,
                     sizeInBytes = x.SizeBytes ?? null,
-                    createdAt = x.DateCreated, // Complemento: Fecha de la evidencia
-
+                    createdAt = x.DateCreated,
                     location = new
                     {
                         latitude = x.Latitud,
@@ -150,7 +157,11 @@ public class TareasController : ControllerBase
                         appVersion = x.VersionApp,
                         deviceModel = x.ModeloDispositivo,
                         osVersion = x.VersionOS
-                    }
+                    },
+                    // --- NUEVOS CAMPOS ---
+                    comentario = x.Comentario,
+                    progreso = x.Progreso
+                    // ---------------------
                 }).ToListAsync();
 
             var timeline = await (
@@ -314,12 +325,8 @@ public class TareasController : ControllerBase
                         UrlArchivo = item.Url,
                         MimeType = null,
                         SizeBytes = null,
-
-                        // Coordenadas básicas
                         Latitud = item.Location?.Latitude,
                         Longitud = item.Location?.Longitude,
-
-                        // --- COMPLEMENTOS DE GPS (AQUÍ ES DONDE SE QUITAN LOS NULLS) ---
                         PrecisionMetros = item.Location?.AccuracyMeters,
                         Altitud = item.Location?.Altitude,
                         DireccionGrados = item.Location?.Heading,
@@ -327,13 +334,15 @@ public class TareasController : ControllerBase
                         PrecisionVelocidad = item.Location?.SpeedAccuracy,
                         TimestampGps = item.Location?.Timestamp,
                         EsSimulado = item.Location?.IsMocked,
-                        // --------------------------------------------------------------
-
                         Direccion = item.Address?.FormattedAddress,
                         Plataforma = item.DeviceInfo?.Platform,
                         VersionApp = item.DeviceInfo?.AppVersion,
                         ModeloDispositivo = item.DeviceInfo?.DeviceModel,
                         VersionOS = item.DeviceInfo?.OsVersion,
+                        // --- NUEVOS CAMPOS ---
+                        Comentario = item.Comentario?.Trim(),
+                        Progreso = item.Progreso,
+                        // ---------------------
                         DateCreated = DateTime.UtcNow
                     });
                 }

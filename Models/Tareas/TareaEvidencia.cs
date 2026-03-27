@@ -73,6 +73,15 @@ public class TareaEvidencia
     [Column("EsSimulado")]
     public bool? EsSimulado { get; set; }
 
+    [Column("Comentario")]
+    [MaxLength(500)]
+    public string? Comentario { get; set; }
+
+    [Column("Progreso")]
+    public int? Progreso { get; set; }
+
+
     [Column("DateCreated")]
     public DateTime DateCreated { get; set; }
+
 }
