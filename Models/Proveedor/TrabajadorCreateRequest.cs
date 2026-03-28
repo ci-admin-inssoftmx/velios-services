@@ -17,4 +17,6 @@ public class TrabajadorCreateRequest
     public string? Nivel { get; set; }            // 'Junior', 'Semi', 'Senior'
     public string? Clientes { get; set; }         // JSON string "[1,2,3]"
     public string? CentroDeTrabajo { get; set; }  // JSON string "[1,2,3]"
+    public string? Password { get; set; }
+
 }

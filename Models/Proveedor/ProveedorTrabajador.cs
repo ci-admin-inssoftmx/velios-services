@@ -34,6 +34,9 @@ public class ProveedorTrabajador
     [Column("clientes")]
     public string? Clientes { get; set; }
 
+    [Column("PasswordHash")]
+    public string? PasswordHash { get; set; }
+
     [Column("centros_de_trabajo")]
     public string? CentroDeTrabajo { get; set; }
     // ---------------------
@@ -44,6 +47,5 @@ public class ProveedorTrabajador
     public DateTime DateCreated { get; set; }
     public DateTime? DateModified { get; set; }
 
-    [Column("PasswordHash")]
-    public string? PasswordHash { get; set; }
+   
 }

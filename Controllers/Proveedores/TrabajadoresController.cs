@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using velios.Api.Data;
 using velios.Api.Models.Common;
 using velios.Api.Models.Proveedores;
+using velios.Api.Services.Security;
+
 
 namespace velios.Api.Controllers;
 
@@ -29,7 +31,13 @@ public class TrabajadoresController : ControllerBase
     /// Constructor con inyección del DbContext.
     /// </summary>
     /// <param name="db">Contexto de base de datos.</param>
-    public TrabajadoresController(AppDbContext db) => _db = db;
+    private readonly IPasswordHasher _passwordHasher;
+
+    public TrabajadoresController(AppDbContext db, IPasswordHasher passwordHasher)
+    {
+        _db = db;
+        _passwordHasher = passwordHasher;
+    }
 
     // =========================================================
     // POST api/Trabajadores/Alta
@@ -115,6 +123,10 @@ public class TrabajadoresController : ControllerBase
                 Nivel = model.Nivel?.Trim(),
                 Clientes = model.Clientes?.Trim(),
                 CentroDeTrabajo = model.CentroDeTrabajo?.Trim(),
+                PasswordHash = string.IsNullOrWhiteSpace(model.Password)
+    ? null
+    : _passwordHasher.HashLegacy(model.Password.Trim()),
+
                 // ---------------------
                 EstatusTrabajadorId = 1,
                 DateCreated = DateTime.UtcNow,
