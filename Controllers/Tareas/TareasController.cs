@@ -42,37 +42,46 @@ public class TareasController : ControllerBase
         try
         {
             var data = await (
-      from t in _db.Tareas.AsNoTracking()
-      join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
-      join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
-      join tr in _db.ProveedorTrabajadores.AsNoTracking() on t.TrabajadorId equals tr.TrabajadorId into trGroup
-      from tr in trGroup.DefaultIfEmpty()
-      where !t.IsDeleted && !c.IsDeleted
-      orderby t.TareaId descending
-      select new
-      {
-          taskId = t.TaskCode,
-          title = t.Titulo,
-          description = t.Descripcion,
-          statusCode = e.Codigo,
-          client = new
-          {
-              name = c.RazonSocial ?? c.NombreComercial ?? "SIN NOMBRE",
-              logoUrl = (string?)null
-          },
-          schedule = new
-          {
-              assignedDate = t.FechaAsignacion,
-              programmedDate = t.FechaProgramada,
-              dueDate = t.FechaVencimiento
-          },
-          worker = new
-          {
-              trabajadorId = tr == null ? (long?)null : tr.TrabajadorId,
-              nombre = tr == null ? null : $"{tr.Nombre} {tr.ApellidoPaterno}".Trim(),
-              tipoDeMiembro = tr == null ? null : tr.TipoDeMiembro
-          }
-      }).ToListAsync();
+    from t in _db.Tareas.AsNoTracking()
+    join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
+    join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
+    join tr in _db.ProveedorTrabajadores.AsNoTracking() on t.TrabajadorId equals tr.TrabajadorId into trGroup
+    from tr in trGroup.DefaultIfEmpty()
+    join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
+    from sv in svGroup.DefaultIfEmpty()
+    where !t.IsDeleted && !c.IsDeleted
+    orderby t.TareaId descending
+    select new
+    {
+        taskId = t.TaskCode,
+        title = t.Titulo,
+        description = t.Descripcion,
+        statusCode = e.Codigo,
+        client = new
+        {
+            name = c.RazonSocial ?? c.NombreComercial ?? "SIN NOMBRE",
+            logoUrl = (string?)null
+        },
+        schedule = new
+        {
+            assignedDate = t.FechaAsignacion,
+            programmedDate = t.FechaProgramada,
+            dueDate = t.FechaVencimiento
+        },
+        trabajador = new
+        {
+            trabajadorId = tr == null ? (long?)null : tr.TrabajadorId,
+            nombre = tr == null ? null : $"{tr.Nombre} {tr.ApellidoPaterno}".Trim(),
+            tipoDeMiembro = tr == null ? null : tr.TipoDeMiembro
+        },
+        supervisor = new
+        {
+            supervisorId = sv == null ? (long?)null : sv.TrabajadorId,
+            nombre = sv == null ? null : $"{sv.Nombre} {sv.ApellidoPaterno}".Trim(),
+            tipoDeMiembro = sv == null ? null : sv.TipoDeMiembro
+        }
+    }).ToListAsync();
+
 
             return Ok(new ApiResponse<object>
             {
@@ -187,19 +196,36 @@ public class TareasController : ControllerBase
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
                 statusCode = tarea.Estatus.Codigo,
-                createdAt = tarea.Tarea.DateCreated,   // Complemento: Fecha creación tarea
-                updatedAt = tarea.Tarea.DateModified,  // Complemento: Última modificación tarea
+                createdAt = tarea.Tarea.DateCreated,
+                updatedAt = tarea.Tarea.DateModified,
                 client = new { name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE" },
+                trabajador = tarea.Tarea.TrabajadorId == null ? null : await _db.ProveedorTrabajadores.AsNoTracking()
+         .Where(x => x.TrabajadorId == tarea.Tarea.TrabajadorId && !x.IsDeleted)
+         .Select(x => new
+         {
+             trabajadorId = x.TrabajadorId,
+             nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
+             tipoDeMiembro = x.TipoDeMiembro
+         }).FirstOrDefaultAsync(),
+                supervisor = tarea.Tarea.SupervisorId == null ? null : await _db.ProveedorTrabajadores.AsNoTracking()
+         .Where(x => x.TrabajadorId == tarea.Tarea.SupervisorId && !x.IsDeleted)
+         .Select(x => new
+         {
+             supervisorId = x.TrabajadorId,
+             nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
+             tipoDeMiembro = x.TipoDeMiembro
+         }).FirstOrDefaultAsync(),
                 observations = observaciones,
                 evidences = evidencias,
                 timeline = timeline,
                 schedule = new
                 {
                     assignedDate = tarea.Tarea.FechaAsignacion,
-                    programmedDate = tarea.Tarea.FechaProgramada, // Complemento: Fecha programada
+                    programmedDate = tarea.Tarea.FechaProgramada,
                     dueDate = tarea.Tarea.FechaVencimiento
                 }
             });
+
         }
         catch (Exception ex)
         {
