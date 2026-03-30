@@ -79,6 +79,8 @@ public class ProveedoresController : ControllerBase
                 });
             }
 
+
+
             // =========================================================
             // 1) Normalización de datos de entrada
             // =========================================================
@@ -104,6 +106,9 @@ public class ProveedoresController : ControllerBase
             var estado = string.IsNullOrWhiteSpace(model.Estado) ? null : model.Estado.Trim();
             var pais = string.IsNullOrWhiteSpace(model.Pais) ? null : model.Pais.Trim();
 
+
+
+
             if (string.IsNullOrWhiteSpace(correo))
             {
                 return BadRequest(new ApiResponse<object>
@@ -116,7 +121,29 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 2) Validación de coordenadas
+            // 2) Validar correo duplicado en Trabajadores en Velios
+            // =========================================================
+            if (!string.IsNullOrWhiteSpace(correo))
+            {
+                var existeCorreo = await _db.ProveedorTrabajadores
+                    .AsNoTracking()
+                    .AnyAsync(p =>
+                        p.Correo == correo);
+
+                if (existeCorreo)
+                {
+                    return BadRequest(new ApiResponse<object>
+                    {
+
+                        success = false,
+                        message = "Ya existe un registro con ese correo.",
+                        statusCode = 400
+                    });
+                }
+            }
+
+            // =========================================================
+            // 3) Validación de coordenadas
             // =========================================================
             if (latitud.HasValue && (latitud < -90 || latitud > 90))
             {
@@ -141,7 +168,7 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 3) Buscar proveedor existente en Velios
+            // 4) Buscar proveedor existente en Velios
             // =========================================================
             var proveedorMin = await _db.Proveedores
                 .AsNoTracking()
@@ -174,7 +201,7 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 4) Validar que el proveedor esté activo
+            // 5) Validar que el proveedor esté activo
             // =========================================================
             if (proveedorMin.EstatusProveedorId != 1)
             {
@@ -188,7 +215,7 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 5) Validar RFC duplicado en Velios
+            // 6) Validar RFC duplicado en Velios
             // =========================================================
             if (!string.IsNullOrWhiteSpace(rfc))
             {
@@ -214,7 +241,7 @@ public class ProveedoresController : ControllerBase
             var fechaActual = DateTime.UtcNow;
 
             // =========================================================
-            // 6) Actualizar en Velios
+            // 7) Actualizar en Velios
             // =========================================================
             await _db.Database.ExecuteSqlInterpolatedAsync($@"
                 UPDATE dbo.tb_Proveedores
@@ -238,7 +265,7 @@ public class ProveedoresController : ControllerBase
             ");
 
             // =========================================================
-            // 7) Replicar en Nomclick
+            // 8) Replicar en Nomclick
             //    Si ya existe: UPDATE
             //    Si no existe: INSERT
             // =========================================================
@@ -249,7 +276,7 @@ public class ProveedoresController : ControllerBase
             if (existeEnNomclick)
             {
                 // -----------------------------------------------------
-                // 7.1) Actualizar proveedor existente en Nomclick
+                // 8.1) Actualizar proveedor existente en Nomclick
                 // -----------------------------------------------------
                 await _nomclickDb.Database.ExecuteSqlInterpolatedAsync($@"
                     UPDATE dbo.tb_Proveedores
@@ -277,7 +304,7 @@ public class ProveedoresController : ControllerBase
             else
             {
                 // -----------------------------------------------------
-                // 7.2) Insertar proveedor nuevo en Nomclick
+                // 8.2) Insertar proveedor nuevo en Nomclick
                 //      conservando el mismo ProveedorId
                 // -----------------------------------------------------
                 await _nomclickDb.Database.ExecuteSqlInterpolatedAsync($@"
@@ -341,7 +368,7 @@ public class ProveedoresController : ControllerBase
             }
 
             // =========================================================
-            // 8) Respuesta exitosa
+            // 9) Respuesta exitosa
             // =========================================================
             return Ok(new ApiResponse<object>
             {

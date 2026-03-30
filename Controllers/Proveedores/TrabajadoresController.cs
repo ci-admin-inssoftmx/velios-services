@@ -86,8 +86,31 @@ public class TrabajadoresController : ControllerBase
                 });
             }
 
-            // Validar duplicado por CURP
-            var curp = (model.CURP ?? "").Trim();
+            // =========================================================
+            // 2) Validar correo duplicado en Proveedores en Velios
+            // =========================================================
+            if (!string.IsNullOrWhiteSpace(model.Correo))
+            {
+                var existeCorreo = await _db.ProveedorTrabajadores
+                    .AsNoTracking()
+                    .AnyAsync(p =>
+                        p.Correo == model.Correo);
+
+                if (existeCorreo)
+                {
+                    return BadRequest(new ApiResponse<object>
+                    {
+
+                        success = false,
+                        message = "Ya existe un registro con ese correo.",
+                        statusCode = 400
+                    });
+                }
+            }
+
+
+                // Validar duplicado por CURP
+                var curp = (model.CURP ?? "").Trim();
             if (!string.IsNullOrWhiteSpace(curp))
             {
                 var yaExiste = await _db.ProveedorTrabajadores.AnyAsync(t =>
