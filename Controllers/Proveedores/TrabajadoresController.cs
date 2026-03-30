@@ -200,9 +200,8 @@ public class TrabajadoresController : ControllerBase
     [HttpGet("Proveedor/{proveedorId:int}")]
     public async Task<ActionResult<ApiResponse<object>>> GetByProveedor(int proveedorId)
     {
-        
-
-        var items = await _db.ProveedorTrabajadores.AsNoTracking()
+        var items = await _db.ProveedorTrabajadores
+            .AsNoTracking()
             .Where(x => x.ProveedorId == proveedorId && !x.IsDeleted)
             .OrderByDescending(x => x.TrabajadorId)
             .Select(x => new
@@ -220,17 +219,23 @@ public class TrabajadoresController : ControllerBase
                 x.Nivel,
                 x.Clientes,
                 x.CentroDeTrabajo,
-                x.EstatusTrabajadorId
+                x.EstatusTrabajadorId,
+
+                TotalTareas = _db.Tareas
+                    .Count(t => t.TrabajadorId == x.TrabajadorId && !t.IsDeleted)
             })
             .ToListAsync();
 
         return Ok(new ApiResponse<object>
         {
-            
             success = true,
             message = "Solicitud ejecutada con éxito.",
             statusCode = 200,
-            data = new { total = items.Count, items }
+            data = new
+            {
+                total = items.Count,
+                items
+            }
         });
     }
 

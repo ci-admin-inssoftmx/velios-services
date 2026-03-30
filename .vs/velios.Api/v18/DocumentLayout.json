@@ -18,8 +18,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TrabajadoresController.cs",
+              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Controllers\\Proveedores\\TrabajadoresController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Proveedores\\TrabajadoresController.cs",
+              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Controllers\\Proveedores\\TrabajadoresController.cs",
+              "RelativeToolTip": "Controllers\\Proveedores\\TrabajadoresController.cs",
+              "ViewState": "AgIAANEAAAAAAAAAAAAmwO8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T21:04:56.833Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -31,19 +44,6 @@
               "ViewState": "AgIAAHQAAAAAAAAAAAAqwI4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-30T18:03:14.127Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TrabajadoresController.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Controllers\\Proveedores\\TrabajadoresController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Proveedores\\TrabajadoresController.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Controllers\\Proveedores\\TrabajadoresController.cs",
-              "RelativeToolTip": "Controllers\\Proveedores\\TrabajadoresController.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAqwGwAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-30T18:02:32.497Z",
               "EditorCaption": ""
             }
           ]
