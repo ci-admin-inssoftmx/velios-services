@@ -42,29 +42,46 @@ public class TareasController : ControllerBase
         try
         {
             var data = await (
-                from t in _db.Tareas.AsNoTracking()
-                join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
-                join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
-                where !t.IsDeleted && !c.IsDeleted
-                orderby t.TareaId descending
-                select new
-                {
-                    taskId = t.TaskCode,
-                    title = t.Titulo,
-                    description = t.Descripcion,
-                    statusCode = e.Codigo,
-                    client = new
-                    {
-                        name = c.RazonSocial ?? c.NombreComercial ?? "SIN NOMBRE",
-                        logoUrl = (string?)null
-                    },
-                    schedule = new
-                    {
-                        assignedDate = t.FechaAsignacion,
-                        programmedDate = t.FechaProgramada,
-                        dueDate = t.FechaVencimiento
-                    }
-                }).ToListAsync();
+    from t in _db.Tareas.AsNoTracking()
+    join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
+    join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
+    join tr in _db.ProveedorTrabajadores.AsNoTracking() on t.TrabajadorId equals tr.TrabajadorId into trGroup
+    from tr in trGroup.DefaultIfEmpty()
+    join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
+    from sv in svGroup.DefaultIfEmpty()
+    where !t.IsDeleted && !c.IsDeleted
+    orderby t.TareaId descending
+    select new
+    {
+        taskId = t.TaskCode,
+        title = t.Titulo,
+        description = t.Descripcion,
+        statusCode = e.Codigo,
+        client = new
+        {
+            name = c.RazonSocial ?? c.NombreComercial ?? "SIN NOMBRE",
+            logoUrl = (string?)null
+        },
+        schedule = new
+        {
+            assignedDate = t.FechaAsignacion,
+            programmedDate = t.FechaProgramada,
+            dueDate = t.FechaVencimiento
+        },
+        trabajador = new
+        {
+            trabajadorId = tr == null ? (long?)null : tr.TrabajadorId,
+            nombre = tr == null ? null : $"{tr.Nombre} {tr.ApellidoPaterno}".Trim(),
+            tipoDeMiembro = tr == null ? null : tr.TipoDeMiembro
+        },
+        supervisor = new
+        {
+            supervisorId = sv == null ? (long?)null : sv.TrabajadorId,
+            nombre = sv == null ? null : $"{sv.Nombre} {sv.ApellidoPaterno}".Trim(),
+            tipoDeMiembro = sv == null ? null : sv.TipoDeMiembro
+        }
+    }).ToListAsync();
+
 
             return Ok(new ApiResponse<object>
             {
@@ -96,8 +113,7 @@ public class TareasController : ControllerBase
     [HttpGet("{taskId}")]
     public async Task<ActionResult<ApiResponse<object>>> Get(string taskId)
     {
-        
-
+        var requestId = Guid.NewGuid().ToString();
         try
         {
             var tarea = await (
@@ -105,44 +121,57 @@ public class TareasController : ControllerBase
                 join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
                 join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
                 where !t.IsDeleted && !c.IsDeleted && t.TaskCode == taskId
-                select new
-                {
-                    Tarea = t,
-                    Cliente = c,
-                    Estatus = e
-                }).FirstOrDefaultAsync();
+                select new { Tarea = t, Cliente = c, Estatus = e }).FirstOrDefaultAsync();
 
             if (tarea == null)
             {
-                return NotFound(new ApiResponse<object>
-                {
-                    
-                    success = false,
-                    message = "Tarea no encontrada.",
-                    statusCode = 404
-                });
+                return NotFound(new ApiResponse<object> { request_id = requestId, success = false, message = "Tarea no encontrada.", statusCode = 404 });
             }
 
-            var observaciones = await _db.TareaObservaciones
-             .AsNoTracking()
-             .Where(x => x.TareaId == tarea.Tarea.TareaId)
-             .OrderByDescending(x => x.ObservacionId)
-             .Select(x => x.Observacion)
-             .ToListAsync();
+            var observaciones = await _db.TareaObservaciones.AsNoTracking()
+                .Where(x => x.TareaId == tarea.Tarea.TareaId)
+                .OrderByDescending(x => x.ObservacionId)
+                .Select(x => x.Observacion)
+                .ToListAsync();
 
-            var evidencias = await _db.TareaEvidencias
-            .AsNoTracking()
-            .Where(x => x.TareaId == tarea.Tarea.TareaId)
-            .OrderByDescending(x => x.EvidenciaId)
-            .Select(x => new
-            {
-                type = x.Tipo,
-                url = x.UrlArchivo,
-                fileName = (string?)null,
-                mimeType = x.MimeType,
-                sizeInBytes = x.SizeBytes
-            })
-            .ToListAsync();
+            var evidencias = await _db.TareaEvidencias.AsNoTracking()
+                .Where(x => x.TareaId == tarea.Tarea.TareaId)
+                .OrderByDescending(x => x.EvidenciaId)
+                .Select(x => new
+                {
+                    type = x.Tipo ?? "IMAGE",
+                    url = x.UrlArchivo ?? "",
+                    mimeType = x.MimeType ?? null,
+                    sizeInBytes = x.SizeBytes ?? null,
+                    createdAt = x.DateCreated,
+                    location = new
+                    {
+                        latitude = x.Latitud,
+                        longitude = x.Longitud,
+                        accuracyMeters = x.PrecisionMetros,
+                        altitude = x.Altitud,
+                        heading = x.DireccionGrados,
+                        speed = x.Velocidad,
+                        speedAccuracy = x.PrecisionVelocidad,
+                        timestamp = x.TimestampGps,
+                        isMocked = x.EsSimulado
+                    },
+                    address = new
+                    {
+                        formattedAddress = x.Direccion
+                    },
+                    deviceInfo = new
+                    {
+                        platform = x.Plataforma,
+                        appVersion = x.VersionApp,
+                        deviceModel = x.ModeloDispositivo,
+                        osVersion = x.VersionOS
+                    },
+                    // --- NUEVOS CAMPOS ---
+                    comentario = x.Comentario,
+                    progreso = x.Progreso
+                    // ---------------------
+                }).ToListAsync();
 
             var timeline = await (
                 from tl in _db.TareaTimeline.AsNoTracking()
@@ -154,57 +183,56 @@ public class TareasController : ControllerBase
                     eventId = $"EVT-{tl.TimelineId:D3}",
                     type = te.Codigo,
                     description = tl.Descripcion,
+                    // Complemento: Valores de cambio si existen en tu tabla timeline
+                    previousValue = tl.ValorAnterior,
+                    newValue = tl.ValorNuevo,
                     performedBy = tl.PerformedBy,
                     performedAt = tl.PerformedAt
                 }).ToListAsync();
 
-            var response = new
+            return Ok(new
             {
                 taskId = tarea.Tarea.TaskCode,
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
                 statusCode = tarea.Estatus.Codigo,
-                client = new
-                {
-                    name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE",
-                    logoUrl = (string?)null
-                },
+                createdAt = tarea.Tarea.DateCreated,
+                updatedAt = tarea.Tarea.DateModified,
+                client = new { name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE" },
+                trabajador = tarea.Tarea.TrabajadorId == null ? null : await _db.ProveedorTrabajadores.AsNoTracking()
+         .Where(x => x.TrabajadorId == tarea.Tarea.TrabajadorId && !x.IsDeleted)
+         .Select(x => new
+         {
+             trabajadorId = x.TrabajadorId,
+             nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
+             tipoDeMiembro = x.TipoDeMiembro
+         }).FirstOrDefaultAsync(),
+                supervisor = tarea.Tarea.SupervisorId == null ? null : await _db.ProveedorTrabajadores.AsNoTracking()
+         .Where(x => x.TrabajadorId == tarea.Tarea.SupervisorId && !x.IsDeleted)
+         .Select(x => new
+         {
+             supervisorId = x.TrabajadorId,
+             nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
+             tipoDeMiembro = x.TipoDeMiembro
+         }).FirstOrDefaultAsync(),
                 observations = observaciones,
-                supervisor = (object?)null,
+                evidences = evidencias,
+                timeline = timeline,
                 schedule = new
                 {
                     assignedDate = tarea.Tarea.FechaAsignacion,
                     programmedDate = tarea.Tarea.FechaProgramada,
                     dueDate = tarea.Tarea.FechaVencimiento
-                },
-                budget = new
-                {
-                    assigned = tarea.Tarea.PresupuestoAsignado,
-                    currency = tarea.Tarea.Moneda
-                },
-                evidences = evidencias,
-                timeline = timeline,
-                createdAt = tarea.Tarea.DateCreated,
-                updatedAt = tarea.Tarea.DateModified ?? tarea.Tarea.DateCreated
-            };
+                }
+            });
 
-            return Ok(response);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error al consultar tarea {TaskId}.", taskId);
-
-            return BadRequest(new ApiResponse<object>
-            {
-                
-                success = false,
-                message = "Error al consultar tarea.",
-                statusCode = 400,
-                errors = GetErrorMessages(ex)
-            });
+            _logger.LogError(ex, "Error al consultar detalle.");
+            return BadRequest(new ApiResponse<object> { request_id = requestId, success = false, message = "Error al consultar tarea.", statusCode = 400, errors = GetErrorMessages(ex) });
         }
     }
-
     /// <summary>
     /// Actualiza una tarea agregando evidencias, observación y/o cambio de estatus.
     /// </summary>
@@ -319,17 +347,28 @@ public class TareasController : ControllerBase
                     _db.TareaEvidencias.Add(new TareaEvidencia
                     {
                         TareaId = tarea.TareaId,
-                        Tipo = item.Type?.Trim() ?? string.Empty,
-                        UrlArchivo = null, // aquí luego puedes guardar la URL real cuando subas el archivo
-                        MimeType = item.MimeType,
-                        SizeBytes = item.SizeInBytes,
+                        Tipo = item.Type?.Trim() ?? "IMAGE",
+                        UrlArchivo = item.Url,
+                        MimeType = null,
+                        SizeBytes = null,
                         Latitud = item.Location?.Latitude,
                         Longitud = item.Location?.Longitude,
+                        PrecisionMetros = item.Location?.AccuracyMeters,
+                        Altitud = item.Location?.Altitude,
+                        DireccionGrados = item.Location?.Heading,
+                        Velocidad = item.Location?.Speed,
+                        PrecisionVelocidad = item.Location?.SpeedAccuracy,
+                        TimestampGps = item.Location?.Timestamp,
+                        EsSimulado = item.Location?.IsMocked,
                         Direccion = item.Address?.FormattedAddress,
                         Plataforma = item.DeviceInfo?.Platform,
                         VersionApp = item.DeviceInfo?.AppVersion,
                         ModeloDispositivo = item.DeviceInfo?.DeviceModel,
                         VersionOS = item.DeviceInfo?.OsVersion,
+                        // --- NUEVOS CAMPOS ---
+                        Comentario = item.Comentario?.Trim(),
+                        Progreso = item.Progreso,
+                        // ---------------------
                         DateCreated = DateTime.UtcNow
                     });
                 }

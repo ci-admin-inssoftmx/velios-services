@@ -363,7 +363,6 @@ public class AuthenticateController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<LoginDataResponse>>> Login([FromBody] LoginRequest model)
     {
-
         try
         {
             if (!ModelState.IsValid)
@@ -391,7 +390,7 @@ public class AuthenticateController : ControllerBase
                 });
             }
 
-            // Buscar proveedor por correo
+            // ─── BLOQUE ORIGINAL: Buscar proveedor por correo ───────────────────────
             var proveedor = await _db.Proveedores
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x =>
@@ -399,7 +398,89 @@ public class AuthenticateController : ControllerBase
                     x.CorreoContacto.ToLower() == email &&
                     !x.IsDeleted);
 
-            if (proveedor == null)
+            if (proveedor != null)
+            {
+                // Validar que el proveedor esté activo
+                if (proveedor.EstatusProveedorId != 1)
+                {
+                    return Unauthorized(new ApiResponse<LoginDataResponse>
+                    {
+                        success = false,
+                        message = "La cuenta del proveedor no está activa.",
+                        data = null,
+                        statusCode = 401,
+                        errors = new List<string> { "La cuenta aún no está activa o fue deshabilitada." }
+                    });
+                }
+
+                // Comparar hash legacy
+                var hash = _passwordHasher.HashLegacy(password);
+                var storedHash = (proveedor.PasswordHash ?? "").Trim();
+
+                if (!string.Equals(hash, storedHash, StringComparison.Ordinal))
+                {
+                    return Unauthorized(new ApiResponse<LoginDataResponse>
+                    {
+                        success = false,
+                        message = "Credenciales inválidas.",
+                        data = null,
+                        statusCode = 401,
+                        errors = new List<string> { "Correo o contraseña incorrectos." }
+                    });
+                }
+
+                // Login OK: generar JWT de proveedor
+                var token = CreateJwtProveedor(proveedor);
+
+                var data = new LoginDataResponse
+                {
+                    ProveedorID = proveedor.ProveedorId,
+                    Email = proveedor.CorreoContacto ?? "",
+                    NombreCompleto = proveedor.NombreComercial ?? proveedor.RazonSocial ?? "",
+
+                    UnidadDireccion = new UnidadDireccionDto
+                    {
+                        Calle = proveedor.Calle ?? "",
+                        NumeroInterior = "",
+                        NumeroExterior = "",
+                        EstadoId = 0,
+                        Estado = proveedor.Estado ?? "",
+                        ColoniaId = 0,
+                        Colonia = proveedor.Colonia ?? "",
+                        MunicipioId = 0,
+                        Municipio = proveedor.DelegacionMunicipio ?? "",
+                        CodigoPostalId = 0,
+                        CodigoPostal = proveedor.CodigoPostal ?? ""
+                    },
+
+                    Latitud = proveedor.Latitud,
+                    Longitud = proveedor.Longitud,
+
+                    Roles = new List<string> { "Proveedor" },
+                    Token = token
+                };
+
+                return Ok(new ApiResponse<LoginDataResponse>
+                {
+                    success = true,
+                    message = "Solicitud ejecutada con éxito.",
+                    data = data,
+                    statusCode = 200,
+                    errors = null
+                });
+            }
+            // ─── FIN BLOQUE ORIGINAL ────────────────────────────────────────────────
+
+
+            // ─── BLOQUE NUEVO: Buscar ProveedorTrabajador por correo ────────────────
+            var trabajador = await _db.ProveedorTrabajadores
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x =>
+                    x.Correo != null &&
+                    x.Correo.ToLower() == email &&
+                    !x.IsDeleted);
+
+            if (trabajador == null)
             {
                 return Unauthorized(new ApiResponse<LoginDataResponse>
                 {
@@ -411,13 +492,13 @@ public class AuthenticateController : ControllerBase
                 });
             }
 
-            // Validar que el proveedor esté activo
-            if (proveedor.EstatusProveedorId != 1)
+            // Validar que el trabajador esté activo
+            if (trabajador.EstatusTrabajadorId != 1)
             {
                 return Unauthorized(new ApiResponse<LoginDataResponse>
                 {
                     success = false,
-                    message = "La cuenta del proveedor no está activa.",
+                    message = "La cuenta del trabajador no está activa.",
                     data = null,
                     statusCode = 401,
                     errors = new List<string> { "La cuenta aún no está activa o fue deshabilitada." }
@@ -425,10 +506,10 @@ public class AuthenticateController : ControllerBase
             }
 
             // Comparar hash legacy
-            var hash = _passwordHasher.HashLegacy(password);
-            var storedHash = (proveedor.PasswordHash ?? "").Trim();
+            var hashTrabajador = _passwordHasher.HashLegacy(password);
+            var storedHashTrabajador = (trabajador.PasswordHash ?? "").Trim();
 
-            if (!string.Equals(hash, storedHash, StringComparison.Ordinal))
+            if (!string.Equals(hashTrabajador, storedHashTrabajador, StringComparison.Ordinal))
             {
                 return Unauthorized(new ApiResponse<LoginDataResponse>
                 {
@@ -440,53 +521,51 @@ public class AuthenticateController : ControllerBase
                 });
             }
 
-            // Login OK: generar JWT de proveedor
-            var token = CreateJwtProveedor(proveedor);
+            // Login OK: generar JWT de trabajador
+            var tokenTrabajador = CreateJwtProveedorTrabajador(trabajador);
 
-            var data = new LoginDataResponse
+            var dataTrabajador = new LoginDataResponse
             {
-                ProveedorID = proveedor.ProveedorId,
-                Email = proveedor.CorreoContacto ?? "",
-
-
-                // Reutilizamos estos campos para mostrar nombre del proveedor
-                NombreCompleto = proveedor.NombreComercial ?? proveedor.RazonSocial ?? "",
+                ProveedorID = trabajador.ProveedorId,
+                TrabajadorId = trabajador.TrabajadorId,   // <-- agrega este campo a LoginDataResponse si no existe
+                Email = trabajador.Correo ?? "",
+                NombreCompleto = $"{trabajador.Nombre} {trabajador.ApellidoPaterno} {trabajador.ApellidoMaterno}".Trim(),
 
                 UnidadDireccion = new UnidadDireccionDto
                 {
-                    Calle = proveedor.Calle ?? "",
+                    Calle = "",
                     NumeroInterior = "",
                     NumeroExterior = "",
                     EstadoId = 0,
-                    Estado = proveedor.Estado ?? "",
+                    Estado = "",
                     ColoniaId = 0,
-                    Colonia = proveedor.Colonia ?? "",
+                    Colonia = "",
                     MunicipioId = 0,
-                    Municipio = proveedor.DelegacionMunicipio ?? "",
+                    Municipio = "",
                     CodigoPostalId = 0,
-                    CodigoPostal = proveedor.CodigoPostal ?? ""
+                    CodigoPostal = ""
                 },
 
-                // 🔹 NUEVOS CAMPOS DE GEOLOCALIZACIÓN
-                Latitud = proveedor.Latitud,
-                Longitud = proveedor.Longitud,
+                Latitud = null,
+                Longitud = null,
 
-                Roles = new List<string> { "Proveedor" },
-                Token = token
+                Roles = new List<string> { trabajador.TipoDeMiembro ?? "Trabajador" },
+                Token = tokenTrabajador
             };
 
             return Ok(new ApiResponse<LoginDataResponse>
             {
                 success = true,
                 message = "Solicitud ejecutada con éxito.",
-                data = data,
+                data = dataTrabajador,
                 statusCode = 200,
                 errors = null
             });
+            // ─── FIN BLOQUE NUEVO ───────────────────────────────────────────────────
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error en login de proveedor para email {Email}", model.Email);
+            _logger.LogError(ex, "Error en login para email {Email}", model.Email);
 
             return BadRequest(new ApiResponse<LoginDataResponse>
             {
@@ -499,7 +578,9 @@ public class AuthenticateController : ControllerBase
         }
     }
 
-    private TokenResponse CreateJwtProveedor(Proveedor proveedor)
+
+    // ─── JWT para ProveedorTrabajador ───────────────────────────────────────────
+    private TokenResponse CreateJwtProveedorTrabajador(ProveedorTrabajador trabajador)
     {
         var key = _config["Jwt:Key"]!;
         var issuer = _config["Jwt:Issuer"];
@@ -507,13 +588,15 @@ public class AuthenticateController : ControllerBase
 
         var claims = new List<Claim>
     {
-        new Claim(ClaimTypes.NameIdentifier, proveedor.ProveedorId.ToString()),
-        new Claim(ClaimTypes.Name, proveedor.CorreoContacto ?? ""),
-        new Claim(ClaimTypes.Email, proveedor.CorreoContacto ?? ""),
-        new Claim(ClaimTypes.Role, "Proveedor"),
-        new Claim("ProveedorId", proveedor.ProveedorId.ToString()),
-        new Claim("RazonSocial", proveedor.RazonSocial ?? ""),
-        new Claim("NombreComercial", proveedor.NombreComercial ?? "")
+        new Claim(ClaimTypes.NameIdentifier, trabajador.TrabajadorId.ToString()),
+        new Claim(ClaimTypes.Name,           trabajador.Correo ?? ""),
+        new Claim(ClaimTypes.Email,          trabajador.Correo ?? ""),
+        new Claim(ClaimTypes.Role,           trabajador.TipoDeMiembro ?? "Trabajador"),
+        new Claim("TrabajadorId",            trabajador.TrabajadorId.ToString()),
+        new Claim("ProveedorId",             trabajador.ProveedorId.ToString()),
+        new Claim("NombreCompleto",          $"{trabajador.Nombre} {trabajador.ApellidoPaterno} {trabajador.ApellidoMaterno}".Trim()),
+        new Claim("TipoDeMiembro",           trabajador.TipoDeMiembro ?? ""),
+        new Claim("Nivel",                   trabajador.Nivel ?? "")
     };
 
         var creds = new SigningCredentials(
@@ -538,7 +621,45 @@ public class AuthenticateController : ControllerBase
             validTo = validTo
         };
     }
+    private TokenResponse CreateJwtProveedor(Proveedor proveedor)
+    {
+        var key = _config["Jwt:Key"]!;
+        var issuer = _config["Jwt:Issuer"];
+        var audience = _config["Jwt:Audience"];
 
+        var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.NameIdentifier, proveedor.ProveedorId.ToString()),
+        new Claim(ClaimTypes.Name,  proveedor.CorreoContacto ?? ""),
+        new Claim(ClaimTypes.Email, proveedor.CorreoContacto ?? ""),
+        new Claim(ClaimTypes.Role,  "Proveedor"),
+        new Claim("ProveedorId",    proveedor.ProveedorId.ToString()),
+        new Claim("RazonSocial",    proveedor.RazonSocial    ?? ""),
+        new Claim("NombreComercial",proveedor.NombreComercial ?? "")
+    };
+
+        var creds = new SigningCredentials(
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+            SecurityAlgorithms.HmacSha256);
+
+        var validFrom = DateTime.UtcNow;
+        var validTo = validFrom.AddHours(24);
+
+        var token = new JwtSecurityToken(
+            issuer: issuer,
+            audience: audience,
+            claims: claims,
+            notBefore: validFrom,
+            expires: validTo,
+            signingCredentials: creds);
+
+        return new TokenResponse
+        {
+            bearerToken = new JwtSecurityTokenHandler().WriteToken(token),
+            validFrom = validFrom,
+            validTo = validTo
+        };
+    }
     // =========================================================
     // POST /api/Authenticate/ForgotPassword
     // =========================================================

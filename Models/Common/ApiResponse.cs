@@ -19,8 +19,8 @@
 /// </typeparam>
 public class ApiResponse<T>
 {
-
-    /// <summary>
+        // 1. Agregamos esta línea (es el "folio" de seguimiento)
+        public string request_id { get; set; } = Guid.NewGuid().ToString();    /// <summary>
     /// Indica si la operación fue exitosa.
     /// 
     /// true  = Operación completada correctamente.

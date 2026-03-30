@@ -52,7 +52,36 @@ public class TareaEvidencia
     [Column("VersionOS")]
     [MaxLength(50)]
     public string? VersionOS { get; set; }
+    [Column("PrecisionMetros", TypeName = "decimal(18,10)")]
+    public decimal? PrecisionMetros { get; set; }
+
+    [Column("Altitud", TypeName = "decimal(18,10)")]
+    public decimal? Altitud { get; set; }
+
+    [Column("DireccionGrados", TypeName = "decimal(18,10)")] // Cambiado de 10,8
+    public decimal? DireccionGrados { get; set; }
+
+    [Column("Velocidad", TypeName = "decimal(18,10)")] // Cambiado de 10,8
+    public decimal? Velocidad { get; set; }
+
+    [Column("PrecisionVelocidad", TypeName = "decimal(18,10)")] // Cambiado de 10,8
+    public decimal? PrecisionVelocidad { get; set; }
+
+    [Column("TimestampGps")]
+    public DateTime? TimestampGps { get; set; }
+
+    [Column("EsSimulado")]
+    public bool? EsSimulado { get; set; }
+
+    [Column("Comentario")]
+    [MaxLength(500)]
+    public string? Comentario { get; set; }
+
+    [Column("Progreso")]
+    public int? Progreso { get; set; }
+
 
     [Column("DateCreated")]
     public DateTime DateCreated { get; set; }
+
 }

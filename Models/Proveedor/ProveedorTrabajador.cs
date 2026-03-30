@@ -24,9 +24,28 @@ public class ProveedorTrabajador
     public string? Correo { get; set; }
     public string? Telefono { get; set; }
 
+    // --- NUEVOS CAMPOS ---
+    [Column("tipo_de_miembro")]
+    public string? TipoDeMiembro { get; set; } // 'Trabajador' o 'Supervisor'
+
+    [Column("nivel")]
+    public string? Nivel { get; set; }         // 'Junior', 'Semi', 'Senior'
+
+    [Column("clientes")]
+    public string? Clientes { get; set; }
+
+    [Column("PasswordHash")]
+    public string? PasswordHash { get; set; }
+
+    [Column("centros_de_trabajo")]
+    public string? CentroDeTrabajo { get; set; }
+    // ---------------------
+
     public int EstatusTrabajadorId { get; set; }
     public bool IsDeleted { get; set; }
 
     public DateTime DateCreated { get; set; }
     public DateTime? DateModified { get; set; }
+
+   
 }
