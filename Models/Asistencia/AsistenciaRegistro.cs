@@ -99,6 +99,8 @@ public class AsistenciaRegistro
     [Column("DateModified")]
     public DateTime? DateModified { get; set; }
 
+    public int? CentroTrabajoId { get; set; }
+
     /// <summary>
     /// Borrado lógico.
     /// </summary>

@@ -42,45 +42,58 @@ public class TareasController : ControllerBase
         try
         {
             var data = await (
-    from t in _db.Tareas.AsNoTracking()
-    join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
-    join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
-    join tr in _db.ProveedorTrabajadores.AsNoTracking() on t.TrabajadorId equals tr.TrabajadorId into trGroup
-    from tr in trGroup.DefaultIfEmpty()
-    join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
-    from sv in svGroup.DefaultIfEmpty()
-    where !t.IsDeleted && !c.IsDeleted
-    orderby t.TareaId descending
-    select new
-    {
-        taskId = t.TaskCode,
-        title = t.Titulo,
-        description = t.Descripcion,
-        statusCode = e.Codigo,
-        client = new
+        from t in _db.Tareas.AsNoTracking()
+        join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
+        join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
+        join tr in _db.ProveedorTrabajadores.AsNoTracking() on t.TrabajadorId equals tr.TrabajadorId into trGroup
+        from tr in trGroup.DefaultIfEmpty()
+        join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
+        from sv in svGroup.DefaultIfEmpty()
+        join ct in _db.CentrosTrabajo.AsNoTracking() on t.CentroTrabajoId equals ct.CentroTrabajoId into ctGroup
+        from ct in ctGroup.DefaultIfEmpty()
+        where !t.IsDeleted && !c.IsDeleted
+        orderby t.TareaId descending
+        select new
         {
-            name = c.RazonSocial ?? c.NombreComercial ?? "SIN NOMBRE",
-            logoUrl = (string?)null
-        },
-        schedule = new
-        {
-            assignedDate = t.FechaAsignacion,
-            programmedDate = t.FechaProgramada,
-            dueDate = t.FechaVencimiento
-        },
-        trabajador = new
-        {
-            trabajadorId = tr == null ? (long?)null : tr.TrabajadorId,
-            nombre = tr == null ? null : $"{tr.Nombre} {tr.ApellidoPaterno}".Trim(),
-            tipoDeMiembro = tr == null ? null : tr.TipoDeMiembro
-        },
-        supervisor = new
-        {
-            supervisorId = sv == null ? (long?)null : sv.TrabajadorId,
-            nombre = sv == null ? null : $"{sv.Nombre} {sv.ApellidoPaterno}".Trim(),
-            tipoDeMiembro = sv == null ? null : sv.TipoDeMiembro
-        }
-    }).ToListAsync();
+            taskId = t.TaskCode,
+            title = t.Titulo,
+            description = t.Descripcion,
+            statusCode = e.Codigo,
+            client = new
+            {
+                name = c.RazonSocial ?? c.NombreComercial ?? "SIN NOMBRE",
+                logoUrl = (string?)null
+            },
+            schedule = new
+            {
+                assignedDate = t.FechaAsignacion,
+                programmedDate = t.FechaProgramada,
+                dueDate = t.FechaVencimiento
+            },
+            trabajador = new
+            {
+                trabajadorId = tr == null ? (long?)null : tr.TrabajadorId,
+                nombre = tr == null ? null : $"{tr.Nombre} {tr.ApellidoPaterno}".Trim(),
+                tipoDeMiembro = tr == null ? null : tr.TipoDeMiembro
+            },
+            supervisor = new
+            {
+                supervisorId = sv == null ? (long?)null : sv.TrabajadorId,
+                nombre = sv == null ? null : $"{sv.Nombre} {sv.ApellidoPaterno}".Trim(),
+                tipoDeMiembro = sv == null ? null : sv.TipoDeMiembro
+            },
+            centroTrabajo = new
+            {
+                centroTrabajoId = ct == null ? (int?)null : ct.CentroTrabajoId,
+                nombre = ct == null ? null : ct.Nombre,
+                latitud = ct == null ? (decimal?)null : ct.Lat,
+                longitud = ct == null ? (decimal?)null : ct.Lng,
+                radioMetros = ct == null ? (int?)null : ct.RadioMetros,
+                zona = ct == null ? null : ct.Zona,
+                region = ct == null ? null : ct.Region
+            }
+        }).ToListAsync();
+
 
 
             return Ok(new ApiResponse<object>
@@ -200,21 +213,23 @@ public class TareasController : ControllerBase
                 updatedAt = tarea.Tarea.DateModified,
                 client = new { name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE" },
                 trabajador = tarea.Tarea.TrabajadorId == null ? null : await _db.ProveedorTrabajadores.AsNoTracking()
-         .Where(x => x.TrabajadorId == tarea.Tarea.TrabajadorId && !x.IsDeleted)
-         .Select(x => new
-         {
-             trabajadorId = x.TrabajadorId,
-             nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
-             tipoDeMiembro = x.TipoDeMiembro
-         }).FirstOrDefaultAsync(),
+    .Where(x => x.TrabajadorId == tarea.Tarea.TrabajadorId && !x.IsDeleted)
+    .Select(x => new
+    {
+        trabajadorId = x.TrabajadorId,
+        nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
+        tipoDeMiembro = x.TipoDeMiembro,
+        telefono = x.Telefono
+    }).FirstOrDefaultAsync(),
                 supervisor = tarea.Tarea.SupervisorId == null ? null : await _db.ProveedorTrabajadores.AsNoTracking()
-         .Where(x => x.TrabajadorId == tarea.Tarea.SupervisorId && !x.IsDeleted)
-         .Select(x => new
-         {
-             supervisorId = x.TrabajadorId,
-             nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
-             tipoDeMiembro = x.TipoDeMiembro
-         }).FirstOrDefaultAsync(),
+    .Where(x => x.TrabajadorId == tarea.Tarea.SupervisorId && !x.IsDeleted)
+    .Select(x => new
+    {
+        supervisorId = x.TrabajadorId,
+        nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
+        tipoDeMiembro = x.TipoDeMiembro,
+        telefono = x.Telefono
+    }).FirstOrDefaultAsync(),
                 observations = observaciones,
                 evidences = evidencias,
                 timeline = timeline,

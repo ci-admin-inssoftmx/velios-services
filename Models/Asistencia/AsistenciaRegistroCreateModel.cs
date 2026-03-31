@@ -56,6 +56,9 @@ public class AsistenciaRegistroCreateModel
     /// <summary>
     /// Observación.
     /// </summary>
+
+    public int? CentroTrabajoId { get; set; }
+
     [MaxLength(500)]
     public string? Observacion { get; set; }
 }

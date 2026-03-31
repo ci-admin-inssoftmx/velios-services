@@ -131,6 +131,7 @@ public class AsistenciaController : ControllerBase
             var entity = new AsistenciaRegistro
             {
                 TrabajadorId = model.TrabajadorId,
+                CentroTrabajoId = model.CentroTrabajoId, // <--- Agregado aquí
                 Fecha = model.FechaRegistro.Date,
                 HoraEntrada = model.HoraEntrada,
                 HoraSalida = model.HoraSalida,
@@ -151,22 +152,15 @@ public class AsistenciaController : ControllerBase
 
             return Ok(new ApiResponse<object>
             {
-                
                 success = true,
                 message = "Registro de asistencia creado con éxito.",
                 data = new
                 {
                     entity.AsistenciaRegistroId,
                     entity.TrabajadorId,
+                    entity.CentroTrabajoId, // <--- Opcional: Incluirlo en la respuesta
                     entity.Fecha,
-                    entity.HoraEntrada,
-                    entity.HoraSalida,
-                    entity.TipoRegistro,
-                    entity.Origen,
-                    entity.Latitud,
-                    entity.Longitud,
-                    entity.Observacion,
-                    entity.DateCreated
+                    // ... resto de los campos
                 },
                 statusCode = 200
             });
