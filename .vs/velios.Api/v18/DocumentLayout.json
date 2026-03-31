@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\asistencia\\asistenciaregistrocreatemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\asistencia\\asistenciaregistrocreatemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\asistencia\\asistenciacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\asistencia\\asistenciacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\asistencia\\asistenciaregistro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\asistencia\\asistenciaregistro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,41 +22,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AsistenciaRegistro.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Asistencia\\AsistenciaRegistro.cs",
-              "RelativeDocumentMoniker": "Models\\Asistencia\\AsistenciaRegistro.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Asistencia\\AsistenciaRegistro.cs",
-              "RelativeToolTip": "Models\\Asistencia\\AsistenciaRegistro.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAUwGQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T17:49:54.505Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AsistenciaRegistroCreateModel.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Asistencia\\AsistenciaRegistroCreateModel.cs",
-              "RelativeDocumentMoniker": "Models\\Asistencia\\AsistenciaRegistroCreateModel.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Asistencia\\AsistenciaRegistroCreateModel.cs",
-              "RelativeToolTip": "Models\\Asistencia\\AsistenciaRegistroCreateModel.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAkwD0AAAAUAAAAAAAAAA==",
+              "Title": "TareasController.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Tareas\\TareasController.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
+              "RelativeToolTip": "Controllers\\Tareas\\TareasController.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAADQAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T17:41:12.243Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AsistenciaController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Asistencia\\AsistenciaController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Asistencia\\AsistenciaController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Asistencia\\AsistenciaController.cs",
-              "RelativeToolTip": "Controllers\\Asistencia\\AsistenciaController.cs",
-              "ViewState": "AgIAAIsAAAAAAAAAAAAcwJ8AAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T17:26:32.683Z",
+              "WhenOpened": "2026-03-31T20:11:40.904Z",
               "EditorCaption": ""
             }
           ]

@@ -45,12 +45,13 @@ public class TareasController : ControllerBase
         from t in _db.Tareas.AsNoTracking()
         join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
         join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
+        let ct = _db.CentrosTrabajo.AsNoTracking()
+                     .Where(x => x.ClienteId == c.ClienteId && !x.IsDeleted)
+                     .FirstOrDefault()
         join tr in _db.ProveedorTrabajadores.AsNoTracking() on t.TrabajadorId equals tr.TrabajadorId into trGroup
         from tr in trGroup.DefaultIfEmpty()
         join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
         from sv in svGroup.DefaultIfEmpty()
-        join ct in _db.CentrosTrabajo.AsNoTracking() on t.CentroTrabajoId equals ct.CentroTrabajoId into ctGroup
-        from ct in ctGroup.DefaultIfEmpty()
         where !t.IsDeleted && !c.IsDeleted
         orderby t.TareaId descending
         select new
