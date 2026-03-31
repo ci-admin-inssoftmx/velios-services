@@ -36,6 +36,9 @@ public class Tarea
     [Column("SupervisorId")]
     public long? SupervisorId { get; set; }
 
+    [Column("CentroTrabajoId")]
+    public int? CentroTrabajoId { get; set; }
+
     [Column("FechaAsignacion")]
     public DateTime FechaAsignacion { get; set; }
 

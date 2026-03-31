@@ -1,14 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Proyectos_NET\\velios-services\\",
+  "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\controllers\\proveedores\\trabajadorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\proveedores\\trabajadorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\asistencia\\asistenciacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\asistencia\\asistenciacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|d:\\proyectos_net\\velios-services\\controllers\\proveedores\\proveedorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\proveedores\\proveedorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\asistencia\\asistenciaregistrocreatemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\asistencia\\asistenciaregistrocreatemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\asistencia\\asistenciaregistro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\asistencia\\asistenciaregistro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +22,49 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AsistenciaRegistro.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Asistencia\\AsistenciaRegistro.cs",
+              "RelativeDocumentMoniker": "Models\\Asistencia\\AsistenciaRegistro.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Asistencia\\AsistenciaRegistro.cs",
+              "RelativeToolTip": "Models\\Asistencia\\AsistenciaRegistro.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAUwGQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T17:49:54.505Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ProveedoresController.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Controllers\\Proveedores\\ProveedoresController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Proveedores\\ProveedoresController.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Controllers\\Proveedores\\ProveedoresController.cs",
-              "RelativeToolTip": "Controllers\\Proveedores\\ProveedoresController.cs",
-              "ViewState": "AgIAAHQAAAAAAAAAAAAqwI4AAAAMAAAAAAAAAA==",
+              "Title": "AsistenciaRegistroCreateModel.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Asistencia\\AsistenciaRegistroCreateModel.cs",
+              "RelativeDocumentMoniker": "Models\\Asistencia\\AsistenciaRegistroCreateModel.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Asistencia\\AsistenciaRegistroCreateModel.cs",
+              "RelativeToolTip": "Models\\Asistencia\\AsistenciaRegistroCreateModel.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAYwC0AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-30T18:03:14.127Z",
+              "WhenOpened": "2026-03-31T17:41:12.243Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TrabajadoresController.cs",
-              "DocumentMoniker": "D:\\Proyectos_NET\\velios-services\\Controllers\\Proveedores\\TrabajadoresController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Proveedores\\TrabajadoresController.cs",
-              "ToolTip": "D:\\Proyectos_NET\\velios-services\\Controllers\\Proveedores\\TrabajadoresController.cs",
-              "RelativeToolTip": "Controllers\\Proveedores\\TrabajadoresController.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAqwGwAAAANAAAAAAAAAA==",
+              "Title": "AsistenciaController.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Asistencia\\AsistenciaController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Asistencia\\AsistenciaController.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Asistencia\\AsistenciaController.cs",
+              "RelativeToolTip": "Controllers\\Asistencia\\AsistenciaController.cs",
+              "ViewState": "AgIAAIoAAAAAAAAAAADwv58AAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-30T18:02:32.497Z",
+              "WhenOpened": "2026-03-31T17:26:32.683Z",
               "EditorCaption": ""
             }
           ]
