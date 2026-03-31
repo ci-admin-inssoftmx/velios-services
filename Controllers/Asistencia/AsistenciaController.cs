@@ -232,43 +232,50 @@ public class AsistenciaController : ControllerBase
             var origen = (model.Origen ?? string.Empty).Trim().ToUpperInvariant();
             var tipoRegistro = (model.TipoRegistro ?? string.Empty).Trim();
 
-            var query = _db.AsistenciaRegistros
-                .AsNoTracking()
-                .Where(r =>
-                    r.TrabajadorId == model.TrabajadorId &&
-                    r.Fecha >= model.FechaInicio.Date &&
-                    r.Fecha <= model.FechaFin.Date &&
-                    !r.IsDeleted);
+            var query = from r in _db.AsistenciaRegistros.AsNoTracking()
+                        join ct in _db.CentrosTrabajo.AsNoTracking() on r.CentroTrabajoId equals ct.CentroTrabajoId into ctGroup
+                        from ct in ctGroup.DefaultIfEmpty() // Esto es un Left Join
+                        where r.TrabajadorId == model.TrabajadorId &&
+                              r.Fecha >= model.FechaInicio.Date &&
+                              r.Fecha <= model.FechaFin.Date &&
+                              !r.IsDeleted
+                        select new { r, ct };
 
             if (!string.IsNullOrWhiteSpace(origen))
             {
-                query = query.Where(r => r.Origen == origen);
+                query = query.Where(x => x.r.Origen == origen);
             }
 
             if (!string.IsNullOrWhiteSpace(tipoRegistro))
             {
-                query = query.Where(r => r.TipoRegistro == tipoRegistro);
+                query = query.Where(x => x.r.TipoRegistro == tipoRegistro);
             }
 
             var data = await query
-                .OrderByDescending(r => r.Fecha)
-                .ThenByDescending(r => r.HoraEntrada)
-                .Select(r => new
-                {
-                    r.AsistenciaRegistroId,
-                    r.TrabajadorId,
-                    r.Fecha,
-                    r.HoraEntrada,
-                    r.HoraSalida,
-                    r.TipoRegistro,
-                    r.Origen,
-                    r.Latitud,
-                    r.Longitud,
-                    r.Observacion,
-                    r.DateCreated,
-                    r.DateModified
-                })
-                .ToListAsync();
+    .OrderByDescending(x => x.r.Fecha)
+    .ThenByDescending(x => x.r.HoraEntrada)
+    .Select(x => new
+    {
+        x.r.AsistenciaRegistroId,
+        x.r.TrabajadorId,
+
+        // --- AQUÍ ESTÁ LO NUEVO ---
+        centroTrabajoId = x.r.CentroTrabajoId,
+        centroTrabajoNombre = x.ct != null ? x.ct.Nombre : "CENTRO NO ASIGNADO",
+        // --------------------------
+
+        x.r.Fecha,
+        x.r.HoraEntrada,
+        x.r.HoraSalida,
+        x.r.TipoRegistro,
+        x.r.Origen,
+        x.r.Latitud,
+        x.r.Longitud,
+        x.r.Observacion,
+        x.r.DateCreated,
+        x.r.DateModified
+    })
+    .ToListAsync();
 
             return Ok(new ApiResponse<object>
             {
