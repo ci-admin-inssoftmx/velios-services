@@ -37,8 +37,8 @@ public class TareaAsignacionController : ControllerBase
                 if (trabajador == null)
                     return BadRequest(new ApiResponse<object> { success = false, message = "Trabajador no encontrado.", statusCode = 400 });
 
-                if (trabajador.TipoDeMiembro != "Trabajador")
-                    return BadRequest(new ApiResponse<object> { success = false, message = "El miembro indicado no es de tipo Trabajador.", statusCode = 400 });
+                if (trabajador.TipoDeMiembro != "Operador")
+                    return BadRequest(new ApiResponse<object> { success = false, message = "El miembro indicado no es de tipo Operador.", statusCode = 400 });
 
                 tarea.TrabajadorId = model.TrabajadorId;
             }
