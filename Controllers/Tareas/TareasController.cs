@@ -142,6 +142,22 @@ public class TareasController : ControllerBase
                 return NotFound(new ApiResponse<object> { request_id = requestId, success = false, message = "Tarea no encontrada.", statusCode = 404 });
             }
 
+            // ── CENTRO DE TRABAJO ──────────────────────────────────────────────────
+            var centroTrabajo = await _db.CentrosTrabajo.AsNoTracking()
+                .Where(x => x.ClienteId == tarea.Cliente.ClienteId && !x.IsDeleted)
+                .Select(x => new
+                {
+                    centroTrabajoId = x.CentroTrabajoId,
+                    nombre = x.Nombre,
+                    latitud = x.Lat,
+                    longitud = x.Lng,
+                    radioMetros = x.RadioMetros,
+                    zona = x.Zona,
+                    region = x.Region
+                })
+                .FirstOrDefaultAsync();
+            // ──────────────────────────────────────────────────────────────────────
+
             var observaciones = await _db.TareaObservaciones.AsNoTracking()
                 .Where(x => x.TareaId == tarea.Tarea.TareaId)
                 .OrderByDescending(x => x.ObservacionId)
@@ -181,10 +197,8 @@ public class TareasController : ControllerBase
                         deviceModel = x.ModeloDispositivo,
                         osVersion = x.VersionOS
                     },
-                    // --- NUEVOS CAMPOS ---
                     comentario = x.Comentario,
                     progreso = x.Progreso
-                    // ---------------------
                 }).ToListAsync();
 
             var timeline = await (
@@ -197,7 +211,6 @@ public class TareasController : ControllerBase
                     eventId = $"EVT-{tl.TimelineId:D3}",
                     type = te.Codigo,
                     description = tl.Descripcion,
-                    // Complemento: Valores de cambio si existen en tu tabla timeline
                     previousValue = tl.ValorAnterior,
                     newValue = tl.ValorNuevo,
                     performedBy = tl.PerformedBy,
@@ -214,23 +227,23 @@ public class TareasController : ControllerBase
                 updatedAt = tarea.Tarea.DateModified,
                 client = new { name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE" },
                 trabajador = tarea.Tarea.TrabajadorId == null ? null : await _db.ProveedorTrabajadores.AsNoTracking()
-    .Where(x => x.TrabajadorId == tarea.Tarea.TrabajadorId && !x.IsDeleted)
-    .Select(x => new
-    {
-        trabajadorId = x.TrabajadorId,
-        nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
-        tipoDeMiembro = x.TipoDeMiembro,
-        telefono = x.Telefono
-    }).FirstOrDefaultAsync(),
+                    .Where(x => x.TrabajadorId == tarea.Tarea.TrabajadorId && !x.IsDeleted)
+                    .Select(x => new
+                    {
+                        trabajadorId = x.TrabajadorId,
+                        nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
+                        tipoDeMiembro = x.TipoDeMiembro,
+                        telefono = x.Telefono
+                    }).FirstOrDefaultAsync(),
                 supervisor = tarea.Tarea.SupervisorId == null ? null : await _db.ProveedorTrabajadores.AsNoTracking()
-    .Where(x => x.TrabajadorId == tarea.Tarea.SupervisorId && !x.IsDeleted)
-    .Select(x => new
-    {
-        supervisorId = x.TrabajadorId,
-        nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
-        tipoDeMiembro = x.TipoDeMiembro,
-        telefono = x.Telefono
-    }).FirstOrDefaultAsync(),
+                    .Where(x => x.TrabajadorId == tarea.Tarea.SupervisorId && !x.IsDeleted)
+                    .Select(x => new
+                    {
+                        supervisorId = x.TrabajadorId,
+                        nombre = $"{x.Nombre} {x.ApellidoPaterno}".Trim(),
+                        tipoDeMiembro = x.TipoDeMiembro,
+                        telefono = x.Telefono
+                    }).FirstOrDefaultAsync(),
                 observations = observaciones,
                 evidences = evidencias,
                 timeline = timeline,
@@ -239,9 +252,11 @@ public class TareasController : ControllerBase
                     assignedDate = tarea.Tarea.FechaAsignacion,
                     programmedDate = tarea.Tarea.FechaProgramada,
                     dueDate = tarea.Tarea.FechaVencimiento
-                }
+                },
+                // ── CENTRO DE TRABAJO ──────────────────────────────────────────
+                centroTrabajo = centroTrabajo
+                // ──────────────────────────────────────────────────────────────
             });
-
         }
         catch (Exception ex)
         {
