@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using velios.Api.Data;
 using velios.Api.Models.Common;
+using velios.Api.Services;
 using velios.Api.Services.CodigosPostales;
 using velios.Api.Services.Email;
 using velios.Api.Services.ProveedoresDocs;
@@ -45,6 +46,10 @@ builder.Services.AddSingleton<IPasswordHasher, LegacyPasswordHasher>();
 // Proveedor documentos
 builder.Services.AddScoped<IProveedorDocumentService, ProveedorDocumentService>();
 
+// Registro del módulo de reporte de materialidad
+builder.Services.AddScoped<IReporteMaterialidadRepository, ReporteMaterialidadRepository>();
+builder.Services.AddScoped<IReporteMaterialidadService, ReporteMaterialidadService>();
+builder.Services.AddHttpClient();
 
 // ------------------------------------------------------------
 // 3) MVC / Controllers
