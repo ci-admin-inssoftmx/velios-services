@@ -75,6 +75,6 @@ public class BrevoSmtpEmailSender : IEmailSender
             Timeout = 100000
         };
 
-        smtp.Send(mail);
+        await smtp.SendMailAsync(mail);
     }
 }

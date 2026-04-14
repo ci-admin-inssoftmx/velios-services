@@ -56,6 +56,7 @@ public class TareasController : ControllerBase
         orderby t.TareaId descending
         select new
         {
+            tareaId = t.TareaId,   // ← campo agregado
             taskId = t.TaskCode,
             title = t.Titulo,
             description = t.Descripcion,
