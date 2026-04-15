@@ -16,6 +16,10 @@
 		</PackageReference>
 		<PackageReference Include="QuestPDF" Version="2026.2.4" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+  		<None Include="Resources\**\*">
+    			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  		</None>
 	</ItemGroup>
+
 
 </Project>
