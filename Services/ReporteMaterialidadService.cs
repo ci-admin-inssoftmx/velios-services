@@ -538,6 +538,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
     // =========================================================================
     private static void CrearFondoPagina(IContainer container)
     {
+        // Simplify background to a full-height left stripe to avoid
+        // conflicting fixed-height constraints that can cause
+        // QuestPDF layout exceptions when the background is rendered
+        // in decoration slots (header/footer).
         container.Layers(layers =>
         {
             layers.PrimaryLayer();
@@ -545,12 +549,9 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             {
                 layer.Row(row =>
                 {
-                    row.ConstantItem(22).Column(left =>
-                    {
-                        left.Item().Background("#F15A24").Height(680);
-                        left.Item().Background("#24364D").Height(28);
-                        left.Item().Background("#6B7280").Height(28);
-                    });
+                    // Full-height left stripe (fixed width) that fills the page height
+                    row.ConstantItem(22).Background("#F15A24");
+                    // The rest of the page remains empty (content layer will render above)
                     row.RelativeItem();
                 });
             });
@@ -571,7 +572,9 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             column.Item().Row(row =>
             {
                 // Logo Velios (PNG real)
-                row.ConstantItem(150).Height(50).AlignMiddle().Element(c =>
+                // Avoid forcing a fixed height so header can adapt to available
+                // decoration space and prevent layout conflicts.
+                row.ConstantItem(150).AlignMiddle().Element(c =>
                 {
                     if (logoBytes != null)
                         c.Image(logoBytes, ImageScaling.FitArea);
@@ -600,11 +603,12 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 {
                     containerTitles.Row(r =>
                     {
-                        // Caja con borde y fondo claro que contiene los textos
+                        // Caja con borde y fondo claro que contiene los textos.
+                        // Remove forced height so the header can wrap naturally.
                         r.RelativeItem().Element(box =>
                         {
                             box.Border(1).BorderColor("#E5E7EB").Background(Colors.White)
-                                .Padding(8).Height(48)
+                                .Padding(8)
                                 .Column(col =>
                                 {
                                     col.Item().Text(titulo)
