@@ -15,6 +15,12 @@ public class LoginDataResponse
     public int ProveedorID { get; set; } = 0;
 
     /// <summary>
+    /// Nombre del proveedor (Nombre comercial o razón social).
+    /// Se retorna inmediatamente después de `ProveedorID` en la respuesta.
+    /// </summary>
+    public string ProveedorNombre { get; set; } = "";
+
+    /// <summary>
     /// Correo electrónico del usuario autenticado.
     /// </summary>
     public string Email { get; set; } = "";

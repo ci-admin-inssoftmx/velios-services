@@ -223,6 +223,7 @@ public class TareasController : ControllerBase
                 taskId = tarea.Tarea.TaskCode,
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
+                PresupuestoAsignado = tarea.Tarea.PresupuestoAsignado,
                 statusCode = tarea.Estatus.Codigo,
                 createdAt = tarea.Tarea.DateCreated,
                 updatedAt = tarea.Tarea.DateModified,

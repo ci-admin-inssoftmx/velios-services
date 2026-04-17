@@ -63,6 +63,38 @@ public class AuthenticateController : ControllerBase
     }
 
     // =========================================================
+    // GET /api/Authenticate/CheckEmailExists
+    // =========================================================
+    /// <summary>
+    /// Verifica si un correo ya está registrado en la tabla de proveedores.
+    /// </summary>
+    [HttpGet("CheckEmailExists")]
+    [AllowAnonymous]
+    public async Task<ActionResult<ApiResponse<bool>>> CheckEmailExists([FromQuery] string email)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            return BadRequest(new ApiResponse<bool> { success = false, message = "Email requerido.", statusCode = 400 });
+        }
+
+        var emailNormalizado = email.Trim().ToLowerInvariant();
+
+        // Verificamos si existe en Proveedores o en ProveedorTrabajadores (según tu lógica de login)
+        var existsInProveedores = await _db.Proveedores.AnyAsync(x => x.CorreoContacto == emailNormalizado && !x.IsDeleted);
+        var existsInTrabajadores = await _db.ProveedorTrabajadores.AnyAsync(x => x.Correo == emailNormalizado && !x.IsDeleted);
+
+        bool exists = existsInProveedores || existsInTrabajadores;
+
+        return Ok(new ApiResponse<bool>
+        {
+            success = true,
+            message = exists ? "El correo ya está registrado." : "Correo disponible.",
+            statusCode = 200,
+            data = exists // Retorna true si ya existe
+        });
+    }
+
+    // =========================================================
     // POST /api/Authenticate/SendActivationEmail
     // =========================================================
 
@@ -99,6 +131,8 @@ public class AuthenticateController : ControllerBase
             var exists = await _db.Proveedores
                 .AnyAsync(x => x.CorreoContacto == email && !x.IsDeleted);
 
+         
+
             if (!exists)
             {
                 var proveedor = new Proveedor
@@ -112,6 +146,17 @@ public class AuthenticateController : ControllerBase
 
                 _db.Proveedores.Add(proveedor);
                 await _db.SaveChangesAsync();
+            }
+            else
+            {
+                return Ok(new ApiResponse<bool>
+                {
+                    success = true,
+                    message = exists ? "El correo ya está registrado." : "Correo disponible.",
+                    statusCode = 101,
+                    data = exists // Retorna true si ya existe
+
+                });
             }
         }
         catch (Exception ex)
@@ -435,6 +480,7 @@ public class AuthenticateController : ControllerBase
                 var data = new LoginDataResponse
                 {
                     ProveedorID = proveedor.ProveedorId,
+                    ProveedorNombre = proveedor.NombreComercial ?? proveedor.RazonSocial ?? "",
                     Email = proveedor.CorreoContacto ?? "",
                     NombreCompleto = proveedor.NombreComercial ?? proveedor.RazonSocial ?? "",
 
@@ -524,10 +570,20 @@ public class AuthenticateController : ControllerBase
             // Login OK: generar JWT de trabajador
             var tokenTrabajador = CreateJwtProveedorTrabajador(trabajador);
 
+            // Obtener nombre del proveedor asociado al trabajador (si existe)
+            var proveedorEntidad = await _db.Proveedores
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.ProveedorId == trabajador.ProveedorId && !p.IsDeleted);
+
+            var proveedorNombre = proveedorEntidad != null
+                ? (proveedorEntidad.NombreComercial ?? proveedorEntidad.RazonSocial ?? "")
+                : "";
+
             var dataTrabajador = new LoginDataResponse
             {
                 ProveedorID = trabajador.ProveedorId,
                 TrabajadorId = trabajador.TrabajadorId,   // <-- agrega este campo a LoginDataResponse si no existe
+                ProveedorNombre = proveedorNombre,
                 Email = trabajador.Correo ?? "",
                 NombreCompleto = $"{trabajador.Nombre} {trabajador.ApellidoPaterno} {trabajador.ApellidoMaterno}".Trim(),
 
