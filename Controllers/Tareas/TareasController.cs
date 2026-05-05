@@ -37,17 +37,20 @@ public class TareasController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ApiResponse<object>>> List()
     {
-        
-
         try
         {
             var data = await (
         from t in _db.Tareas.AsNoTracking()
         join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
         join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
+        join p in _db.ClienteProyectos.AsNoTracking()
+on new { ProyectoId = t.ProyectoId, ClienteId = t.ClienteId }
+equals new { ProyectoId = (int?)p.ProyectoId, ClienteId = p.ClienteId }
+into pGroup
+        from p in pGroup.DefaultIfEmpty()
         let ct = _db.CentrosTrabajo.AsNoTracking()
-                     .Where(x => x.ClienteId == c.ClienteId && !x.IsDeleted)
-                     .FirstOrDefault()
+             .Where(x => x.CentroTrabajoId == t.CentroTrabajoId && !x.IsDeleted)
+             .FirstOrDefault()
         join tr in _db.ProveedorTrabajadores.AsNoTracking() on t.TrabajadorId equals tr.TrabajadorId into trGroup
         from tr in trGroup.DefaultIfEmpty()
         join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
@@ -56,11 +59,12 @@ public class TareasController : ControllerBase
         orderby t.TareaId descending
         select new
         {
-            tareaId = t.TareaId,   // ← campo agregado
+            tareaId = t.TareaId,
             taskId = t.TaskCode,
             title = t.Titulo,
             description = t.Descripcion,
             statusCode = e.Codigo,
+            planTrabajo = p != null ? p.Nombre : "SIN PLAN",
             client = new
             {
                 name = c.RazonSocial ?? c.NombreComercial ?? "SIN NOMBRE",
@@ -96,11 +100,8 @@ public class TareasController : ControllerBase
             }
         }).ToListAsync();
 
-
-
             return Ok(new ApiResponse<object>
             {
-                
                 success = true,
                 message = "Consulta exitosa.",
                 data = new { tasks = data },
@@ -110,10 +111,8 @@ public class TareasController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error al listar tareas.");
-
             return BadRequest(new ApiResponse<object>
             {
-                
                 success = false,
                 message = "Error al consultar tareas.",
                 statusCode = 400,
@@ -145,7 +144,7 @@ public class TareasController : ControllerBase
 
             // ── CENTRO DE TRABAJO ──────────────────────────────────────────────────
             var centroTrabajo = await _db.CentrosTrabajo.AsNoTracking()
-                .Where(x => x.ClienteId == tarea.Cliente.ClienteId && !x.IsDeleted)
+                .Where(x => x.CentroTrabajoId == tarea.Tarea.CentroTrabajoId && !x.IsDeleted)  // ← CORREGIDO
                 .Select(x => new
                 {
                     centroTrabajoId = x.CentroTrabajoId,
@@ -157,6 +156,7 @@ public class TareasController : ControllerBase
                     region = x.Region
                 })
                 .FirstOrDefaultAsync();
+
             // ──────────────────────────────────────────────────────────────────────
 
             var observaciones = await _db.TareaObservaciones.AsNoTracking()

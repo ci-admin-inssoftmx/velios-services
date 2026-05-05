@@ -104,12 +104,13 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
     /// </summary>
     public async Task<List<EvidenciaReporteDto>> ObtenerEvidenciasPorTareaAsync(int tareaId)
     {
-        return await _context.TareaEvidencias
-            .AsNoTracking()
-            .Where(e => e.TareaId == tareaId)
-            .OrderBy(e => e.DateCreated)
-            .ThenBy(e => e.EvidenciaId)
-            .Select(e => new EvidenciaReporteDto
+        return await (
+            from e in _context.TareaEvidencias.AsNoTracking()
+            join t in _context.Tareas.AsNoTracking()
+                on e.TareaId equals t.TareaId
+            where t.TareaId == tareaId && !t.IsDeleted
+            orderby e.DateCreated, e.EvidenciaId
+            select new EvidenciaReporteDto
             {
                 EvidenciaId = e.EvidenciaId,
                 TareaId = e.TareaId,
@@ -138,7 +139,7 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
                 EsSimulado = e.EsSimulado,
                 Comentario = e.Comentario,
                 Progreso = e.Progreso
-            })
-            .ToListAsync();
+            }
+        ).ToListAsync();
     }
 }

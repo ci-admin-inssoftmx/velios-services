@@ -1,10 +1,13 @@
-﻿using System.Globalization;
-using System.Text.Json;
+﻿using QRCoder;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using QRCoder;
+using System.Globalization;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
 using velios.Api.Models.ReporteMaterialidad;
+using velios.Api.Models.Tareas;
 
 
 namespace velios.Api.Services;
@@ -88,8 +91,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         byte[]? qrBytes = null;
         try
         {
-            // QR directo fijado en código (valor proporcionado por el usuario)
-            var qrDirectTemplate = "https://velioswebuat.adhw.com.mx/Documentos/Verificar?folio=VL-2026-000184&token=2EABBB9E4E82C7B0D3B87948B500BCDF5E2726D9B96027E8B4F16FB4DBD50EF6";
+            // QR directo fijado en código (valor proporcionado por el usuario
+            var token = BuildValidationToken(tarea.TareaId);
+            var BaseUrlFront = _configuration["AppSettings:BaseUrlFront"];
+            var qrDirectTemplate = BaseUrlFront+$"Documentos/Verificar?taskId={tareaId}&token={token}";
             qrBytes = GenerarQrBytes(qrDirectTemplate);
         }
         catch
@@ -1156,5 +1161,24 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         var png = new PngByteQRCode(data);
         // 20 pixels por módulo produce una imagen de tamaño adecuado
         return png.GetGraphic(20);
+    }
+
+    private string BuildValidationToken(int tareaId)
+    {
+        var secretKey = _configuration["QrValidation:SecretKey"];
+
+        if (string.IsNullOrWhiteSpace(secretKey))
+        {
+            throw new InvalidOperationException("No existe la configuración QrValidation:SecretKey.");
+        }
+
+        var payload = $"taskId:{tareaId}";
+        var keyBytes = Encoding.UTF8.GetBytes(secretKey);
+        var payloadBytes = Encoding.UTF8.GetBytes(payload);
+
+        using var hmac = new HMACSHA256(keyBytes);
+        var hashBytes = hmac.ComputeHash(payloadBytes);
+
+        return Convert.ToHexString(hashBytes);
     }
 }
