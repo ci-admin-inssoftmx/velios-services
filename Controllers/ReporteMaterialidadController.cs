@@ -14,15 +14,22 @@ public class ReporteMaterialidadController : ControllerBase
         _reporteMaterialidadService = reporteMaterialidadService;
     }
 
-    [HttpGet("tarea/{tareaId:int}")]
+    [HttpGet("tarea/{tareaId}")]
     [Produces("application/pdf")]
     public async Task<IActionResult> GenerarPorTarea(int tareaId)
     {
+        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
         var pdfBytes = await _reporteMaterialidadService.GenerarPdfPorTareaAsync(tareaId);
+
+        stopwatch.Stop();
+
+        Response.Headers["X-Tiempo-Generacion"] = $"{stopwatch.ElapsedMilliseconds} ms";
 
         return File(
             pdfBytes,
             "application/pdf",
-            $"InformeMaterialidad_Tarea_{tareaId}.pdf");
+            $"reporte-materialidad-{tareaId}.pdf"
+        );
     }
 }

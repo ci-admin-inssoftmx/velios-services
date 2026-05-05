@@ -17,9 +17,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IConfiguration _configuration;
 
-    private static readonly SemaphoreSlim _httpLimit = new(6);
-    private static readonly ConcurrentDictionary<string, byte[]?> _bytesCache = new();
-    private static readonly ConcurrentDictionary<string, GeocodingInfoDto?> _geoCache = new();
+    private static readonly SemaphoreSlim _httpLimit = new(8);
+
+    private static readonly ConcurrentDictionary<string, Lazy<Task<byte[]?>>> _bytesCache = new();
+    private static readonly ConcurrentDictionary<string, Lazy<Task<GeocodingInfoDto?>>> _geoCache = new();
 
     public ReporteMaterialidadService(
         IReporteMaterialidadRepository repository,
@@ -72,12 +73,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         var tareas = new List<Task>();
 
         if (!string.IsNullOrWhiteSpace(evidencia.UrlArchivo))
-        {
-            tareas.Add(Task.Run(async () =>
-            {
-                evidencia.ImagenBytes = await DescargarBytesConCacheAsync(evidencia.UrlArchivo!);
-            }));
-        }
+            tareas.Add(CargarImagenEvidenciaAsync(evidencia));
 
         if (evidencia.Latitud.HasValue && evidencia.Longitud.HasValue)
         {
@@ -89,38 +85,45 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
             evidencia.GoogleMapsUrl = $"https://www.google.com/maps?q={lat},{lng}";
 
-            tareas.Add(Task.Run(async () =>
-            {
-                evidencia.MapaBytes = await DescargarMapaConCacheAsync(latitud, longitud);
-            }));
+            tareas.Add(CargarMapaEvidenciaAsync(evidencia, latitud, longitud));
 
             var necesitaGeocoding =
                 string.IsNullOrWhiteSpace(evidencia.DireccionFormateada) &&
                 string.IsNullOrWhiteSpace(evidencia.Direccion);
 
             if (necesitaGeocoding)
-            {
-                tareas.Add(Task.Run(async () =>
-                {
-                    var geo = await ObtenerGeocodingConCacheAsync(latitud, longitud);
-
-                    if (geo is not null)
-                    {
-                        evidencia.DireccionFormateada = geo.DireccionFormateada;
-                        evidencia.Colonia = geo.Colonia;
-                        evidencia.Municipio = geo.Municipio;
-                        evidencia.Estado = geo.Estado;
-                        evidencia.CodigoPostal = geo.CodigoPostal;
-                        evidencia.Pais = geo.Pais;
-                    }
-                }));
-            }
+                tareas.Add(CargarGeocodingEvidenciaAsync(evidencia, latitud, longitud));
         }
 
         await Task.WhenAll(tareas);
 
         if (string.IsNullOrWhiteSpace(evidencia.DireccionFormateada))
             evidencia.DireccionFormateada = evidencia.Direccion;
+    }
+
+    private async Task CargarImagenEvidenciaAsync(EvidenciaReporteDto evidencia)
+    {
+        evidencia.ImagenBytes = await DescargarBytesConCacheAsync(evidencia.UrlArchivo!);
+    }
+
+    private async Task CargarMapaEvidenciaAsync(EvidenciaReporteDto evidencia, decimal latitud, decimal longitud)
+    {
+        evidencia.MapaBytes = await DescargarMapaConCacheAsync(latitud, longitud);
+    }
+
+    private async Task CargarGeocodingEvidenciaAsync(EvidenciaReporteDto evidencia, decimal latitud, decimal longitud)
+    {
+        var geo = await ObtenerGeocodingConCacheAsync(latitud, longitud);
+
+        if (geo is null)
+            return;
+
+        evidencia.DireccionFormateada = geo.DireccionFormateada;
+        evidencia.Colonia = geo.Colonia;
+        evidencia.Municipio = geo.Municipio;
+        evidencia.Estado = geo.Estado;
+        evidencia.CodigoPostal = geo.CodigoPostal;
+        evidencia.Pais = geo.Pais;
     }
 
     private byte[]? GenerarQrSeguro(TareaReporteDto tarea, int tareaId)
@@ -170,13 +173,20 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
     private async Task<byte[]?> DescargarBytesConCacheAsync(string url)
     {
-        if (_bytesCache.TryGetValue(url, out var cached))
-            return cached;
+        var lazyTask = _bytesCache.GetOrAdd(
+            url,
+            key => new Lazy<Task<byte[]?>>(
+                () => DescargarBytesAsync(key),
+                LazyThreadSafetyMode.ExecutionAndPublication
+            )
+        );
 
-        var bytes = await DescargarBytesAsync(url);
-        _bytesCache[url] = bytes;
+        var result = await lazyTask.Value;
 
-        return bytes;
+        if (result is null)
+            _bytesCache.TryRemove(url, out _);
+
+        return result;
     }
 
     private async Task<byte[]?> DescargarMapaConCacheAsync(decimal latitud, decimal longitud)
@@ -212,11 +222,24 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
         var cacheKey = $"{lat},{lng}";
 
-        if (_geoCache.TryGetValue(cacheKey, out var cached))
-            return cached;
+        var lazyTask = _geoCache.GetOrAdd(
+            cacheKey,
+            _ => new Lazy<Task<GeocodingInfoDto?>>(
+                () => ObtenerGeocodingDesdeGoogleAsync(lat, lng, apiKey),
+                LazyThreadSafetyMode.ExecutionAndPublication
+            )
+        );
 
-        GeocodingInfoDto? geo = null;
+        var result = await lazyTask.Value;
 
+        if (result is null)
+            _geoCache.TryRemove(cacheKey, out _);
+
+        return result;
+    }
+
+    private async Task<GeocodingInfoDto?> ObtenerGeocodingDesdeGoogleAsync(string lat, string lng, string apiKey)
+    {
         try
         {
             await _httpLimit.WaitAsync();
@@ -230,16 +253,18 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                     $"https://maps.googleapis.com/maps/api/geocode/json" +
                     $"?latlng={lat},{lng}&language=es&key={apiKey}";
 
-                var json = await client.GetStringAsync(url);
+                using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+
+                if (!response.IsSuccessStatusCode)
+                    return null;
+
+                var json = await response.Content.ReadAsStringAsync();
 
                 using var doc = JsonDocument.Parse(json);
 
                 if (!doc.RootElement.TryGetProperty("results", out var results) ||
                     results.GetArrayLength() == 0)
-                {
-                    _geoCache[cacheKey] = null;
                     return null;
-                }
 
                 var first = results[0];
                 var info = new GeocodingInfoDto();
@@ -285,7 +310,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                     }
                 }
 
-                geo = info;
+                return info;
             }
             finally
             {
@@ -294,11 +319,8 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         }
         catch
         {
-            geo = null;
+            return null;
         }
-
-        _geoCache[cacheKey] = geo;
-        return geo;
     }
 
     private async Task<byte[]?> DescargarBytesAsync(string url)
@@ -312,7 +334,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 var client = _httpClientFactory.CreateClient();
                 client.Timeout = TimeSpan.FromSeconds(4);
 
-                using var response = await client.GetAsync(url);
+                using var response = await client.GetAsync(
+                    url,
+                    HttpCompletionOption.ResponseHeadersRead
+                );
 
                 if (!response.IsSuccessStatusCode)
                     return null;
