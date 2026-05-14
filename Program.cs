@@ -11,6 +11,7 @@ using velios.Api.Services.CodigosPostales;
 using velios.Api.Services.Email;
 using velios.Api.Services.ProveedoresDocs;
 using velios.Api.Services.Security;
+using velios.Api.Services.ServiciosCategoria;
 
 /// <summary>
 /// Punto de entrada de Velios API (Minimal Hosting .NET 6+).
@@ -51,7 +52,8 @@ builder.Services.AddScoped<IProveedorDocumentService, ProveedorDocumentService>(
 builder.Services.AddScoped<IReporteMaterialidadRepository, ReporteMaterialidadRepository>();
 builder.Services.AddScoped<IReporteMaterialidadService, ReporteMaterialidadService>();
 builder.Services.AddHttpClient();
-
+// Servicios - Categorías
+builder.Services.AddScoped<ICategoriaServicioService, CategoriaServicioService>();
 // ------------------------------------------------------------
 // 3) MVC / Controllers
 // ------------------------------------------------------------
