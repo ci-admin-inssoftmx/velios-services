@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\servicioscategoria\\categoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\servicioscategoria\\categoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\servicioscategoria\\categoriaserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\servicioscategoria\\categoriaserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\email\\brevosmtpemailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\email\\brevosmtpemailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\servicioscategoria\\icategoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\servicioscategoria\\icategoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\common\\smtpsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\common\\smtpsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\servicioscategoria\\serviciomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\servicioscategoria\\serviciomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\email\\iemailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\email\\iemailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\velios.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:velios.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,54 +42,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ServicioModel.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\ServiciosCategoria\\ServicioModel.cs",
-              "RelativeDocumentMoniker": "Models\\ServiciosCategoria\\ServicioModel.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\ServiciosCategoria\\ServicioModel.cs",
-              "RelativeToolTip": "Models\\ServiciosCategoria\\ServicioModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T05:30:16.926Z",
+              "DocumentIndex": 5,
+              "Title": "velios.Api",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\velios.Api.csproj",
+              "RelativeDocumentMoniker": "velios.Api.csproj",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\velios.Api.csproj",
+              "RelativeToolTip": "velios.Api.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwBkAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-14T19:22:28.03Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ICategoriaServicioService.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
-              "RelativeDocumentMoniker": "Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
-              "RelativeToolTip": "Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Title": "SmtpSettings.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Common\\SmtpSettings.cs",
+              "RelativeDocumentMoniker": "Models\\Common\\SmtpSettings.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Common\\SmtpSettings.cs",
+              "RelativeToolTip": "Models\\Common\\SmtpSettings.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAAwDAAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-13T22:36:44.494Z",
+              "WhenOpened": "2026-05-14T18:54:28.367Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAANUAAAAAAAAAAAAmwO8AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-14T18:54:01.231Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IEmailSender.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\Email\\IEmailSender.cs",
+              "RelativeDocumentMoniker": "Services\\Email\\IEmailSender.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\Email\\IEmailSender.cs",
+              "RelativeToolTip": "Services\\Email\\IEmailSender.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwCQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-14T18:52:33.309Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CategoriaServicioController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
-              "RelativeToolTip": "Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAiwF0AAAAJAAAAAAAAAA==",
+              "Title": "BrevoSmtpEmailSender.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\Email\\BrevoSmtpEmailSender.cs",
+              "RelativeDocumentMoniker": "Services\\Email\\BrevoSmtpEmailSender.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\Email\\BrevoSmtpEmailSender.cs",
+              "RelativeToolTip": "Services\\Email\\BrevoSmtpEmailSender.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAQwE0AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-13T22:35:09.564Z",
+              "WhenOpened": "2026-05-14T18:52:17.025Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CategoriaServicioService.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\CategoriaServicioService.cs",
-              "RelativeDocumentMoniker": "Services\\ServiciosCategoria\\CategoriaServicioService.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\CategoriaServicioService.cs",
-              "RelativeToolTip": "Services\\ServiciosCategoria\\CategoriaServicioService.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAmwDgAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-13T22:34:06.231Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-14T18:42:11.34Z",
               "EditorCaption": ""
             }
           ]
