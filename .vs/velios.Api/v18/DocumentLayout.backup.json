@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\servicioscategoria\\categoriaserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\servicioscategoria\\categoriaserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\servicioscategoria\\categoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\servicioscategoria\\categoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\servicioscategoria\\categoriaserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\servicioscategoria\\categoriaserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\servicioscategoria\\icategoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\servicioscategoria\\icategoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\servicioscategoria\\serviciomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\servicioscategoria\\serviciomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,11 +26,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ServicioModel.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\ServiciosCategoria\\ServicioModel.cs",
+              "RelativeDocumentMoniker": "Models\\ServiciosCategoria\\ServicioModel.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\ServiciosCategoria\\ServicioModel.cs",
+              "RelativeToolTip": "Models\\ServiciosCategoria\\ServicioModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-14T05:30:16.926Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -36,33 +53,33 @@
               "RelativeDocumentMoniker": "Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
               "RelativeToolTip": "Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-13T22:36:44.494Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CategoriaServicioController.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
               "RelativeDocumentMoniker": "Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
               "RelativeToolTip": "Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAmwEMAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAiwF0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-13T22:35:09.564Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "CategoriaServicioService.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\CategoriaServicioService.cs",
               "RelativeDocumentMoniker": "Services\\ServiciosCategoria\\CategoriaServicioService.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\CategoriaServicioService.cs",
               "RelativeToolTip": "Services\\ServiciosCategoria\\CategoriaServicioService.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAYwCQAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAmwDgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-13T22:34:06.231Z",
               "EditorCaption": ""
