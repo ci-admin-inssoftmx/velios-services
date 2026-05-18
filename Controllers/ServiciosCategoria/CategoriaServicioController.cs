@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using velios.Api.Models.ServiciosCategoria;
 using velios.Api.Services.ServiciosCategoria;
 
 namespace velios.Api.Controllers.ServiciosCategoria
@@ -19,11 +20,15 @@ namespace velios.Api.Controllers.ServiciosCategoria
             _logger = logger;
         }
 
+        // ============================================================
+        // CATÁLOGOS
+        // ============================================================
+
         /// <summary>
         /// Obtiene todas las categorías de servicios disponibles.
         /// </summary>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<object>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<CategoriaServicioModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCategorias()
         {
@@ -44,7 +49,7 @@ namespace velios.Api.Controllers.ServiciosCategoria
         /// </summary>
         /// <param name="categoriaId">Id de la categoría.</param>
         [HttpGet("{categoriaId}/subcategorias")]
-        [ProducesResponseType(typeof(IEnumerable<object>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<SubcategoriaServicioModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetSubcategorias(int categoriaId)
@@ -63,8 +68,6 @@ namespace velios.Api.Controllers.ServiciosCategoria
                 _logger.LogError(ex, "Error al obtener subcategorías de la categoría {CategoriaId}.", categoriaId);
                 return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
             }
-
-
         }
 
         /// <summary>
@@ -72,7 +75,7 @@ namespace velios.Api.Controllers.ServiciosCategoria
         /// </summary>
         /// <param name="subcategoriaId">Id de la subcategoría.</param>
         [HttpGet("{subcategoriaId}/servicios")]
-        [ProducesResponseType(typeof(IEnumerable<object>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ServicioModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetServicios(int subcategoriaId)
@@ -93,6 +96,87 @@ namespace velios.Api.Controllers.ServiciosCategoria
             }
         }
 
-    }
+        // ============================================================
+        // SOLICITUD
+        // ============================================================
 
+        /// <summary>
+        /// Guarda la solicitud de servicio seleccionada por el usuario.
+        /// </summary>
+        [HttpPost("solicitud")]
+        [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GuardarSolicitud([FromBody] GuardarSolicitudRequest request)
+        {
+            try
+            {
+                if (request.TareaId <= 0 || request.ServicioId <= 0 || request.ClienteId <= 0)
+                    return BadRequest("TareaId, ServicioId y ClienteId son requeridos.");
+
+                var solicitudId = await _categoriaServicioService.GuardarSolicitudAsync(request);
+                return Ok(new { solicitudId, mensaje = "Solicitud guardada correctamente." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al guardar la solicitud de servicio.");
+                return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
+            }
+        }
+
+        /// <summary>
+        /// Edita el servicio de una solicitud existente.
+        /// </summary>
+        [HttpPut("solicitud")]
+        [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> EditarSolicitud([FromBody] EditarSolicitudRequest request)
+        {
+            try
+            {
+                if (request.SolicitudId <= 0 || request.ServicioId <= 0)
+                    return BadRequest("SolicitudId y ServicioId son requeridos.");
+
+                var resultado = await _categoriaServicioService.EditarSolicitudAsync(request);
+
+                if (!resultado)
+                    return NotFound($"No se encontró la solicitud {request.SolicitudId}.");
+
+                return Ok(new { mensaje = "Solicitud actualizada correctamente." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al editar la solicitud {SolicitudId}.", request.SolicitudId);
+                return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
+            }
+        }
+
+        /// <summary>
+        /// Consulta el detalle de una solicitud con categoría, subcategoría y servicio.
+        /// </summary>
+        /// <param name="solicitudId">Id de la solicitud.</param>
+        [HttpGet("solicitud/{solicitudId}")]
+        [ProducesResponseType(typeof(SolicitudServicioModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetSolicitud(int solicitudId)
+        {
+            try
+            {
+                var solicitud = await _categoriaServicioService.GetSolicitudAsync(solicitudId);
+
+                if (solicitud == null)
+                    return NotFound($"No se encontró la solicitud {solicitudId}.");
+
+                return Ok(solicitud);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al consultar la solicitud {SolicitudId}.", solicitudId);
+                return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
+            }
+        }
+    }
 }
