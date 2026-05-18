@@ -12,6 +12,6 @@ namespace velios.Api.Services.ServiciosCategoria
         // ── Solicitud ──────────────────────────────────────────
         Task<int> GuardarSolicitudAsync(GuardarSolicitudRequest request);
         Task<bool> EditarSolicitudAsync(EditarSolicitudRequest request);
-        Task<SolicitudServicioModel?> GetSolicitudAsync(int solicitudId);
+        Task<SolicitudServicioModel?> GetSolicitudAsync(int tareaId);
     }
 }

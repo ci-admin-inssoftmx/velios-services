@@ -136,19 +136,19 @@ namespace velios.Api.Controllers.ServiciosCategoria
         {
             try
             {
-                if (request.SolicitudId <= 0 || request.ServicioId <= 0)
-                    return BadRequest("SolicitudId y ServicioId son requeridos.");
+                if (request.TareaId <= 0 || request.ServicioId <= 0)
+                    return BadRequest("TareaId y ServicioId son requeridos.");
 
                 var resultado = await _categoriaServicioService.EditarSolicitudAsync(request);
 
                 if (!resultado)
-                    return NotFound($"No se encontró la solicitud {request.SolicitudId}.");
+                    return NotFound($"No se encontró la solicitud para la tarea {request.TareaId}.");
 
                 return Ok(new { mensaje = "Solicitud actualizada correctamente." });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error al editar la solicitud {SolicitudId}.", request.SolicitudId);
+                _logger.LogError(ex, "Error al editar la solicitud de la tarea {TareaId}.", request.TareaId);
                 return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
             }
         }
@@ -157,24 +157,24 @@ namespace velios.Api.Controllers.ServiciosCategoria
         /// Consulta el detalle de una solicitud con categoría, subcategoría y servicio.
         /// </summary>
         /// <param name="solicitudId">Id de la solicitud.</param>
-        [HttpGet("solicitud/{solicitudId}")]
+        [HttpGet("solicitud/{tareaId}")]
         [ProducesResponseType(typeof(SolicitudServicioModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetSolicitud(int solicitudId)
+        public async Task<IActionResult> GetSolicitud(int tareaId)
         {
             try
             {
-                var solicitud = await _categoriaServicioService.GetSolicitudAsync(solicitudId);
+                var solicitud = await _categoriaServicioService.GetSolicitudAsync(tareaId);
 
                 if (solicitud == null)
-                    return NotFound($"No se encontró la solicitud {solicitudId}.");
+                    return NotFound($"No se encontró la solicitud para la tarea {tareaId}.");
 
                 return Ok(solicitud);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error al consultar la solicitud {SolicitudId}.", solicitudId);
+                _logger.LogError(ex, "Error al consultar la solicitud de la tarea {TareaId}.", tareaId);
                 return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
             }
         }

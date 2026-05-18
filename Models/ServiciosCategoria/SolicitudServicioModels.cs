@@ -15,10 +15,9 @@
     // ============================================================
     public class EditarSolicitudRequest
     {
-        public int SolicitudId { get; set; }
+        public int TareaId { get; set; }
         public int ServicioId { get; set; }
     }
-
     // ============================================================
     // Response: Consulta de solicitud
     // ============================================================

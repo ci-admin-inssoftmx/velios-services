@@ -85,24 +85,52 @@ namespace velios.Api.Services.ServiciosCategoria
             });
         }
 
-        public async Task<bool> EditarSolicitudAsync(EditarSolicitudRequest request)
-        {
-            const string sql = @"
-                UPDATE tb_SolicitudServicios
-                SET ServicioId = @ServicioId
-                WHERE SolicitudId = @SolicitudId";
+public async Task<bool> EditarSolicitudAsync(EditarSolicitudRequest request)
+{
+    const string validarTarea = @"
+        SELECT COUNT(1)
+        FROM tb_SolicitudServicios
+        WHERE TareaId = @TareaId";
 
-            using var connection = new SqlConnection(_connectionString);
-            var filas = await connection.ExecuteAsync(sql, new
-            {
-                request.SolicitudId,
-                request.ServicioId
-            });
+    const string validarServicio = @"
+        SELECT COUNT(1)
+        FROM tb_CatServicios
+        WHERE ServicioId = @ServicioId";
 
-            return filas > 0;
-        }
+    const string actualizar = @"
+        UPDATE tb_SolicitudServicios
+        SET ServicioId = @ServicioId
+        WHERE TareaId = @TareaId";
 
-        public async Task<SolicitudServicioModel?> GetSolicitudAsync(int solicitudId)
+    using var connection = new SqlConnection(_connectionString);
+
+    // Validar tarea
+    var existeTarea = await connection.ExecuteScalarAsync<int>(
+        validarTarea,
+        new { request.TareaId });
+
+    if (existeTarea == 0)
+        return false;
+
+    // Validar servicio
+    var existeServicio = await connection.ExecuteScalarAsync<int>(
+        validarServicio,
+        new { request.ServicioId });
+
+    if (existeServicio == 0)
+        return false;
+
+    // Actualizar
+    var filas = await connection.ExecuteAsync(actualizar, new
+    {
+        request.TareaId,
+        request.ServicioId
+    });
+
+    return filas > 0;
+}
+
+        public async Task<SolicitudServicioModel?> GetSolicitudAsync(int tareaId)
         {
             const string sql = @"
                 SELECT
@@ -123,10 +151,10 @@ namespace velios.Api.Services.ServiciosCategoria
                     ON sub.SubcategoriaServicioId = srv.SubcategoriaServicioId
                 INNER JOIN tb_CatCategoriaServicios cat
                     ON cat.CategoriaServicioId = sub.CategoriaServicioId
-                WHERE ss.SolicitudId = @SolicitudId";
+                WHERE ss.TareaId = @TareaId";
 
             using var connection = new SqlConnection(_connectionString);
-            return await connection.QueryFirstOrDefaultAsync<SolicitudServicioModel>(sql, new { SolicitudId = solicitudId });
+            return await connection.QueryFirstOrDefaultAsync<SolicitudServicioModel>(sql, new { TareaId = tareaId });
         }
     }
 }
