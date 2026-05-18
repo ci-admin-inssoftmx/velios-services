@@ -7,7 +7,6 @@
     {
         public int TareaId { get; set; }
         public int ServicioId { get; set; }
-        public int ClienteId { get; set; }
     }
 
     // ============================================================

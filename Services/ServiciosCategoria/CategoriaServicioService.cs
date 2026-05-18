@@ -70,9 +70,9 @@ namespace velios.Api.Services.ServiciosCategoria
         {
             const string sql = @"
                 INSERT INTO tb_SolicitudServicios
-                    (TareaId, ServicioId, ClienteId)
+                    (TareaId, ServicioId)
                 VALUES
-                    (@TareaId, @ServicioId, @ClienteId);
+                    (@TareaId, @ServicioId);
 
                 SELECT SCOPE_IDENTITY();";
 
@@ -80,8 +80,7 @@ namespace velios.Api.Services.ServiciosCategoria
             return await connection.ExecuteScalarAsync<int>(sql, new
             {
                 request.TareaId,
-                request.ServicioId,
-                request.ClienteId
+                request.ServicioId
             });
         }
 

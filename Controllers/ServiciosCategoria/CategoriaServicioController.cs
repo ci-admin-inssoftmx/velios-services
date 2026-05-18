@@ -111,8 +111,8 @@ namespace velios.Api.Controllers.ServiciosCategoria
         {
             try
             {
-                if (request.TareaId <= 0 || request.ServicioId <= 0 || request.ClienteId <= 0)
-                    return BadRequest("TareaId, ServicioId y ClienteId son requeridos.");
+                if (request.TareaId <= 0 || request.ServicioId <= 0)
+                    return BadRequest("TareaId y ServicioId son requeridos.");
 
                 var solicitudId = await _categoriaServicioService.GuardarSolicitudAsync(request);
                 return Ok(new { solicitudId, mensaje = "Solicitud guardada correctamente." });
