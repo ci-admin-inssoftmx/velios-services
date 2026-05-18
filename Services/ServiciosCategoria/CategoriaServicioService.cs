@@ -84,51 +84,67 @@ namespace velios.Api.Services.ServiciosCategoria
             });
         }
 
-public async Task<bool> EditarSolicitudAsync(EditarSolicitudRequest request)
-{
-    const string validarTarea = @"
-        SELECT COUNT(1)
-        FROM tb_SolicitudServicios
-        WHERE TareaId = @TareaId";
-
-    const string validarServicio = @"
+        public async Task<bool> EditarSolicitudAsync(EditarSolicitudRequest request)
+        {
+            const string validarServicio = @"
         SELECT COUNT(1)
         FROM tb_CatServicios
         WHERE ServicioId = @ServicioId";
 
-    const string actualizar = @"
+            const string existeSolicitud = @"
+        SELECT COUNT(1)
+        FROM tb_SolicitudServicios
+        WHERE TareaId = @TareaId";
+
+            const string insertar = @"
+        INSERT INTO tb_SolicitudServicios
+            (TareaId, ServicioId)
+        VALUES
+            (@TareaId, @ServicioId)";
+
+            const string actualizar = @"
         UPDATE tb_SolicitudServicios
         SET ServicioId = @ServicioId
         WHERE TareaId = @TareaId";
 
-    using var connection = new SqlConnection(_connectionString);
+            using var connection = new SqlConnection(_connectionString);
 
-    // Validar tarea
-    var existeTarea = await connection.ExecuteScalarAsync<int>(
-        validarTarea,
-        new { request.TareaId });
+            // Validar servicio
+            var servicioExiste = await connection.ExecuteScalarAsync<int>(
+                validarServicio,
+                new { request.ServicioId });
 
-    if (existeTarea == 0)
-        return false;
+            if (servicioExiste == 0)
+                return false;
 
-    // Validar servicio
-    var existeServicio = await connection.ExecuteScalarAsync<int>(
-        validarServicio,
-        new { request.ServicioId });
+            // Verificar si ya existe solicitud
+            var solicitudExiste = await connection.ExecuteScalarAsync<int>(
+                existeSolicitud,
+                new { request.TareaId });
 
-    if (existeServicio == 0)
-        return false;
+            if (solicitudExiste > 0)
+            {
+                // UPDATE
+                var filas = await connection.ExecuteAsync(actualizar, new
+                {
+                    request.TareaId,
+                    request.ServicioId
+                });
 
-    // Actualizar
-    var filas = await connection.ExecuteAsync(actualizar, new
-    {
-        request.TareaId,
-        request.ServicioId
-    });
+                return filas > 0;
+            }
+            else
+            {
+                // INSERT
+                var filas = await connection.ExecuteAsync(insertar, new
+                {
+                    request.TareaId,
+                    request.ServicioId
+                });
 
-    return filas > 0;
-}
-
+                return filas > 0;
+            }
+        }
         public async Task<SolicitudServicioModel?> GetSolicitudAsync(int tareaId)
         {
             const string sql = @"
