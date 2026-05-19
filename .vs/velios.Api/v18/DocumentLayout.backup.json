@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\servicioscategoria\\categoriaserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\servicioscategoria\\categoriaserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\servicioscategoria\\categoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\servicioscategoria\\categoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\servicioscategoria\\icategoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\servicioscategoria\\icategoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\servicioscategoria\\categoriaserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\servicioscategoria\\categoriaserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\servicioscategoria\\solicitudserviciomodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\servicioscategoria\\solicitudserviciomodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\servicioscategoria\\icategoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\servicioscategoria\\icategoriaservicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,54 +34,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CategoriaServicioController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
-              "RelativeToolTip": "Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAqwLUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-16T07:13:00.19Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CategoriaServicioService.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\CategoriaServicioService.cs",
-              "RelativeDocumentMoniker": "Services\\ServiciosCategoria\\CategoriaServicioService.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\CategoriaServicioService.cs",
-              "RelativeToolTip": "Services\\ServiciosCategoria\\CategoriaServicioService.cs",
-              "ViewState": "AgIAAGIAAAAAAAAAAAAAwIEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-16T07:11:58.485Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ICategoriaServicioService.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
               "RelativeDocumentMoniker": "Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
               "RelativeToolTip": "Services\\ServiciosCategoria\\ICategoriaServicioService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-16T07:11:28.884Z",
+              "WhenOpened": "2026-05-18T19:27:30.911Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "CategoriaServicioService.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\CategoriaServicioService.cs",
+              "RelativeDocumentMoniker": "Services\\ServiciosCategoria\\CategoriaServicioService.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosCategoria\\CategoriaServicioService.cs",
+              "RelativeToolTip": "Services\\ServiciosCategoria\\CategoriaServicioService.cs",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAAAJIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T19:04:13.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CategoriaServicioController.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
+              "RelativeToolTip": "Controllers\\ServiciosCategoria\\CategoriaServicioController.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAewHIAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T19:02:31.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "SolicitudServicioModels.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\ServiciosCategoria\\SolicitudServicioModels.cs",
               "RelativeDocumentMoniker": "Models\\ServiciosCategoria\\SolicitudServicioModels.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\ServiciosCategoria\\SolicitudServicioModels.cs",
               "RelativeToolTip": "Models\\ServiciosCategoria\\SolicitudServicioModels.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAwCUAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-16T07:09:18.648Z",
+              "WhenOpened": "2026-05-18T19:00:27.279Z",
               "EditorCaption": ""
             }
           ]
