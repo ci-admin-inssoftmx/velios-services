@@ -716,6 +716,210 @@ public class AuthenticateController : ControllerBase
             validTo = validTo
         };
     }
+
+
+    // =========================================================
+    // POST /api/Authenticate/LoginSSO
+    // =========================================================
+
+    /// <summary>
+    /// Autentica un usuario vía SSO (Google).
+    /// - Recibe solo el correo (Google ya confirmó la identidad).
+    /// - Busca en tb_Proveedores o tb_ProveedorTrabajadores.
+    /// - Valida que la cuenta esté activa.
+    /// - Devuelve el mismo response que el Login normal (JWT + datos).
+    /// - NO valida contraseña porque Google ya autenticó al usuario.
+    /// </summary>
+    [HttpPost("LoginSSO")]
+    [AllowAnonymous]
+    public async Task<ActionResult<ApiResponse<LoginDataResponse>>> LoginSSO([FromBody] LoginSSORequest model)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<LoginDataResponse>
+                {
+                    success = false,
+                    message = "Solicitud inválida: verifique los datos ingresados.",
+                    data = null,
+                    statusCode = 400
+                });
+            }
+
+            var email = (model.Email ?? "").Trim().ToLowerInvariant();
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest(new ApiResponse<LoginDataResponse>
+                {
+                    success = false,
+                    message = "El correo es obligatorio.",
+                    data = null,
+                    statusCode = 400
+                });
+            }
+
+            // ─── Buscar en tb_Proveedores ────────────────────────────────────────────
+            var proveedor = await _db.Proveedores
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x =>
+                    x.CorreoContacto != null &&
+                    x.CorreoContacto.ToLower() == email &&
+                    !x.IsDeleted);
+
+            if (proveedor != null)
+            {
+                // Validar que el proveedor esté activo
+                if (proveedor.EstatusProveedorId != 1)
+                {
+                    return Unauthorized(new ApiResponse<LoginDataResponse>
+                    {
+                        success = false,
+                        message = "La cuenta del proveedor no está activa.",
+                        data = null,
+                        statusCode = 401,
+                        errors = new List<string> { "La cuenta aún no está activa o fue deshabilitada." }
+                    });
+                }
+
+                // Generar JWT igual que el Login normal
+                var token = CreateJwtProveedor(proveedor);
+
+                var data = new LoginDataResponse
+                {
+                    ProveedorID = proveedor.ProveedorId,
+                    ProveedorNombre = proveedor.NombreComercial ?? proveedor.RazonSocial ?? "",
+                    Email = proveedor.CorreoContacto ?? "",
+                    NombreCompleto = proveedor.NombreComercial ?? proveedor.RazonSocial ?? "",
+
+                    UnidadDireccion = new UnidadDireccionDto
+                    {
+                        Calle = proveedor.Calle ?? "",
+                        NumeroInterior = "",
+                        NumeroExterior = "",
+                        EstadoId = 0,
+                        Estado = proveedor.Estado ?? "",
+                        ColoniaId = 0,
+                        Colonia = proveedor.Colonia ?? "",
+                        MunicipioId = 0,
+                        Municipio = proveedor.DelegacionMunicipio ?? "",
+                        CodigoPostalId = 0,
+                        CodigoPostal = proveedor.CodigoPostal ?? ""
+                    },
+
+                    Latitud = proveedor.Latitud,
+                    Longitud = proveedor.Longitud,
+                    Roles = new List<string> { "Proveedor" },
+                    Token = token
+                };
+
+                return Ok(new ApiResponse<LoginDataResponse>
+                {
+                    success = true,
+                    message = "Solicitud ejecutada con éxito.",
+                    data = data,
+                    statusCode = 200,
+                    errors = null
+                });
+            }
+
+            // ─── Buscar en tb_ProveedorTrabajadores ──────────────────────────────────
+            var trabajador = await _db.ProveedorTrabajadores
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x =>
+                    x.Correo != null &&
+                    x.Correo.ToLower() == email &&
+                    !x.IsDeleted);
+
+            if (trabajador == null)
+            {
+                return Unauthorized(new ApiResponse<LoginDataResponse>
+                {
+                    success = false,
+                    message = "El correo no está registrado en el sistema.",
+                    data = null,
+                    statusCode = 401,
+                    errors = new List<string> { "No existe una cuenta asociada a este correo." }
+                });
+            }
+
+            // Validar que el trabajador esté activo
+            if (trabajador.EstatusTrabajadorId != 1)
+            {
+                return Unauthorized(new ApiResponse<LoginDataResponse>
+                {
+                    success = false,
+                    message = "La cuenta del trabajador no está activa.",
+                    data = null,
+                    statusCode = 401,
+                    errors = new List<string> { "La cuenta aún no está activa o fue deshabilitada." }
+                });
+            }
+
+            // Generar JWT igual que el Login normal
+            var tokenTrabajador = CreateJwtProveedorTrabajador(trabajador);
+
+            var proveedorEntidad = await _db.Proveedores
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.ProveedorId == trabajador.ProveedorId && !p.IsDeleted);
+
+            var proveedorNombre = proveedorEntidad != null
+                ? (proveedorEntidad.NombreComercial ?? proveedorEntidad.RazonSocial ?? "")
+                : "";
+
+            var dataTrabajador = new LoginDataResponse
+            {
+                ProveedorID = trabajador.ProveedorId,
+                TrabajadorId = trabajador.TrabajadorId,
+                ProveedorNombre = proveedorNombre,
+                Email = trabajador.Correo ?? "",
+                NombreCompleto = $"{trabajador.Nombre} {trabajador.ApellidoPaterno} {trabajador.ApellidoMaterno}".Trim(),
+
+                UnidadDireccion = new UnidadDireccionDto
+                {
+                    Calle = "",
+                    NumeroInterior = "",
+                    NumeroExterior = "",
+                    EstadoId = 0,
+                    Estado = "",
+                    ColoniaId = 0,
+                    Colonia = "",
+                    MunicipioId = 0,
+                    Municipio = "",
+                    CodigoPostalId = 0,
+                    CodigoPostal = ""
+                },
+
+                Latitud = null,
+                Longitud = null,
+                Roles = new List<string> { trabajador.TipoDeMiembro ?? "Trabajador" },
+                Token = tokenTrabajador
+            };
+
+            return Ok(new ApiResponse<LoginDataResponse>
+            {
+                success = true,
+                message = "Solicitud ejecutada con éxito.",
+                data = dataTrabajador,
+                statusCode = 200,
+                errors = null
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error en LoginSSO para email {Email}", model.Email);
+
+            return BadRequest(new ApiResponse<LoginDataResponse>
+            {
+                success = false,
+                message = "Error al iniciar sesión.",
+                data = null,
+                statusCode = 400,
+                errors = new List<string> { ex.Message }
+            });
+        }
+    }
     // =========================================================
     // POST /api/Authenticate/ForgotPassword
     // =========================================================
