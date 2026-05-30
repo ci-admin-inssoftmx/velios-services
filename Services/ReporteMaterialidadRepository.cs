@@ -8,6 +8,9 @@ namespace velios.Api.Services;
 /// Implementación del repositorio de reportes de materialidad
 /// usando AppDbContext sin afectar la lógica existente.
 /// </summary>
+/// 
+
+
 public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
 {
     private readonly AppDbContext _context;
@@ -20,6 +23,18 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
     /// <summary>
     /// Obtiene una tarea específica con nombres de operador y supervisor.
     /// </summary>
+    /// 
+
+    public async Task<List<string>> ObtenerObservacionesPorTareaAsync(int tareaId)
+    {
+        return await _context.TareaObservaciones
+            .AsNoTracking()
+            .Where(o => o.TareaId == tareaId)
+            .OrderBy(o => o.DateCreated)
+            .Select(o => o.Observacion)
+            .ToListAsync();
+    }
+
     public async Task<TareaReporteDto?> ObtenerTareaAsync(int tareaId)
     {
         var query =
@@ -31,17 +46,28 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
                 on t.TrabajadorId equals opTmp.TrabajadorId into operadoresJoin
             from operador in operadoresJoin.DefaultIfEmpty()
 
+            join provTmp in _context.Proveedores.AsNoTracking()
+    on operador.ProveedorId equals provTmp.ProveedorId into proveedoresJoin
+            from proveedor in proveedoresJoin.DefaultIfEmpty()
+
             join supTmp in _context.ProveedorTrabajadores.AsNoTracking()
                 on t.SupervisorId equals supTmp.TrabajadorId into supervisoresJoin
             from supervisor in supervisoresJoin.DefaultIfEmpty()
+
+            join proyTmp in _context.ClienteProyectos.AsNoTracking()
+    on t.ProyectoId equals proyTmp.ProyectoId into proyectosJoin
+            from proyecto in proyectosJoin.DefaultIfEmpty()
 
             where t.TareaId == tareaId && !t.IsDeleted
             select new TareaReporteDto
             {
                 TareaId = t.TareaId,
+                NombreProyecto = proyecto != null ? proyecto.Nombre : null,
+                LogoUrlProveedor = proveedor != null ? proveedor.LogoUrl : null,
                 TaskCode = t.TaskCode,
                 ClienteId = t.ClienteId,
                 ProyectoId = t.ProyectoId,
+                EmailSupervisor = supervisor != null ? supervisor.Correo : null,
                 Titulo = t.Titulo,
                 Descripcion = t.Descripcion,
 
@@ -77,7 +103,28 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
 
         return await query.FirstOrDefaultAsync();
     }
+    public async Task<string?> ObtenerDireccionCentroTrabajoAsync(int? centroTrabajoId)
+    {
+        if (!centroTrabajoId.HasValue) return null;
 
+        var ct = await _context.CentrosTrabajo
+            .AsNoTracking()
+            .Where(c => c.CentroTrabajoId == centroTrabajoId.Value && !c.IsDeleted)
+            .FirstOrDefaultAsync();
+
+        if (ct is null) return null;
+
+        var partes = new[]
+        {
+        ct.Calle,
+        ct.Numero,
+        ct.Colonia,
+        ct.Municipio,
+        ct.Estado
+    }.Where(p => !string.IsNullOrWhiteSpace(p));
+
+        return string.Join(", ", partes);
+    }
     /// <summary>
     /// Obtiene la información principal del cliente.
     /// </summary>
@@ -89,11 +136,10 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
             .Select(c => new ClienteReporteDto
             {
                 ClienteId = c.ClienteId,
-                //Nombre = c.Nombre,
+                NombreComercial = c.NombreComercial,
                 RazonSocial = c.RazonSocial,
                 //Direccion = c.Direccion,
                 Telefono = c.TelefonoContacto,
-                Email = c.CorreoContacto,
                 RFC = c.RFC
             })
             .FirstOrDefaultAsync();

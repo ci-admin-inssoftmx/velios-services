@@ -7,7 +7,7 @@
 public class ClienteReporteDto
 {
     public int ClienteId { get; set; }
-    public string Nombre { get; set; } = string.Empty;
+    public string NombreComercial { get; set; } = string.Empty;
     public string? RazonSocial { get; set; }
     public string? Direccion { get; set; }
     public string? Telefono { get; set; }

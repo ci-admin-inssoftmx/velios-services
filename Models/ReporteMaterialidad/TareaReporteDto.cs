@@ -6,9 +6,17 @@
 public class TareaReporteDto
 {
     public int TareaId { get; set; }
+    public string? NombreProyecto { get; set; }
+
+    public string? LogoUrlProveedor { get; set; }
+    public string? DireccionCentroTrabajo { get; set; }
+
+    public string? EmailSupervisor { get; set; }
+
     public string TaskCode { get; set; } = string.Empty;
     public int ClienteId { get; set; }
     public int? ProyectoId { get; set; }
+    public List<string> Observaciones { get; set; } = new();
 
     public string Titulo { get; set; } = string.Empty;
     public string? Descripcion { get; set; }

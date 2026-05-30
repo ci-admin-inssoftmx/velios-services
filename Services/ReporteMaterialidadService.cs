@@ -18,6 +18,7 @@ namespace velios.Api.Services;
 /// </summary>
 public class ReporteMaterialidadService : IReporteMaterialidadService
 {
+    private const string Titulo = "INFORME DE TAREA";
     private readonly IReporteMaterialidadRepository _repository;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IConfiguration _configuration;
@@ -40,11 +41,18 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         if (tarea is null)
             throw new InvalidOperationException($"No se encontró la tarea con id {tareaId}.");
 
+        byte[]? logoProveedorBytes = null;
+        if (!string.IsNullOrWhiteSpace(tarea.LogoUrlProveedor))
+            logoProveedorBytes = await DescargarImagenAsync(tarea.LogoUrlProveedor);
+
         var cliente = await _repository.ObtenerClienteAsync(tarea.ClienteId);
         if (cliente is null)
             throw new InvalidOperationException($"No se encontró el cliente de la tarea con id {tarea.ClienteId}.");
 
         var evidencias = await _repository.ObtenerEvidenciasPorTareaAsync(tarea.TareaId);
+        var observaciones = await _repository.ObtenerObservacionesPorTareaAsync(tarea.TareaId);
+        tarea.Observaciones = observaciones;
+        tarea.DireccionCentroTrabajo = await _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
 
         foreach (var evidencia in evidencias)
         {
@@ -110,7 +118,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             }
         }
 
-        return await ConstruirPdfAsync(reporte, qrBytes);
+        return await ConstruirPdfAsync(reporte, qrBytes, logoProveedorBytes);
     }
 
     private static ResumenReporteDto ConstruirResumen(TareaReporteDto tarea)
@@ -228,7 +236,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         public byte[]? Bytes { get; set; }
     }
 
-    private async Task<byte[]> ConstruirPdfAsync(ReporteMaterialidadDto reporte, byte[]? qrBytes)
+    private async Task<byte[]> ConstruirPdfAsync(ReporteMaterialidadDto reporte, byte[]? qrBytes, byte[]? logoProveedorBytes)
     {
         var tarea = reporte.Tarea;
         var cliente = reporte.Cliente;
@@ -246,14 +254,14 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 logoBytes = File.ReadAllBytes(altPath);
         }
 
-        var clienteDisplay = !string.IsNullOrWhiteSpace(cliente.Nombre)
-            ? cliente.Nombre
+        var clienteDisplay = !string.IsNullOrWhiteSpace(cliente.NombreComercial)
+            ? cliente.NombreComercial
             : !string.IsNullOrWhiteSpace(cliente.RazonSocial)
                 ? cliente.RazonSocial
                 : "N/A";
 
-        var direccionDisplay = !string.IsNullOrWhiteSpace(cliente.Direccion)
-            ? cliente.Direccion
+        var direccionDisplay = !string.IsNullOrWhiteSpace(tarea.DireccionCentroTrabajo)
+            ? tarea.DireccionCentroTrabajo
             : "Dirección no disponible";
 
         // Preparar archivos adjuntos de la tarea (tarea.ImageURL puede contener varias URLs separadas por coma)
@@ -325,13 +333,13 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 page.Background().Element(CrearFondoPagina);
 
                 page.Header().Element(c =>
-                    CrearHeader(c, logoBytes, "INFORME DE TAREA", tarea.Titulo ?? "SIN TÍTULO"));
+                    CrearHeader(c, logoBytes, "INFORME DE TAREA", (tarea.Titulo ?? "SIN TÍTULO").Replace("/", "").Trim()));
 
                 page.Content().PaddingTop(10).Element(c =>
                     CrearContenidoPrincipalConSidebar(c, reporte, clienteDisplay, direccionDisplay, logoBytes, archivosTarea, pdfIconBytes));
 
                 page.Footer().Element(c =>
-                    CrearFooter(c, clienteDisplay, direccionDisplay, tarea.EstatusNombre ?? "Tarea", logoBytes, qrBytes));
+                CrearFooter(c, clienteDisplay, direccionDisplay, tarea.NombreProyecto ?? "Sin plan de trabajo", logoBytes, qrBytes, logoProveedorBytes));
             });
 
             // =========================================================
@@ -351,7 +359,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                     page.Background().Element(CrearFondoPagina);
 
                     page.Header().Element(c =>
-                        CrearHeader(c, logoBytes, "INFORME DE TAREA", tarea.Titulo ?? "SIN TÍTULO"));
+                        CrearHeader(c, logoBytes, "INFORME DE TAREA", (tarea.Titulo ?? "SIN TÍTULO").Replace("/", "").Trim()));
 
                     page.Content().PaddingTop(10).PaddingLeft(28).Column(column =>
                     {
@@ -365,9 +373,9 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                         column.Item().Text(text =>
                         {
-                            text.Span("Observaciones referentes a la tarea: ")
+                            text.Span("Comentario: ")
                                 .SemiBold().FontSize(9).FontColor("#24364D");
-                            text.Span(tarea.Descripcion ?? "N/A")
+                            text.Span(string.IsNullOrWhiteSpace(evidencia.Comentario) ? "Sin comentario" : evidencia.Comentario)
                                 .FontSize(9).FontColor("#6B7280");
                         });
 
@@ -377,7 +385,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                             row.RelativeItem(1.45f).Element(c =>
                             {
                                 var box = c.Border(1).BorderColor("#D6DCE5")
-                                    .Background("#F8FAFC").Padding(8).Height(330);
+                                    .Background("#F8FAFC").Padding(8).Height(220);
 
                                 if (evidencia.ImagenBytes is not null && evidencia.ImagenBytes.Length > 0)
                                     box.AlignCenter().AlignMiddle().Image(evidencia.ImagenBytes, ImageScaling.FitArea);
@@ -391,7 +399,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                             row.ConstantItem(185).Background("#F3F4F6").Padding(10).Column(right =>
                             {
-                                right.Spacing(8);
+                                right.Spacing(4);
 
                                 right.Item().Text("Datos de captura")
                                     .Bold().FontSize(11).FontColor("#24364D");
@@ -415,125 +423,55 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                                 right.Item().Element(x => CrearCheckValidacion(x, "Ubicación validada con sucursal",
                                     evidencia.Latitud.HasValue && evidencia.Longitud.HasValue));
                                 right.Item().Element(x => CrearCheckValidacion(x, "Tomada desde la app Velios", true));
-                            });
-                        });
 
-                        // Mapa
-                        column.Item().Text("Mapa de ubicación")
-                            .Bold().FontSize(10).FontColor("#24364D");
+                                right.Item().PaddingTop(6).LineHorizontal(1).LineColor("#D1D5DB");
 
-                        column.Item().Element(c =>
-                        {
-                            var box = c.Border(1).BorderColor("#D6DCE5")
-                                .Background("#F8FAFC").Padding(8).Height(150);
-
-                            if (evidencia.MapaBytes is not null && evidencia.MapaBytes.Length > 0)
-                                box.AlignCenter().AlignMiddle().Image(evidencia.MapaBytes, ImageScaling.FitArea);
-                            else
-                                box.AlignCenter().AlignMiddle()
-                                    .Text("No fue posible cargar el mapa.")
-                                    .FontSize(10).FontColor("#64748B");
-                        });
-
-                        // Archivos adjuntos — mostrar icono según extensión, nombre y enlace si existe URL
-                        if (!string.IsNullOrWhiteSpace(evidencia.UrlArchivo))
-                        {
-                            var ext = Path.GetExtension(evidencia.UrlArchivo).ToLowerInvariant();
-
-                            column.Item().Element(c =>
-                            {
-                                c.Border(1).BorderColor("#D6DCE5").Padding(8).Background("#F9FAFB").Column(col =>
+                                right.Item().Element(c =>
                                 {
-                                    col.Item().Text("Archivos adjuntos").Bold().FontSize(10).FontColor("#24364D");
-                                    col.Item().PaddingTop(6).Row(r =>
+                                    c.Border(1).BorderColor("#D6DCE5").Background("#F8FAFC").Column(col =>
                                     {
-                                        // Icono visual simple según extensión (emoji) y etiqueta
-                                        r.ConstantItem(36).Height(36).AlignCenter().AlignMiddle().Element(icon =>
+                                        col.Item().Padding(2).Height(100).Element(box =>
                                         {
-                                            var emoji = ext switch
-                                            {
-                                                ".xls" or ".xlsx" => "📊",
-                                                ".ppt" or ".pptx" => "📽️",
-                                                ".doc" or ".docx" => "📄",
-                                                ".pdf" => "📕",
-                                                ".zip" or ".rar" => "🗜️",
-                                                ".png" or ".jpg" or ".jpeg" or ".gif" or ".bmp" => "🖼️",
-                                                _ => "📁"
-                                            };
+                                            if (evidencia.MapaBytes is not null && evidencia.MapaBytes.Length > 0)
+                                                box.AlignCenter().AlignMiddle().Image(evidencia.MapaBytes, ImageScaling.FitArea);
+                                            else
+                                                box.AlignCenter().AlignMiddle()
+                                                    .Text("Sin mapa")
+                                                    .FontSize(8).FontColor("#64748B");
+                                        });
 
-                                            var label = (ext ?? string.Empty).TrimStart('.').ToUpperInvariant();
-                                            if (string.IsNullOrWhiteSpace(label)) label = "FILE";
-
-                                            icon.Background(Colors.White).Border(1).BorderColor("#D1D5DB")
-                                                .AlignCenter().AlignMiddle()
-                                                .Column(ic =>
+                                        if (!string.IsNullOrWhiteSpace(evidencia.DireccionFormateada))
+                                        {
+                                            col.Item().Background("#F8FAFC").BorderTop(1).BorderColor("#D6DCE5")
+                                                .Padding(4).Row(r =>
                                                 {
-                                                    ic.Item().Text(emoji).FontSize(12);
-                                                    ic.Item().Text(label).FontSize(8).FontColor("#6B7280");
+                                                    r.ConstantItem(10).Text("⊙").FontSize(9).FontColor("#F15A24");
+                                                    r.ConstantItem(3);
+                                                    r.RelativeItem().Text(evidencia.DireccionFormateada)
+                        .FontSize(7).FontColor("#374151").LineHeight(1.1f);
                                                 });
-                                        });
-
-                                        r.ConstantItem(8);
-
-                                        r.RelativeItem().Column(info =>
-                                        {
-                                            var fileName = Path.GetFileName(evidencia.UrlArchivo);
-                                            info.Item().Text(fileName).SemiBold().FontSize(9).FontColor("#24364D");
-                                            info.Item().Text(text =>
-                                            {
-                                                text.Span(" ").FontSize(8).FontColor("#6B7280");
-                                                if (!string.IsNullOrWhiteSpace(evidencia.UrlArchivo))
-                                                    text.Hyperlink(evidencia.UrlArchivo, "Abrir / Descargar");
-                                            });
-                                        });
+                                        }
                                     });
                                 });
                             });
-                        }
-
-                        // Datos de ubicación y técnicos
-                        column.Item().Row(row =>
-                        {
-                            row.RelativeItem().Element(c =>
-                                CrearTarjetaResumen(c, "Ubicación", content =>
-                                {
-                                    content.Item().Element(x => CrearCampoFicha(x, "Dirección", evidencia.DireccionFormateada ?? evidencia.Direccion));
-                                    content.Item().Element(x => CrearCampoFicha(x, "Colonia", evidencia.Colonia));
-                                    content.Item().Element(x => CrearCampoFicha(x, "Municipio", evidencia.Municipio));
-                                    content.Item().Element(x => CrearCampoFicha(x, "Estado", evidencia.Estado));
-                                    content.Item().Element(x => CrearCampoFicha(x, "Código postal", evidencia.CodigoPostal));
-                                    content.Item().Element(x => CrearCampoFicha(x, "País", evidencia.Pais));
-                                }));
-
-                            row.ConstantItem(12);
-
-                            row.RelativeItem().Element(c =>
-                                CrearTarjetaResumen(c, "Datos técnicos", content =>
-                                {
-                                    content.Item().Element(x => CrearCampoFicha(x, "Precisión (m)",
-                                        evidencia.PrecisionMetros?.ToString("0.##", CultureInfo.InvariantCulture) ?? "N/A"));
-                                    content.Item().Element(x => CrearCampoFicha(x, "Altitud",
-                                        evidencia.Altitud?.ToString("0.##", CultureInfo.InvariantCulture) ?? "N/A"));
-                                    content.Item().Element(x => CrearCampoFicha(x, "Google Maps",
-                                        string.IsNullOrWhiteSpace(evidencia.GoogleMapsUrl) ? "N/A" : "Disponible"));
-                                }));
                         });
 
-                        if (!string.IsNullOrWhiteSpace(evidencia.GoogleMapsUrl))
+                        // Archivos adjuntos
+                        if (!string.IsNullOrWhiteSpace(evidencia.UrlArchivo))
                         {
-                            column.Item().Text(text =>
-                            {
-                                text.Span("Abrir ubicación en mapa: ").SemiBold().FontSize(9).FontColor("#24364D");
-                                text.Hyperlink(evidencia.GoogleMapsUrl!, "Ver en Google Maps");
-                            });
+                            column.Item().PaddingTop(4).BorderTop(1).BorderColor("#E5E7EB")
+                                .Background("#F9FAFB").PaddingVertical(6).PaddingHorizontal(10)
+                                .Text(Path.GetFileName(evidencia.UrlArchivo))
+                                .Bold().FontSize(9).FontColor("#24364D");
                         }
-                    });
+
+                    }); // cierra column principal de evidencia
 
                     page.Footer().Element(c =>
-                        CrearFooter(c, clienteDisplay, direccionDisplay, tarea.EstatusNombre ?? "Tarea", logoBytes, qrBytes));
-                });
-            }
-        });
+                        CrearFooter(c, clienteDisplay, direccionDisplay, tarea.NombreProyecto ?? "Sin plan de trabajo", logoBytes, qrBytes, logoProveedorBytes));
+                }); // cierra container.Page
+            } // cierra for
+        }); // cierra Document.Create
 
         return document.GeneratePdf();
     }
@@ -664,8 +602,9 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                     {
                         content.Item().Element(x => CrearFilaSimple(x, "Nombre", clienteDisplay));
                         content.Item().Element(x => CrearFilaSimple(x, "Razón Social", cliente.RazonSocial));
-                        content.Item().Element(x => CrearFilaSimple(x, "Teléfono", cliente.Telefono));
-                        content.Item().Element(x => CrearFilaSimple(x, "Email", cliente.Email));
+                        content.Item().Element(x => CrearFilaSimple(x, "Número de teléfono de la empresa", cliente.Telefono));
+                        content.Item().Element(x => CrearFilaSimple(x, "Email del supervisor", tarea.EmailSupervisor));
+
                     }));
 
                 // Sección tarea
@@ -682,29 +621,50 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                                 .FontSize(9).FontColor("#6B7280");
                         });
 
-                        content.Item().PaddingTop(14).Column(obs =>
+                        if (tarea.Observaciones.Count > 0)
                         {
-                            obs.Spacing(6);
-                            obs.Item().Text("Observaciones :")
-                                .SemiBold().FontSize(10).FontColor("#24364D");
-
-                            foreach (var item in new[]
-                            {
-                                "Verificar que la nueva señalética cumpla con el manual de marca vigente.",
-                                "Cuidar que no queden restos de adhesivo, tornillos visibles o daños.",
-                                "Coordinar la instalación en horarios de baja afluencia."
-                            })
-                            {
-                                obs.Item().Row(r =>
+                            content.Item().PaddingTop(10).Border(1).BorderColor("#E5E7EB")
+                                .Background("#F9FAFB").Padding(8).Column(obs =>
                                 {
-                                    r.ConstantItem(10).Text("•")
-                                        .FontSize(12).FontColor("#24364D");
-                                    r.RelativeItem().Text(item)
-                                        .FontSize(9).FontColor("#6B7280");
-                                });
-                            }
-                        });
+                                    obs.Item().Text("Observaciones:")
+                .SemiBold().FontSize(9).FontColor("#24364D");
 
+                                    obs.Item().PaddingTop(4).Row(row =>
+                                    {
+                                        var mitad = (int)Math.Ceiling(tarea.Observaciones.Count / 2.0);
+                                        var columnaIzq = tarea.Observaciones.Take(mitad).ToList();
+                                        var columnaDer = tarea.Observaciones.Skip(mitad).ToList();
+
+                                        row.RelativeItem().Column(col =>
+                                        {
+                                            col.Spacing(2);
+                                            foreach (var item in columnaIzq)
+                                            {
+                                                col.Item().Row(r =>
+                                                {
+                                                    r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
+                                                    r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
+                                                });
+                                            }
+                                        });
+
+                                        row.ConstantItem(8);
+
+                                        row.RelativeItem().Column(col =>
+                                        {
+                                            col.Spacing(2);
+                                            foreach (var item in columnaDer)
+                                            {
+                                                col.Item().Row(r =>
+                                                {
+                                                    r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
+                                                    r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
+                                                });
+                                            }
+                                        });
+                                    });
+                                });
+                        }
                         // Sección: Archivos adjuntos de la tarea (subidos vía TareaArchivoController)
                         if (archivosTarea != null && archivosTarea.Count > 0)
                         {
@@ -784,10 +744,9 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 right.Item().Height(6).Background("#24364D");
 
                 // Estatus / tipo de plan
-                right.Item().PaddingTop(4).Text(tarea.EstatusNombre ?? "Sin estatus")
+                right.Item().PaddingTop(4).Text(tarea.NombreProyecto ?? "Sin plan de trabajo")
                     .SemiBold().FontSize(13).FontColor("#24364D");
 
-                // "Plan de trabajo" con ícono carpeta
                 right.Item().Row(r =>
                 {
                     r.ConstantItem(16).AlignMiddle().AlignCenter()
@@ -796,6 +755,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                     r.RelativeItem().AlignMiddle()
                         .Text("Plan de trabajo").FontSize(9).FontColor("#6B7280");
                 });
+
 
                 right.Item().LineHorizontal(1).LineColor("#D1D5DB");
 
@@ -891,9 +851,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         IContainer container,
         string clienteDisplay,
         string direccionDisplay,
-        string estatus,
+        string nombreProyecto,
         byte[]? logoBytes,
-        byte[]? qrBytes)
+        byte[]? qrBytes,
+        byte[]? logoProveedorBytes)
     {
         container.PaddingLeft(28).Column(column =>
         {
@@ -946,57 +907,49 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 {
                     // Mostrar logo Velios en el lugar del texto de empresa y otro logo más grande a la derecha
                     // Logo izquierdo (igual tamaño y alineación que el derecho)
-                    r.RelativeItem().AlignCenter().Row(leftLogo =>
+                    r.RelativeItem().AlignCenter().Column(c =>
                     {
-                        if (logoBytes is not null && logoBytes.Length > 0)
-                        {
-                            leftLogo.ConstantItem(80).Height(48).AlignCenter().AlignMiddle()
-                                .Element(img => img.Image(logoBytes, ImageScaling.FitArea));
-                        }
-                        else
-                        {
-                            leftLogo.ConstantItem(36).Height(36).Background("#F15A24")
-                                .AlignCenter().AlignMiddle()
-                                .Text("V").Bold().FontSize(16).FontColor(Colors.White);
-                        }
+                        c.Item().AlignCenter().Text(clienteDisplay)
+                            .SemiBold().FontSize(9).FontColor("#24364D");
                     });
 
                     r.ConstantItem(10).AlignCenter().Text("|").FontColor("#D1D5DB");
 
-                    // Logo derecho — agrandado para mayor visibilidad
+                    // 2 - Logo del proveedor
                     r.RelativeItem().AlignCenter().Row(logoRow =>
                     {
-                        if (logoBytes is not null && logoBytes.Length > 0)
+                        if (logoProveedorBytes is not null && logoProveedorBytes.Length > 0)
+                        {
+                            logoRow.ConstantItem(80).Height(48).AlignCenter().AlignMiddle()
+                                .Element(img => img.Image(logoProveedorBytes, ImageScaling.FitArea));
+                        }
+                        else if (logoBytes is not null && logoBytes.Length > 0)
                         {
                             logoRow.ConstantItem(80).Height(48).AlignCenter().AlignMiddle()
                                 .Element(img => img.Image(logoBytes, ImageScaling.FitArea));
                         }
                         else
                         {
-                            logoRow.ConstantItem(36).Height(36).Background("#F15A24")
-                                .AlignCenter().AlignMiddle()
-                                .Text("V").Bold().FontSize(16).FontColor(Colors.White);
-                            logoRow.ConstantItem(4);
-                            logoRow.RelativeItem().AlignMiddle()
-                                .Text("Velios").Bold().FontSize(11).FontColor("#24364D");
+                            logoRow.RelativeItem().AlignCenter().AlignMiddle()
+                                .Text("Sin logo").FontSize(8).FontColor("#6B7280");
                         }
                     });
 
                     r.ConstantItem(10).AlignCenter().Text("|").FontColor("#D1D5DB");
 
-                    // Estatus con ícono carpeta
+                    // 3 - Nombre del plan de trabajo
                     r.RelativeItem().AlignCenter().Row(eRow =>
                     {
                         eRow.ConstantItem(14).AlignMiddle()
                             .Text("▭").FontSize(10).FontColor("#6B7280");
                         eRow.ConstantItem(4);
                         eRow.RelativeItem().AlignMiddle()
-                            .Text(estatus).FontSize(9).SemiBold().FontColor("#6B7280");
+                            .Text(nombreProyecto).FontSize(9).SemiBold().FontColor("#6B7280");
                     });
                 });
             });
 
-            // Barra inferior azul
+            // Barra inferior azul — FUERA del Row anterior
             column.Item().Background("#24364D").PaddingVertical(6).PaddingHorizontal(10).Row(row =>
             {
                 row.RelativeItem().AlignCenter().Text(direccionDisplay)
@@ -1004,10 +957,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                 row.ConstantItem(115).AlignRight().Text(text =>
                 {
-                    text.Span("PÁGINA ").FontSize(8).FontColor(Colors.White);
-                    text.CurrentPageNumber();
-                    text.Span(" DE ").FontSize(8).FontColor(Colors.White);
-                    text.TotalPages();
+                    text.Span("PÁGINA ").FontSize(8).FontColor(Colors.White).Bold();
+                    text.CurrentPageNumber().FontSize(9).Bold().FontColor(Colors.White);
+                    text.Span(" DE ").FontSize(8).FontColor(Colors.White).Bold();
+                    text.TotalPages().FontSize(9).Bold().FontColor(Colors.White);
                 });
             });
         });
@@ -1135,7 +1088,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
     // =========================================================================
     private static void CrearCheckValidacion(IContainer container, string texto, bool ok)
     {
-        container.Border(1).BorderColor("#D6DCE5").Background(Colors.White).Padding(8).Row(row =>
+        container.Border(1).BorderColor("#D6DCE5").Background(Colors.White).Padding(4).Row(row =>
         {
             row.ConstantItem(18).Height(18).AlignMiddle().AlignCenter().Element(box =>
             {
@@ -1153,6 +1106,8 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 .FontSize(9).FontColor("#334155");
         });
     }
+
+
 
     private static byte[] GenerarQrBytes(string content)
     {
