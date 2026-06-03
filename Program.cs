@@ -13,6 +13,7 @@ using velios.Api.Services.Encuestas;
 using velios.Api.Services.ProveedoresDocs;
 using velios.Api.Services.Security;
 using velios.Api.Services.ServiciosCategoria;
+using velios.Api.Services.ServiciosProveedor;
 
 /// <summary>
 /// Punto de entrada de Velios API (Minimal Hosting .NET 6+).
@@ -32,6 +33,7 @@ var builder = WebApplication.CreateBuilder(args);
 // SMTP settings (appsettings.json -> "Smtp")
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("Smtp"));
 
+builder.Services.AddScoped<IServicioProveedorService, ServicioProveedorService>();
 
 // ------------------------------------------------------------
 // 2) Registro de servicios (DI - Dependency Injection)
