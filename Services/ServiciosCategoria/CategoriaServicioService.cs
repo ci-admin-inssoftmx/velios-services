@@ -87,64 +87,57 @@ namespace velios.Api.Services.ServiciosCategoria
         public async Task<bool> EditarSolicitudAsync(EditarSolicitudRequest request)
         {
             const string validarServicio = @"
-        SELECT COUNT(1)
-        FROM tb_CatServicios
-        WHERE ServicioId = @ServicioId";
+                SELECT COUNT(1)
+                FROM tb_CatServicios
+                WHERE ServicioId = @ServicioId";
 
             const string existeSolicitud = @"
-        SELECT COUNT(1)
-        FROM tb_SolicitudServicios
-        WHERE TareaId = @TareaId";
+                SELECT COUNT(1)
+                FROM tb_SolicitudServicios
+                WHERE TareaId = @TareaId";
 
             const string insertar = @"
-        INSERT INTO tb_SolicitudServicios
-            (TareaId, ServicioId)
-        VALUES
-            (@TareaId, @ServicioId)";
+                INSERT INTO tb_SolicitudServicios
+                    (TareaId, ServicioId)
+                VALUES
+                    (@TareaId, @ServicioId)";
 
             const string actualizar = @"
-        UPDATE tb_SolicitudServicios
-        SET ServicioId = @ServicioId
-        WHERE TareaId = @TareaId";
+                UPDATE tb_SolicitudServicios
+                SET ServicioId = @ServicioId
+                WHERE TareaId = @TareaId";
 
             using var connection = new SqlConnection(_connectionString);
 
-            // Validar servicio
             var servicioExiste = await connection.ExecuteScalarAsync<int>(
-                validarServicio,
-                new { request.ServicioId });
+                validarServicio, new { request.ServicioId });
 
             if (servicioExiste == 0)
                 return false;
 
-            // Verificar si ya existe solicitud
             var solicitudExiste = await connection.ExecuteScalarAsync<int>(
-                existeSolicitud,
-                new { request.TareaId });
+                existeSolicitud, new { request.TareaId });
 
             if (solicitudExiste > 0)
             {
-                // UPDATE
                 var filas = await connection.ExecuteAsync(actualizar, new
                 {
                     request.TareaId,
                     request.ServicioId
                 });
-
                 return filas > 0;
             }
             else
             {
-                // INSERT
                 var filas = await connection.ExecuteAsync(insertar, new
                 {
                     request.TareaId,
                     request.ServicioId
                 });
-
                 return filas > 0;
             }
         }
+
         public async Task<SolicitudServicioModel?> GetSolicitudAsync(int tareaId)
         {
             const string sql = @"
@@ -170,6 +163,66 @@ namespace velios.Api.Services.ServiciosCategoria
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryFirstOrDefaultAsync<SolicitudServicioModel>(sql, new { TareaId = tareaId });
+        }
+
+        // ============================================================
+        // BUSCADOR
+        // ============================================================
+
+        public async Task<BuscadorServicioResultado> BuscarAsync(string busqueda)
+        {
+            const string sql = @"
+                -- Categorías
+                SELECT
+                    CategoriaServicioId,
+                    CategoriaServicio,
+                    Descripcion
+                FROM tb_CatCategoriaServicios
+                WHERE CategoriaServicio LIKE '%' + @Busqueda + '%'
+                   OR Descripcion       LIKE '%' + @Busqueda + '%'
+                ORDER BY CategoriaServicio;
+
+                -- Subcategorías
+                SELECT
+                    sub.SubcategoriaServicioId,
+                    sub.SubcategoriaServicio,
+                    sub.Descripcion,
+                    cat.CategoriaServicioId,
+                    cat.CategoriaServicio
+                FROM tb_CatSubcategoriaServicios sub
+                INNER JOIN tb_CatCategoriaServicios cat
+                    ON cat.CategoriaServicioId = sub.CategoriaServicioId
+                WHERE sub.SubcategoriaServicio LIKE '%' + @Busqueda + '%'
+                   OR sub.Descripcion          LIKE '%' + @Busqueda + '%'
+                ORDER BY cat.CategoriaServicio, sub.SubcategoriaServicio;
+
+                -- Servicios
+                SELECT
+                    srv.ServicioId,
+                    srv.Servicio,
+                    sub.SubcategoriaServicioId,
+                    sub.SubcategoriaServicio,
+                    cat.CategoriaServicioId,
+                    cat.CategoriaServicio
+                FROM tb_CatServicios srv
+                INNER JOIN tb_CatSubcategoriaServicios sub
+                    ON sub.SubcategoriaServicioId = srv.SubcategoriaServicioId
+                INNER JOIN tb_CatCategoriaServicios cat
+                    ON cat.CategoriaServicioId = sub.CategoriaServicioId
+                WHERE srv.Servicio LIKE '%' + @Busqueda + '%'
+                ORDER BY cat.CategoriaServicio, sub.SubcategoriaServicio, srv.Servicio;";
+
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            using var multi = await connection.QueryMultipleAsync(sql, new { Busqueda = busqueda });
+
+            return new BuscadorServicioResultado
+            {
+                Categorias = await multi.ReadAsync<BuscadorCategoriaItem>(),
+                Subcategorias = await multi.ReadAsync<BuscadorSubcategoriaItem>(),
+                Servicios = await multi.ReadAsync<BuscadorServicioItem>()
+            };
         }
     }
 }
