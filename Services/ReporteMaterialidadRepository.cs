@@ -188,4 +188,23 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
             }
         ).ToListAsync();
     }
+    private readonly NomclickDbContext _nomclickContext;
+
+    public ReporteMaterialidadRepository(AppDbContext context, NomclickDbContext nomclickContext)
+    {
+        _context = context;
+        _nomclickContext = nomclickContext;
+    }
+
+    public async Task<string?> ObtenerTelefonoCentroTrabajoAsync(int? centroTrabajoId)
+    {
+        if (!centroTrabajoId.HasValue) return null;
+
+        return await _nomclickContext.CentrosTrabajo
+            .AsNoTracking()
+            .Where(c => c.IdCentroDeTrabajo == centroTrabajoId.Value)
+            .Select(c => c.Telefono)
+            .FirstOrDefaultAsync();
+    }
+
 }

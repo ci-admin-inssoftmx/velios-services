@@ -45,5 +45,6 @@ public class TareaReporteDto
     public string? ImageURL { get; set; }
     public int? CentroTrabajoId { get; set; }
 
+    public string? TelefonoCentroTrabajo { get; set; }
     public List<EvidenciaReporteDto> Evidencias { get; set; } = new();
 }

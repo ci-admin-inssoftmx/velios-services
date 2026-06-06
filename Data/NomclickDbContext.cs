@@ -8,7 +8,11 @@ namespace velios.Api.Data
     /// Se utiliza para guardar una copia de la información del proveedor.
     /// </summary>
     public class NomclickDbContext : DbContext
+
+
     {
+        public DbSet<NomclickCentroTrabajo> CentrosTrabajo => Set<NomclickCentroTrabajo>();
+
         /// <summary>
         /// Constructor que recibe la configuración del contexto desde Program.cs.
         /// </summary>
@@ -63,6 +67,13 @@ namespace velios.Api.Data
 
                 // Campo obligatorio según la tabla
                 e.Property(x => x.IsDeleted).IsRequired();
+            });
+
+            // AGREGA AQUÍ:
+            modelBuilder.Entity<NomclickCentroTrabajo>(e =>
+            {
+                e.ToTable("tb_CentroDeTrabajo", "dbo");
+                e.HasKey(x => x.IdCentroDeTrabajo);
             });
         }
     }

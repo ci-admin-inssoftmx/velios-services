@@ -3,24 +3,28 @@
   "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\reportematerialidadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\reportematerialidadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\serviciosproveedor\\servicioproveedorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\serviciosproveedor\\servicioproveedorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\proveedor\\nomclickcentrotrabajo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\proveedor\\nomclickcentrotrabajo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\serviciosproveedor\\servicioproveedorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\serviciosproveedor\\servicioproveedorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\ireportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\ireportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\serviciosproveedor\\iservicioproveedorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\serviciosproveedor\\iservicioproveedorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\reportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\reportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\serviciosproveedor\\servicioproveedormodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\serviciosproveedor\\servicioproveedormodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\reportematerialidad\\tareareportedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\reportematerialidad\\tareareportedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\data\\nomclickdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:data\\nomclickdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,67 +42,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "TareaReporteDto.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\ReporteMaterialidad\\TareaReporteDto.cs",
+              "RelativeDocumentMoniker": "Models\\ReporteMaterialidad\\TareaReporteDto.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\ReporteMaterialidad\\TareaReporteDto.cs",
+              "RelativeToolTip": "Models\\ReporteMaterialidad\\TareaReporteDto.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAkwC4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-03T16:57:26.517Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ServicioProveedorController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\ServiciosProveedor\\ServicioProveedorController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ServiciosProveedor\\ServicioProveedorController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\ServiciosProveedor\\ServicioProveedorController.cs",
-              "RelativeToolTip": "Controllers\\ServiciosProveedor\\ServicioProveedorController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-03T16:56:36.967Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ServicioProveedorService.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosProveedor\\ServicioProveedorService.cs",
-              "RelativeDocumentMoniker": "Services\\ServiciosProveedor\\ServicioProveedorService.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosProveedor\\ServicioProveedorService.cs",
-              "RelativeToolTip": "Services\\ServiciosProveedor\\ServicioProveedorService.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAQwHIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-03T16:55:17.151Z",
+              "WhenOpened": "2026-06-04T01:54:28.67Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "IServicioProveedorService.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosProveedor\\IServicioProveedorService.cs",
-              "RelativeDocumentMoniker": "Services\\ServiciosProveedor\\IServicioProveedorService.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ServiciosProveedor\\IServicioProveedorService.cs",
-              "RelativeToolTip": "Services\\ServiciosProveedor\\IServicioProveedorService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Title": "ReporteMaterialidadRepository.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadRepository.cs",
+              "RelativeDocumentMoniker": "Services\\ReporteMaterialidadRepository.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadRepository.cs",
+              "RelativeToolTip": "Services\\ReporteMaterialidadRepository.cs",
+              "ViewState": "AgIAAMgAAAAAAAAAAAAAANEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-03T16:53:50.804Z",
+              "WhenOpened": "2026-06-04T01:47:41.894Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ServicioProveedorModels.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\ServiciosProveedor\\ServicioProveedorModels.cs",
-              "RelativeDocumentMoniker": "Models\\ServiciosProveedor\\ServicioProveedorModels.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\ServiciosProveedor\\ServicioProveedorModels.cs",
-              "RelativeToolTip": "Models\\ServiciosProveedor\\ServicioProveedorModels.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "IReporteMaterialidadRepository.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\IReporteMaterialidadRepository.cs",
+              "RelativeDocumentMoniker": "Services\\IReporteMaterialidadRepository.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\IReporteMaterialidadRepository.cs",
+              "RelativeToolTip": "Services\\IReporteMaterialidadRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-03T16:48:48.697Z",
+              "WhenOpened": "2026-06-04T01:46:59.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NomclickCentroTrabajo.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Proveedor\\NomclickCentroTrabajo.cs",
+              "RelativeDocumentMoniker": "Models\\Proveedor\\NomclickCentroTrabajo.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Proveedor\\NomclickCentroTrabajo.cs",
+              "RelativeToolTip": "Models\\Proveedor\\NomclickCentroTrabajo.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA3wBQAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-04T01:43:01.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NomclickDbContext.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Data\\NomclickDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\NomclickDbContext.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Data\\NomclickDbContext.cs",
+              "RelativeToolTip": "Data\\NomclickDbContext.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAwEwAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-04T01:39:46.771Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReporteMaterialidadService.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadService.cs",
+              "RelativeDocumentMoniker": "Services\\ReporteMaterialidadService.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadService.cs",
+              "RelativeToolTip": "Services\\ReporteMaterialidadService.cs",
+              "ViewState": "AgIAAPABAAAAAAAAAAAYwAYCAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-04T01:38:42.391Z",
               "EditorCaption": ""
             }
           ]
