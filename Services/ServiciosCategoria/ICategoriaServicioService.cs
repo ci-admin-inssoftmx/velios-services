@@ -16,6 +16,7 @@ namespace velios.Api.Services.ServiciosCategoria
 
         // ── Buscador ───────────────────────────────────────────
         Task<BuscadorServicioResultado> BuscarAsync(string busqueda);
+        Task<BuscadorJerarquiaResultado> BuscarJerarquiaAsync(string busqueda);
 
     }
 }

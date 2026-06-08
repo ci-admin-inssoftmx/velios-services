@@ -6,5 +6,7 @@ namespace velios.Api.Services.ServiciosProveedor
     {
         Task<AsignarServiciosResultado> AsignarServiciosAsync(AsignarServiciosProveedorRequest request);
         Task<IEnumerable<ServicioProveedorModel>> GetServiciosByProveedorAsync(int proveedorId);
+        Task<IEnumerable<ProveedorPorServicioModel>> GetProveedoresByServicioAsync(int servicioId);
+
     }
 }

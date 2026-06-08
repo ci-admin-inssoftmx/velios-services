@@ -179,30 +179,30 @@ namespace velios.Api.Controllers.ServiciosCategoria
             }
         }
         // ============================================================
-        // BUSCADOR
+        // BUSCADOR DINAMICO NUEVO MEJORADO CON JERARQUÍA
         // ============================================================
 
         /// <summary>
-        /// Busca coincidencias en categorías, subcategorías y servicios.
+        /// Busca coincidencias en los tres niveles y devuelve estructura jerárquica.
         /// </summary>
         /// <param name="busqueda">Texto a buscar (mínimo 3 caracteres).</param>
-        [HttpGet("buscar")]
-        [ProducesResponseType(typeof(BuscadorServicioResultado), StatusCodes.Status200OK)]
+        [HttpGet("buscar/jerarquia")]
+        [ProducesResponseType(typeof(BuscadorJerarquiaResultado), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Buscar([FromQuery] string busqueda)
+        public async Task<IActionResult> BuscarJerarquia([FromQuery] string busqueda)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(busqueda) || busqueda.Trim().Length < 3)
                     return BadRequest("Ingresa al menos 3 caracteres para buscar.");
 
-                var resultado = await _categoriaServicioService.BuscarAsync(busqueda);
+                var resultado = await _categoriaServicioService.BuscarJerarquiaAsync(busqueda);
                 return Ok(resultado);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error al ejecutar búsqueda con término '{Busqueda}'.", busqueda);
+                _logger.LogError(ex, "Error al ejecutar búsqueda jerárquica con término '{Busqueda}'.", busqueda);
                 return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
             }
         }

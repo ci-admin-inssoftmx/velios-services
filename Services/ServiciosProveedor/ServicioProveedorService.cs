@@ -80,7 +80,22 @@ namespace velios.Api.Services.ServiciosProveedor
 
             return resultado;
         }
+        public async Task<IEnumerable<ProveedorPorServicioModel>> GetProveedoresByServicioAsync(int servicioId)
+        {
+            const string sql = @"
+        SELECT
+            p.ProveedorId,
+            p.NombreComercial,
+            p.CorreoContacto
+        FROM tb_ServiciosProveedores sp
+        INNER JOIN tb_Proveedores p
+            ON p.ProveedorId = sp.ProveedorId
+        WHERE sp.ServicioId = @ServicioId
+        ORDER BY p.NombreComercial";
 
+            using var connection = new SqlConnection(_connectionString);
+            return await connection.QueryAsync<ProveedorPorServicioModel>(sql, new { ServicioId = servicioId });
+        }
 
         // ============================================================
         // Obtener todos los servicios asignados a un proveedor

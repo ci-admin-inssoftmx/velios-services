@@ -164,7 +164,94 @@ namespace velios.Api.Services.ServiciosCategoria
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryFirstOrDefaultAsync<SolicitudServicioModel>(sql, new { TareaId = tareaId });
         }
+        public async Task<BuscadorJerarquiaResultado> BuscarJerarquiaAsync(string busqueda)
+        {
+            // Trae todo lo que tenga coincidencia en cualquier nivel
+            // La lógica de agrupación se hace en C#
+            const string sqlCategorias = @"
+        SELECT DISTINCT
+            cat.CategoriaServicioId,
+            cat.CategoriaServicio,
+            cat.Descripcion
+        FROM tb_CatCategoriaServicios cat
+        LEFT JOIN tb_CatSubcategoriaServicios sub
+            ON sub.CategoriaServicioId = cat.CategoriaServicioId
+        LEFT JOIN tb_CatServicios srv
+            ON srv.SubcategoriaServicioId = sub.SubcategoriaServicioId
+        WHERE cat.CategoriaServicio LIKE '%' + @Busqueda + '%'
+           OR cat.Descripcion       LIKE '%' + @Busqueda + '%'
+           OR sub.SubcategoriaServicio LIKE '%' + @Busqueda + '%'
+           OR sub.Descripcion          LIKE '%' + @Busqueda + '%'
+           OR srv.Servicio             LIKE '%' + @Busqueda + '%'
+        ORDER BY cat.CategoriaServicio";
 
+            const string sqlSubcategorias = @"
+        SELECT DISTINCT
+            sub.SubcategoriaServicioId,
+            sub.SubcategoriaServicio,
+            sub.Descripcion,
+            sub.CategoriaServicioId
+        FROM tb_CatSubcategoriaServicios sub
+        LEFT JOIN tb_CatServicios srv
+            ON srv.SubcategoriaServicioId = sub.SubcategoriaServicioId
+        INNER JOIN tb_CatCategoriaServicios cat
+            ON cat.CategoriaServicioId = sub.CategoriaServicioId
+        WHERE cat.CategoriaServicio LIKE '%' + @Busqueda + '%'
+           OR cat.Descripcion       LIKE '%' + @Busqueda + '%'
+           OR sub.SubcategoriaServicio LIKE '%' + @Busqueda + '%'
+           OR sub.Descripcion          LIKE '%' + @Busqueda + '%'
+           OR srv.Servicio             LIKE '%' + @Busqueda + '%'
+        ORDER BY sub.SubcategoriaServicio";
+
+            const string sqlServicios = @"
+        SELECT DISTINCT
+            srv.ServicioId,
+            srv.Servicio,
+            srv.SubcategoriaServicioId
+        FROM tb_CatServicios srv
+        INNER JOIN tb_CatSubcategoriaServicios sub
+            ON sub.SubcategoriaServicioId = srv.SubcategoriaServicioId
+        INNER JOIN tb_CatCategoriaServicios cat
+            ON cat.CategoriaServicioId = sub.CategoriaServicioId
+        WHERE cat.CategoriaServicio LIKE '%' + @Busqueda + '%'
+           OR cat.Descripcion       LIKE '%' + @Busqueda + '%'
+           OR sub.SubcategoriaServicio LIKE '%' + @Busqueda + '%'
+           OR sub.Descripcion          LIKE '%' + @Busqueda + '%'
+           OR srv.Servicio             LIKE '%' + @Busqueda + '%'
+        ORDER BY srv.Servicio";
+
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            var categorias = (await connection.QueryAsync(sqlCategorias, new { Busqueda = busqueda })).ToList();
+            var subcategorias = (await connection.QueryAsync(sqlSubcategorias, new { Busqueda = busqueda })).ToList();
+            var servicios = (await connection.QueryAsync(sqlServicios, new { Busqueda = busqueda })).ToList();
+
+            // Armar jerarquía en C#
+            var jerarquia = categorias.Select(cat => new CategoriaJerarquiaItem
+            {
+                CategoriaId = (int)cat.CategoriaServicioId,
+                Categoria = (string)cat.CategoriaServicio,
+                Descripcion = (string?)cat.Descripcion,
+                Subcategorias = subcategorias
+                    .Where(sub => (int)sub.CategoriaServicioId == (int)cat.CategoriaServicioId)
+                    .Select(sub => new SubcategoriaJerarquiaItem
+                    {
+                        SubcategoriaId = (int)sub.SubcategoriaServicioId,
+                        Subcategoria = (string)sub.SubcategoriaServicio,
+                        Descripcion = (string?)sub.Descripcion,
+                        Servicios = servicios
+                            .Where(srv => (int)srv.SubcategoriaServicioId == (int)sub.SubcategoriaServicioId)
+                            .Select(srv => new ServicioJerarquiaItem
+                            {
+                                ServicioId = (int)srv.ServicioId,
+                                Servicio = (string)srv.Servicio
+                            }).ToList()
+                    }).ToList()
+            }).ToList();
+
+            return new BuscadorJerarquiaResultado { Jerarquia = jerarquia };
+        }
         // ============================================================
         // BUSCADOR
         // ============================================================

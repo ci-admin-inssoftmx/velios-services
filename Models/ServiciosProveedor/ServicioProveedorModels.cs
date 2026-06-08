@@ -34,4 +34,14 @@
         public int Duplicados { get; set; }
         public List<int> ServiciosDuplicados { get; set; } = new();
     }
+
+    // ============================================================
+    // Response: Proveedores que ofrecen un servicio
+    // ============================================================
+    public class ProveedorPorServicioModel
+    {
+        public int ProveedorId { get; set; }
+        public string NombreComercial { get; set; } = string.Empty;
+        public string CorreoContacto { get; set; } = string.Empty;
+    }
 }

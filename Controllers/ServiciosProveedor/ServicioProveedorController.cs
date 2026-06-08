@@ -73,5 +73,31 @@ namespace velios.Api.Controllers.ServiciosProveedor
                 return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
             }
         }
+
+        /// <summary>
+        /// Obtiene los proveedores que ofrecen un servicio específico.
+        /// </summary>
+        /// <param name="servicioId">Id del servicio.</param>
+        [HttpGet("{servicioId}/proveedores")]
+        [ProducesResponseType(typeof(IEnumerable<ProveedorPorServicioModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetProveedoresByServicio(int servicioId)
+        {
+            try
+            {
+                var proveedores = await _servicioProveedorService.GetProveedoresByServicioAsync(servicioId);
+
+                if (!proveedores.Any())
+                    return NotFound($"No se encontraron proveedores para el servicio {servicioId}.");
+
+                return Ok(proveedores);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al obtener proveedores del servicio {ServicioId}.", servicioId);
+                return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
+            }
+        }
     }
 }
