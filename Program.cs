@@ -10,6 +10,7 @@ using velios.Api.Services;
 using velios.Api.Services.CodigosPostales;
 using velios.Api.Services.Email;
 using velios.Api.Services.Encuestas;
+using velios.Api.Services.PresupuestoGuardado;
 using velios.Api.Services.ProveedoresDocs;
 using velios.Api.Services.Security;
 using velios.Api.Services.ServiciosCategoria;
@@ -57,6 +58,9 @@ builder.Services.AddScoped<IReporteMaterialidadService, ReporteMaterialidadServi
 builder.Services.AddHttpClient();
 // Servicios - Categorías
 builder.Services.AddScoped<ICategoriaServicioService, CategoriaServicioService>();
+
+// presupuestos guardados
+builder.Services.AddScoped<IPresupuestoGuardadoService, PresupuestoGuardadoService>();
 
 // servicios encuestas
 
