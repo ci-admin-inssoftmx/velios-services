@@ -64,6 +64,7 @@ into pGroup
             title = t.Titulo,
             description = t.Descripcion,
             statusCode = e.Codigo,
+            presupuestoAsignado = t.PresupuestoAsignado,  // ← agregar aquí
             planTrabajo = p != null ? p.Nombre : "SIN PLAN",
             client = new
             {
