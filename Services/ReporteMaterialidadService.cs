@@ -54,6 +54,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         tarea.Observaciones = observaciones;
         tarea.DireccionCentroTrabajo = await _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
         tarea.TelefonoCentroTrabajo = await _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
+        tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
 
 
         foreach (var evidencia in evidencias)
@@ -104,7 +105,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             // QR directo fijado en código (valor proporcionado por el usuario
             var token = BuildValidationToken(tarea.TareaId);
             var BaseUrlFront = _configuration["AppSettings:BaseUrlFront"];
-            var qrDirectTemplate = BaseUrlFront+$"Documentos/Verificar?taskId={tareaId}&token={token}";
+            var qrDirectTemplate = BaseUrlFront + $"Documentos/Verificar?taskId={tareaId}&token={token}";
             qrBytes = GenerarQrBytes(qrDirectTemplate);
         }
         catch
@@ -162,10 +163,21 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             var lat = latitud.ToString(CultureInfo.InvariantCulture);
             var lng = longitud.ToString(CultureInfo.InvariantCulture);
 
+            // PUNTO 5: Estilos de color azul para el mapa (similar a la referencia)
+            var styles =
+                "&style=feature:water|color:0xA9CCE3" +
+                "&style=feature:landscape|color:0xEAF2FB" +
+                "&style=feature:road|color:0xFFFFFF" +
+                "&style=feature:road|element:geometry.stroke|color:0xC9D6E3" +
+                "&style=feature:poi|visibility:simplified" +
+                "&style=feature:poi|element:geometry|color:0xD6E4F0" +
+                "&style=feature:administrative|element:labels.text.fill|color:0x24364D";
+
             var mapaUrl =
                 $"https://maps.googleapis.com/maps/api/staticmap" +
                 $"?center={lat},{lng}&zoom=17&size=900x450&scale=2&maptype=roadmap" +
-                $"&markers=color:red%7Clabel:E%7C{lat},{lng}&key={apiKey}";
+                styles +
+                $"&key={apiKey}";
 
             return await client.GetByteArrayAsync(mapaUrl);
         }
@@ -238,6 +250,23 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         public byte[]? Bytes { get; set; }
     }
 
+    // =========================================================================
+    // CARGA DE RECURSOS — helper genérico para íconos en /Resources
+    // =========================================================================
+    private static byte[]? CargarRecurso(string nombreArchivo)
+    {
+        try
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Resources", nombreArchivo);
+            if (File.Exists(path)) return File.ReadAllBytes(path);
+
+            var altPath = Path.Combine(AppContext.BaseDirectory ?? Directory.GetCurrentDirectory(), "Resources", nombreArchivo);
+            if (File.Exists(altPath)) return File.ReadAllBytes(altPath);
+        }
+        catch { }
+        return null;
+    }
+
     private async Task<byte[]> ConstruirPdfAsync(ReporteMaterialidadDto reporte, byte[]? qrBytes, byte[]? logoProveedorBytes)
     {
         var tarea = reporte.Tarea;
@@ -271,6 +300,12 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             }
         }
         catch { evidenceLogoBytes = null; }
+
+        // PUNTOS 1, 2 y 4: Cargar nuevos íconos de diseño desde /Resources
+        byte[]? personaIconBytes = CargarRecurso("persona.png");
+        byte[]? documentoIconBytes = CargarRecurso("documento.png");
+        byte[]? checkIconBytes = CargarRecurso("check.png");
+        byte[]? carpetaIconBytes = CargarRecurso("carpeta.png");
 
         var clienteDisplay = !string.IsNullOrWhiteSpace(cliente.NombreComercial)
             ? cliente.NombreComercial
@@ -354,10 +389,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                     CrearHeader(c, logoBytes, "INFORME DE TAREA", (tarea.Titulo ?? "SIN TÍTULO").Replace("/", "").Trim()));
 
                 page.Content().PaddingTop(10).Element(c =>
-                    CrearContenidoPrincipalConSidebar(c, reporte, clienteDisplay, direccionDisplay, logoBytes, archivosTarea, pdfIconBytes));
+                    CrearContenidoPrincipalConSidebar(c, reporte, clienteDisplay, direccionDisplay, logoBytes, archivosTarea, pdfIconBytes, personaIconBytes, documentoIconBytes, carpetaIconBytes));
 
                 page.Footer().Element(c =>
-                                CrearFooter(c, clienteDisplay, direccionDisplay, tarea.NombreProyecto ?? "Sin plan de trabajo", logoBytes, qrBytes, logoProveedorBytes));
+                                CrearFooter(c, clienteDisplay, direccionDisplay, tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", logoBytes, qrBytes, logoProveedorBytes, carpetaIconBytes));
             });
 
             // =========================================================
@@ -388,14 +423,6 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                         column.Item().Text(tarea.EstatusNombre ?? "Avance")
                             .FontSize(10).SemiBold().FontColor("#6B7280");
-
-                        column.Item().Text(text =>
-                        {
-                            text.Span("Comentario: ")
-                                .SemiBold().FontSize(9).FontColor("#24364D");
-                            text.Span(string.IsNullOrWhiteSpace(evidencia.Comentario) ? "Sin comentario" : evidencia.Comentario)
-                                .FontSize(9).FontColor("#6B7280");
-                        });
 
                         // Foto + sidebar datos
                         column.Item().Row(row =>
@@ -450,52 +477,122 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                             row.ConstantItem(12);
 
-                            row.ConstantItem(185).Background("#F3F4F6").Padding(10).Column(right =>
+                            // =========================================================
+                            // PUNTO 4: Sidebar de evidencia rediseñado en secciones
+                            //          tipo tarjeta, separadas, con íconos.
+                            // PUNTO 5/6: Mapa azul + info del mapa con fondo blanco
+                            // =========================================================
+                            row.ConstantItem(185).Background("#F3F4F6").CornerRadius(8).Padding(10).Column(right =>
                             {
-                                right.Spacing(4);
+                                right.Spacing(6);
 
-                                right.Item().Text("Datos de captura")
-                                    .Bold().FontSize(11).FontColor("#24364D");
-                                right.Item().LineHorizontal(1).LineColor("#D1D5DB");
+                                // --- Sección: Datos de captura ---
+                                right.Item().Border(1).BorderColor("#E5E7EB").Background(Colors.White).CornerRadius(6).Padding(8).Column(sec =>
+                                {
+                                    sec.Spacing(5);
 
-                                right.Item().Element(x => CrearCampoLateral(x, "Fecha de captura", evidencia.DateCreated.ToString("dd/MM/yyyy")));
-                                right.Item().Element(x => CrearCampoLateral(x, "Registrado en sistema", evidencia.DateCreated.ToString("dd/MM/yyyy")));
-                                right.Item().Element(x => CrearCampoLateral(x, "Usuario de registro", tarea.NombreOperador));
-                                right.Item().Element(x => CrearCampoLateral(x, "Equipo", evidencia.ModeloDispositivo));
-                                right.Item().Element(x => CrearCampoLateral(x, "Latitud de captura",
-                                    evidencia.Latitud?.ToString("0.00000000", CultureInfo.InvariantCulture) ?? "N/A"));
-                                right.Item().Element(x => CrearCampoLateral(x, "Longitud de captura",
-                                    evidencia.Longitud?.ToString("0.00000000", CultureInfo.InvariantCulture) ?? "N/A"));
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(16).AlignMiddle().Text("📋").FontSize(11);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().AlignMiddle().Text("Datos de captura")
+                                            .Bold().FontSize(11).FontColor("#24364D");
+                                    });
+                                    sec.Item().LineHorizontal(1).LineColor("#D1D5DB");
 
-                                right.Item().PaddingTop(6).LineHorizontal(1).LineColor("#D1D5DB");
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("📅").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Fecha de captura", evidencia.DateCreated.ToString("dd/MM/yyyy")));
+                                    });
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("🗄️").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Registrado en sistema", evidencia.DateCreated.ToString("dd/MM/yyyy")));
+                                    });
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("👤").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Usuario de registro", tarea.NombreOperador));
+                                    });
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("📱").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Equipo", evidencia.ModeloDispositivo));
+                                    });
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("📍").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Latitud de captura",
+                                            evidencia.Latitud?.ToString("0.00000000", CultureInfo.InvariantCulture) ?? "N/A"));
+                                    });
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("📍").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Longitud de captura",
+                                            evidencia.Longitud?.ToString("0.00000000", CultureInfo.InvariantCulture) ?? "N/A"));
+                                    });
+                                });
 
-                                right.Item().Text("Validación")
-                                    .Bold().FontSize(11).FontColor("#24364D");
+                                // --- Sección: Validación ---
+                                right.Item().Border(1).BorderColor("#E5E7EB").Background(Colors.White).CornerRadius(6).Padding(8).Column(sec =>
+                                {
+                                    sec.Spacing(5);
 
-                                right.Item().Element(x => CrearCheckValidacion(x, "Fecha de evidencia coincide con el registro", true));
-                                right.Item().Element(x => CrearCheckValidacion(x, "Ubicación validada con sucursal",
-                                    evidencia.Latitud.HasValue && evidencia.Longitud.HasValue));
-                                right.Item().Element(x => CrearCheckValidacion(x, "Tomada desde la app Velios", true));
+                                    sec.Item().Text("Validación")
+                                        .Bold().FontSize(11).FontColor("#24364D");
+                                    sec.Item().LineHorizontal(1).LineColor("#D1D5DB");
 
-                                right.Item().PaddingTop(6).LineHorizontal(1).LineColor("#D1D5DB");
+                                    sec.Item().Element(x => CrearCheckValidacion(x, "Fecha de evidencia coincide con el registro", true, checkIconBytes));
+                                    sec.Item().Element(x => CrearCheckValidacion(x, "Ubicación validada con sucursal",
+                                        evidencia.Latitud.HasValue && evidencia.Longitud.HasValue, checkIconBytes));
+                                    sec.Item().Element(x => CrearCheckValidacion(x, "Tomada desde la app Velios", true, checkIconBytes));
+                                });
 
+                                // --- Sección: Mapa (azul) + info (fondo blanco) ---
                                 right.Item().Element(c =>
                                 {
-                                    c.Border(1).BorderColor("#D6DCE5").Background("#F8FAFC").Column(col =>
+                                    c.Border(1).BorderColor("#D6DCE5").Background("#F8FAFC").CornerRadius(6).Column(col =>
                                     {
-                                        col.Item().Padding(2).Height(100).Element(box =>
+                                        col.Item().Height(100).Element(box =>
                                         {
-                                            if (evidencia.MapaBytes is not null && evidencia.MapaBytes.Length > 0)
-                                                box.AlignCenter().AlignMiddle().Image(evidencia.MapaBytes, ImageScaling.FitArea);
-                                            else
-                                                box.AlignCenter().AlignMiddle()
-                                                    .Text("Sin mapa")
-                                                    .FontSize(8).FontColor("#64748B");
+                                            box.Layers(layers =>
+                                            {
+                                                // Capa 1: imagen del mapa
+                                                layers.PrimaryLayer().Element(bg =>
+                                                {
+                                                    if (evidencia.MapaBytes is not null && evidencia.MapaBytes.Length > 0)
+                                                        bg.Image(evidencia.MapaBytes, ImageScaling.FitArea);
+                                                    else
+                                                        bg.Background("#24364D").AlignCenter().AlignMiddle()
+                                                            .Text("Sin mapa").FontSize(8).FontColor(Colors.White);
+                                                });
+
+                                                // Capa 2: overlay azul semitransparente (alfa ~45% = 0x73)
+                                                layers.Layer().Background("#7324364D");
+
+                                                // Capa 3: pin central (icono de ubicacion)
+                                                layers.Layer().AlignCenter().AlignMiddle()
+                                                    .Element(pin =>
+                                                    {
+                                                        pin.Width(26).Height(26)
+                                                           .Background(Colors.White)
+                                                           .CornerRadius(13)
+                                                           .AlignCenter().AlignMiddle()
+                                                           .Text("📍").FontSize(13);
+                                                    });
+                                            });
                                         });
 
                                         if (!string.IsNullOrWhiteSpace(evidencia.DireccionFormateada))
                                         {
-                                            col.Item().Background("#F8FAFC").BorderTop(1).BorderColor("#D6DCE5")
+                                            col.Item().Background(Colors.White).BorderTop(1).BorderColor("#D6DCE5")
                                                 .Padding(4).Row(r =>
                                                 {
                                                     r.ConstantItem(10).Text("⊙").FontSize(9).FontColor("#F15A24");
@@ -510,10 +607,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                                                 ? evidencia.GoogleMapsUrl
                                                 : $"https://www.google.com/maps?q={evidencia.Latitud?.ToString(CultureInfo.InvariantCulture)},{evidencia.Longitud?.ToString(CultureInfo.InvariantCulture)}";
 
-                                            col.Item().Background("#F8FAFC").BorderTop(1).BorderColor("#D6DCE5")
+                                            col.Item().Background(Colors.White).BorderTop(1).BorderColor("#D6DCE5")
                                                 .PaddingHorizontal(4).PaddingVertical(3).Text(text =>
                                                 {
-                                                    text.Hyperlink(mapsUrl, "Da clic aquí p|ara ir a la ubicación en Google Maps")
+                                                    text.Hyperlink(mapsUrl, "Da clic aquí para ir a la ubicación en Google Maps")
                                                         .FontSize(7).FontColor("#1D4ED8").Underline();
                                                 });
                                         }
@@ -527,7 +624,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                     }); // cierra column principal de evidencia
 
                     page.Footer().Element(c =>
-                        CrearFooter(c, clienteDisplay, direccionDisplay, tarea.NombreProyecto ?? "Sin plan de trabajo", logoBytes, qrBytes, logoProveedorBytes));
+                        CrearFooter(c, clienteDisplay, direccionDisplay, tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", logoBytes, qrBytes, logoProveedorBytes, carpetaIconBytes));
                 }); // cierra container.Page
             } // cierra for
         }); // cierra Document.Create
@@ -638,7 +735,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         string direccionDisplay,
         byte[]? logoBytes,
         List<ArchivoAdjunto> archivosTarea,
-        byte[]? pdfIconBytes)
+        byte[]? pdfIconBytes,
+        byte[]? personaIconBytes,
+        byte[]? documentoIconBytes,
+        byte[]? carpetaIconBytes)
     {
         var tarea = reporte.Tarea;
         var cliente = reporte.Cliente;
@@ -665,7 +765,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
     !string.IsNullOrWhiteSpace(tarea.TelefonoCentroTrabajo) ? tarea.TelefonoCentroTrabajo : cliente.Telefono));
                         content.Item().Element(x => CrearFilaSimple(x, "Email del supervisor", tarea.EmailSupervisor));
 
-                    }));
+                    }, documentoIconBytes));
 
                 // Sección tarea
                 left.Item().Element(c =>
@@ -683,47 +783,46 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                         if (tarea.Observaciones.Count > 0)
                         {
-                            content.Item().PaddingTop(10).Border(1).BorderColor("#E5E7EB")
-                                .Background("#F9FAFB").Padding(8).Column(obs =>
+                            content.Item().PaddingTop(10).Padding(8).Column(obs =>
+                            {
+                                obs.Item().Text("Observaciones:")
+            .SemiBold().FontSize(9).FontColor("#24364D");
+
+                                obs.Item().PaddingTop(4).Row(row =>
                                 {
-                                    obs.Item().Text("Observaciones:")
-                .SemiBold().FontSize(9).FontColor("#24364D");
+                                    var mitad = (int)Math.Ceiling(tarea.Observaciones.Count / 2.0);
+                                    var columnaIzq = tarea.Observaciones.Take(mitad).ToList();
+                                    var columnaDer = tarea.Observaciones.Skip(mitad).ToList();
 
-                                    obs.Item().PaddingTop(4).Row(row =>
+                                    row.RelativeItem().Column(col =>
                                     {
-                                        var mitad = (int)Math.Ceiling(tarea.Observaciones.Count / 2.0);
-                                        var columnaIzq = tarea.Observaciones.Take(mitad).ToList();
-                                        var columnaDer = tarea.Observaciones.Skip(mitad).ToList();
-
-                                        row.RelativeItem().Column(col =>
+                                        col.Spacing(2);
+                                        foreach (var item in columnaIzq)
                                         {
-                                            col.Spacing(2);
-                                            foreach (var item in columnaIzq)
+                                            col.Item().Row(r =>
                                             {
-                                                col.Item().Row(r =>
-                                                {
-                                                    r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
-                                                    r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
-                                                });
-                                            }
-                                        });
+                                                r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
+                                                r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
+                                            });
+                                        }
+                                    });
 
-                                        row.ConstantItem(8);
+                                    row.ConstantItem(8);
 
-                                        row.RelativeItem().Column(col =>
+                                    row.RelativeItem().Column(col =>
+                                    {
+                                        col.Spacing(2);
+                                        foreach (var item in columnaDer)
                                         {
-                                            col.Spacing(2);
-                                            foreach (var item in columnaDer)
+                                            col.Item().Row(r =>
                                             {
-                                                col.Item().Row(r =>
-                                                {
-                                                    r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
-                                                    r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
-                                                });
-                                            }
-                                        });
+                                                r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
+                                                r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
+                                            });
+                                        }
                                     });
                                 });
+                            });
                         }
                         // Sección: Archivos adjuntos de la tarea (subidos vía TareaArchivoController)
                         if (archivosTarea != null && archivosTarea.Count > 0)
@@ -788,15 +887,16 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                                             });
                                         }
                                     });
-                                }));
+                                }, documentoIconBytes));
                         }
-                    }));
+                    }, documentoIconBytes));
             });
 
             // -----------------------------------------------------------------
             // SIDEBAR DERECHO
             // -----------------------------------------------------------------
-            row.ConstantItem(175).Background("#F3F4F6").Padding(12).Column(right =>
+            // PUNTO 3: bordes redondeados en el panel derecho
+            row.ConstantItem(175).Background("#F3F4F6").CornerRadius(8).Padding(12).Column(right =>
             {
                 right.Spacing(8);
 
@@ -809,8 +909,13 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                 right.Item().Row(r =>
                 {
-                    r.ConstantItem(16).AlignMiddle().AlignCenter()
-                        .Text("▭").FontSize(11).FontColor("#6B7280");
+                    r.ConstantItem(16).AlignMiddle().AlignCenter().Element(ic =>
+                    {
+                        if (carpetaIconBytes is not null && carpetaIconBytes.Length > 0)
+                            ic.Image(carpetaIconBytes, ImageScaling.FitArea);
+                        else
+                            ic.Text("▭").FontSize(11).FontColor("#6B7280");
+                    });
                     r.ConstantItem(4);
                     r.RelativeItem().AlignMiddle()
                         .Text("Plan de trabajo").FontSize(9).FontColor("#6B7280");
@@ -819,12 +924,18 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                 right.Item().LineHorizontal(1).LineColor("#D1D5DB");
 
-                // Operador con ícono de persona
+                // PUNTO 1: Operador con ícono de persona azul (PNG)
                 right.Item().PaddingTop(4).Row(r =>
                 {
-                    r.ConstantItem(26).Height(26).Background("#E5E7EB").Border(1).BorderColor("#D1D5DB")
-                        .AlignCenter().AlignMiddle()
-                        .Text("●").FontSize(14).FontColor("#24364D");
+                    r.ConstantItem(26).Height(26).Element(ic =>
+                    {
+                        if (personaIconBytes is not null && personaIconBytes.Length > 0)
+                            ic.Image(personaIconBytes, ImageScaling.FitArea);
+                        else
+                            ic.Background("#E5E7EB").Border(1).BorderColor("#D1D5DB")
+                                .AlignCenter().AlignMiddle()
+                                .Text("●").FontSize(14).FontColor("#24364D");
+                    });
                     r.ConstantItem(8);
                     r.RelativeItem().Column(c =>
                     {
@@ -834,12 +945,18 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                     });
                 });
 
-                // Supervisor con ícono de persona
+                // PUNTO 1: Supervisor con ícono de persona azul (PNG)
                 right.Item().PaddingTop(4).Row(r =>
                 {
-                    r.ConstantItem(26).Height(26).Background("#E5E7EB").Border(1).BorderColor("#D1D5DB")
-                        .AlignCenter().AlignMiddle()
-                        .Text("●").FontSize(14).FontColor("#24364D");
+                    r.ConstantItem(26).Height(26).Element(ic =>
+                    {
+                        if (personaIconBytes is not null && personaIconBytes.Length > 0)
+                            ic.Image(personaIconBytes, ImageScaling.FitArea);
+                        else
+                            ic.Background("#E5E7EB").Border(1).BorderColor("#D1D5DB")
+                                .AlignCenter().AlignMiddle()
+                                .Text("●").FontSize(14).FontColor("#24364D");
+                    });
                     r.ConstantItem(8);
                     r.RelativeItem().Column(c =>
                     {
@@ -849,8 +966,8 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                     });
                 });
 
-                // Bloque presupuesto
-                right.Item().PaddingTop(8).Background("#24364D").Padding(10).AlignCenter().Column(c =>
+                // PUNTO 3: Bloque presupuesto — bordes redondeados
+                right.Item().PaddingTop(8).Background("#24364D").CornerRadius(6).Padding(10).AlignCenter().Column(c =>
                 {
                     c.Item().AlignCenter().Text("PRESUPUESTO")
                         .FontSize(9).FontColor(Colors.White).SemiBold();
@@ -928,16 +1045,17 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 var fechaVencimiento = tarea.FechaVencimiento;
                 var estaVencida = DateTime.Now.Date > fechaVencimiento.Date;
 
+                // PUNTO 3: badges de estatus — bordes redondeados
                 if (estaVencida)
                 {
                     // Vencida — fondo rojo
-                    right.Item().PaddingTop(10).Background("#EF4444").PaddingVertical(8).AlignCenter()
+                    right.Item().PaddingTop(10).Background("#EF4444").CornerRadius(6).PaddingVertical(8).AlignCenter()
                         .Text("VENCIDA").Bold().FontColor(Colors.White).FontSize(12);
                 }
                 else
                 {
                     // En tiempo — fondo verde
-                    right.Item().PaddingTop(10).Background("#16C60C").PaddingVertical(8).AlignCenter()
+                    right.Item().PaddingTop(10).Background("#16C60C").CornerRadius(6).PaddingVertical(8).AlignCenter()
                         .Text("EN TIEMPO").Bold().FontColor(Colors.White).FontSize(12);
                 }
             });
@@ -954,7 +1072,8 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         string nombreProyecto,
         byte[]? logoBytes,
         byte[]? qrBytes,
-        byte[]? logoProveedorBytes)
+        byte[]? logoProveedorBytes,
+        byte[]? carpetaIconBytes)
     {
         container.PaddingLeft(28).Column(column =>
         {
@@ -978,9 +1097,9 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                       });
                 });
 
-            // Info central alineada al centro vertical
-            row.RelativeItem().PaddingLeft(10).PaddingRight(10).PaddingBottom(4).AlignBottom().Row(r =>
-            {
+                // Info central alineada al centro vertical
+                row.RelativeItem().PaddingLeft(10).PaddingRight(10).PaddingBottom(4).AlignBottom().Row(r =>
+                {
                     r.RelativeItem().AlignMiddle().AlignCenter().Column(c =>
                     {
                         c.Item().AlignCenter().Text(clienteDisplay)
@@ -1012,8 +1131,13 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                     r.RelativeItem().AlignMiddle().AlignCenter().Row(eRow =>
                     {
-                        eRow.ConstantItem(14).AlignMiddle()
-                            .Text("▭").FontSize(10).FontColor("#6B7280");
+                        eRow.ConstantItem(14).AlignMiddle().Element(ic =>
+                        {
+                            if (carpetaIconBytes is not null && carpetaIconBytes.Length > 0)
+                                ic.Image(carpetaIconBytes, ImageScaling.FitArea);
+                            else
+                                ic.Text("▭").FontSize(10).FontColor("#6B7280");
+                        });
                         eRow.ConstantItem(4);
                         eRow.RelativeItem().AlignMiddle()
                             .Text(nombreProyecto).FontSize(9).SemiBold().FontColor("#6B7280");
@@ -1047,23 +1171,27 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
     // =========================================================================
     // SECCIÓN CON ÍCONO — cuadro con documento + título
+    // PUNTO 2: ícono de documento (PNG azul) en lugar de las barras "≡"
     // =========================================================================
     private static void CrearSeccionConIcono(
         IContainer container,
         string titulo,
-        Action<ColumnDescriptor> contenido)
+        Action<ColumnDescriptor> contenido,
+        byte[]? documentoIconBytes = null)
     {
         container.Column(column =>
         {
             column.Item().Row(row =>
             {
-                // Ícono de documento estilizado (líneas horizontales simulando texto)
+                // Ícono de documento
                 row.ConstantItem(34).Height(34).Border(1).BorderColor("#D1D5DB")
                     .Background("#F9FAFB").AlignCenter().AlignMiddle()
-                    .Column(icon =>
+                    .Element(icon =>
                     {
-                        icon.Item().AlignCenter().Text("≡")
-                            .FontSize(18).Bold().FontColor("#24364D");
+                        if (documentoIconBytes is not null && documentoIconBytes.Length > 0)
+                            icon.Padding(6).Image(documentoIconBytes, ImageScaling.FitArea);
+                        else
+                            icon.Text("≡").FontSize(18).Bold().FontColor("#24364D");
                     });
 
                 row.ConstantItem(10);
@@ -1164,19 +1292,27 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
     // =========================================================================
     // CHECK DE VALIDACIÓN
+    // PUNTO 4: ícono de palomita verde (PNG) en lugar del "✓" en recuadro
     // =========================================================================
-    private static void CrearCheckValidacion(IContainer container, string texto, bool ok)
+    private static void CrearCheckValidacion(IContainer container, string texto, bool ok, byte[]? checkIconBytes = null)
     {
         container.Border(1).BorderColor("#D6DCE5").Background(Colors.White).Padding(4).Row(row =>
         {
             row.ConstantItem(18).Height(18).AlignMiddle().AlignCenter().Element(box =>
             {
-                box.Border(1)
-                    .BorderColor(ok ? "#16A34A" : "#94A3B8")
-                    .Background(ok ? "#DCFCE7" : "#FFFFFF")
-                    .AlignCenter().AlignMiddle()
-                    .Text(ok ? "✓" : "")
-                    .FontSize(10).Bold().FontColor("#166534");
+                if (ok && checkIconBytes is not null && checkIconBytes.Length > 0)
+                {
+                    box.Image(checkIconBytes, ImageScaling.FitArea);
+                }
+                else
+                {
+                    box.Border(1)
+                        .BorderColor(ok ? "#16A34A" : "#94A3B8")
+                        .Background(ok ? "#DCFCE7" : "#FFFFFF")
+                        .AlignCenter().AlignMiddle()
+                        .Text(ok ? "✓" : "")
+                        .FontSize(10).Bold().FontColor("#166534");
+                }
             });
 
             row.ConstantItem(6);

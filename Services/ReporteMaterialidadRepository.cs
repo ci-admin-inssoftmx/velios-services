@@ -125,6 +125,17 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
 
         return string.Join(", ", partes);
     }
+
+    public async Task<string?> ObtenerNombreCentroTrabajoAsync(int? centroTrabajoId)
+    {
+        if (!centroTrabajoId.HasValue) return null;
+
+        return await _context.CentrosTrabajo
+            .AsNoTracking()
+            .Where(c => c.CentroTrabajoId == centroTrabajoId.Value && !c.IsDeleted)
+            .Select(c => c.Nombre)
+            .FirstOrDefaultAsync();
+    }
     /// <summary>
     /// Obtiene la información principal del cliente.
     /// </summary>

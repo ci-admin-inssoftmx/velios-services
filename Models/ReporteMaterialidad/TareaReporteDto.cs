@@ -8,6 +8,8 @@ public class TareaReporteDto
     public int TareaId { get; set; }
     public string? NombreProyecto { get; set; }
 
+    public string? NombreCentroTrabajo { get; set; }
+
     public string? LogoUrlProveedor { get; set; }
     public string? DireccionCentroTrabajo { get; set; }
 
