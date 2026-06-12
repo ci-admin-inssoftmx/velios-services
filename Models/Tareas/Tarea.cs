@@ -60,6 +60,8 @@ public class Tarea
 
     [Column("DateModified")]
     public DateTime? DateModified { get; set; }
+    [Column("ProveedorId")]
+    public int? ProveedorId { get; set; }
 
     [Column("IsDeleted")]
     public bool IsDeleted { get; set; }

@@ -35,71 +35,91 @@ public class TareasController : ControllerBase
     /// Obtiene el listado de tareas.
     /// </summary>
     [HttpGet]
-    public async Task<ActionResult<ApiResponse<object>>> List()
+    public async Task<ActionResult<ApiResponse<object>>> List([FromQuery] long idUsuario, [FromQuery] int tipoUsuario)
     {
         try
         {
-            var data = await (
-        from t in _db.Tareas.AsNoTracking()
-        join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
-        join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
-        join p in _db.ClienteProyectos.AsNoTracking()
-on new { ProyectoId = t.ProyectoId, ClienteId = t.ClienteId }
-equals new { ProyectoId = (int?)p.ProyectoId, ClienteId = p.ClienteId }
-into pGroup
-        from p in pGroup.DefaultIfEmpty()
-        let ct = _db.CentrosTrabajo.AsNoTracking()
-             .Where(x => x.CentroTrabajoId == t.CentroTrabajoId && !x.IsDeleted)
-             .FirstOrDefault()
-        join tr in _db.ProveedorTrabajadores.AsNoTracking() on t.TrabajadorId equals tr.TrabajadorId into trGroup
-        from tr in trGroup.DefaultIfEmpty()
-        join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
-        from sv in svGroup.DefaultIfEmpty()
-        where !t.IsDeleted && !c.IsDeleted
-        orderby t.TareaId descending
-        select new
-        {
-            tareaId = t.TareaId,
-            taskId = t.TaskCode,
-            title = t.Titulo,
-            description = t.Descripcion,
-            statusCode = e.Codigo,
-            presupuestoAsignado = t.PresupuestoAsignado,  // ← agregar aquí
-            planTrabajo = p != null ? p.Nombre : "SIN PLAN",
-            client = new
+            if (idUsuario <= 0 || (tipoUsuario != 1 && tipoUsuario != 2))
             {
-                name = c.RazonSocial ?? c.NombreComercial ?? "SIN NOMBRE",
-                logoUrl = (string?)null
-            },
-            schedule = new
-            {
-                assignedDate = t.FechaAsignacion,
-                programmedDate = t.FechaProgramada,
-                dueDate = t.FechaVencimiento
-            },
-            trabajador = new
-            {
-                trabajadorId = tr == null ? (long?)null : tr.TrabajadorId,
-                nombre = tr == null ? null : $"{tr.Nombre} {tr.ApellidoPaterno}".Trim(),
-                tipoDeMiembro = tr == null ? null : tr.TipoDeMiembro
-            },
-            supervisor = new
-            {
-                supervisorId = sv == null ? (long?)null : sv.TrabajadorId,
-                nombre = sv == null ? null : $"{sv.Nombre} {sv.ApellidoPaterno}".Trim(),
-                tipoDeMiembro = sv == null ? null : sv.TipoDeMiembro
-            },
-            centroTrabajo = new
-            {
-                centroTrabajoId = ct == null ? (int?)null : ct.CentroTrabajoId,
-                nombre = ct == null ? null : ct.Nombre,
-                latitud = ct == null ? (decimal?)null : ct.Lat,
-                longitud = ct == null ? (decimal?)null : ct.Lng,
-                radioMetros = ct == null ? (int?)null : ct.RadioMetros,
-                zona = ct == null ? null : ct.Zona,
-                region = ct == null ? null : ct.Region
+                return BadRequest(new ApiResponse<object>
+                {
+                    success = false,
+                    message = "Parámetros inválidos.",
+                    statusCode = 400,
+                    errors = new List<string> { "idUsuario y tipoUsuario son obligatorios. tipoUsuario debe ser 1 (proveedor) o 2 (supervisor)." }
+                });
             }
-        }).ToListAsync();
+
+            var query =
+                from t in _db.Tareas.AsNoTracking()
+                join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
+                join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
+                join p in _db.ClienteProyectos.AsNoTracking()
+                    on new { ProyectoId = t.ProyectoId, ClienteId = t.ClienteId }
+                    equals new { ProyectoId = (int?)p.ProyectoId, ClienteId = p.ClienteId }
+                    into pGroup
+                from p in pGroup.DefaultIfEmpty()
+                let ct = _db.CentrosTrabajo.AsNoTracking()
+                     .Where(x => x.CentroTrabajoId == t.CentroTrabajoId && !x.IsDeleted)
+                     .FirstOrDefault()
+                join tr in _db.ProveedorTrabajadores.AsNoTracking() on t.TrabajadorId equals tr.TrabajadorId into trGroup
+                from tr in trGroup.DefaultIfEmpty()
+                join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
+                from sv in svGroup.DefaultIfEmpty()
+                where !t.IsDeleted && !c.IsDeleted
+                select new { t, c, e, p, ct, tr, sv };
+
+            // ── FILTRO POR USUARIO ──────────────────────────────────────────
+            query = tipoUsuario == 1
+                ? query.Where(x => x.t.ProveedorId == idUsuario)
+                : query.Where(x => x.t.SupervisorId == idUsuario);
+            // ─────────────────────────────────────────────────────────────
+
+            var data = await query
+                .OrderByDescending(x => x.t.TareaId)
+                .Select(x => new
+                {
+                    tareaId = x.t.TareaId,
+                    taskId = x.t.TaskCode,
+                    title = x.t.Titulo,
+                    description = x.t.Descripcion,
+                    statusCode = x.e.Codigo,
+                    presupuestoAsignado = x.t.PresupuestoAsignado,
+                    planTrabajo = x.p != null ? x.p.Nombre : "SIN PLAN",
+                    client = new
+                    {
+                        name = x.c.RazonSocial ?? x.c.NombreComercial ?? "SIN NOMBRE",
+                        logoUrl = (string?)null
+                    },
+                    schedule = new
+                    {
+                        assignedDate = x.t.FechaAsignacion,
+                        programmedDate = x.t.FechaProgramada,
+                        dueDate = x.t.FechaVencimiento
+                    },
+                    trabajador = new
+                    {
+                        trabajadorId = x.tr == null ? (long?)null : x.tr.TrabajadorId,
+                        nombre = x.tr == null ? null : $"{x.tr.Nombre} {x.tr.ApellidoPaterno}".Trim(),
+                        tipoDeMiembro = x.tr == null ? null : x.tr.TipoDeMiembro
+                    },
+                    supervisor = new
+                    {
+                        supervisorId = x.sv == null ? (long?)null : x.sv.TrabajadorId,
+                        nombre = x.sv == null ? null : $"{x.sv.Nombre} {x.sv.ApellidoPaterno}".Trim(),
+                        tipoDeMiembro = x.sv == null ? null : x.sv.TipoDeMiembro
+                    },
+                    centroTrabajo = new
+                    {
+                        centroTrabajoId = x.ct == null ? (int?)null : x.ct.CentroTrabajoId,
+                        nombre = x.ct == null ? null : x.ct.Nombre,
+                        latitud = x.ct == null ? (decimal?)null : x.ct.Lat,
+                        longitud = x.ct == null ? (decimal?)null : x.ct.Lng,
+                        radioMetros = x.ct == null ? (int?)null : x.ct.RadioMetros,
+                        zona = x.ct == null ? null : x.ct.Zona,
+                        region = x.ct == null ? null : x.ct.Region
+                    }
+                }).ToListAsync();
 
             return Ok(new ApiResponse<object>
             {
