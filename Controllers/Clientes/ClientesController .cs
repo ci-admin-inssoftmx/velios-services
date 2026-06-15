@@ -173,33 +173,58 @@ public class ClientesController : ControllerBase
     /// </summary>
     [HttpGet("List")]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<ApiResponse<object>>> List()
+    public async Task<ActionResult<ApiResponse<object>>> List([FromQuery] long idUsuario, [FromQuery] int tipoUsuario)
     {
-
         try
         {
+            if (idUsuario <= 0 || (tipoUsuario != 1 && tipoUsuario != 2))
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    success = false,
+                    message = "Parámetros inválidos.",
+                    statusCode = 400,
+                    errors = new List<string> { "idUsuario y tipoUsuario son obligatorios. tipoUsuario debe ser 1 (proveedor) o 2 (supervisor)." }
+                });
+            }
+
+            // ── IDs de Cliente que tienen tareas del proveedor/supervisor ──────
+            var clienteIdsQuery = _db.Tareas
+                .AsNoTracking()
+                .Where(t => !t.IsDeleted);
+
+            clienteIdsQuery = tipoUsuario == 1
+                ? clienteIdsQuery.Where(t => t.ProveedorId == idUsuario)
+                : clienteIdsQuery.Where(t => t.SupervisorId == idUsuario);
+
+            var clienteIds = await clienteIdsQuery
+                .Select(t => t.ClienteId)
+                .Distinct()
+                .ToListAsync();
+            // ────────────────────────────────────────────────────────────────
+
             var data = await _db.Clientes
-     .AsNoTracking()
-     .Where(x => x.IsDeleted == false)
-     .OrderByDescending(x => x.ClienteId)
-     .Select(x => new
-     {
-         x.ClienteId,
-         x.RFC,
-         x.RazonSocial,
-         x.NombreComercial,
-         x.CorreoContacto,
-         x.TelefonoContacto,
-         x.EstatusClienteId,
-         x.CreatedBy,
-         x.ModifiedBy,
-         x.DateCreated,
-         x.DateModified
-     })
-     .ToListAsync();
+                .AsNoTracking()
+                .Where(x => x.IsDeleted == false && clienteIds.Contains(x.ClienteId))
+                .OrderByDescending(x => x.ClienteId)
+                .Select(x => new
+                {
+                    x.ClienteId,
+                    x.RFC,
+                    x.RazonSocial,
+                    x.NombreComercial,
+                    x.CorreoContacto,
+                    x.TelefonoContacto,
+                    x.EstatusClienteId,
+                    x.CreatedBy,
+                    x.ModifiedBy,
+                    x.DateCreated,
+                    x.DateModified
+                })
+                .ToListAsync();
+
             return Ok(new ApiResponse<object>
             {
-                
                 success = true,
                 message = "Consulta exitosa.",
                 statusCode = 200,
@@ -212,7 +237,6 @@ public class ClientesController : ControllerBase
 
             return BadRequest(new ApiResponse<object>
             {
-                
                 success = false,
                 message = "Error al consultar clientes.",
                 statusCode = 400,

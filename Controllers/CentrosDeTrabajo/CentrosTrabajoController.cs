@@ -120,13 +120,39 @@ public class CentrosTrabajoController : ControllerBase
 
     [HttpGet("List")]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<ApiResponse<object>>> List()
+    public async Task<ActionResult<ApiResponse<object>>> List([FromQuery] long idUsuario, [FromQuery] int tipoUsuario)
     {
         try
         {
+            if (idUsuario <= 0 || (tipoUsuario != 1 && tipoUsuario != 2))
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    success = false,
+                    message = "Parámetros inválidos.",
+                    statusCode = 400,
+                    errors = new List<string> { "idUsuario y tipoUsuario son obligatorios. tipoUsuario debe ser 1 (proveedor) o 2 (supervisor)." }
+                });
+            }
+
+            // ── IDs de CentroTrabajo que tienen tareas del proveedor/supervisor ──
+            var centroTrabajoIdsQuery = _db.Tareas
+                .AsNoTracking()
+                .Where(t => !t.IsDeleted && t.CentroTrabajoId != null);
+
+            centroTrabajoIdsQuery = tipoUsuario == 1
+                ? centroTrabajoIdsQuery.Where(t => t.ProveedorId == idUsuario)
+                : centroTrabajoIdsQuery.Where(t => t.SupervisorId == idUsuario);
+
+            var centroTrabajoIds = await centroTrabajoIdsQuery
+                .Select(t => t.CentroTrabajoId!.Value)
+                .Distinct()
+                .ToListAsync();
+            // ─────────────────────────────────────────────────────────────────
+
             var data = await _db.Set<CentroTrabajo>()
                 .AsNoTracking()
-                .Where(x => x.IsDeleted == false)
+                .Where(x => x.IsDeleted == false && centroTrabajoIds.Contains(x.CentroTrabajoId))
                 .OrderByDescending(x => x.CentroTrabajoId)
                 .Select(x => new
                 {
