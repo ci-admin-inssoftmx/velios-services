@@ -72,9 +72,7 @@ public class TareaEvidencia
 
     [Column("EsSimulado")]
     public bool? EsSimulado { get; set; }
-
     [Column("Comentario")]
-    [MaxLength(500)]
     public string? Comentario { get; set; }
 
     [Column("Progreso")]

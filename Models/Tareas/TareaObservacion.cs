@@ -14,7 +14,6 @@ public class TareaObservacion
     public int TareaId { get; set; }
 
     [Column("Observacion")]
-    [MaxLength(1000)]
     public string Observacion { get; set; } = string.Empty;
 
     [Column("CreatedBy")]
