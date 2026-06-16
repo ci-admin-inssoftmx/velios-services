@@ -7,8 +7,36 @@
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\tareaevidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\tareaevidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\requests\\tareaupdaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\requests\\tareaupdaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\tareaobservacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\tareaobservacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\clientes\\clientescontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\clientes\\clientescontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\centrosdetrabajo\\centrostrabajocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\centrosdetrabajo\\centrostrabajocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\clientes\\clientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\clientes\\clientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\centrostrabajo\\centrotrabajo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\centrostrabajo\\centrotrabajo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -27,15 +55,98 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "TareaEvidencia.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\TareaEvidencia.cs",
+              "RelativeDocumentMoniker": "Models\\Tareas\\TareaEvidencia.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\TareaEvidencia.cs",
+              "RelativeToolTip": "Models\\Tareas\\TareaEvidencia.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAAwGoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T06:11:00.476Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TareaObservacion.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\TareaObservacion.cs",
+              "RelativeDocumentMoniker": "Models\\Tareas\\TareaObservacion.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\TareaObservacion.cs",
+              "RelativeToolTip": "Models\\Tareas\\TareaObservacion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T01:24:55.79Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TareaUpdateRequest.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
+              "RelativeDocumentMoniker": "Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
+              "RelativeToolTip": "Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAA7wBwAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T01:20:48.31Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Clientes.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Clientes\\Clientes.cs",
+              "RelativeDocumentMoniker": "Models\\Clientes\\Clientes.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Clientes\\Clientes.cs",
+              "RelativeToolTip": "Models\\Clientes\\Clientes.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAcwCkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T08:29:01.367Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ClientesController .cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Clientes\\ClientesController .cs",
+              "RelativeDocumentMoniker": "Controllers\\Clientes\\ClientesController .cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Clientes\\ClientesController .cs",
+              "RelativeToolTip": "Controllers\\Clientes\\ClientesController .cs",
+              "ViewState": "AgIAANgAAAAAAAAAAAAkwOsAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T19:48:27.872Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CentroTrabajo.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\CentrosTrabajo\\CentroTrabajo.cs",
+              "RelativeDocumentMoniker": "Models\\CentrosTrabajo\\CentroTrabajo.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\CentrosTrabajo\\CentroTrabajo.cs",
+              "RelativeToolTip": "Models\\CentrosTrabajo\\CentroTrabajo.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAA+wCIAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T08:17:47.098Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CentrosTrabajoController.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\CentrosDeTrabajo\\CentrosTrabajoController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CentrosDeTrabajo\\CentrosTrabajoController.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\CentrosDeTrabajo\\CentrosTrabajoController.cs",
+              "RelativeToolTip": "Controllers\\CentrosDeTrabajo\\CentrosTrabajoController.cs",
+              "ViewState": "AgIAAKwAAAAAAAAAAAAkwMsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T08:17:26.58Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Tarea.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
               "RelativeDocumentMoniker": "Models\\Tareas\\Tarea.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
               "RelativeToolTip": "Models\\Tareas\\Tarea.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAYwD8AAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAowEcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-11T22:13:52.822Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-11T22:13:52.822Z"
             },
             {
               "$type": "Document",
@@ -45,7 +156,7 @@
               "RelativeDocumentMoniker": "Controllers\\Tareas\\TareasController.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
               "RelativeToolTip": "Controllers\\Tareas\\TareasController.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAcwEUAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAAzwDYAAABXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-11T22:13:26.225Z",
               "EditorCaption": ""

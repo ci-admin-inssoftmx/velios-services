@@ -177,25 +177,27 @@ public class ClientesController : ControllerBase
     {
         try
         {
-            if (idUsuario <= 0 || (tipoUsuario != 1 && tipoUsuario != 2))
+            if (idUsuario <= 0 || (tipoUsuario != 1 && tipoUsuario != 2 && tipoUsuario != 3))
             {
                 return BadRequest(new ApiResponse<object>
                 {
                     success = false,
                     message = "Parámetros inválidos.",
                     statusCode = 400,
-                    errors = new List<string> { "idUsuario y tipoUsuario son obligatorios. tipoUsuario debe ser 1 (proveedor) o 2 (supervisor)." }
+                    errors = new List<string> { "idUsuario y tipoUsuario son obligatorios. tipoUsuario debe ser 1 (proveedor), 2 (supervisor) o 3 (operador)." }
                 });
             }
 
-            // ── IDs de Cliente que tienen tareas del proveedor/supervisor ──────
+            // ── IDs de Cliente que tienen tareas del proveedor/supervisor/operador ──
             var clienteIdsQuery = _db.Tareas
                 .AsNoTracking()
                 .Where(t => !t.IsDeleted);
 
             clienteIdsQuery = tipoUsuario == 1
                 ? clienteIdsQuery.Where(t => t.ProveedorId == idUsuario)
-                : clienteIdsQuery.Where(t => t.SupervisorId == idUsuario);
+                : tipoUsuario == 2
+                    ? clienteIdsQuery.Where(t => t.SupervisorId == idUsuario)
+                    : clienteIdsQuery.Where(t => t.TrabajadorId == idUsuario);
 
             var clienteIds = await clienteIdsQuery
                 .Select(t => t.ClienteId)

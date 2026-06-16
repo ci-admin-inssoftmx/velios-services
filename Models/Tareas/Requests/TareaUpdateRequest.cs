@@ -12,14 +12,26 @@ public class TareaUpdateRequest
 public class EvidenciaFotoRequest
 {
     public string Type { get; set; } = string.Empty;
-
-    // AGREGAMOS ESTA LÍNEA (Indispensable para el controlador)
     public string Url { get; set; } = string.Empty;
     public string? Comentario { get; set; }
     public int? Progreso { get; set; }
+    public string? EvidenceHash { get; set; }  // ← NUEVO
     public UbicacionRequest? Location { get; set; }
     public DireccionRequest? Address { get; set; }
     public DispositivoRequest? DeviceInfo { get; set; }
+}
+
+public class DispositivoRequest
+{
+    public string? Platform { get; set; }
+    public string? AppVersion { get; set; }
+    public string? BuildNumber { get; set; }
+    public string? DeviceModel { get; set; }
+    public string? OsVersion { get; set; }
+    public string? DeviceUniqueId { get; set; }    // ← NUEVO
+    public string? InstallationId { get; set; }    // ← NUEVO
+    public string? DeviceIdentifier { get; set; }  // ← NUEVO
+    public bool? IsPhysicalDevice { get; set; }    // ← NUEVO
 }
 
 public class UbicacionRequest
@@ -44,14 +56,7 @@ public class DireccionRequest
     public string? PostalCode { get; set; }
 }
 
-public class DispositivoRequest
-{
-    public string? Platform { get; set; }
-    public string? AppVersion { get; set; }
-    public string? BuildNumber { get; set; }
-    public string? DeviceModel { get; set; }
-    public string? OsVersion { get; set; }
-}
+
 
 public class TimelineEventRequest
 {
@@ -61,4 +66,8 @@ public class TimelineEventRequest
     public string? NewValue { get; set; }
     public string PerformedBy { get; set; } = string.Empty;
     public DateTime PerformedAt { get; set; }
+
+
+
+
 }

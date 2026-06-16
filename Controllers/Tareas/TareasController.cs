@@ -39,14 +39,14 @@ public class TareasController : ControllerBase
     {
         try
         {
-            if (idUsuario <= 0 || (tipoUsuario != 1 && tipoUsuario != 2))
+            if (idUsuario <= 0 || (tipoUsuario != 1 && tipoUsuario != 2 && tipoUsuario != 3))
             {
                 return BadRequest(new ApiResponse<object>
                 {
                     success = false,
                     message = "Parámetros inválidos.",
                     statusCode = 400,
-                    errors = new List<string> { "idUsuario y tipoUsuario son obligatorios. tipoUsuario debe ser 1 (proveedor) o 2 (supervisor)." }
+                    errors = new List<string> { "idUsuario y tipoUsuario son obligatorios. tipoUsuario debe ser 1 (proveedor), 2 (supervisor) o 3 (operador)." }
                 });
             }
 
@@ -72,7 +72,9 @@ public class TareasController : ControllerBase
             // ── FILTRO POR USUARIO ──────────────────────────────────────────
             query = tipoUsuario == 1
                 ? query.Where(x => x.t.ProveedorId == idUsuario)
-                : query.Where(x => x.t.SupervisorId == idUsuario);
+                : tipoUsuario == 2
+                    ? query.Where(x => x.t.SupervisorId == idUsuario)
+                    : query.Where(x => x.t.TrabajadorId == idUsuario);
             // ─────────────────────────────────────────────────────────────
 
             var data = await query
@@ -207,17 +209,24 @@ public class TareasController : ControllerBase
                         speedAccuracy = x.PrecisionVelocidad,
                         timestamp = x.TimestampGps,
                         isMocked = x.EsSimulado
+
                     },
                     address = new
                     {
                         formattedAddress = x.Direccion
                     },
+                    evidenceHash = x.EvidenceHash,  // ← NUEVO
+
                     deviceInfo = new
                     {
                         platform = x.Plataforma,
                         appVersion = x.VersionApp,
                         deviceModel = x.ModeloDispositivo,
-                        osVersion = x.VersionOS
+                        osVersion = x.VersionOS,
+                        deviceUniqueId = x.DeviceUniqueId,    // ← NUEVO
+                        installationId = x.InstallationId,    // ← NUEVO
+                        deviceIdentifier = x.DeviceIdentifier, // ← NUEVO
+                        isPhysicalDevice = x.IsPhysicalDevice  // ← NUEVO
                     },
                     comentario = x.Comentario,
                     progreso = x.Progreso
@@ -422,6 +431,11 @@ public class TareasController : ControllerBase
                         // --- NUEVOS CAMPOS ---
                         Comentario = item.Comentario?.Trim(),
                         Progreso = item.Progreso,
+                        EvidenceHash = item.EvidenceHash?.Trim(),           // ← NUEVO
+                        DeviceUniqueId = item.DeviceInfo?.DeviceUniqueId,   // ← NUEVO
+                        InstallationId = item.DeviceInfo?.InstallationId,   // ← NUEVO
+                        DeviceIdentifier = item.DeviceInfo?.DeviceIdentifier, // ← NUEVO
+                        IsPhysicalDevice = item.DeviceInfo?.IsPhysicalDevice, // ← NUEVO
                         // ---------------------
                         DateCreated = DateTime.UtcNow
                     });

@@ -84,4 +84,26 @@ public class TareaEvidencia
     [Column("DateCreated")]
     public DateTime DateCreated { get; set; }
 
+
+    //NUEVOS CAMPOS AGREGADOS PARA MEJORAR LA INFORMACIÓN DE LA EVIDENCIA
+
+    [Column("EvidenceHash")]
+    [MaxLength(255)]
+    public string? EvidenceHash { get; set; }
+
+    [Column("DeviceUniqueId")]
+    [MaxLength(100)]
+    public string? DeviceUniqueId { get; set; }
+
+    [Column("InstallationId")]
+    [MaxLength(100)]
+    public string? InstallationId { get; set; }
+
+    [Column("DeviceIdentifier")]
+    [MaxLength(100)]
+    public string? DeviceIdentifier { get; set; }
+
+    [Column("IsPhysicalDevice")]
+    public bool? IsPhysicalDevice { get; set; }
+
 }

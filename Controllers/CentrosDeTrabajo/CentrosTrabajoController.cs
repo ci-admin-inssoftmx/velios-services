@@ -124,25 +124,27 @@ public class CentrosTrabajoController : ControllerBase
     {
         try
         {
-            if (idUsuario <= 0 || (tipoUsuario != 1 && tipoUsuario != 2))
+            if (idUsuario <= 0 || (tipoUsuario != 1 && tipoUsuario != 2 && tipoUsuario != 3))
             {
                 return BadRequest(new ApiResponse<object>
                 {
                     success = false,
                     message = "Parámetros inválidos.",
                     statusCode = 400,
-                    errors = new List<string> { "idUsuario y tipoUsuario son obligatorios. tipoUsuario debe ser 1 (proveedor) o 2 (supervisor)." }
+                    errors = new List<string> { "idUsuario y tipoUsuario son obligatorios. tipoUsuario debe ser 1 (proveedor), 2 (supervisor) o 3 (operador)." }
                 });
             }
 
-            // ── IDs de CentroTrabajo que tienen tareas del proveedor/supervisor ──
+            // ── IDs de CentroTrabajo que tienen tareas del proveedor/supervisor/operador ──
             var centroTrabajoIdsQuery = _db.Tareas
                 .AsNoTracking()
                 .Where(t => !t.IsDeleted && t.CentroTrabajoId != null);
 
             centroTrabajoIdsQuery = tipoUsuario == 1
                 ? centroTrabajoIdsQuery.Where(t => t.ProveedorId == idUsuario)
-                : centroTrabajoIdsQuery.Where(t => t.SupervisorId == idUsuario);
+                : tipoUsuario == 2
+                    ? centroTrabajoIdsQuery.Where(t => t.SupervisorId == idUsuario)
+                    : centroTrabajoIdsQuery.Where(t => t.TrabajadorId == idUsuario);
 
             var centroTrabajoIds = await centroTrabajoIdsQuery
                 .Select(t => t.CentroTrabajoId!.Value)
