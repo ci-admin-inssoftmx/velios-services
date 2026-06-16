@@ -19,4 +19,7 @@ public class TrabajadorCreateRequest
     public string? CentroDeTrabajo { get; set; }  // JSON string "[1,2,3]"
     public string? Password { get; set; }
 
+    public int? SupervisorId { get; set; }
+
+
 }

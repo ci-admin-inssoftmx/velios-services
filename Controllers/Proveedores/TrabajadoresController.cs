@@ -146,6 +146,8 @@ public class TrabajadoresController : ControllerBase
                 Nivel = model.Nivel?.Trim(),
                 Clientes = model.Clientes?.Trim(),
                 CentroDeTrabajo = model.CentroDeTrabajo?.Trim(),
+                SupervisorId = model.SupervisorId,   // ← NUEVO
+
                 PasswordHash = string.IsNullOrWhiteSpace(model.Password)
     ? null
     : _passwordHasher.HashLegacy(model.Password.Trim()),
@@ -203,6 +205,57 @@ public class TrabajadoresController : ControllerBase
         var items = await _db.ProveedorTrabajadores
             .AsNoTracking()
             .Where(x => x.ProveedorId == proveedorId && !x.IsDeleted)
+            .OrderByDescending(x => x.TrabajadorId)
+            .Select(x => new
+            {
+                x.TrabajadorId,
+                x.Nombre,
+                x.ApellidoPaterno,
+                x.ApellidoMaterno,
+                x.CURP,
+                x.RFC,
+                x.NSS,
+                x.Correo,
+                x.Telefono,
+                x.TipoDeMiembro,
+                x.Nivel,
+                x.Clientes,
+                x.CentroDeTrabajo,
+                x.EstatusTrabajadorId,
+
+                TotalTareas = _db.Tareas
+                    .Count(t => t.TrabajadorId == x.TrabajadorId && !t.IsDeleted)
+            })
+            .ToListAsync();
+
+        return Ok(new ApiResponse<object>
+        {
+            success = true,
+            message = "Solicitud ejecutada con éxito.",
+            statusCode = 200,
+            data = new
+            {
+                total = items.Count,
+                items
+            }
+        });
+    }
+
+
+
+    [HttpGet("Proveedor/{proveedorId:int}/Supervisor")]
+    public async Task<ActionResult<ApiResponse<object>>> GetByProveedorAndSupervisor(
+    int proveedorId,
+    [FromQuery] int? supervisorId)
+    {
+        var query = _db.ProveedorTrabajadores
+            .AsNoTracking()
+            .Where(x => x.ProveedorId == proveedorId && !x.IsDeleted);
+
+        if (supervisorId.HasValue)
+            query = query.Where(x => x.SupervisorId == supervisorId.Value);
+
+        var items = await query
             .OrderByDescending(x => x.TrabajadorId)
             .Select(x => new
             {
