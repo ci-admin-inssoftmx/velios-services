@@ -90,8 +90,10 @@ public class TareasController : ControllerBase
                     planTrabajo = x.p != null ? x.p.Nombre : "SIN PLAN",
                     client = new
                     {
-                        name = x.c.RazonSocial ?? x.c.NombreComercial ?? "SIN NOMBRE",
+                        clienteId = x.t.ClienteId,  // NUEVO — agrega el id
+                        name = x.c.NombreComercial ?? x.c.RazonSocial ?? "SIN NOMBRE",  // CAMBIADO — NombreComercial primero
                         logoUrl = (string?)null
+
                     },
                     schedule = new
                     {
