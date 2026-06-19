@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using velios.Api.Data;
 using velios.Api.Models.Asistencia;
+using velios.Api.Models.Clientes;
 using velios.Api.Models.Common;
 
 namespace velios.Api.Controllers;
@@ -114,6 +115,7 @@ public class AsistenciaController : ControllerBase
                     r.TrabajadorId == model.TrabajadorId &&
                     r.Fecha == model.FechaRegistro.Date &&
                     r.TipoRegistro == tipoRegistro &&
+                    r.CentroTrabajoId == model.CentroTrabajoId && // <--- Agregado aquí
                     r.Origen == origen &&
                     !r.IsDeleted);
 

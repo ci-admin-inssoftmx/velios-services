@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\proveedores\\trabajadorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\proveedores\\trabajadorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -22,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -31,6 +39,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Tarea.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
+              "RelativeDocumentMoniker": "Models\\Tareas\\Tarea.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
+              "RelativeToolTip": "Models\\Tareas\\Tarea.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAYwDoAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T23:25:15.573Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TareasController.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Tareas\\TareasController.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
+              "RelativeToolTip": "Controllers\\Tareas\\TareasController.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAYwFwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T23:24:38.326Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ProveedorTrabajador.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Proveedor\\ProveedorTrabajador.cs",
               "RelativeDocumentMoniker": "Models\\Proveedor\\ProveedorTrabajador.cs",
@@ -43,7 +77,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "TrabajadorCreateRequest.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Proveedor\\TrabajadorCreateRequest.cs",
               "RelativeDocumentMoniker": "Models\\Proveedor\\TrabajadorCreateRequest.cs",
@@ -56,13 +90,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "TrabajadoresController.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Proveedores\\TrabajadoresController.cs",
               "RelativeDocumentMoniker": "Controllers\\Proveedores\\TrabajadoresController.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Proveedores\\TrabajadoresController.cs",
               "RelativeToolTip": "Controllers\\Proveedores\\TrabajadoresController.cs",
-              "ViewState": "AgIAAPcAAAAAAAAAAAAAwA4BAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAABUBAAAAAAAAAAAmwCYBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-16T19:12:55.766Z",
               "EditorCaption": ""
