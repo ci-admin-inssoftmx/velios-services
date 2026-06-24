@@ -22,3 +22,6 @@ Thumbs.db
 # Secrets (ajusta según tu proyecto)
 **/appsettings.Development.json
 EOF
+/.vs/velios.Api/v18/DocumentLayout.backup.json
+/.vs/velios.Api/v18/DocumentLayout.json
+/Properties/PublishProfiles/FolderProfile3.pubxml
