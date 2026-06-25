@@ -23,26 +23,23 @@ namespace velios.Api.Controllers.Encuestas
         /// <summary>
         /// Obtiene la encuesta para llenar, con llenado previo si ya fue respondida parcialmente.
         /// </summary>
-        /// <param name="encuestaId">Id de la encuesta.</param>
+        /// <param name="idServicio">Id del servicio (retorna encuesta Id=1 si no existe una asociada).</param>
         /// <param name="tareaId">Id de la tarea.</param>
-        [HttpGet("{encuestaId}/tarea/{tareaId}")]
-        [ProducesResponseType(typeof(EncuestaModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetEncuesta(int encuestaId, int tareaId)
+        [HttpGet("servicio/{idServicio}/tarea/{tareaId}")]
+        public async Task<IActionResult> GetEncuesta(int idServicio, int tareaId)
         {
             try
             {
-                var encuesta = await _encuestaService.GetEncuestaAsync(encuestaId, tareaId);
+                var encuesta = await _encuestaService.GetEncuestaAsync(idServicio, tareaId);
 
                 if (encuesta == null)
-                    return NotFound($"No se encontró la encuesta {encuestaId}.");
+                    return NotFound($"No se encontró encuesta para el servicio {idServicio}.");
 
                 return Ok(encuesta);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error al obtener la encuesta {EncuestaId} para la tarea {TareaId}.", encuestaId, tareaId);
+                _logger.LogError(ex, "Error al obtener encuesta para el servicio {IdServicio} tarea {TareaId}.", idServicio, tareaId);
                 return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
             }
         }
