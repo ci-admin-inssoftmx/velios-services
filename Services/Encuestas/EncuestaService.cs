@@ -91,33 +91,38 @@ namespace velios.Api.Services.Encuestas
         // ============================================================
         // Servicio 3: Traer encuesta respondida
         // ============================================================
-        public async Task<EncuestaModel?> GetEncuestaRespondidaAsync(int encuestaId, int tareaId)
+        public async Task<EncuestaModel?> GetEncuestaRespondidaAsync(int idServicio, int tareaId)
         {
             const string sql = @"
-                SELECT
-                    e.EncuestaId,
-                    e.Titulo,
-                    e.Descripcion,
-                    p.PreguntaId,
-                    p.Orden,
-                    p.Texto         AS TextoPregunta,
-                    p.Tipo,
-                    p.Requerido,
-                    r.RespuestaId,
-                    r.Valor,
-                    r.Texto         AS TextoRespuesta,
-                    ru.RespuestaId  AS RespuestaUsuario
-                FROM tb_CatEncuesta e
-                INNER JOIN tb_CatPreguntas p  ON p.EncuestaId  = e.EncuestaId
-                INNER JOIN tb_CatRespuestas r ON r.PreguntaId  = p.PreguntaId
-                LEFT  JOIN tb_EncuestaRespuestaUsuario ru
-                       ON ru.PreguntaId = p.PreguntaId
-                      AND ru.TareaId    = @TareaId
-                WHERE e.EncuestaId = @EncuestaId
-                ORDER BY p.Orden, r.Valor";
+        SELECT
+            e.EncuestaId,
+            e.Titulo,
+            e.Descripcion,
+            p.PreguntaId,
+            p.Orden,
+            p.Texto         AS TextoPregunta,
+            p.Tipo,
+            p.Requerido,
+            r.RespuestaId,
+            r.Valor,
+            r.Texto         AS TextoRespuesta,
+            ru.RespuestaId  AS RespuestaUsuario
+        FROM tb_CatEncuesta e
+        INNER JOIN tb_CatPreguntas p  ON p.EncuestaId  = e.EncuestaId
+        INNER JOIN tb_CatRespuestas r ON r.PreguntaId  = p.PreguntaId
+        LEFT  JOIN tb_EncuestaRespuestaUsuario ru
+               ON ru.PreguntaId = p.PreguntaId
+              AND ru.TareaId    = @TareaId
+        WHERE e.EncuestaId = (
+              SELECT ISNULL(
+                  (SELECT TOP 1 EncuestaId FROM tb_CatEncuesta WHERE IdServicio = @IdServicio AND Activo = 1),
+                  1
+              )
+        )
+        ORDER BY p.Orden, r.Valor";
 
             using var connection = new SqlConnection(_connectionString);
-            return await MapearEncuesta(connection, sql, new { EncuestaId = encuestaId, TareaId = tareaId });
+            return await MapearEncuesta(connection, sql, new { IdServicio = idServicio, TareaId = tareaId });
         }
 
         // ============================================================
