@@ -5,7 +5,7 @@ namespace velios.Api.Services.Encuestas
     public interface IEncuestaService
     {
         // Servicio 1: Traer encuesta para llenar (con llenado previo si ya respondió)
-        Task<EncuestaModel?> GetEncuestaAsync(int encuestaId, int tareaId);
+        Task<EncuestaModel?> GetEncuestaAsync(int idServicio, int tareaId); // ← cambia encuestaId por idServicio
 
         // Servicio 2: Guardar respuesta de usuario
         Task<bool> GuardarRespuestaAsync(GuardarRespuestaRequest request);

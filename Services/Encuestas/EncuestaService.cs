@@ -18,35 +18,41 @@ namespace velios.Api.Services.Encuestas
         // ============================================================
         // Servicio 1: Traer encuesta para llenar (con llenado previo)
         // ============================================================
-        public async Task<EncuestaModel?> GetEncuestaAsync(int encuestaId, int tareaId)
+        public async Task<EncuestaModel?> GetEncuestaAsync(int idServicio, int tareaId)
         {
             const string sql = @"
-                SELECT
-                    e.EncuestaId,
-                    e.Titulo,
-                    e.Descripcion,
-                    p.PreguntaId,
-                    p.Orden,
-                    p.Texto         AS TextoPregunta,
-                    p.Tipo,
-                    p.Requerido,
-                    r.RespuestaId,
-                    r.Valor,
-                    r.Texto         AS TextoRespuesta,
-                    ru.RespuestaId  AS RespuestaUsuario
-                FROM tb_CatEncuesta e
-                INNER JOIN tb_CatPreguntas p  ON p.EncuestaId  = e.EncuestaId
-                INNER JOIN tb_CatRespuestas r ON r.PreguntaId  = p.PreguntaId
-                LEFT  JOIN tb_EncuestaRespuestaUsuario ru
-                       ON ru.PreguntaId = p.PreguntaId
-                      AND ru.TareaId    = @TareaId
-                WHERE e.EncuestaId = @EncuestaId
-                  AND e.Activo     = 1
-                ORDER BY p.Orden, r.Valor";
+        SELECT
+            e.EncuestaId,
+            e.Titulo,
+            e.Descripcion,
+            p.PreguntaId,
+            p.Orden,
+            p.Texto         AS TextoPregunta,
+            p.Tipo,
+            p.Requerido,
+            r.RespuestaId,
+            r.Valor,
+            r.Texto         AS TextoRespuesta,
+            ru.RespuestaId  AS RespuestaUsuario
+        FROM tb_CatEncuesta e
+        INNER JOIN tb_CatPreguntas p  ON p.EncuestaId  = e.EncuestaId
+        INNER JOIN tb_CatRespuestas r ON r.PreguntaId  = p.PreguntaId
+        LEFT  JOIN tb_EncuestaRespuestaUsuario ru
+               ON ru.PreguntaId = p.PreguntaId
+              AND ru.TareaId    = @TareaId
+        WHERE e.Activo = 1
+          AND e.EncuestaId = (
+                SELECT ISNULL(
+                    (SELECT TOP 1 EncuestaId FROM tb_CatEncuesta WHERE IdServicio = @IdServicio AND Activo = 1),
+                    1
+                )
+          )
+        ORDER BY p.Orden, r.Valor";
 
             using var connection = new SqlConnection(_connectionString);
-            return await MapearEncuesta(connection, sql, encuestaId, tareaId);
+            return await MapearEncuesta(connection, sql, new { IdServicio = idServicio, TareaId = tareaId });
         }
+
 
         // ============================================================
         // Servicio 2: Guardar respuesta de usuario
@@ -111,7 +117,7 @@ namespace velios.Api.Services.Encuestas
                 ORDER BY p.Orden, r.Valor";
 
             using var connection = new SqlConnection(_connectionString);
-            return await MapearEncuesta(connection, sql, encuestaId, tareaId);
+            return await MapearEncuesta(connection, sql, new { EncuestaId = encuestaId, TareaId = tareaId });
         }
 
         // ============================================================
@@ -119,9 +125,9 @@ namespace velios.Api.Services.Encuestas
         // Reutilizado por Servicio 1 y Servicio 3
         // ============================================================
         private static async Task<EncuestaModel?> MapearEncuesta(
-            SqlConnection connection, string sql, int encuestaId, int tareaId)
+           SqlConnection connection, string sql, object parametros)
         {
-            var rows = await connection.QueryAsync(sql, new { EncuestaId = encuestaId, TareaId = tareaId });
+            var rows = await connection.QueryAsync(sql, parametros);
             var list = rows.ToList();
 
             if (!list.Any()) return null;
@@ -135,7 +141,6 @@ namespace velios.Api.Services.Encuestas
                 Descripcion = primera.Descripcion
             };
 
-            // Agrupar por pregunta
             var preguntas = list
                 .GroupBy(r => (int)r.PreguntaId)
                 .Select(g =>
@@ -162,7 +167,6 @@ namespace velios.Api.Services.Encuestas
 
             encuesta.Preguntas = preguntas;
 
-            // Calcular si la encuesta está completa
             var totalPreguntas = preguntas.Count;
             var preguntasRespondidas = preguntas.Count(p => p.RespuestaUsuario != null);
             encuesta.Completa = totalPreguntas == preguntasRespondidas ? 1 : 0;
@@ -170,4 +174,4 @@ namespace velios.Api.Services.Encuestas
             return encuesta;
         }
     }
-}
+    }
