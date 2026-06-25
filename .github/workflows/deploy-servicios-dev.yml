@@ -1,0 +1,74 @@
+name: Deploy Velios Servicios DEV
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Código
+        uses: actions/checkout@v4
+
+      - name: Configurar MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Configurar NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restaurar paquetes
+        run: nuget restore velios.Api.sln
+
+      - name: Publicar Sitio
+        shell: powershell
+        run: |
+          msbuild velios.Api.csproj `
+            /p:DeployOnBuild=true `
+            /p:PublishProfile=FolderProfile3 `
+            /p:Configuration=Release `
+            /verbosity:minimal
+
+      - name: Validar Out
+        shell: powershell
+        run: |
+          if (!(Test-Path "obj\Release\net9.0\PubTmp\Out")) {
+            throw "No se encontró la carpeta Out"
+          }
+          Get-ChildItem "obj\Release\net9.0\PubTmp\Out" -Recurse |
+            Select-Object -First 20
+
+      - name: Poner sitio en mantenimiento
+        shell: powershell
+        run: |
+          $content = "<html><body><h1>Sitio en mantenimiento</h1></body></html>"
+          $ftp = [System.Net.FtpWebRequest]::Create("ftp://${{ secrets.FTP_SERVER }}/servicios/dev/app_offline.htm")
+          $ftp.Method = [System.Net.WebRequestMethods+Ftp]::UploadFile
+          $ftp.Credentials = New-Object System.Net.NetworkCredential("${{ secrets.FTP_USERNAME }}", "${{ secrets.FTP_PASSWORD }}")
+          $bytes = [System.Text.Encoding]::UTF8.GetBytes($content)
+          $ftp.ContentLength = $bytes.Length
+          $stream = $ftp.GetRequestStream()
+          $stream.Write($bytes, 0, $bytes.Length)
+          $stream.Close()
+
+      - name: Deploy FTP DEV
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: obj/Release/net9.0/PubTmp/Out/
+          server-dir: /servicios/dev/
+          dangerous-clean-slate: false
+
+      - name: Quitar mantenimiento
+        shell: powershell
+        run: |
+          $ftp = [System.Net.FtpWebRequest]::Create("ftp://${{ secrets.FTP_SERVER }}/servicios/dev/app_offline.htm")
+          $ftp.Method = [System.Net.WebRequestMethods+Ftp]::DeleteFile
+          $ftp.Credentials = New-Object System.Net.NetworkCredential("${{ secrets.FTP_USERNAME }}", "${{ secrets.FTP_PASSWORD }}")
+          $ftp.GetResponse()
