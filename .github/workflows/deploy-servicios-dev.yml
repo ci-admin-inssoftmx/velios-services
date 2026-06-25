@@ -39,6 +39,14 @@ jobs:
           }
           Get-ChildItem "obj\Release\net9.0\PubTmp\Out" -Recurse |
             Select-Object -First 20
+      - name: Verificar secrets
+        shell: powershell
+        run: |
+          if ("${{ secrets.FTP_SERVER }}" -eq "") {
+            Write-Host "FTP_SERVER esta VACIO"
+          } else {
+            Write-Host "FTP_SERVER tiene valor (longitud: $("${{ secrets.FTP_SERVER }}".Length))"
+          }
 
       - name: Poner sitio en mantenimiento
         shell: powershell
