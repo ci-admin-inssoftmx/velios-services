@@ -111,7 +111,6 @@ public class AuthenticateController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<object>>> SendActivationEmail([FromBody] SendActivationRequest model)
     {
-
         if (!ModelState.IsValid)
         {
             return BadRequest(new ApiResponse<object>
@@ -125,23 +124,20 @@ public class AuthenticateController : ControllerBase
 
         var email = (model.Email ?? "").Trim().ToLowerInvariant();
 
-        // Guardar proveedor si no existe (idempotente).
         try
         {
             var exists = await _db.Proveedores
                 .AnyAsync(x => x.CorreoContacto == email && !x.IsDeleted);
 
-         
-
             if (!exists)
             {
                 var proveedor = new Proveedor
                 {
-                     RFC = null,
+                    RFC = null,
                     CorreoContacto = email,
                     IsDeleted = false,
                     DateCreated = DateTime.UtcNow,
-                    EstatusProveedorId = 4 
+                    EstatusProveedorId = 4
                 };
 
                 _db.Proveedores.Add(proveedor);
@@ -152,24 +148,49 @@ public class AuthenticateController : ControllerBase
                 return Ok(new ApiResponse<bool>
                 {
                     success = true,
-                    message = exists ? "El correo ya está registrado." : "Correo disponible.",
+                    message = "El correo ya está registrado.",
                     statusCode = 101,
-                    data = exists // Retorna true si ya existe
-
+                    data = true
                 });
             }
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error insertando proveedor para email {Email}", email);
+            return StatusCode(500, new ApiResponse<object>
+            {
+                success = false,
+                message = "Error al registrar el proveedor.",
+                statusCode = 500,
+                data = null,
+                errors = new List<string> { ex.Message }
+            });
         }
 
-        var token = CreateAccountActivationToken(email, TimeSpan.FromHours(24));
+        string token;
+        string link;
 
-        var baseUrl = _config["Front:ActivationUrlBase"]
-                      ?? "http://localhost:7137/WfActivarCuenta.aspx";
+        try
+        {
+            token = CreateAccountActivationToken(email, TimeSpan.FromHours(24));
 
-        var link = $"{baseUrl}?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(model.Email ?? email)}";
+            var baseUrl = _config["Front:ActivationUrlBase"]
+                          ?? "http://localhost:7137/WfActivarCuenta.aspx";
+
+            link = $"{baseUrl}?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(model.Email ?? email)}";
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error generando token de activación para email {Email}", email);
+            return StatusCode(500, new ApiResponse<object>
+            {
+                success = false,
+                message = "Error al generar el token de activación.",
+                statusCode = 500,
+                data = null,
+                errors = new List<string> { ex.Message }
+            });
+        }
 
         var subject = "Activa tu cuenta - Velios";
         var body = $@"
@@ -223,7 +244,22 @@ public class AuthenticateController : ControllerBase
 </body>
 </html>";
 
-        await _email.Send(email, subject, body);
+        try
+        {
+            await _email.Send(email, subject, body);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error enviando email de activación a {Email}", email);
+            return StatusCode(500, new ApiResponse<object>
+            {
+                success = false,
+                message = "Error al enviar el correo de activación.",
+                statusCode = 500,
+                data = null,
+                errors = new List<string> { ex.Message }
+            });
+        }
 
         return Ok(new ApiResponse<object>
         {
