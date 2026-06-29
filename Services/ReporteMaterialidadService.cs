@@ -992,7 +992,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                         r.RelativeItem().Column(c =>
                         {
-                            c.Item().Text(clienteDisplay)
+                            c.Item().Text(tarea.NombreCentroTrabajo ?? clienteDisplay)
                                 .SemiBold().FontSize(13).FontColor("#24364D");
                             c.Item().Text("Sucursal /CT").FontSize(9).FontColor("#6B7280");
                             c.Item().PaddingTop(4).Text(direccionDisplay)
@@ -1043,7 +1043,9 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                 // Estado de cumplimiento: EN TIEMPO / VENCIDA según FechaVencimiento
                 var fechaVencimiento = tarea.FechaVencimiento;
-                var estaVencida = DateTime.Now.Date > fechaVencimiento.Date;
+                var estaCompletada = tarea.EstatusCodigo is "FINALIZADO" or "CANCELADA";
+                var estaVencida = !estaCompletada && DateTime.Now.Date > fechaVencimiento.Date;
+
 
                 // PUNTO 3: badges de estatus — bordes redondeados
                 if (estaVencida)
@@ -1102,7 +1104,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 {
                     r.RelativeItem().AlignMiddle().AlignCenter().Column(c =>
                     {
-                        c.Item().AlignCenter().Text(clienteDisplay)
+                        c.Item().AlignCenter().Text(nombreProyecto)
                             .Bold().FontSize(11).FontColor("#24364D");
                     });
 
