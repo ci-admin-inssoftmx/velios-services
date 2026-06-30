@@ -66,7 +66,7 @@ public class TareasController : ControllerBase
                 from tr in trGroup.DefaultIfEmpty()
                 join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
                 from sv in svGroup.DefaultIfEmpty()
-                where !t.IsDeleted && !c.IsDeleted && t.Active
+                where !t.IsDeleted && !c.IsDeleted 
                 select new { t, c, e, p, ct, tr, sv };
 
             // ── FILTRO POR USUARIO ──────────────────────────────────────────
