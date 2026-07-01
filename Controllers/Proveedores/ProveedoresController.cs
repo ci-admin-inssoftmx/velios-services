@@ -214,29 +214,29 @@ public class ProveedoresController : ControllerBase
                 });
             }
 
-            // =========================================================
-            // 6) Validar RFC duplicado en Velios
-            // =========================================================
-            if (!string.IsNullOrWhiteSpace(rfc))
-            {
-                var existeRFC = await _db.Proveedores
-                    .AsNoTracking()
-                    .AnyAsync(p =>
-                        p.ProveedorId != proveedorMin.ProveedorId &&
-                        p.RFC == rfc &&
-                        !p.IsDeleted);
+            //// =========================================================
+            //// 6) Validar RFC duplicado en Velios
+            //// =========================================================
+            //if (!string.IsNullOrWhiteSpace(rfc))
+            //{
+            //    var existeRFC = await _db.Proveedores
+            //        .AsNoTracking()
+            //        .AnyAsync(p =>
+            //            p.ProveedorId != proveedorMin.ProveedorId &&
+            //            p.RFC == rfc &&
+            //            !p.IsDeleted);
 
-                if (existeRFC)
-                {
-                    return BadRequest(new ApiResponse<object>
-                    {
+            //    if (existeRFC)
+            //    {
+            //        return BadRequest(new ApiResponse<object>
+            //        {
                         
-                        success = false,
-                        message = "Ya existe un proveedor con ese RFC.",
-                        statusCode = 400
-                    });
-                }
-            }
+            //            success = false,
+            //            message = "Ya existe un proveedor con ese RFC.",
+            //            statusCode = 400
+            //        });
+            //    }
+            //}
 
             var fechaActual = DateTime.UtcNow;
 
