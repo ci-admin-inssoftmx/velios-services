@@ -83,7 +83,7 @@ public class GastosTareaController : ControllerBase
             {
                 IdTarea = model.IdTarea,
                 Gasto = model.Gasto,
-                FechaRegistro = DateTime.UtcNow
+                FechaRegistro = DateTime.Now
             });
 
             await _db.SaveChangesAsync();
