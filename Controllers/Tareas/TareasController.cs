@@ -169,7 +169,7 @@ public class TareasController : ControllerBase
 
             // ── CENTRO DE TRABAJO ──────────────────────────────────────────────────
             var centroTrabajo = await _db.CentrosTrabajo.AsNoTracking()
-                .Where(x => x.CentroTrabajoId == tarea.Tarea.CentroTrabajoId && !x.IsDeleted)  // ← CORREGIDO
+                .Where(x => x.CentroTrabajoId == tarea.Tarea.CentroTrabajoId && !x.IsDeleted)
                 .Select(x => new
                 {
                     centroTrabajoId = x.CentroTrabajoId,
@@ -181,7 +181,6 @@ public class TareasController : ControllerBase
                     region = x.Region
                 })
                 .FirstOrDefaultAsync();
-
             // ──────────────────────────────────────────────────────────────────────
 
             var observaciones = await _db.TareaObservaciones.AsNoTracking()
@@ -211,24 +210,22 @@ public class TareasController : ControllerBase
                         speedAccuracy = x.PrecisionVelocidad,
                         timestamp = x.TimestampGps,
                         isMocked = x.EsSimulado
-
                     },
                     address = new
                     {
                         formattedAddress = x.Direccion
                     },
-                    evidenceHash = x.EvidenceHash,  // ← NUEVO
-
+                    evidenceHash = x.EvidenceHash,
                     deviceInfo = new
                     {
                         platform = x.Plataforma,
                         appVersion = x.VersionApp,
                         deviceModel = x.ModeloDispositivo,
                         osVersion = x.VersionOS,
-                        deviceUniqueId = x.DeviceUniqueId,    // ← NUEVO
-                        installationId = x.InstallationId,    // ← NUEVO
-                        deviceIdentifier = x.DeviceIdentifier, // ← NUEVO
-                        isPhysicalDevice = x.IsPhysicalDevice  // ← NUEVO
+                        deviceUniqueId = x.DeviceUniqueId,
+                        installationId = x.InstallationId,
+                        deviceIdentifier = x.DeviceIdentifier,
+                        isPhysicalDevice = x.IsPhysicalDevice
                     },
                     comentario = x.Comentario,
                     progreso = x.Progreso
@@ -250,12 +247,24 @@ public class TareasController : ControllerBase
                     performedAt = tl.PerformedAt
                 }).ToListAsync();
 
+            // ── GASTOS ────────────────────────────────────────────────────────────
+            var gastos = await _db.GastosTarea.AsNoTracking()
+                .Where(x => x.IdTarea == tarea.Tarea.TareaId)
+                .OrderBy(x => x.IdGastoTarea)
+                .Select(x => new
+                {
+                    idGasto = x.IdGastoTarea,
+                    gasto = x.Gasto,
+                    fechaRegistro = x.FechaRegistro
+                })
+                .ToListAsync();
+            // ─────────────────────────────────────────────────────────────────────
+
             return Ok(new
             {
                 taskId = tarea.Tarea.TaskCode,
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
-                PresupuestoAsignado = tarea.Tarea.PresupuestoAsignado,
                 statusCode = tarea.Estatus.Codigo,
                 createdAt = tarea.Tarea.DateCreated,
                 updatedAt = tarea.Tarea.DateModified,
@@ -287,9 +296,17 @@ public class TareasController : ControllerBase
                     programmedDate = tarea.Tarea.FechaProgramada,
                     dueDate = tarea.Tarea.FechaVencimiento
                 },
-                // ── CENTRO DE TRABAJO ──────────────────────────────────────────
-                centroTrabajo = centroTrabajo
-                // ──────────────────────────────────────────────────────────────
+                centroTrabajo = centroTrabajo,
+
+                // ── NUEVO ────────────────────────────────────────────────────────
+                presupuesto = new
+                {
+                    presupuestoAsignado = tarea.Tarea.PresupuestoAsignado,
+                    presupuestoUsado = tarea.Tarea.PresupuestoUsado,
+                    presupuestoDisponible = tarea.Tarea.PresupuestoDisponible,
+                    gastos
+                }
+                // ─────────────────────────────────────────────────────────────────
             });
         }
         catch (Exception ex)
