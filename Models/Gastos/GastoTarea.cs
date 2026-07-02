@@ -14,5 +14,5 @@ public class GastoTarea
     [Column(TypeName = "decimal(18,2)")]
     public decimal Gasto { get; set; }
 
-    public DateTime FechaRegistro { get; set; } = DateTime.UtcNow;
+    public DateTime FechaRegistro { get; set; } = DateTime.Now;
 }
