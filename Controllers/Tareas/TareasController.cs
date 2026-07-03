@@ -77,7 +77,7 @@ public class TareasController : ControllerBase
                     : query.Where(x => x.t.TrabajadorId == idUsuario);
             // ─────────────────────────────────────────────────────────────
 
-            var data = await query
+            var tareas = await query
                 .OrderByDescending(x => x.t.TareaId)
                 .Select(x => new
                 {
@@ -86,14 +86,12 @@ public class TareasController : ControllerBase
                     title = x.t.Titulo,
                     description = x.t.Descripcion,
                     statusCode = x.e.Codigo,
-                    presupuestoAsignado = x.t.PresupuestoAsignado,
                     planTrabajo = x.p != null ? x.p.Nombre : "SIN PLAN",
                     client = new
                     {
-                        clienteId = x.t.ClienteId,  // NUEVO — agrega el id
-                        name = x.c.NombreComercial ?? x.c.RazonSocial ?? "SIN NOMBRE",  // CAMBIADO — NombreComercial primero
+                        clienteId = x.t.ClienteId,
+                        name = x.c.NombreComercial ?? x.c.RazonSocial ?? "SIN NOMBRE",
                         logoUrl = (string?)null
-
                     },
                     schedule = new
                     {
@@ -122,8 +120,58 @@ public class TareasController : ControllerBase
                         radioMetros = x.ct == null ? (int?)null : x.ct.RadioMetros,
                         zona = x.ct == null ? null : x.ct.Zona,
                         region = x.ct == null ? null : x.ct.Region
-                    }
+                    },
+                    presupuestoAsignado = x.t.PresupuestoAsignado,
+                    presupuestoUsado = x.t.PresupuestoUsado,
+                    presupuestoDisponible = x.t.PresupuestoDisponible
                 }).ToListAsync();
+
+            // ── GASTOS — se traen en una sola query con todos los TareaIds ──
+            var tareaIds = tareas.Select(x => x.tareaId).ToList();
+
+            var gastosPorTarea = await _db.GastosTarea.AsNoTracking()
+                .Where(g => tareaIds.Contains(g.IdTarea))
+                .OrderBy(g => g.IdGastoTarea)
+                .Select(g => new
+                {
+                    g.IdTarea,
+                    idGasto = g.IdGastoTarea,
+                    gasto = g.Gasto,
+                    fechaRegistro = g.FechaRegistro
+                })
+                .ToListAsync();
+            // ───────────────────────────────────────────────────────────────
+
+            // ── COMBINAR ────────────────────────────────────────────────────
+            var data = tareas.Select(t => new
+            {
+                t.tareaId,
+                t.taskId,
+                t.title,
+                t.description,
+                t.statusCode,
+                t.planTrabajo,
+                t.client,
+                t.schedule,
+                t.trabajador,
+                t.supervisor,
+                t.centroTrabajo,
+                presupuesto = new
+                {
+                    presupuestoAsignado = t.presupuestoAsignado,
+                    presupuestoUsado = t.presupuestoUsado,
+                    presupuestoDisponible = t.presupuestoDisponible,
+                    gastos = gastosPorTarea
+                        .Where(g => g.IdTarea == t.tareaId)
+                        .Select(g => new
+                        {
+                            g.idGasto,
+                            g.gasto,
+                            g.fechaRegistro
+                        }).ToList()
+                }
+            }).ToList();
+            // ───────────────────────────────────────────────────────────────
 
             return Ok(new ApiResponse<object>
             {
@@ -169,7 +217,7 @@ public class TareasController : ControllerBase
 
             // ── CENTRO DE TRABAJO ──────────────────────────────────────────────────
             var centroTrabajo = await _db.CentrosTrabajo.AsNoTracking()
-                .Where(x => x.CentroTrabajoId == tarea.Tarea.CentroTrabajoId && !x.IsDeleted)
+                .Where(x => x.CentroTrabajoId == tarea.Tarea.CentroTrabajoId && !x.IsDeleted)  // ← CORREGIDO
                 .Select(x => new
                 {
                     centroTrabajoId = x.CentroTrabajoId,
@@ -181,6 +229,7 @@ public class TareasController : ControllerBase
                     region = x.Region
                 })
                 .FirstOrDefaultAsync();
+
             // ──────────────────────────────────────────────────────────────────────
 
             var observaciones = await _db.TareaObservaciones.AsNoTracking()
@@ -210,22 +259,24 @@ public class TareasController : ControllerBase
                         speedAccuracy = x.PrecisionVelocidad,
                         timestamp = x.TimestampGps,
                         isMocked = x.EsSimulado
+
                     },
                     address = new
                     {
                         formattedAddress = x.Direccion
                     },
-                    evidenceHash = x.EvidenceHash,
+                    evidenceHash = x.EvidenceHash,  // ← NUEVO
+
                     deviceInfo = new
                     {
                         platform = x.Plataforma,
                         appVersion = x.VersionApp,
                         deviceModel = x.ModeloDispositivo,
                         osVersion = x.VersionOS,
-                        deviceUniqueId = x.DeviceUniqueId,
-                        installationId = x.InstallationId,
-                        deviceIdentifier = x.DeviceIdentifier,
-                        isPhysicalDevice = x.IsPhysicalDevice
+                        deviceUniqueId = x.DeviceUniqueId,    // ← NUEVO
+                        installationId = x.InstallationId,    // ← NUEVO
+                        deviceIdentifier = x.DeviceIdentifier, // ← NUEVO
+                        isPhysicalDevice = x.IsPhysicalDevice  // ← NUEVO
                     },
                     comentario = x.Comentario,
                     progreso = x.Progreso
@@ -247,24 +298,12 @@ public class TareasController : ControllerBase
                     performedAt = tl.PerformedAt
                 }).ToListAsync();
 
-            // ── GASTOS ────────────────────────────────────────────────────────────
-            var gastos = await _db.GastosTarea.AsNoTracking()
-                .Where(x => x.IdTarea == tarea.Tarea.TareaId)
-                .OrderBy(x => x.IdGastoTarea)
-                .Select(x => new
-                {
-                    idGasto = x.IdGastoTarea,
-                    gasto = x.Gasto,
-                    fechaRegistro = x.FechaRegistro
-                })
-                .ToListAsync();
-            // ─────────────────────────────────────────────────────────────────────
-
             return Ok(new
             {
                 taskId = tarea.Tarea.TaskCode,
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
+                PresupuestoAsignado = tarea.Tarea.PresupuestoAsignado,
                 statusCode = tarea.Estatus.Codigo,
                 createdAt = tarea.Tarea.DateCreated,
                 updatedAt = tarea.Tarea.DateModified,
@@ -296,17 +335,9 @@ public class TareasController : ControllerBase
                     programmedDate = tarea.Tarea.FechaProgramada,
                     dueDate = tarea.Tarea.FechaVencimiento
                 },
-                centroTrabajo = centroTrabajo,
-
-                // ── NUEVO ────────────────────────────────────────────────────────
-                presupuesto = new
-                {
-                    presupuestoAsignado = tarea.Tarea.PresupuestoAsignado,
-                    presupuestoUsado = tarea.Tarea.PresupuestoUsado,
-                    presupuestoDisponible = tarea.Tarea.PresupuestoDisponible,
-                    gastos
-                }
-                // ─────────────────────────────────────────────────────────────────
+                // ── CENTRO DE TRABAJO ──────────────────────────────────────────
+                centroTrabajo = centroTrabajo
+                // ──────────────────────────────────────────────────────────────
             });
         }
         catch (Exception ex)
