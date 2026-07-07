@@ -137,7 +137,21 @@ public class TareasController : ControllerBase
                     g.IdTarea,
                     idGasto = g.IdGastoTarea,
                     gasto = g.Gasto,
-                    fechaRegistro = g.FechaRegistro
+                    fechaRegistro = g.FechaRegistro,
+                    descripcion = g.Descripcion,        // ← NUEVO
+                    registeredById = g.RegisteredById,     // ← NUEVO
+                    registeredByType = g.RegisteredByType,   // ← NUEVO
+                    nombreUsuario = g.RegisteredByType == "Proveedor"
+                        ? _db.Proveedores
+                            .Where(p => p.ProveedorId == g.RegisteredById)
+                            .Select(p => p.NombreComercial)
+                            .FirstOrDefault()
+                        : g.RegisteredByType == "Trabajador"
+                            ? _db.ProveedorTrabajadores
+                                .Where(t => t.TrabajadorId == (long)g.RegisteredById)
+                                .Select(t => (t.Nombre + " " + t.ApellidoPaterno + " " + t.ApellidoMaterno).Trim())
+                                .FirstOrDefault()
+                            : null
                 })
                 .ToListAsync();
             // ───────────────────────────────────────────────────────────────
@@ -294,7 +308,6 @@ public class TareasController : ControllerBase
                     performedBy = tl.PerformedBy,
                     performedAt = tl.PerformedAt
                 }).ToListAsync();
-
             // ── GASTOS ────────────────────────────────────────────────────────────
             var gastos = await _db.GastosTarea.AsNoTracking()
                 .Where(x => x.IdTarea == tarea.Tarea.TareaId)
@@ -303,11 +316,24 @@ public class TareasController : ControllerBase
                 {
                     idGasto = x.IdGastoTarea,
                     gasto = x.Gasto,
-                    fechaRegistro = x.FechaRegistro
+                    fechaRegistro = x.FechaRegistro,
+                    descripcion = x.Descripcion,        // ← NUEVO
+                    registeredById = x.RegisteredById,     // ← NUEVO
+                    registeredByType = x.RegisteredByType,   // ← NUEVO
+                    nombreUsuario = x.RegisteredByType == "Proveedor"
+                        ? _db.Proveedores
+                            .Where(p => p.ProveedorId == x.RegisteredById)
+                            .Select(p => p.NombreComercial)
+                            .FirstOrDefault()
+                        : x.RegisteredByType == "Trabajador"
+                            ? _db.ProveedorTrabajadores
+                                .Where(t => t.TrabajadorId == (long)x.RegisteredById)
+                                .Select(t => (t.Nombre + " " + t.ApellidoPaterno + " " + t.ApellidoMaterno).Trim())
+                                .FirstOrDefault()
+                            : null
                 })
                 .ToListAsync();
             // ─────────────────────────────────────────────────────────────────────
-
             return Ok(new
             {
                 taskId = tarea.Tarea.TaskCode,
