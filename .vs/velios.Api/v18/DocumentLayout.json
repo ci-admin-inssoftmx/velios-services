@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\gastos\\gastostareacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\gastos\\gastostareacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\gastos\\gastotarearequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\gastos\\gastotarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\gastos\\gastotarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\proveedores\\proveedorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\proveedores\\proveedorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,93 +34,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GastosTareaController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Gastos\\GastosTareaController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Gastos\\GastosTareaController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Gastos\\GastosTareaController.cs",
-              "RelativeToolTip": "Controllers\\Gastos\\GastosTareaController.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAAwHQAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-02T17:09:16.037Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Data\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Data\\AppDbContext.cs",
-              "RelativeToolTip": "Data\\AppDbContext.cs",
-              "ViewState": "AgIAAJYAAAAAAAAAAAA7wKsAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-02T17:07:52.059Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Tarea.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
-              "RelativeDocumentMoniker": "Models\\Tareas\\Tarea.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
-              "RelativeToolTip": "Models\\Tareas\\Tarea.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAA3wEIAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-02T17:06:56.308Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "GastoTareaRequest.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Gastos\\GastoTareaRequest.cs",
-              "RelativeDocumentMoniker": "Models\\Gastos\\GastoTareaRequest.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Gastos\\GastoTareaRequest.cs",
-              "RelativeToolTip": "Models\\Gastos\\GastoTareaRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-02T17:05:13.149Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "GastoTarea.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Gastos\\GastoTarea.cs",
-              "RelativeDocumentMoniker": "Models\\Gastos\\GastoTarea.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Gastos\\GastoTarea.cs",
-              "RelativeToolTip": "Models\\Gastos\\GastoTarea.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-02T17:04:34.132Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "TareasController.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
               "RelativeDocumentMoniker": "Controllers\\Tareas\\TareasController.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
               "RelativeToolTip": "Controllers\\Tareas\\TareasController.cs",
-              "ViewState": "AgIAACIBAAAAAAAAAAAAwDIBAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAC0BAAAAAAAAAAAYwE8BAABUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-01T18:13:32.605Z",
+              "WhenOpened": "2026-07-07T20:06:51.295Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ProveedoresController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Proveedores\\ProveedoresController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Proveedores\\ProveedoresController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Proveedores\\ProveedoresController.cs",
-              "RelativeToolTip": "Controllers\\Proveedores\\ProveedoresController.cs",
-              "ViewState": "AgIAAM8AAAAAAAAAAAAewOgAAAAYAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "GastosTareaController.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Gastos\\GastosTareaController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Gastos\\GastosTareaController.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Gastos\\GastosTareaController.cs",
+              "RelativeToolTip": "Controllers\\Gastos\\GastosTareaController.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAnwFUAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-01T18:12:46.606Z",
+              "WhenOpened": "2026-07-07T20:04:51.255Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GastoTareaRequest.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Gastos\\GastoTareaRequest.cs",
+              "RelativeDocumentMoniker": "Models\\Gastos\\GastoTareaRequest.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Gastos\\GastoTareaRequest.cs",
+              "RelativeToolTip": "Models\\Gastos\\GastoTareaRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T20:03:44.103Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GastoTarea.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Gastos\\GastoTarea.cs",
+              "RelativeDocumentMoniker": "Models\\Gastos\\GastoTarea.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Gastos\\GastoTarea.cs",
+              "RelativeToolTip": "Models\\Gastos\\GastoTarea.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAADwvxEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T22:34:37.361Z",
               "EditorCaption": ""
             }
           ]
