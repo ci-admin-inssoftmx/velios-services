@@ -119,7 +119,13 @@ public class TareasController : ControllerBase
                         longitud = x.ct == null ? (decimal?)null : x.ct.Lng,
                         radioMetros = x.ct == null ? (int?)null : x.ct.RadioMetros,
                         zona = x.ct == null ? null : x.ct.Zona,
-                        region = x.ct == null ? null : x.ct.Region
+                        region = x.ct == null ? null : x.ct.Region,
+                        calle = x.ct == null ? null : x.ct.Calle,
+                        numero = x.ct == null ? null : x.ct.Numero,
+                        colonia = x.ct == null ? null : x.ct.Colonia,
+                        municipio = x.ct == null ? null : x.ct.Municipio,
+                        codigoPostal = x.ct == null ? null : x.ct.CodigoPostal
+
                     },
                     presupuestoAsignado = x.t.PresupuestoAsignado,
                     presupuestoUsado = x.t.PresupuestoUsado,
@@ -240,7 +246,12 @@ public class TareasController : ControllerBase
                     longitud = x.Lng,
                     radioMetros = x.RadioMetros,
                     zona = x.Zona,
-                    region = x.Region
+                    region = x.Region,
+                    calle = x.Calle,
+                    numero = x.Numero,
+                    colonia = x.Colonia,
+                    municipio = x.Municipio,
+                    codigoPostal = x.CodigoPostal
                 })
                 .FirstOrDefaultAsync();
             // ──────────────────────────────────────────────────────────────────────
