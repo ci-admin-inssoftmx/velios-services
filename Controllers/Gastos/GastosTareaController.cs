@@ -79,11 +79,12 @@ public class GastosTareaController : ControllerBase
             tarea.DateModified = DateTime.UtcNow;
 
             // 6. Insertar el gasto en tb_GastosTarea
+            var fechaRegistro = DateTime.Now; // ← NUEVO
             _db.GastosTarea.Add(new Models.Tareas.GastoTarea
             {
                 IdTarea = model.IdTarea,
                 Gasto = model.Gasto,
-                FechaRegistro = DateTime.Now,
+                FechaRegistro = fechaRegistro,
                 Descripcion = model.Descripcion?.Trim(),      // ← NUEVO
                 RegisteredById = model.RegisteredById,           // ← NUEVO
                 RegisteredByType = model.RegisteredByType?.Trim()  // ← NUEVO
@@ -102,7 +103,8 @@ public class GastosTareaController : ControllerBase
                 {
                     tarea.PresupuestoAsignado,
                     PresupuestoDisponible = presupuestoDisponible,
-                    PresupuestoUsado = presupuestoUsado
+                    PresupuestoUsado = presupuestoUsado,
+                    fechaRegistro // ← NUEVO
                 }
             });
         }
