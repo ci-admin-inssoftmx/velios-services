@@ -60,6 +60,7 @@ public class Tarea
 
     [Column("DateModified")]
     public DateTime? DateModified { get; set; }
+
     [Column("ProveedorId")]
     public int? ProveedorId { get; set; }
 
@@ -69,4 +70,10 @@ public class Tarea
     [Column("ImagenUrl")]
     [MaxLength(500)]
     public string? ImagenUrl { get; set; }
+
+    [Column("PresupuestoDisponible", TypeName = "decimal(18,2)")]
+    public decimal? PresupuestoDisponible { get; set; }
+
+    [Column("PresupuestoUsado", TypeName = "decimal(18,2)")]
+    public decimal? PresupuestoUsado { get; set; }
 }
