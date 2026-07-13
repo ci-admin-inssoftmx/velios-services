@@ -170,6 +170,7 @@ public class AppDbContext : DbContext
     public DbSet<TareaObservacion> TareaObservaciones { get; set; }
     public DbSet<TareaEvidencia> TareaEvidencias { get; set; }
     public DbSet<TareaTimeline> TareaTimeline { get; set; }
+    public DbSet<GastoTarea> GastosTarea { get; set; }
 
     // =========================================================
     // CONFIGURACIÓN DE MODELOS
