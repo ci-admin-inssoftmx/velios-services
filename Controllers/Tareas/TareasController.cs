@@ -576,7 +576,9 @@ public class TareasController : ControllerBase
                     {
                         TareaId = tarea.TareaId,
                         TipoEventoTareaId = tipoEvento.TipoEventoTareaId,
-                        Descripcion = item.Description,
+                        Descripcion = item.Description?.Length > 500
+                                              ? item.Description.Substring(0, 500)
+                                              : item.Description,
                         ValorAnterior = item.PreviousValue,
                         ValorNuevo = item.NewValue,
                         PerformedBy = item.PerformedBy,
