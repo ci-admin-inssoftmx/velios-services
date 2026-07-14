@@ -498,11 +498,12 @@ public class TareasController : ControllerBase
 
             if (!string.IsNullOrWhiteSpace(model.Observations))
             {
+                var createdBy = User?.Identity?.Name ?? "SYSTEM";
                 _db.TareaObservaciones.Add(new TareaObservacion
                 {
                     TareaId = tarea.TareaId,
                     Observacion = model.Observations.Trim(),
-                    CreatedBy = User?.Identity?.Name ?? "SYSTEM",
+                    CreatedBy = createdBy.Length > 100 ? createdBy.Substring(0, 100) : createdBy,
                     DateCreated = DateTime.UtcNow
                 });
             }
