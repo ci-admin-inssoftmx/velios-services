@@ -69,12 +69,11 @@ namespace velios.Api.Services.ServiciosCategoria
         public async Task<int> GuardarSolicitudAsync(GuardarSolicitudRequest request)
         {
             const string sql = @"
-                INSERT INTO tb_SolicitudServicios
-                    (TareaId, ServicioId)
-                VALUES
-                    (@TareaId, @ServicioId);
-
-                SELECT SCOPE_IDENTITY();";
+            INSERT INTO tb_SolicitudServicios
+                (TareaId, ServicioId, FechaRegistro)
+            VALUES
+                (@TareaId, @ServicioId, GETDATE());
+            SELECT SCOPE_IDENTITY();";
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.ExecuteScalarAsync<int>(sql, new
@@ -98,9 +97,10 @@ namespace velios.Api.Services.ServiciosCategoria
 
             const string insertar = @"
                 INSERT INTO tb_SolicitudServicios
-                    (TareaId, ServicioId)
-                VALUES
-                    (@TareaId, @ServicioId)";
+                 (TareaId, ServicioId, FechaRegistro)
+                 VALUES
+                (@TareaId, @ServicioId, GETDATE())";
+
 
             const string actualizar = @"
                 UPDATE tb_SolicitudServicios
