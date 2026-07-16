@@ -66,7 +66,7 @@ public class TareasController : ControllerBase
                 from tr in trGroup.DefaultIfEmpty()
                 join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
                 from sv in svGroup.DefaultIfEmpty()
-                where !t.IsDeleted && !c.IsDeleted && t.Active
+                where !t.IsDeleted && !c.IsDeleted 
                 select new { t, c, e, p, ct, tr, sv };
 
             // ── FILTRO POR USUARIO ──────────────────────────────────────────
@@ -498,11 +498,12 @@ public class TareasController : ControllerBase
 
             if (!string.IsNullOrWhiteSpace(model.Observations))
             {
+                var createdBy = User?.Identity?.Name ?? "SYSTEM";
                 _db.TareaObservaciones.Add(new TareaObservacion
                 {
                     TareaId = tarea.TareaId,
                     Observacion = model.Observations.Trim(),
-                    CreatedBy = User?.Identity?.Name ?? "SYSTEM",
+                    CreatedBy = createdBy.Length > 100 ? createdBy.Substring(0, 100) : createdBy,
                     DateCreated = DateTime.UtcNow
                 });
             }
@@ -575,7 +576,9 @@ public class TareasController : ControllerBase
                     {
                         TareaId = tarea.TareaId,
                         TipoEventoTareaId = tipoEvento.TipoEventoTareaId,
-                        Descripcion = item.Description,
+                        Descripcion = item.Description?.Length > 500
+                                              ? item.Description.Substring(0, 500)
+                                              : item.Description,
                         ValorAnterior = item.PreviousValue,
                         ValorNuevo = item.NewValue,
                         PerformedBy = item.PerformedBy,
