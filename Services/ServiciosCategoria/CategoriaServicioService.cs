@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿
+using Dapper;
 using Microsoft.Data.SqlClient;
 using velios.Api.Models.ServiciosCategoria;
 
@@ -163,6 +164,17 @@ namespace velios.Api.Services.ServiciosCategoria
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryFirstOrDefaultAsync<SolicitudServicioModel>(sql, new { TareaId = tareaId });
+        }
+        public async Task<bool> ValidarTareaExisteAsync(int tareaId)
+        {
+            const string sql = @"
+        SELECT COUNT(1)
+        FROM tb_Tareas
+        WHERE TareaId = @TareaId AND IsDeleted = 0";
+
+            using var connection = new SqlConnection(_connectionString);
+            var existe = await connection.ExecuteScalarAsync<int>(sql, new { TareaId = tareaId });
+            return existe > 0;
         }
         public async Task<BuscadorJerarquiaResultado> BuscarJerarquiaAsync(string busqueda)
         {

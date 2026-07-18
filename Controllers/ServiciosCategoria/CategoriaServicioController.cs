@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using velios.Api.Models.ServiciosCategoria;
 using velios.Api.Services.ServiciosCategoria;
 
@@ -139,17 +140,27 @@ namespace velios.Api.Controllers.ServiciosCategoria
                 if (request.TareaId <= 0 || request.ServicioId <= 0)
                     return BadRequest("TareaId y ServicioId son requeridos.");
 
+                // ← NUEVO: valida que la tarea exista
+                var tareaExiste = await _categoriaServicioService.ValidarTareaExisteAsync(request.TareaId);
+                if (!tareaExiste)
+                    return NotFound(new { mensaje = $"No se encontró la tarea con Id {request.TareaId}." });
+
                 var resultado = await _categoriaServicioService.EditarSolicitudAsync(request);
 
                 if (!resultado)
-                    return NotFound($"No se encontró la solicitud para la tarea {request.TareaId}.");
+                    return NotFound(new { mensaje = $"No se encontró el servicio con Id {request.ServicioId}." });
 
                 return Ok(new { mensaje = "Solicitud actualizada correctamente." });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error al editar la solicitud de la tarea {TareaId}.", request.TareaId);
-                return StatusCode(500, "Ocurrió un error al procesar la solicitud.");
+                return StatusCode(500, new
+                {
+                    mensaje = "Ocurrió un error al procesar la solicitud.",
+                    error = ex.Message,
+                    detalle = ex.InnerException?.Message
+                });
             }
         }
 
