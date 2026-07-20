@@ -64,6 +64,9 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
                 TareaId = t.TareaId,
                 NombreProyecto = proyecto != null ? proyecto.Nombre : null,
                 LogoUrlProveedor = proveedor != null ? proveedor.LogoUrl : null,
+                NombreProveedor = proveedor != null
+    ? (!string.IsNullOrWhiteSpace(proveedor.NombreComercial) ? proveedor.NombreComercial : proveedor.RazonSocial)
+    : null,
                 TaskCode = t.TaskCode,
                 ClienteId = t.ClienteId,
                 ProyectoId = t.ProyectoId,
@@ -91,6 +94,8 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
                 FechaVencimiento = t.FechaVencimiento,
 
                 PresupuestoAsignado = t.PresupuestoAsignado,
+                PresupuestoUsado = t.PresupuestoUsado,
+                PresupuestoDisponible = t.PresupuestoDisponible,
                 Moneda = t.Moneda,
 
                 DateCreated = t.DateCreated,
