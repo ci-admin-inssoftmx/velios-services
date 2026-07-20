@@ -1,0 +1,81 @@
+2026-07-20 01:37:29.641 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-20 01:37:30.109 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-07-20 01:37:30.573 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-07-20 01:37:30.577 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-07-20 01:37:30.704 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-07-20 01:37:30.707 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-07-20 01:37:30.710 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-07-20 01:37:59.190 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-07-20 01:37:59.669 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-07-20 01:37:59.862 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 702.1424ms
+2026-07-20 01:37:59.868 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-07-20 01:42:08.283 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-20 01:42:08.497 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-07-20 01:42:08.727 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-07-20 01:42:08.731 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-07-20 01:42:08.825 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-07-20 01:42:08.828 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-07-20 01:42:08.831 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-07-20 01:43:17.537 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-07-20 01:43:17.936 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-07-20 01:43:18.229 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 717.8513ms
+2026-07-20 01:43:18.236 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-07-20 01:43:22.183 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-07-20 01:43:22.199 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-07-20 01:43:22.380 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 197.4984ms
+2026-07-20 01:43:22.424 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-20 01:43:22.444 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-07-20 01:43:22.446 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-07-20 01:43:22.476 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-07-20 01:43:22.484 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 40.8915ms
+2026-07-20 01:43:22.530 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 127.6981ms
+2026-07-20 01:43:22.579 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 136.1325ms
+2026-07-20 01:43:22.652 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-07-20 01:43:22.657 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-07-20 01:43:22.881 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 229.0692ms
+2026-07-20 01:43:47.521 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/tasks/ssss - null null
+2026-07-20 01:43:47.545 [INF] velios.Api
+      Incoming: GET /api/tasks/ssss CT=null Len=null
+2026-07-20 01:43:47.618 [INF] Microsoft.AspNetCore.Authorization.DefaultAuthorizationService
+      Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-07-20 01:43:47.634 [INF] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler
+      AuthenticationScheme: Bearer was challenged.
+2026-07-20 01:43:47.639 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/tasks/ssss - 401 0 null 163.2934ms
