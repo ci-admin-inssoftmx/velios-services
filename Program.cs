@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog.Extensions.Logging;
 using System.Text;
 using velios.Api.Data;
 using velios.Api.Models.Common;
@@ -15,6 +17,9 @@ using velios.Api.Services.ProveedoresDocs;
 using velios.Api.Services.Security;
 using velios.Api.Services.ServiciosCategoria;
 using velios.Api.Services.ServiciosProveedor;
+using Serilog;
+using Serilog.Extensions.Logging;
+
 
 /// <summary>
 /// Punto de entrada de Velios API (Minimal Hosting .NET 6+).
@@ -25,7 +30,22 @@ using velios.Api.Services.ServiciosProveedor;
 /// </summary>
 var builder = WebApplication.CreateBuilder(args);
 
+var logsPath = Path.Combine(builder.Environment.ContentRootPath, "logs", "app-.txt");
+
+var serilogLogger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.File(
+        path: logsPath,
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 30,
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {SourceContext}{NewLine}      {Message:lj}{NewLine}{Exception}")
+    .CreateLogger();
+
+Console.WriteLine($"[Serilog] Logs escribiéndose en: {Path.GetDirectoryName(logsPath)}");
+builder.Logging.AddProvider(new SerilogLoggerProvider(serilogLogger, dispose: true));
+
 #region ============================= CONFIGURACIÓN DE SERVICIOS =============================
+
 
 // ------------------------------------------------------------
 // 1) Configuración de opciones (Settings)
@@ -53,9 +73,12 @@ builder.Services.AddSingleton<IPasswordHasher, LegacyPasswordHasher>();
 builder.Services.AddScoped<IProveedorDocumentService, ProveedorDocumentService>();
 
 // Registro del módulo de reporte de materialidad
+builder.Services.AddScoped<IReporteMaterialidadPreeliminarService, ReporteMaterialidadPreeliminarService>();
 builder.Services.AddScoped<IReporteMaterialidadRepository, ReporteMaterialidadRepository>();
 builder.Services.AddScoped<IReporteMaterialidadService, ReporteMaterialidadService>();
+
 builder.Services.AddHttpClient();
+
 // Servicios - Categorías
 builder.Services.AddScoped<ICategoriaServicioService, CategoriaServicioService>();
 

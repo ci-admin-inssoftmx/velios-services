@@ -1,4 +1,5 @@
-﻿using velios.Api.Models.ServiciosCategoria;
+﻿
+using velios.Api.Models.ServiciosCategoria;
 
 namespace velios.Api.Services.ServiciosCategoria
 {
@@ -13,10 +14,10 @@ namespace velios.Api.Services.ServiciosCategoria
         Task<int> GuardarSolicitudAsync(GuardarSolicitudRequest request);
         Task<bool> EditarSolicitudAsync(EditarSolicitudRequest request);
         Task<SolicitudServicioModel?> GetSolicitudAsync(int tareaId);
+        Task<bool> ValidarTareaExisteAsync(int tareaId); // ← NUEVO
 
         // ── Buscador ───────────────────────────────────────────
         Task<BuscadorServicioResultado> BuscarAsync(string busqueda);
         Task<BuscadorJerarquiaResultado> BuscarJerarquiaAsync(string busqueda);
-
     }
 }
