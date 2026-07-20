@@ -11,6 +11,8 @@ public class TareaReporteDto
     public string? NombreCentroTrabajo { get; set; }
 
     public string? LogoUrlProveedor { get; set; }
+    public string? NombreProveedor { get; set; }
+
     public string? DireccionCentroTrabajo { get; set; }
 
     public string? EmailSupervisor { get; set; }
@@ -33,13 +35,15 @@ public class TareaReporteDto
     public string? NombreOperador { get; set; }
     public string? NombreSupervisor { get; set; }
 
+
     public DateTime FechaAsignacion { get; set; }
     public DateTime? FechaProgramada { get; set; }
     public DateTime FechaVencimiento { get; set; }
 
     public decimal? PresupuestoAsignado { get; set; }
+    public decimal? PresupuestoUsado { get; set; }
+    public decimal? PresupuestoDisponible { get; set; }
     public string Moneda { get; set; } = string.Empty;
-
     public DateTime DateCreated { get; set; }
     public DateTime? DateModified { get; set; }
 
