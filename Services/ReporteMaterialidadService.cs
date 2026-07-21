@@ -266,6 +266,11 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         catch { }
         return null;
     }
+    private static string TruncarTexto(string? texto, int maxCaracteres)
+    {
+        if (string.IsNullOrWhiteSpace(texto)) return texto ?? string.Empty;
+        return texto.Length <= maxCaracteres ? texto : texto.Substring(0, maxCaracteres).TrimEnd() + "...";
+    }
 
     private async Task<byte[]> ConstruirPdfAsync(ReporteMaterialidadDto reporte, byte[]? qrBytes, byte[]? logoProveedorBytes)
     {
@@ -904,9 +909,8 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 right.Item().Height(6).Background("#24364D");
 
                 // Estatus / tipo de plan
-                right.Item().PaddingTop(4).Text(tarea.NombreProyecto ?? "Sin plan de trabajo")
+                right.Item().PaddingTop(4).Text(TruncarTexto(tarea.NombreProyecto ?? "Sin plan de trabajo", 40))
                     .SemiBold().FontSize(13).FontColor("#24364D");
-
                 right.Item().Row(r =>
                 {
                     r.ConstantItem(16).AlignMiddle().AlignCenter().Element(ic =>
@@ -992,10 +996,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                         r.RelativeItem().Column(c =>
                         {
-                            c.Item().Text(tarea.NombreCentroTrabajo ?? clienteDisplay)
+                            c.Item().Text(TruncarTexto(tarea.NombreCentroTrabajo ?? clienteDisplay, 35))
                                 .SemiBold().FontSize(13).FontColor("#24364D");
                             c.Item().Text("Sucursal /CT").FontSize(9).FontColor("#6B7280");
-                            c.Item().PaddingTop(4).Text(direccionDisplay)
+                            c.Item().PaddingTop(4).Text(TruncarTexto(direccionDisplay, 70))
                                 .FontSize(8).FontColor("#374151");
                         });
                     });
