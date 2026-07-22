@@ -279,19 +279,26 @@ public class CentrosTrabajoController : ControllerBase
                 });
             }
 
-            var clienteExiste = await _db.Clientes
-                .AsNoTracking()
-                .AnyAsync(x => x.ClienteId == model.ClienteId && x.IsDeleted == false);
-
-            if (!clienteExiste)
+            // ── MODIFICADO: ClienteId es opcional, si no viene usa el que ya tiene ──
+            if (model.ClienteId > 0)
             {
-                return BadRequest(new ApiResponse<object>
+                var clienteExiste = await _db.Clientes
+                    .AsNoTracking()
+                    .AnyAsync(x => x.ClienteId == model.ClienteId && x.IsDeleted == false);
+
+                if (!clienteExiste)
                 {
-                    success = false,
-                    message = "El cliente no existe.",
-                    statusCode = 400
-                });
+                    return BadRequest(new ApiResponse<object>
+                    {
+                        success = false,
+                        message = "El cliente no existe.",
+                        statusCode = 400
+                    });
+                }
+
+                entity.ClienteId = model.ClienteId;
             }
+            // ─────────────────────────────────────────────────────────────────────────
 
             if (string.IsNullOrWhiteSpace(model.Nombre))
             {
@@ -303,7 +310,6 @@ public class CentrosTrabajoController : ControllerBase
                 });
             }
 
-            entity.ClienteId = model.ClienteId;
             entity.Nombre = model.Nombre.Trim();
             entity.Estado = model.Estado?.Trim() ?? entity.Estado;
             entity.Zona = model.Zona?.Trim();
