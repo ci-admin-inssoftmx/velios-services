@@ -1032,7 +1032,7 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                     r.RelativeItem().Column(c =>
                     {
                         c.Item().Text(tarea.NombreProveedor ?? "N/A")
-                            .Bold().FontSize(13).FontColor("#24364D");
+                            .Bold().FontSize(11).FontColor("#24364D");
                         c.Item().Text("Proveedor")
                             .FontSize(7).FontColor("#6B7280");
                     });
