@@ -837,7 +837,7 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
         var tarea = reporte.Tarea;
         var cliente = reporte.Cliente;
 
-        container.PaddingLeft(28).Row(row =>
+        container.PaddingLeft(28).Shrink().Row(row =>
         {
             // -----------------------------------------------------------------
             // COLUMNA IZQUIERDA
@@ -868,7 +868,10 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                         {
                             text.Span("Descripción de la actividad a desarrollar: ")
                                 .SemiBold().FontSize(9).FontColor("#24364D");
-                            text.Span(tarea.Descripcion ?? "N/A")
+                            var descripcionCorta = tarea.Descripcion ?? "N/A";
+                            if (descripcionCorta.Length > 300)
+                                descripcionCorta = descripcionCorta[..300] + "...";
+                            text.Span(descripcionCorta)
                                 .FontSize(9).FontColor("#6B7280");
                         });
 
@@ -881,9 +884,10 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
 
                                 obs.Item().PaddingTop(4).Row(row =>
                                 {
-                                    var mitad = (int)Math.Ceiling(tarea.Observaciones.Count / 2.0);
-                                    var columnaIzq = tarea.Observaciones.Take(mitad).ToList();
-                                    var columnaDer = tarea.Observaciones.Skip(mitad).ToList();
+                                    var obsLimitadas = tarea.Observaciones.Take(6).ToList();
+                                    var mitad = (int)Math.Ceiling(obsLimitadas.Count / 2.0);
+                                    var columnaIzq = obsLimitadas.Take(mitad).ToList();
+                                    var columnaDer = obsLimitadas.Skip(mitad).ToList();
 
                                     row.RelativeItem().Column(col =>
                                     {
