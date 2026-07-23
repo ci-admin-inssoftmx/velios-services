@@ -21,28 +21,28 @@ jobs:
         uses: NuGet/setup-nuget@v2
 
       - name: Restaurar paquetes
-        shell: pwsh
         run: nuget restore velios.Api.sln
 
       - name: Publicar Sitio
-        shell: pwsh
-        run: >
-          msbuild velios.Api\velios.Api.csproj
-          /p:DeployOnBuild=true
-          /p:PublishProfile=Deploy
-          /p:Configuration=Release
-          /verbosity:minimal
-
-      - name: Validar Publicacion
-        shell: pwsh
+        shell: powershell
         run: |
-          if (!(Test-Path "velios.Api/obj/Release/net10.0/PubTmp/Out")) {
-            throw "No se encontro la carpeta Out"
+          msbuild velios.Api.csproj `
+            /p:DeployOnBuild=true `
+            /p:PublishProfile=FolderProfile3 `
+            /p:Configuration=Release `
+            /verbosity:minimal
+
+      - name: Validar Out
+        shell: powershell
+        run: |
+          if (!(Test-Path "obj\Release\net9.0\PubTmp\Out")) {
+            throw "No se encontró la carpeta Out"
           }
-          Get-ChildItem "velios.Api/obj/Release/net10.0/PubTmp/Out" -Recurse | Select-Object -First 50
+          Get-ChildItem "obj\Release\net9.0\PubTmp\Out" -Recurse |
+            Select-Object -First 20
 
       - name: Poner sitio en mantenimiento
-        shell: pwsh
+        shell: powershell
         run: |
           $content = "<html><body><h1>Sitio en mantenimiento</h1></body></html>"
           $ftp = [System.Net.FtpWebRequest]::Create("ftp://${{ secrets.FTP_SERVER }}/servicios/prd/app_offline.htm")
@@ -62,12 +62,12 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21
-          local-dir: velios.Api/obj/Release/net10.0/PubTmp/Out/
+          local-dir: obj/Release/net9.0/PubTmp/Out/
           server-dir: /servicios/prd/
           dangerous-clean-slate: false
 
       - name: Quitar mantenimiento
-        shell: pwsh
+        shell: powershell
         run: |
           $ftp = [System.Net.FtpWebRequest]::Create("ftp://${{ secrets.FTP_SERVER }}/servicios/prd/app_offline.htm")
           $ftp.Method = [System.Net.WebRequestMethods+Ftp]::DeleteFile
