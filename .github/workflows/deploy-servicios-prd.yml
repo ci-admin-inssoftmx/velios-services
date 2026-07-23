@@ -1,13 +1,14 @@
-name: Deploy Velios Servicios DEV
+name: Deploy Velios Servicios PRD
 
 on:
   push:
     branches:
-      - develop
+      - Produccion
 
 jobs:
   deploy:
     runs-on: windows-latest
+    environment: produccion
 
     steps:
       - name: Checkout Código
@@ -20,39 +21,31 @@ jobs:
         uses: NuGet/setup-nuget@v2
 
       - name: Restaurar paquetes
+        shell: pwsh
         run: nuget restore velios.Api.sln
 
       - name: Publicar Sitio
-        shell: powershell
-        run: |
-          msbuild velios.Api.csproj `
-            /p:DeployOnBuild=true `
-            /p:PublishProfile=FolderProfile3 `
-            /p:Configuration=Release `
-            /verbosity:minimal
+        shell: pwsh
+        run: >
+          msbuild velios.Api\velios.Api.csproj
+          /p:DeployOnBuild=true
+          /p:PublishProfile=Deploy
+          /p:Configuration=Release
+          /verbosity:minimal
 
-      - name: Validar Out
-        shell: powershell
+      - name: Validar Publicacion
+        shell: pwsh
         run: |
-          if (!(Test-Path "obj\Release\net9.0\PubTmp\Out")) {
-            throw "No se encontró la carpeta Out"
+          if (!(Test-Path "velios.Api/obj/Release/net10.0/PubTmp/Out")) {
+            throw "No se encontro la carpeta Out"
           }
-          Get-ChildItem "obj\Release\net9.0\PubTmp\Out" -Recurse |
-            Select-Object -First 20
-      - name: Verificar secrets
-        shell: powershell
-        run: |
-          if ("${{ secrets.FTP_SERVER }}" -eq "") {
-            Write-Host "FTP_SERVER esta VACIO"
-          } else {
-            Write-Host "FTP_SERVER tiene valor (longitud: $("${{ secrets.FTP_SERVER }}".Length))"
-          }
+          Get-ChildItem "velios.Api/obj/Release/net10.0/PubTmp/Out" -Recurse | Select-Object -First 50
 
       - name: Poner sitio en mantenimiento
-        shell: powershell
+        shell: pwsh
         run: |
           $content = "<html><body><h1>Sitio en mantenimiento</h1></body></html>"
-          $ftp = [System.Net.FtpWebRequest]::Create("ftp://${{ secrets.FTP_SERVER }}/servicios/dev/app_offline.htm")
+          $ftp = [System.Net.FtpWebRequest]::Create("ftp://${{ secrets.FTP_SERVER }}/servicios/prd/app_offline.htm")
           $ftp.Method = [System.Net.WebRequestMethods+Ftp]::UploadFile
           $ftp.Credentials = New-Object System.Net.NetworkCredential("${{ secrets.FTP_USERNAME }}", "${{ secrets.FTP_PASSWORD }}")
           $bytes = [System.Text.Encoding]::UTF8.GetBytes($content)
@@ -61,7 +54,7 @@ jobs:
           $stream.Write($bytes, 0, $bytes.Length)
           $stream.Close()
 
-      - name: Deploy FTP DEV
+      - name: Deploy FTP PRD
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -69,14 +62,14 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21
-          local-dir: obj/Release/net9.0/PubTmp/Out/
-          server-dir: /servicios/dev/
+          local-dir: velios.Api/obj/Release/net10.0/PubTmp/Out/
+          server-dir: /servicios/prd/
           dangerous-clean-slate: false
 
       - name: Quitar mantenimiento
-        shell: powershell
+        shell: pwsh
         run: |
-          $ftp = [System.Net.FtpWebRequest]::Create("ftp://${{ secrets.FTP_SERVER }}/servicios/dev/app_offline.htm")
+          $ftp = [System.Net.FtpWebRequest]::Create("ftp://${{ secrets.FTP_SERVER }}/servicios/prd/app_offline.htm")
           $ftp.Method = [System.Net.WebRequestMethods+Ftp]::DeleteFile
           $ftp.Credentials = New-Object System.Net.NetworkCredential("${{ secrets.FTP_USERNAME }}", "${{ secrets.FTP_PASSWORD }}")
           $ftp.GetResponse()
