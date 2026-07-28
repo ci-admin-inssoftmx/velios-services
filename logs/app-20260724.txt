@@ -1,0 +1,14 @@
+2026-07-24 12:23:02.624 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-24 12:23:02.968 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-07-24 12:23:03.231 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-07-24 12:23:03.234 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-07-24 12:23:03.336 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-07-24 12:23:03.339 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-07-24 12:23:03.342 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services

@@ -1224,75 +1224,56 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
     {
         container.PaddingLeft(28).Column(column =>
         {
-            column.Item().Row(row =>
+            // Fila de info — sin QR, ocupa todo el ancho
+            column.Item().PaddingBottom(4).Row(r =>
             {
-                row.ConstantItem(70).Element(qr =>
+                r.RelativeItem().AlignMiddle().AlignCenter().Column(c =>
                 {
-                    qr.Background(Colors.White)
-                      .Border(4).BorderColor("#24364D")
-                      .CornerRadius(8)
-                      .Padding(5)
-                      .AlignCenter().AlignMiddle()
-                      .Element(img =>
-                      {
-                          if (qrBytes is not null && qrBytes.Length > 0)
-                              img.Image(qrBytes, ImageScaling.FitArea);
-                          else
-                              img.Text("QR").Bold().FontSize(10).FontColor("#24364D");
-                      });
+                    c.Item().AlignCenter().Text(nombreProyecto)
+                        .Bold().FontSize(11).FontColor("#24364D");
                 });
 
-                row.RelativeItem().PaddingLeft(10).PaddingRight(10).PaddingBottom(4).AlignBottom().Row(r =>
+                r.ConstantItem(20).AlignMiddle().AlignCenter().Column(c =>
                 {
-                    r.RelativeItem().AlignMiddle().AlignCenter().Column(c =>
-                    {
-                        c.Item().AlignCenter().Text(nombreProyecto)
-                            .Bold().FontSize(11).FontColor("#24364D");
-                    });
+                    c.Item().Width(1).Height(22).Background("#BDBDBD");
+                });
 
-                    r.ConstantItem(20).AlignMiddle().AlignCenter().Column(c =>
-                    {
-                        c.Item().Width(1).Height(22).Background("#BDBDBD");
-                    });
+                r.RelativeItem().AlignCenter().Row(logoRow =>
+                {
+                    if (logoProveedorBytes is not null && logoProveedorBytes.Length > 0)
+                        logoRow.ConstantItem(55).Height(30).AlignCenter().AlignMiddle()
+                            .Element(img => img.Image(logoProveedorBytes, ImageScaling.FitArea));
+                    else if (logoBytes is not null && logoBytes.Length > 0)
+                        logoRow.ConstantItem(55).Height(30).AlignCenter().AlignMiddle()
+                            .Element(img => img.Image(logoBytes, ImageScaling.FitArea));
+                    else
+                        logoRow.RelativeItem().AlignCenter().AlignMiddle()
+                            .Text("Sin logo").FontSize(8).FontColor("#6B7280");
+                });
 
-                    r.RelativeItem().AlignCenter().Row(logoRow =>
+                r.ConstantItem(20).AlignMiddle().AlignCenter().Column(c =>
+                {
+                    c.Item().Width(1).Height(22).Background("#BDBDBD");
+                });
+
+                r.RelativeItem().AlignMiddle().AlignCenter().Row(eRow =>
+                {
+                    eRow.ConstantItem(14).AlignMiddle().Element(ic =>
                     {
-                        if (logoProveedorBytes is not null && logoProveedorBytes.Length > 0)
-                            logoRow.ConstantItem(55).Height(30).AlignCenter().AlignMiddle()
-                                .Element(img => img.Image(logoProveedorBytes, ImageScaling.FitArea));
-                        else if (logoBytes is not null && logoBytes.Length > 0)
-                            logoRow.ConstantItem(55).Height(30).AlignCenter().AlignMiddle()
-                                .Element(img => img.Image(logoBytes, ImageScaling.FitArea));
+                        if (carpetaIconBytes is not null && carpetaIconBytes.Length > 0)
+                            ic.Image(carpetaIconBytes, ImageScaling.FitArea);
                         else
-                            logoRow.RelativeItem().AlignCenter().AlignMiddle()
-                                .Text("Sin logo").FontSize(8).FontColor("#6B7280");
+                            ic.Text("▭").FontSize(10).FontColor("#6B7280");
                     });
-
-                    r.ConstantItem(20).AlignMiddle().AlignCenter().Column(c =>
-                    {
-                        c.Item().Width(1).Height(22).Background("#BDBDBD");
-                    });
-
-                    r.RelativeItem().AlignMiddle().AlignCenter().Row(eRow =>
-                    {
-                        eRow.ConstantItem(14).AlignMiddle().Element(ic =>
-                        {
-                            if (carpetaIconBytes is not null && carpetaIconBytes.Length > 0)
-                                ic.Image(carpetaIconBytes, ImageScaling.FitArea);
-                            else
-                                ic.Text("▭").FontSize(10).FontColor("#6B7280");
-                        });
-                        eRow.ConstantItem(4);
-                        eRow.RelativeItem().AlignMiddle()
-                            .Text(nombreProyecto).FontSize(9).SemiBold().FontColor("#6B7280");
-                    });
+                    eRow.ConstantItem(4);
+                    eRow.RelativeItem().AlignMiddle()
+                        .Text(nombreProyecto).FontSize(9).SemiBold().FontColor("#6B7280");
                 });
             });
 
+            // Barra azul — ahora ocupa todo el ancho sin espacio para QR
             column.Item().Background("#24364D").Row(row =>
             {
-                row.ConstantItem(70).Background("#24364D").Height(10);
-
                 row.RelativeItem().PaddingVertical(6).PaddingHorizontal(10).Row(r =>
                 {
                     r.RelativeItem().AlignCenter().Text(direccionDisplay)
