@@ -6,5 +6,5 @@
 /// </summary>
 public interface IReporteMaterialidadPreeliminarService
 {
-    Task<byte[]> GenerarPdfPorTareaAsync(int tareaId, Guid? jobId = null, ProgresoStore? progresoStore = null);
+    Task<byte[]> GenerarPdfPorTareaAsync(int tareaId);
 }
