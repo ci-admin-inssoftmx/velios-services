@@ -54,147 +54,216 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         QuestPDF.Settings.License = LicenseType.Community;
     }
 
-    public async Task<byte[]> GenerarPdfPorTareaAsync(int tareaId)
+    /// <summary>
+    /// Genera el PDF del reporte de materialidad para una tarea.
+    ///
+    /// PROGRESO (barra de carga): jobId y progresoStore son opcionales. Si se
+    /// pasan ambos, el método reporta avance en tiempo real (Total, Procesadas,
+    /// Estado) para que un endpoint de progreso lo pueda consultar por polling.
+    /// Si se omiten (como antes), el método funciona exactamente igual que
+    /// siempre, sin ningún efecto secundario adicional.
+    /// </summary>
+    public async Task<byte[]> GenerarPdfPorTareaAsync(int tareaId, Guid? jobId = null, ProgresoStore? progresoStore = null)
     {
-        // 1. Consultas a BD en SECUENCIA (EF Core no permite multithreading en el mismo DbContext)
-        var tarea = await _repository.ObtenerTareaAsync(tareaId)
-            ?? throw new InvalidOperationException($"No se encontró la tarea con id {tareaId}.");
-
-        var evidencias = await _repository.ObtenerEvidenciasPorTareaAsync(tareaId);
-        tarea.Observaciones = await _repository.ObtenerObservacionesPorTareaAsync(tareaId);
-
-        var cliente = await _repository.ObtenerClienteAsync(tarea.ClienteId)
-            ?? throw new InvalidOperationException($"No se encontró el cliente con id {tarea.ClienteId}.");
-
-        tarea.DireccionCentroTrabajo = await _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
-        tarea.TelefonoCentroTrabajo = await _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
-        tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
-
-        using var semaforo = new SemaphoreSlim(MaxConcurrencia);
-
-        // 2. Descarga de Logo Proveedor (si existe) - (Esto SÍ puede ir en paralelo porque es HTTP, no EF Core)
-        Task<byte[]?> logoProveedorTask = Task.FromResult<byte[]?>(null);
-        if (!string.IsNullOrWhiteSpace(tarea.LogoUrlProveedor))
+        // Helper local para no repetir el "if jobId.HasValue && progresoStore is not null"
+        // en cada punto donde queremos reportar avance.
+        void ReportarProgreso(Action<ProgresoReporte> update)
         {
-            logoProveedorTask = Task.Run(async () =>
-            {
-                var raw = await DescargarImagenConTimeoutAsync(tarea.LogoUrlProveedor);
-                return ReducirImagen(raw, maxAncho: 400, calidad: 80);
-            });
+            if (jobId.HasValue && progresoStore is not null)
+                progresoStore.Actualizar(jobId.Value, update);
         }
 
-        // 3. Caché de Google Maps y Geocoding por coordenadas únicas
-        var coordsUnicas = evidencias
-            .Where(e => e.Latitud.HasValue && e.Longitud.HasValue)
-            .Select(e => ClaveCoordenada(e.Latitud!.Value, e.Longitud!.Value))
-            .Distinct()
-            .ToList();
-
-        var mapaCache = new ConcurrentDictionary<string, byte[]?>();
-        var geoCache = new ConcurrentDictionary<string, GeocodingInfoDto?>();
-
-        var tareasGoogle = coordsUnicas.Select(async clave =>
-        {
-            await semaforo.WaitAsync();
-            try
-            {
-                var partes = clave.Split(',');
-                var lat = decimal.Parse(partes[0], CultureInfo.InvariantCulture);
-                var lng = decimal.Parse(partes[1], CultureInfo.InvariantCulture);
-
-                var mapaT = DescargarMapaAsync(lat, lng);
-                var geoT = ObtenerGeocodingAsync(lat, lng);
-
-                await Task.WhenAll(mapaT, geoT);
-
-                mapaCache[clave] = ReducirImagen(mapaT.Result, maxAncho: 400, calidad: 60);
-                geoCache[clave] = geoT.Result;
-            }
-            finally
-            {
-                semaforo.Release();
-            }
-        });
-
-        // 4. Descargar imágenes de evidencias en paralelo (Peticiones HTTP externas seguras para hilos)
-        var tareasImagenesEvidencias = evidencias.Select(async evidencia =>
-        {
-            if (string.IsNullOrWhiteSpace(evidencia.UrlArchivo)) return;
-
-            await semaforo.WaitAsync();
-            try
-            {
-                var raw = await DescargarImagenConTimeoutAsync(evidencia.UrlArchivo);
-                if (raw != null && raw.Length > 0)
-                {
-                    var reducida = ReducirImagen(raw, maxAncho: 900, calidad: 70);
-                    evidencia.ImagenBytes = reducida ?? raw;
-                }
-            }
-            finally
-            {
-                semaforo.Release();
-            }
-        });
-
-        // Esperar únicamente descargas externas de red (HTTP)
-        await Task.WhenAll(Task.WhenAll(tareasGoogle), Task.WhenAll(tareasImagenesEvidencias), logoProveedorTask);
-
-        // Vincular caché a evidencias
-        foreach (var evidencia in evidencias)
-        {
-            if (evidencia.Latitud.HasValue && evidencia.Longitud.HasValue)
-            {
-                var claveCoord = ClaveCoordenada(evidencia.Latitud.Value, evidencia.Longitud.Value);
-
-                if (mapaCache.TryGetValue(claveCoord, out var mBytes))
-                    evidencia.MapaBytes = mBytes;
-
-                if (geoCache.TryGetValue(claveCoord, out var geo) && geo != null)
-                {
-                    evidencia.DireccionFormateada = geo.DireccionFormateada;
-                    evidencia.Colonia = geo.Colonia;
-                    evidencia.Municipio = geo.Municipio;
-                    evidencia.Estado = geo.Estado;
-                    evidencia.CodigoPostal = geo.CodigoPostal;
-                    evidencia.Pais = geo.Pais;
-                }
-
-                var lat = evidencia.Latitud.Value.ToString(CultureInfo.InvariantCulture);
-                var lng = evidencia.Longitud.Value.ToString(CultureInfo.InvariantCulture);
-                evidencia.GoogleMapsUrl = $"https://www.google.com/maps?q={lat},{lng}";
-            }
-
-            if (string.IsNullOrWhiteSpace(evidencia.DireccionFormateada))
-                evidencia.DireccionFormateada = evidencia.Direccion;
-        }
-
-        tarea.Evidencias = evidencias;
-
-        var reporte = new ReporteMaterialidadDto
-        {
-            Cliente = cliente,
-            Tarea = tarea,
-            FechaGeneracion = DateTime.Now,
-            Resumen = ConstruirResumen(tarea)
-        };
-
-        // Generar QR
-        byte[]? qrBytes = null;
         try
         {
-            var token = BuildValidationToken(tarea.TareaId);
-            var BaseUrlFront = _configuration["AppSettings:BaseUrlFront"];
-            var qrDirectTemplate = BaseUrlFront + $"Documentos/Verificar?taskId={tareaId}&token={token}";
-            qrBytes = GenerarQrBytes(qrDirectTemplate);
-        }
-        catch
-        {
-            try { qrBytes = GenerarQrBytes($"TAREA:{tarea.TareaId}"); }
-            catch { qrBytes = null; }
-        }
+            // 1. Consultas a BD en SECUENCIA (EF Core no permite multithreading en el mismo DbContext)
+            var tarea = await _repository.ObtenerTareaAsync(tareaId)
+                ?? throw new InvalidOperationException($"No se encontró la tarea con id {tareaId}.");
 
-        return await ConstruirPdfAsync(reporte, qrBytes, logoProveedorTask.Result);
+            var evidencias = await _repository.ObtenerEvidenciasPorTareaAsync(tareaId);
+            tarea.Observaciones = await _repository.ObtenerObservacionesPorTareaAsync(tareaId);
+
+            var cliente = await _repository.ObtenerClienteAsync(tarea.ClienteId)
+                ?? throw new InvalidOperationException($"No se encontró el cliente con id {tarea.ClienteId}.");
+
+            tarea.DireccionCentroTrabajo = await _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
+            tarea.TelefonoCentroTrabajo = await _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
+            tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
+
+            // PROGRESO: ya sabemos cuántas evidencias hay -> esto es el "total" que verá el usuario.
+            ReportarProgreso(p =>
+            {
+                p.Total = evidencias.Count;
+                p.Procesadas = 0;
+                p.Estado = "Procesando";
+            });
+
+            using var semaforo = new SemaphoreSlim(MaxConcurrencia);
+
+            // 2. Descarga de Logo Proveedor (si existe) - (Esto SÍ puede ir en paralelo porque es HTTP, no EF Core)
+            Task<byte[]?> logoProveedorTask = Task.FromResult<byte[]?>(null);
+            if (!string.IsNullOrWhiteSpace(tarea.LogoUrlProveedor))
+            {
+                logoProveedorTask = Task.Run(async () =>
+                {
+                    var raw = await DescargarImagenConTimeoutAsync(tarea.LogoUrlProveedor);
+                    return ReducirImagen(raw, maxAncho: 400, calidad: 80);
+                });
+            }
+
+            // 3. Caché de Google Maps y Geocoding por coordenadas únicas
+            var coordsUnicas = evidencias
+                .Where(e => e.Latitud.HasValue && e.Longitud.HasValue)
+                .Select(e => ClaveCoordenada(e.Latitud!.Value, e.Longitud!.Value))
+                .Distinct()
+                .ToList();
+
+            var mapaCache = new ConcurrentDictionary<string, byte[]?>();
+            var geoCache = new ConcurrentDictionary<string, GeocodingInfoDto?>();
+
+            var tareasGoogle = coordsUnicas.Select(async clave =>
+            {
+                await semaforo.WaitAsync();
+                try
+                {
+                    var partes = clave.Split(',');
+                    var lat = decimal.Parse(partes[0], CultureInfo.InvariantCulture);
+                    var lng = decimal.Parse(partes[1], CultureInfo.InvariantCulture);
+
+                    var mapaT = DescargarMapaAsync(lat, lng);
+                    var geoT = ObtenerGeocodingAsync(lat, lng);
+
+                    await Task.WhenAll(mapaT, geoT);
+
+                    mapaCache[clave] = ReducirImagen(mapaT.Result, maxAncho: 400, calidad: 60);
+                    geoCache[clave] = geoT.Result;
+                }
+                finally
+                {
+                    semaforo.Release();
+                }
+            });
+
+            // PROGRESO: contador thread-safe de evidencias ya procesadas. Se incrementa
+            // sin importar si la descarga de la imagen tuvo éxito o falló, porque lo que
+            // le importa al usuario es "cuántas ya se resolvieron", no cuántas salieron bien.
+            var procesadas = 0;
+
+            // 4. Descargar imágenes de evidencias en paralelo (Peticiones HTTP externas seguras para hilos)
+            var tareasImagenesEvidencias = evidencias.Select(async evidencia =>
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(evidencia.UrlArchivo)) return;
+
+                    await semaforo.WaitAsync();
+                    try
+                    {
+                        var raw = await DescargarImagenConTimeoutAsync(evidencia.UrlArchivo);
+                        if (raw != null && raw.Length > 0)
+                        {
+                            var reducida = ReducirImagen(raw, maxAncho: 900, calidad: 70);
+                            evidencia.ImagenBytes = reducida ?? raw;
+                        }
+                    }
+                    finally
+                    {
+                        semaforo.Release();
+                    }
+                }
+                finally
+                {
+                    var actuales = Interlocked.Increment(ref procesadas);
+                    ReportarProgreso(p => p.Procesadas = actuales);
+                }
+            });
+
+            // Esperar únicamente descargas externas de red (HTTP)
+            await Task.WhenAll(Task.WhenAll(tareasGoogle), Task.WhenAll(tareasImagenesEvidencias), logoProveedorTask);
+
+            // Vincular caché a evidencias
+            foreach (var evidencia in evidencias)
+            {
+                if (evidencia.Latitud.HasValue && evidencia.Longitud.HasValue)
+                {
+                    var claveCoord = ClaveCoordenada(evidencia.Latitud.Value, evidencia.Longitud.Value);
+
+                    if (mapaCache.TryGetValue(claveCoord, out var mBytes))
+                        evidencia.MapaBytes = mBytes;
+
+                    if (geoCache.TryGetValue(claveCoord, out var geo) && geo != null)
+                    {
+                        evidencia.DireccionFormateada = geo.DireccionFormateada;
+                        evidencia.Colonia = geo.Colonia;
+                        evidencia.Municipio = geo.Municipio;
+                        evidencia.Estado = geo.Estado;
+                        evidencia.CodigoPostal = geo.CodigoPostal;
+                        evidencia.Pais = geo.Pais;
+                    }
+
+                    var lat = evidencia.Latitud.Value.ToString(CultureInfo.InvariantCulture);
+                    var lng = evidencia.Longitud.Value.ToString(CultureInfo.InvariantCulture);
+                    evidencia.GoogleMapsUrl = $"https://www.google.com/maps?q={lat},{lng}";
+                }
+
+                if (string.IsNullOrWhiteSpace(evidencia.DireccionFormateada))
+                    evidencia.DireccionFormateada = evidencia.Direccion;
+            }
+
+            tarea.Evidencias = evidencias;
+
+            var reporte = new ReporteMaterialidadDto
+            {
+                Cliente = cliente,
+                Tarea = tarea,
+                FechaGeneracion = DateTime.Now,
+                Resumen = ConstruirResumen(tarea)
+            };
+
+            // Generar QR
+            byte[]? qrBytes = null;
+            try
+            {
+                var token = BuildValidationToken(tarea.TareaId);
+                var BaseUrlFront = _configuration["AppSettings:BaseUrlFront"];
+                var qrDirectTemplate = BaseUrlFront + $"Documentos/Verificar?taskId={tareaId}&token={token}";
+                qrBytes = GenerarQrBytes(qrDirectTemplate);
+            }
+            catch
+            {
+                try { qrBytes = GenerarQrBytes($"TAREA:{tarea.TareaId}"); }
+                catch { qrBytes = null; }
+            }
+
+            // PROGRESO: las descargas terminaron (debería estar en 100% de esa fase).
+            // Ahora entra el render del PDF: QuestPDF no expone avance interno, así que
+            // aquí solo cambiamos el estado para que el front muestre "Generando PDF..."
+            // en vez de un porcentaje que no podemos medir.
+            ReportarProgreso(p => p.Estado = "GenerandoPdf");
+
+            var pdfBytes = await ConstruirPdfAsync(reporte, qrBytes, logoProveedorTask.Result);
+
+            // PROGRESO: listo. Guardamos el PDF en el store para que el endpoint de
+            // descarga lo pueda servir sin tener que regenerar nada.
+            ReportarProgreso(p =>
+            {
+                p.Estado = "Completado";
+                p.Procesadas = p.Total;
+                p.PdfBytes = pdfBytes;
+            });
+
+            return pdfBytes;
+        }
+        catch (Exception ex)
+        {
+            // PROGRESO: si algo truena en cualquier punto, el front debe enterarse
+            // por polling en vez de quedarse esperando un job que ya nunca va a llegar.
+            ReportarProgreso(p =>
+            {
+                p.Estado = "Error";
+                p.Mensaje = ex.Message;
+            });
+            throw;
+        }
     }
 
     private static byte[]? ReducirImagen(byte[]? bytesOriginales, int maxAncho = 900, int calidad = 70)
