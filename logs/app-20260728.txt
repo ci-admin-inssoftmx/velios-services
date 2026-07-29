@@ -1,0 +1,1554 @@
+2026-07-28 19:12:53.116 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-28 19:12:53.481 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-07-28 19:12:53.764 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-07-28 19:12:53.767 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-07-28 19:12:53.868 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-07-28 19:12:53.872 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-07-28 19:12:53.875 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-07-28 19:12:56.580 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-07-28 19:12:56.876 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-07-28 19:12:57.066 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 508.3356ms
+2026-07-28 19:12:57.071 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-07-28 19:13:01.756 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-07-28 19:13:01.772 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-07-28 19:13:01.945 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 188.7843ms
+2026-07-28 19:13:01.963 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-28 19:13:01.965 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-07-28 19:13:01.970 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-07-28 19:13:01.975 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-07-28 19:13:01.983 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 21.5497ms
+2026-07-28 19:13:02.052 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 90.1029ms
+2026-07-28 19:13:02.110 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 138.6897ms
+2026-07-28 19:13:14.079 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-07-28 19:13:14.088 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-07-28 19:13:14.095 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 15.3949ms
+2026-07-28 19:13:14.136 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - null null
+2026-07-28 19:13:14.140 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - null null
+2026-07-28 19:13:14.145 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui.css CT=null Len=null
+2026-07-28 19:13:14.171 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-28 19:13:14.200 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-07-28 19:13:14.233 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-07-28 19:13:14.235 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-28 19:13:14.263 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-bundle.js CT=null Len=null
+2026-07-28 19:13:14.295 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-07-28 19:13:14.327 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-standalone-preset.js CT=null Len=null
+2026-07-28 19:13:14.333 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 185.0665ms
+2026-07-28 19:13:14.385 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 190.0374ms
+2026-07-28 19:13:14.404 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 255.0133ms
+2026-07-28 19:13:14.496 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-07-28 19:13:14.497 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2026-07-28 19:13:14.539 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-07-28 19:13:14.548 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - 200 152035 text/css 414.0355ms
+2026-07-28 19:13:14.550 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - 200 230007 text/javascript 403.9179ms
+2026-07-28 19:13:14.554 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - 200 1426050 text/javascript 403.9683ms
+2026-07-28 19:13:14.753 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-07-28 19:13:14.759 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-07-28 19:13:14.961 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 207.8228ms
+2026-07-28 19:13:26.434 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/ReporteMaterialidad/tarea/87 - null null
+2026-07-28 19:13:26.443 [INF] velios.Api
+      Incoming: GET /api/ReporteMaterialidad/tarea/87 CT=null Len=null
+2026-07-28 19:13:26.454 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.ReporteMaterialidadController.GenerarPorTarea (velios.Api)'
+2026-07-28 19:13:26.520 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "GenerarPorTarea", controller = "ReporteMaterialidad"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GenerarPorTarea(Int32) on controller velios.Api.Controllers.ReporteMaterialidadController (velios.Api).
+2026-07-28 19:13:27.959 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-07-28 19:13:27.963 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-07-28 19:13:27.967 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-07-28 19:13:27.971 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-07-28 19:13:27.975 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-07-28 19:13:30.202 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/proveedores/49/logo.png
+2026-07-28 19:13:30.207 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/proveedores/49/logo.png
+2026-07-28 19:13:31.054 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 827.9919ms - 200
+2026-07-28 19:13:31.061 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 861.8534ms - 200
+2026-07-28 19:13:41.470 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-07-28 19:13:41.475 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-07-28 19:13:41.478 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-07-28 19:13:41.481 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-07-28 19:13:42.238 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/3552781b-1463-48f5-964f-828014ce557d.jpg
+2026-07-28 19:13:42.241 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/3552781b-1463-48f5-964f-828014ce557d.jpg
+2026-07-28 19:13:42.247 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/7381282f-1930-4826-827d-998c2628cdd7.jpg
+2026-07-28 19:13:42.250 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/7381282f-1930-4826-827d-998c2628cdd7.jpg
+2026-07-28 19:13:42.253 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fefef2a8-9d8e-41ba-bb5e-3d986adaf697.jpg
+2026-07-28 19:13:42.256 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fefef2a8-9d8e-41ba-bb5e-3d986adaf697.jpg
+2026-07-28 19:13:42.260 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/1e650823-fa18-4cd3-9d8b-21d8fa455444.jpg
+2026-07-28 19:13:42.263 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/1e650823-fa18-4cd3-9d8b-21d8fa455444.jpg
+2026-07-28 19:13:42.267 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fe68f3be-daf6-4ae3-8836-82efeedf96cd.jpg
+2026-07-28 19:13:42.304 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fe68f3be-daf6-4ae3-8836-82efeedf96cd.jpg
+2026-07-28 19:13:42.308 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/dba0658d-5f44-4f85-b1e1-6a3eb1737f9b.jpg
+2026-07-28 19:13:42.311 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/dba0658d-5f44-4f85-b1e1-6a3eb1737f9b.jpg
+2026-07-28 19:13:42.315 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/38493725-ae74-4789-9ad9-09535ee40dee.jpg
+2026-07-28 19:13:42.318 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/38493725-ae74-4789-9ad9-09535ee40dee.jpg
+2026-07-28 19:13:42.322 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/250d3534-df17-4949-ba38-d3f9e9d7d486.jpg
+2026-07-28 19:13:42.325 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/250d3534-df17-4949-ba38-d3f9e9d7d486.jpg
+2026-07-28 19:13:42.359 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 113.0428ms - 200
+2026-07-28 19:13:42.362 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 124.5502ms - 200
+2026-07-28 19:13:42.767 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 498.8328ms - 200
+2026-07-28 19:13:42.771 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 509.6141ms - 200
+2026-07-28 19:13:42.781 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 527.707ms - 200
+2026-07-28 19:13:42.785 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 538.1747ms - 200
+2026-07-28 19:13:42.801 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 528.8596ms - 200
+2026-07-28 19:13:42.805 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 489.7725ms - 200
+2026-07-28 19:13:42.808 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 550.906ms - 200
+2026-07-28 19:13:42.812 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 497.1863ms - 200
+2026-07-28 19:13:42.848 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 503.9752ms - 200
+2026-07-28 19:13:42.872 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 584.4258ms - 200
+2026-07-28 19:13:42.879 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 529.609ms - 200
+2026-07-28 19:13:42.912 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 567.834ms - 200
+2026-07-28 19:13:43.984 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:43.988 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:43.998 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:44.003 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:44.267 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 274.8565ms - 403
+2026-07-28 19:13:44.271 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 287.8639ms - 403
+2026-07-28 19:13:44.350 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:44.353 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:44.357 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 350.0806ms - 200
+2026-07-28 19:13:44.361 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 363.0672ms - 200
+2026-07-28 19:13:44.364 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:44.367 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:44.377 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f24b97fe-6212-4e29-a6e9-437fc1fc0ccd.jpg
+2026-07-28 19:13:44.380 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f24b97fe-6212-4e29-a6e9-437fc1fc0ccd.jpg
+2026-07-28 19:13:44.464 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 92.6003ms - 200
+2026-07-28 19:13:44.470 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 103.3086ms - 200
+2026-07-28 19:13:44.477 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 119.0896ms - 403
+2026-07-28 19:13:44.481 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 131.0352ms - 403
+2026-07-28 19:13:44.486 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fa8350f6-4099-4d64-a06f-4d1f64aa9583.jpg
+2026-07-28 19:13:44.490 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fa8350f6-4099-4d64-a06f-4d1f64aa9583.jpg
+2026-07-28 19:13:44.540 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 154.4267ms - 200
+2026-07-28 19:13:44.543 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 167.2755ms - 200
+2026-07-28 19:13:44.679 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 184.4242ms - 200
+2026-07-28 19:13:44.683 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 196.0766ms - 200
+2026-07-28 19:13:44.857 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:44.857 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:44.861 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:44.864 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:44.868 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:44.871 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:44.874 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:44.878 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:44.951 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 70.0166ms - 200
+2026-07-28 19:13:44.954 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 86.1019ms - 200
+2026-07-28 19:13:44.969 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:44.994 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 101.6651ms - 403
+2026-07-28 19:13:44.998 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 101.5999ms - 403
+2026-07-28 19:13:45.000 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:45.027 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 171.8416ms - 403
+2026-07-28 19:13:45.030 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 174.6953ms - 403
+2026-07-28 19:13:45.033 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:45.037 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:45.042 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/a45884f4-c61f-4347-a0c6-10ef5ce5dd4e.jpg
+2026-07-28 19:13:45.045 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/a45884f4-c61f-4347-a0c6-10ef5ce5dd4e.jpg
+2026-07-28 19:13:45.122 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 240.6417ms - 200
+2026-07-28 19:13:45.126 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 85.0438ms - 200
+2026-07-28 19:13:45.129 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 257.4869ms - 200
+2026-07-28 19:13:45.132 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 98.3627ms - 200
+2026-07-28 19:13:45.134 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/2140d5ff-c836-4400-9e9f-78d23c59f279.jpg
+2026-07-28 19:13:45.138 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/2140d5ff-c836-4400-9e9f-78d23c59f279.jpg
+2026-07-28 19:13:45.159 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 152.2576ms - 403
+2026-07-28 19:13:45.163 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 193.7882ms - 403
+2026-07-28 19:13:45.169 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/0edb3819-7b44-447a-84e3-d42b37f58613.jpg
+2026-07-28 19:13:45.173 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/0edb3819-7b44-447a-84e3-d42b37f58613.jpg
+2026-07-28 19:13:45.179 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 128.3854ms - 200
+2026-07-28 19:13:45.183 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 142.0718ms - 200
+2026-07-28 19:13:45.258 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 113.8602ms - 200
+2026-07-28 19:13:45.261 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 125.927ms - 200
+2026-07-28 19:13:45.324 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 146.5445ms - 200
+2026-07-28 19:13:45.327 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 159.601ms - 200
+2026-07-28 19:13:45.547 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:45.551 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:45.555 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:45.559 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:45.636 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 73.2767ms - 200
+2026-07-28 19:13:45.641 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 84.9049ms - 200
+2026-07-28 19:13:45.657 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 101.1235ms - 403
+2026-07-28 19:13:45.661 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 113.9008ms - 403
+2026-07-28 19:13:45.666 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/902052ae-f24f-460c-badb-c196307de4ab.jpg
+2026-07-28 19:13:45.670 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/902052ae-f24f-460c-badb-c196307de4ab.jpg
+2026-07-28 19:13:45.763 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:45.766 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:45.770 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:45.774 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:45.838 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 60.5032ms - 200
+2026-07-28 19:13:45.842 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 71.2241ms - 200
+2026-07-28 19:13:45.907 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 232.3807ms - 200
+2026-07-28 19:13:45.910 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 244.2672ms - 200
+2026-07-28 19:13:45.913 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 140.7826ms - 403
+2026-07-28 19:13:45.917 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 153.904ms - 403
+2026-07-28 19:13:45.921 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/69969ccc-e1bb-4dda-aa5d-c8c306aaee3d.jpg
+2026-07-28 19:13:45.925 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/69969ccc-e1bb-4dda-aa5d-c8c306aaee3d.jpg
+2026-07-28 19:13:45.928 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/b97a7373-9c9c-4a33-8bae-fd3d67cc188f.jpg
+2026-07-28 19:13:45.931 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/b97a7373-9c9c-4a33-8bae-fd3d67cc188f.jpg
+2026-07-28 19:13:46.135 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 205.8509ms - 200
+2026-07-28 19:13:46.138 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 217.5841ms - 200
+2026-07-28 19:13:46.175 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 207.5605ms - 200
+2026-07-28 19:13:46.214 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 250.6961ms - 200
+2026-07-28 19:13:46.301 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:46.304 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:46.308 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:46.313 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:46.386 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 69.0934ms - 200
+2026-07-28 19:13:46.420 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 111.5448ms - 200
+2026-07-28 19:13:46.424 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 115.786ms - 403
+2026-07-28 19:13:46.427 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 125.8164ms - 403
+2026-07-28 19:13:46.432 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/7d1df782-1646-4f43-9d6c-51d7b67580d7.jpg
+2026-07-28 19:13:46.436 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/7d1df782-1646-4f43-9d6c-51d7b67580d7.jpg
+2026-07-28 19:13:46.481 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:46.486 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:46.490 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:46.494 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:46.593 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 94.9374ms - 200
+2026-07-28 19:13:46.597 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 107.2774ms - 200
+2026-07-28 19:13:46.603 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 113.8694ms - 403
+2026-07-28 19:13:46.607 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 126.2783ms - 403
+2026-07-28 19:13:46.612 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/c3ac52fa-eda3-497d-8e90-d82388b0d15a.jpg
+2026-07-28 19:13:46.616 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/c3ac52fa-eda3-497d-8e90-d82388b0d15a.jpg
+2026-07-28 19:13:46.637 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 197.6868ms - 200
+2026-07-28 19:13:46.641 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 208.6571ms - 200
+2026-07-28 19:13:46.784 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 164.1961ms - 200
+2026-07-28 19:13:46.787 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 175.4269ms - 200
+2026-07-28 19:13:46.834 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:46.837 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:46.841 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:46.845 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:46.893 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:46.897 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:46.901 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:46.903 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:46.908 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 66.9987ms - 403
+2026-07-28 19:13:46.911 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 77.3625ms - 403
+2026-07-28 19:13:46.928 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 79.8458ms - 200
+2026-07-28 19:13:46.931 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 90.8774ms - 200
+2026-07-28 19:13:46.934 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/a82a77ae-c065-4980-8841-1ebd9f5d255b.jpg
+2026-07-28 19:13:46.938 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/a82a77ae-c065-4980-8841-1ebd9f5d255b.jpg
+2026-07-28 19:13:47.014 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 114.2437ms - 403
+2026-07-28 19:13:47.017 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 124.2107ms - 403
+2026-07-28 19:13:47.166 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 224.9751ms - 200
+2026-07-28 19:13:47.169 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 234.8309ms - 200
+2026-07-28 19:13:47.172 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:47.176 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:47.180 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:47.183 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 276.1843ms - 200
+2026-07-28 19:13:47.186 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:47.189 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 288.236ms - 200
+2026-07-28 19:13:47.194 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/ae6becb6-30e1-49dd-96c1-3d70ba804a03.jpg
+2026-07-28 19:13:47.197 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/ae6becb6-30e1-49dd-96c1-3d70ba804a03.jpg
+2026-07-28 19:13:47.261 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 81.5917ms - 403
+2026-07-28 19:13:47.263 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 91.4302ms - 403
+2026-07-28 19:13:47.272 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 83.8152ms - 200
+2026-07-28 19:13:47.276 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 96.1864ms - 200
+2026-07-28 19:13:47.278 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/2cf4100e-7aec-459a-b59a-424869be1f81.jpg
+2026-07-28 19:13:47.281 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/2cf4100e-7aec-459a-b59a-424869be1f81.jpg
+2026-07-28 19:13:47.377 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/01bb58c0-957c-4179-b8d9-6e33d0d57d24.jpg
+2026-07-28 19:13:47.380 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/01bb58c0-957c-4179-b8d9-6e33d0d57d24.jpg
+2026-07-28 19:13:47.385 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 184.9592ms - 200
+2026-07-28 19:13:47.388 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 195.9746ms - 200
+2026-07-28 19:13:47.416 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 132.4058ms - 200
+2026-07-28 19:13:47.419 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 140.1987ms - 200
+2026-07-28 19:13:47.557 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:47.561 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:47.564 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:47.567 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:47.642 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 256.5413ms - 200
+2026-07-28 19:13:47.648 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 268.9795ms - 200
+2026-07-28 19:13:47.665 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 100.3834ms - 403
+2026-07-28 19:13:47.667 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 112.3531ms - 403
+2026-07-28 19:13:47.701 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 129.9317ms - 200
+2026-07-28 19:13:47.704 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 139.3607ms - 200
+2026-07-28 19:13:47.711 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/dcb58c6f-caf9-4fb6-a106-2d75227b6422.jpg
+2026-07-28 19:13:47.714 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/dcb58c6f-caf9-4fb6-a106-2d75227b6422.jpg
+2026-07-28 19:13:47.862 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 144.5791ms - 200
+2026-07-28 19:13:47.865 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/65cfca8b-1d68-4246-ba98-5400c21e3852.jpg
+2026-07-28 19:13:47.891 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 159.7063ms - 200
+2026-07-28 19:13:47.895 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/65cfca8b-1d68-4246-ba98-5400c21e3852.jpg
+2026-07-28 19:13:48.078 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 180.0392ms - 200
+2026-07-28 19:13:48.081 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 219.5837ms - 200
+2026-07-28 19:13:48.140 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/4f9e7670-1c56-42ba-9957-c4f6f681ad2f.jpg
+2026-07-28 19:13:48.143 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/4f9e7670-1c56-42ba-9957-c4f6f681ad2f.jpg
+2026-07-28 19:13:48.314 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 166.7759ms - 200
+2026-07-28 19:13:48.318 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 178.3625ms - 200
+2026-07-28 19:13:48.332 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/506d11c1-df18-4863-8983-850acbe2b778.jpg
+2026-07-28 19:13:48.336 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/506d11c1-df18-4863-8983-850acbe2b778.jpg
+2026-07-28 19:13:48.497 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 156.9894ms - 200
+2026-07-28 19:13:48.502 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 169.4903ms - 200
+2026-07-28 19:13:48.570 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/4f60e23a-c93a-499d-8603-14caed1af681.jpg
+2026-07-28 19:13:48.575 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/4f60e23a-c93a-499d-8603-14caed1af681.jpg
+2026-07-28 19:13:48.790 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:48.796 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:48.801 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/302471fb-c73e-4c90-a06f-4d15606e740e.jpg
+2026-07-28 19:13:48.806 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:48.811 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/302471fb-c73e-4c90-a06f-4d15606e740e.jpg
+2026-07-28 19:13:48.815 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:48.819 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:48.823 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:48.828 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:48.832 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:48.881 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 53.5244ms - 200
+2026-07-28 19:13:48.887 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 70.0864ms - 200
+2026-07-28 19:13:48.893 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 68.2314ms - 403
+2026-07-28 19:13:48.897 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 96.0566ms - 403
+2026-07-28 19:13:48.901 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 96.3766ms - 403
+2026-07-28 19:13:48.905 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 116.1153ms - 403
+2026-07-28 19:13:48.915 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/df047ac4-11d2-48ca-9cb8-546318cac72c.jpg
+2026-07-28 19:13:48.920 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/df047ac4-11d2-48ca-9cb8-546318cac72c.jpg
+2026-07-28 19:13:48.937 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fbc26157-96ab-42de-823e-c3495c8af6ad.jpg
+2026-07-28 19:13:48.967 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 99.8831ms - 200
+2026-07-28 19:13:48.972 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fbc26157-96ab-42de-823e-c3495c8af6ad.jpg
+2026-07-28 19:13:48.979 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 156.5504ms - 200
+2026-07-28 19:13:48.983 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 396.4655ms - 200
+2026-07-28 19:13:48.988 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 182.5443ms - 200
+2026-07-28 19:13:48.993 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 143.6464ms - 200
+2026-07-28 19:13:48.997 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 421.9848ms - 200
+2026-07-28 19:13:49.030 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/76b769b7-84f6-4496-8620-8bfd798f9c9a.jpg
+2026-07-28 19:13:49.070 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/76b769b7-84f6-4496-8620-8bfd798f9c9a.jpg
+2026-07-28 19:13:49.075 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/49340254-4525-4b27-8c3e-750268c89b5b.jpg
+2026-07-28 19:13:49.079 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/49340254-4525-4b27-8c3e-750268c89b5b.jpg
+2026-07-28 19:13:49.088 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 164.4276ms - 200
+2026-07-28 19:13:49.092 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 177.4981ms - 200
+2026-07-28 19:13:49.137 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 153.9423ms - 200
+2026-07-28 19:13:49.144 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 205.6193ms - 200
+2026-07-28 19:13:49.300 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 224.7439ms - 200
+2026-07-28 19:13:49.304 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 302.0027ms - 200
+2026-07-28 19:13:49.492 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/ceb4560b-79fe-49ba-9658-43372e23ccf7.jpg
+2026-07-28 19:13:49.496 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/ceb4560b-79fe-49ba-9658-43372e23ccf7.jpg
+2026-07-28 19:13:49.655 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 153.6174ms - 200
+2026-07-28 19:13:49.663 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 168.7804ms - 200
+2026-07-28 19:13:49.731 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 646.7312ms - 200
+2026-07-28 19:13:49.735 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 659.9783ms - 200
+2026-07-28 19:13:49.948 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/cec78f51-987b-486b-b190-9a092e6299e5.jpg
+2026-07-28 19:13:49.952 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/cec78f51-987b-486b-b190-9a092e6299e5.jpg
+2026-07-28 19:13:49.956 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:49.962 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:49.968 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:49.972 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:50.029 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 62.2785ms - 403
+2026-07-28 19:13:50.033 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 77.7483ms - 403
+2026-07-28 19:13:50.037 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 57.3908ms - 200
+2026-07-28 19:13:50.043 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 74.6107ms - 200
+2026-07-28 19:13:50.049 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/e9469a0c-f6d7-478e-96c8-8aeaf312e981.jpg
+2026-07-28 19:13:50.053 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/e9469a0c-f6d7-478e-96c8-8aeaf312e981.jpg
+2026-07-28 19:13:50.105 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 148.838ms - 200
+2026-07-28 19:13:50.110 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 163.5637ms - 200
+2026-07-28 19:13:50.179 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 120.3152ms - 200
+2026-07-28 19:13:50.183 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 134.3651ms - 200
+2026-07-28 19:13:50.395 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/eded2c83-3a85-45b7-be18-e5fd2a916525.jpg
+2026-07-28 19:13:50.399 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/eded2c83-3a85-45b7-be18-e5fd2a916525.jpg
+2026-07-28 19:13:50.403 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/67fb0a36-70c4-4300-b627-788125893a51.jpg
+2026-07-28 19:13:50.408 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/67fb0a36-70c4-4300-b627-788125893a51.jpg
+2026-07-28 19:13:50.548 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 143.2742ms - 200
+2026-07-28 19:13:50.552 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 139.7917ms - 200
+2026-07-28 19:13:50.556 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 158.196ms - 200
+2026-07-28 19:13:50.561 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 156.6882ms - 200
+2026-07-28 19:13:50.663 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/90eff559-1476-49bc-8419-e0ccd9e1f972.jpg
+2026-07-28 19:13:50.666 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/90eff559-1476-49bc-8419-e0ccd9e1f972.jpg
+2026-07-28 19:13:50.727 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:50.730 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:50.736 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:50.742 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:50.797 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 62.6189ms - 403
+2026-07-28 19:13:50.801 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 78.2291ms - 403
+2026-07-28 19:13:50.805 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 59.0652ms - 200
+2026-07-28 19:13:50.810 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 73.942ms - 200
+2026-07-28 19:13:50.814 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/21dd1b56-c02f-4d0d-9956-54d380432428.jpg
+2026-07-28 19:13:50.818 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/21dd1b56-c02f-4d0d-9956-54d380432428.jpg
+2026-07-28 19:13:50.911 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 239.8777ms - 200
+2026-07-28 19:13:50.916 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 252.8994ms - 200
+2026-07-28 19:13:51.075 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 250.4396ms - 200
+2026-07-28 19:13:51.079 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 264.5244ms - 200
+2026-07-28 19:13:51.376 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:51.381 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:51.388 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:51.392 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:51.467 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 81.741ms - 403
+2026-07-28 19:13:51.471 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 97.5989ms - 403
+2026-07-28 19:13:51.513 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 116.611ms - 200
+2026-07-28 19:13:51.517 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 132.1135ms - 200
+2026-07-28 19:13:51.522 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/68ee7db6-c6b8-4052-9527-bd8bc8e72187.jpg
+2026-07-28 19:13:51.526 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/68ee7db6-c6b8-4052-9527-bd8bc8e72187.jpg
+2026-07-28 19:13:51.640 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:51.645 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:51.650 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:51.654 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:51.680 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 149.0545ms - 200
+2026-07-28 19:13:51.685 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 161.9625ms - 200
+2026-07-28 19:13:51.719 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 68.5093ms - 403
+2026-07-28 19:13:51.728 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 83.7948ms - 403
+2026-07-28 19:13:51.744 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 84.4404ms - 200
+2026-07-28 19:13:51.749 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 98.1968ms - 200
+2026-07-28 19:13:51.753 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/b941aaee-a2e3-45b3-a2d7-c56ca967a4a9.jpg
+2026-07-28 19:13:51.758 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/b941aaee-a2e3-45b3-a2d7-c56ca967a4a9.jpg
+2026-07-28 19:13:51.771 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/2b9641d4-1fa1-4ba4-a919-6e013d1bd158.jpg
+2026-07-28 19:13:51.777 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/2b9641d4-1fa1-4ba4-a919-6e013d1bd158.jpg
+2026-07-28 19:13:51.889 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 126.2811ms - 200
+2026-07-28 19:13:51.894 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 140.5875ms - 200
+2026-07-28 19:13:51.934 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 152.7269ms - 200
+2026-07-28 19:13:51.939 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 167.3456ms - 200
+2026-07-28 19:13:52.098 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:52.103 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:52.107 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:52.112 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:52.169 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 53.5837ms - 200
+2026-07-28 19:13:52.172 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 66.1827ms - 403
+2026-07-28 19:13:52.176 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 65.8217ms - 200
+2026-07-28 19:13:52.180 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 81.5904ms - 403
+2026-07-28 19:13:52.185 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/3a005132-cc4f-4bb8-bcdb-224a4386eec1.jpg
+2026-07-28 19:13:52.190 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/3a005132-cc4f-4bb8-bcdb-224a4386eec1.jpg
+2026-07-28 19:13:52.315 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:52.319 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:52.324 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:52.328 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:52.349 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 154.4817ms - 200
+2026-07-28 19:13:52.353 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 167.5863ms - 200
+2026-07-28 19:13:52.416 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 83.4243ms - 200
+2026-07-28 19:13:52.420 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 95.936ms - 200
+2026-07-28 19:13:52.449 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 124.9111ms - 403
+2026-07-28 19:13:52.453 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 137.6264ms - 403
+2026-07-28 19:13:52.460 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/18053c61-8b10-414c-a1e4-20fef8242804.jpg
+2026-07-28 19:13:52.464 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/18053c61-8b10-414c-a1e4-20fef8242804.jpg
+2026-07-28 19:13:52.717 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 246.2707ms - 200
+2026-07-28 19:13:52.721 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 262.3797ms - 200
+2026-07-28 19:13:52.919 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:52.927 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:52.932 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:52.937 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:52.995 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 61.6347ms - 403
+2026-07-28 19:13:52.999 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 53.4356ms - 200
+2026-07-28 19:13:53.003 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 83.8035ms - 403
+2026-07-28 19:13:53.028 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 71.7212ms - 200
+2026-07-28 19:13:53.036 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/67b6292a-fb2e-4b11-927c-da185ad84f1e.jpg
+2026-07-28 19:13:53.042 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/67b6292a-fb2e-4b11-927c-da185ad84f1e.jpg
+2026-07-28 19:13:53.060 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/0f0c6c2e-d746-4c38-a328-08112f691623.jpg
+2026-07-28 19:13:53.064 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/0f0c6c2e-d746-4c38-a328-08112f691623.jpg
+2026-07-28 19:13:53.183 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 137.9438ms - 200
+2026-07-28 19:13:53.186 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 153.2375ms - 200
+2026-07-28 19:13:53.243 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 170.9275ms - 200
+2026-07-28 19:13:53.247 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 188.3851ms - 200
+2026-07-28 19:13:53.635 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:53.640 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:53.646 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:53.651 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:53.712 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 57.5917ms - 200
+2026-07-28 19:13:53.717 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 71.4138ms - 200
+2026-07-28 19:13:53.746 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 100.9577ms - 403
+2026-07-28 19:13:53.749 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 115.8533ms - 403
+2026-07-28 19:13:53.756 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/cc284fc0-913e-4083-8b32-64c39056e1f0.jpg
+2026-07-28 19:13:53.761 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/cc284fc0-913e-4083-8b32-64c39056e1f0.jpg
+2026-07-28 19:13:53.802 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/872013a1-b5bb-4fa9-acb9-0b763cad4ca9.jpg
+2026-07-28 19:13:53.806 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/872013a1-b5bb-4fa9-acb9-0b763cad4ca9.jpg
+2026-07-28 19:13:53.810 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/9b2de3d0-b1e9-48fa-aea2-e5e60a354e8d.jpg
+2026-07-28 19:13:53.814 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/9b2de3d0-b1e9-48fa-aea2-e5e60a354e8d.jpg
+2026-07-28 19:13:53.950 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 184.7809ms - 200
+2026-07-28 19:13:53.954 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 198.8509ms - 200
+2026-07-28 19:13:54.004 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 189.3277ms - 200
+2026-07-28 19:13:54.010 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 190.4557ms - 200
+2026-07-28 19:13:54.015 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 207.6889ms - 200
+2026-07-28 19:13:54.019 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 210.7445ms - 200
+2026-07-28 19:13:54.366 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:54.369 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:54.374 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:54.379 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:54.397 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/4f2a1def-4e50-4f3b-8e94-b6b3f713ba0c.jpg
+2026-07-28 19:13:54.400 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/4f2a1def-4e50-4f3b-8e94-b6b3f713ba0c.jpg
+2026-07-28 19:13:54.467 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 82.9918ms - 200
+2026-07-28 19:13:54.471 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 93.2691ms - 403
+2026-07-28 19:13:54.475 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 101.1456ms - 200
+2026-07-28 19:13:54.479 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 109.4729ms - 403
+2026-07-28 19:13:54.486 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/799328c0-e4d9-47d4-b483-86c3f63d6052.jpg
+2026-07-28 19:13:54.490 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/799328c0-e4d9-47d4-b483-86c3f63d6052.jpg
+2026-07-28 19:13:54.528 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/5997199a-a94c-4eaf-a377-ddc93a4a8a11.jpg
+2026-07-28 19:13:54.531 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/5997199a-a94c-4eaf-a377-ddc93a4a8a11.jpg
+2026-07-28 19:13:54.542 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 136.8524ms - 200
+2026-07-28 19:13:54.546 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 148.8481ms - 200
+2026-07-28 19:13:54.618 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 122.8933ms - 200
+2026-07-28 19:13:54.622 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 136.8873ms - 200
+2026-07-28 19:13:54.714 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 177.149ms - 200
+2026-07-28 19:13:54.718 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 190.7862ms - 200
+2026-07-28 19:13:54.832 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/005f8415-ddff-489d-a8a4-702cd035701a.jpg
+2026-07-28 19:13:54.836 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/005f8415-ddff-489d-a8a4-702cd035701a.jpg
+2026-07-28 19:13:54.894 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/8e947728-2358-4821-9719-9105cc6a72ed.jpg
+2026-07-28 19:13:54.898 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/8e947728-2358-4821-9719-9105cc6a72ed.jpg
+2026-07-28 19:13:54.973 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f6272846-0c64-4e24-befb-5b30459d5233.jpg
+2026-07-28 19:13:54.978 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f6272846-0c64-4e24-befb-5b30459d5233.jpg
+2026-07-28 19:13:55.054 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 213.0994ms - 200
+2026-07-28 19:13:55.058 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 155.4106ms - 200
+2026-07-28 19:13:55.064 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 225.5489ms - 200
+2026-07-28 19:13:55.068 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 168.7092ms - 200
+2026-07-28 19:13:55.114 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 130.7811ms - 200
+2026-07-28 19:13:55.119 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 145.6267ms - 200
+2026-07-28 19:13:56.019 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:56.025 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:56.030 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:56.034 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:56.093 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 62.3889ms - 403
+2026-07-28 19:13:56.097 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 58.2957ms - 200
+2026-07-28 19:13:56.100 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 80.9754ms - 403
+2026-07-28 19:13:56.104 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 73.8127ms - 200
+2026-07-28 19:13:56.110 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/57de2fd1-2679-483f-b2bc-e610e92861bd.jpg
+2026-07-28 19:13:56.115 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/57de2fd1-2679-483f-b2bc-e610e92861bd.jpg
+2026-07-28 19:13:56.240 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 120.9426ms - 200
+2026-07-28 19:13:56.244 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 134.8064ms - 200
+2026-07-28 19:13:56.417 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/0becd34e-5997-4777-8414-cbaf1789620a.jpg
+2026-07-28 19:13:56.422 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/0becd34e-5997-4777-8414-cbaf1789620a.jpg
+2026-07-28 19:13:56.548 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 121.3788ms - 200
+2026-07-28 19:13:56.551 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 135.1449ms - 200
+2026-07-28 19:13:56.815 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/b2431765-c564-4542-bddb-4c4d04ad5b60.jpg
+2026-07-28 19:13:56.819 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/b2431765-c564-4542-bddb-4c4d04ad5b60.jpg
+2026-07-28 19:13:56.879 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/628b65c7-10d8-4bb1-9f73-86cefccaa74e.jpg
+2026-07-28 19:13:56.885 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/628b65c7-10d8-4bb1-9f73-86cefccaa74e.jpg
+2026-07-28 19:13:56.962 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:56.965 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:56.969 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:56.973 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:56.980 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 156.6844ms - 200
+2026-07-28 19:13:56.983 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 168.9923ms - 200
+2026-07-28 19:13:57.000 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 111.5364ms - 200
+2026-07-28 19:13:57.004 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 126.6325ms - 200
+2026-07-28 19:13:57.034 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 64.09ms - 403
+2026-07-28 19:13:57.038 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 78.9771ms - 403
+2026-07-28 19:13:57.042 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 61.2076ms - 200
+2026-07-28 19:13:57.074 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 76.9379ms - 200
+2026-07-28 19:13:57.081 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/8aaaf4d5-04b8-43ae-a732-1dd6cb2472d2.jpg
+2026-07-28 19:13:57.085 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/8aaaf4d5-04b8-43ae-a732-1dd6cb2472d2.jpg
+2026-07-28 19:13:57.243 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/b4e7281b-a25e-414b-8bc0-db7f11786186.jpg
+2026-07-28 19:13:57.248 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 157.8676ms - 200
+2026-07-28 19:13:57.287 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/b4e7281b-a25e-414b-8bc0-db7f11786186.jpg
+2026-07-28 19:13:57.292 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 174.9311ms - 200
+2026-07-28 19:13:57.411 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 117.0829ms - 200
+2026-07-28 19:13:57.415 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 173.2528ms - 200
+2026-07-28 19:13:57.622 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/c9659335-0188-4bdd-8839-fa1bebc25622.jpg
+2026-07-28 19:13:57.626 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/c9659335-0188-4bdd-8839-fa1bebc25622.jpg
+2026-07-28 19:13:57.753 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 120.8615ms - 200
+2026-07-28 19:13:57.759 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 135.0185ms - 200
+2026-07-28 19:13:57.846 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f01eb332-c69d-4420-94c4-6c1cfda7b19e.jpg
+2026-07-28 19:13:57.850 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f01eb332-c69d-4420-94c4-6c1cfda7b19e.jpg
+2026-07-28 19:13:58.020 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 164.9182ms - 200
+2026-07-28 19:13:58.026 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 179.7553ms - 200
+2026-07-28 19:13:58.479 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:58.483 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:58.487 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:58.490 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:58.572 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 85.8058ms - 403
+2026-07-28 19:13:58.575 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 98.6415ms - 403
+2026-07-28 19:13:58.605 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 111.4835ms - 200
+2026-07-28 19:13:58.608 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 121.0897ms - 200
+2026-07-28 19:13:58.612 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/65c0757f-29cc-4226-8652-a40331426283.jpg
+2026-07-28 19:13:58.615 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/65c0757f-29cc-4226-8652-a40331426283.jpg
+2026-07-28 19:13:58.749 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 130.2262ms - 200
+2026-07-28 19:13:58.753 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 140.5379ms - 200
+2026-07-28 19:13:58.845 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/76032a46-fa70-489b-9859-5c9057575e81.jpg
+2026-07-28 19:13:58.848 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/76032a46-fa70-489b-9859-5c9057575e81.jpg
+2026-07-28 19:13:58.891 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fda06a70-9f4f-4385-ad26-e0ce7bc53cec.jpg
+2026-07-28 19:13:58.894 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fda06a70-9f4f-4385-ad26-e0ce7bc53cec.jpg
+2026-07-28 19:13:58.934 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/6412d7e6-f585-410c-a969-859a3af534ba.jpg
+2026-07-28 19:13:58.938 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/6412d7e6-f585-410c-a969-859a3af534ba.jpg
+2026-07-28 19:13:58.972 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 119.043ms - 200
+2026-07-28 19:13:58.976 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 130.4057ms - 200
+2026-07-28 19:13:59.032 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 133.1419ms - 200
+2026-07-28 19:13:59.035 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 145.071ms - 200
+2026-07-28 19:13:59.097 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 154.3664ms - 200
+2026-07-28 19:13:59.100 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 167.0621ms - 200
+2026-07-28 19:13:59.175 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:59.179 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:13:59.182 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:59.186 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:13:59.224 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fa4cbe4d-d5d6-4457-bdcd-030ff1a7bbde.jpg
+2026-07-28 19:13:59.228 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/fa4cbe4d-d5d6-4457-bdcd-030ff1a7bbde.jpg
+2026-07-28 19:13:59.251 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 60.7554ms - 200
+2026-07-28 19:13:59.254 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 71.9346ms - 200
+2026-07-28 19:13:59.298 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 115.6643ms - 403
+2026-07-28 19:13:59.301 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 127.4683ms - 403
+2026-07-28 19:13:59.306 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/8d5016e1-7e06-495e-be84-d01f529fe834.jpg
+2026-07-28 19:13:59.309 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/8d5016e1-7e06-495e-be84-d01f529fe834.jpg
+2026-07-28 19:13:59.373 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 139.8323ms - 200
+2026-07-28 19:13:59.376 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 153.7951ms - 200
+2026-07-28 19:13:59.472 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 159.5026ms - 200
+2026-07-28 19:13:59.476 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 169.6749ms - 200
+2026-07-28 19:13:59.548 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/46eada42-310d-46f7-88f3-02c267268e39.jpg
+2026-07-28 19:13:59.552 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/46eada42-310d-46f7-88f3-02c267268e39.jpg
+2026-07-28 19:13:59.556 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/157307b3-3f1f-4e82-9430-7029b630dd9f.jpg
+2026-07-28 19:13:59.560 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/157307b3-3f1f-4e82-9430-7029b630dd9f.jpg
+2026-07-28 19:13:59.737 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 180.7847ms - 200
+2026-07-28 19:13:59.741 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 192.3619ms - 200
+2026-07-28 19:13:59.773 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 207.9465ms - 200
+2026-07-28 19:13:59.777 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 221.3114ms - 200
+2026-07-28 19:14:00.289 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:00.292 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:00.295 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:00.299 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:00.302 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:00.305 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:00.310 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:00.313 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:00.357 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 53.573ms - 200
+2026-07-28 19:14:00.360 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 64.5662ms - 200
+2026-07-28 19:14:00.363 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 68.0239ms - 403
+2026-07-28 19:14:00.367 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 78.3243ms - 403
+2026-07-28 19:14:00.370 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 61.5035ms - 403
+2026-07-28 19:14:00.375 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 54.2364ms - 200
+2026-07-28 19:14:00.404 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 75.8905ms - 403
+2026-07-28 19:14:00.407 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 69.3102ms - 200
+2026-07-28 19:14:00.412 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/eadb66f7-1c18-4610-a887-fddd20ba3a1f.jpg
+2026-07-28 19:14:00.416 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/eadb66f7-1c18-4610-a887-fddd20ba3a1f.jpg
+2026-07-28 19:14:00.419 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/da659275-0e69-4e30-a5e1-c288696f5751.jpg
+2026-07-28 19:14:00.423 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/da659275-0e69-4e30-a5e1-c288696f5751.jpg
+2026-07-28 19:14:00.582 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/04c03279-1ddb-42de-83de-3a32182b2686.jpg
+2026-07-28 19:14:00.585 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/04c03279-1ddb-42de-83de-3a32182b2686.jpg
+2026-07-28 19:14:00.599 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 179.996ms - 200
+2026-07-28 19:14:00.602 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 191.0396ms - 200
+2026-07-28 19:14:00.608 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 181.1823ms - 200
+2026-07-28 19:14:00.612 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 192.5623ms - 200
+2026-07-28 19:14:00.731 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/86a84482-0f38-45a1-aeec-c40a7af821c9.jpg
+2026-07-28 19:14:00.735 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/86a84482-0f38-45a1-aeec-c40a7af821c9.jpg
+2026-07-28 19:14:00.761 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 172.2476ms - 200
+2026-07-28 19:14:00.766 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 182.8116ms - 200
+2026-07-28 19:14:00.924 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 185.0185ms - 200
+2026-07-28 19:14:00.928 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 197.8077ms - 200
+2026-07-28 19:14:00.940 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/3cc8254d-3639-4519-9664-647330085fa4.jpg
+2026-07-28 19:14:00.944 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/3cc8254d-3639-4519-9664-647330085fa4.jpg
+2026-07-28 19:14:01.018 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/1ae704b4-9efd-4e63-a82d-39f7a6a0cdec.jpg
+2026-07-28 19:14:01.023 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/1ae704b4-9efd-4e63-a82d-39f7a6a0cdec.jpg
+2026-07-28 19:14:01.114 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/44dcc419-eb6f-4eaa-9020-4a8a23cd7c99.jpg
+2026-07-28 19:14:01.119 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/44dcc419-eb6f-4eaa-9020-4a8a23cd7c99.jpg
+2026-07-28 19:14:01.123 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 174.9859ms - 200
+2026-07-28 19:14:01.128 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 187.8949ms - 200
+2026-07-28 19:14:01.141 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 113.5002ms - 200
+2026-07-28 19:14:01.145 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 127.672ms - 200
+2026-07-28 19:14:01.292 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/64066b97-b891-49b0-94f3-10853b2b0720.jpg
+2026-07-28 19:14:01.323 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/64066b97-b891-49b0-94f3-10853b2b0720.jpg
+2026-07-28 19:14:01.327 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/671ec4ca-335b-4aa6-bb1b-b58cbd8ee62a.jpg
+2026-07-28 19:14:01.331 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 204.1268ms - 200
+2026-07-28 19:14:01.354 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/671ec4ca-335b-4aa6-bb1b-b58cbd8ee62a.jpg
+2026-07-28 19:14:01.359 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 244.9622ms - 200
+2026-07-28 19:14:01.465 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 136.5939ms - 200
+2026-07-28 19:14:01.469 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 178.4778ms - 200
+2026-07-28 19:14:01.507 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 124.6734ms - 200
+2026-07-28 19:14:01.512 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 184.5977ms - 200
+2026-07-28 19:14:01.886 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/e8210f1d-f9de-44e5-bff7-5cf03206ef76.jpg
+2026-07-28 19:14:01.892 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/e8210f1d-f9de-44e5-bff7-5cf03206ef76.jpg
+2026-07-28 19:14:02.040 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 143.3078ms - 200
+2026-07-28 19:14:02.043 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 158.2515ms - 200
+2026-07-28 19:14:02.126 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/1e8d5491-8a85-42c3-93cc-cc0e999e86dd.jpg
+2026-07-28 19:14:02.129 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/1e8d5491-8a85-42c3-93cc-cc0e999e86dd.jpg
+2026-07-28 19:14:02.326 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 192.0941ms - 200
+2026-07-28 19:14:02.329 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 204.0233ms - 200
+2026-07-28 19:14:02.339 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:02.344 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:02.349 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:02.352 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:02.356 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f58600a0-363c-4e82-826f-d06e423f31ab.jpg
+2026-07-28 19:14:02.360 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f58600a0-363c-4e82-826f-d06e423f31ab.jpg
+2026-07-28 19:14:02.390 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/575cbb8b-80a1-4a07-a0af-e4f4f1f6c56a.jpg
+2026-07-28 19:14:02.395 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/575cbb8b-80a1-4a07-a0af-e4f4f1f6c56a.jpg
+2026-07-28 19:14:02.415 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 66.4761ms - 403
+2026-07-28 19:14:02.418 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 56.2757ms - 200
+2026-07-28 19:14:02.421 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 81.6613ms - 403
+2026-07-28 19:14:02.426 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 73.2089ms - 200
+2026-07-28 19:14:02.430 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/b3b852ee-23e8-4dc0-bedb-803a055b318c.jpg
+2026-07-28 19:14:02.434 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/b3b852ee-23e8-4dc0-bedb-803a055b318c.jpg
+2026-07-28 19:14:02.524 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 158.9154ms - 200
+2026-07-28 19:14:02.526 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 174.5919ms - 200
+2026-07-28 19:14:02.569 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 171.3161ms - 200
+2026-07-28 19:14:02.573 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 182.6063ms - 200
+2026-07-28 19:14:02.989 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/1400f3af-1706-41af-8db0-d6adfb38372f.jpg
+2026-07-28 19:14:02.995 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/1400f3af-1706-41af-8db0-d6adfb38372f.jpg
+2026-07-28 19:14:03.115 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f47ce38c-cae1-4221-b759-4e3d59eeadad.jpg
+2026-07-28 19:14:03.119 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f47ce38c-cae1-4221-b759-4e3d59eeadad.jpg
+2026-07-28 19:14:03.127 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 687.7202ms - 200
+2026-07-28 19:14:03.131 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 700.1983ms - 200
+2026-07-28 19:14:03.168 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 168.0744ms - 200
+2026-07-28 19:14:03.172 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 184.8855ms - 200
+2026-07-28 19:14:03.373 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 249.0042ms - 200
+2026-07-28 19:14:03.379 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 262.4433ms - 200
+2026-07-28 19:14:03.530 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/d7645666-0d62-4d91-810b-15cad0af6ab1.jpg
+2026-07-28 19:14:03.534 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/d7645666-0d62-4d91-810b-15cad0af6ab1.jpg
+2026-07-28 19:14:03.730 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 190.0594ms - 200
+2026-07-28 19:14:03.734 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 203.8916ms - 200
+2026-07-28 19:14:04.236 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/222d58d9-e133-49c1-84f5-9b56af8f762a.jpg
+2026-07-28 19:14:04.272 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:04.276 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/222d58d9-e133-49c1-84f5-9b56af8f762a.jpg
+2026-07-28 19:14:04.280 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:04.284 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:04.289 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:04.349 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 55.87ms - 200
+2026-07-28 19:14:04.353 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 64.4349ms - 403
+2026-07-28 19:14:04.358 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 72.8046ms - 200
+2026-07-28 19:14:04.362 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 117.276ms - 403
+2026-07-28 19:14:04.368 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/3e8c23c7-eca6-475d-ad98-f3a3bcf6d341.jpg
+2026-07-28 19:14:04.373 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/3e8c23c7-eca6-475d-ad98-f3a3bcf6d341.jpg
+2026-07-28 19:14:04.421 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 138.6752ms - 200
+2026-07-28 19:14:04.428 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 189.1392ms - 200
+2026-07-28 19:14:04.463 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/78698cfe-f3f9-4cfd-b80f-b94bb00ced57.jpg
+2026-07-28 19:14:04.467 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/78698cfe-f3f9-4cfd-b80f-b94bb00ced57.jpg
+2026-07-28 19:14:04.498 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 120.836ms - 200
+2026-07-28 19:14:04.502 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 134.0872ms - 200
+2026-07-28 19:14:04.593 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 120.4709ms - 200
+2026-07-28 19:14:04.597 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 134.7276ms - 200
+2026-07-28 19:14:05.082 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:05.086 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:05.091 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:05.096 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:05.148 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/750d708b-6f8b-4527-890e-f2007357ae00.jpg
+2026-07-28 19:14:05.152 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/750d708b-6f8b-4527-890e-f2007357ae00.jpg
+2026-07-28 19:14:05.158 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 58.0649ms - 200
+2026-07-28 19:14:05.162 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 70.9963ms - 200
+2026-07-28 19:14:05.165 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 75.4051ms - 403
+2026-07-28 19:14:05.169 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 87.2208ms - 403
+2026-07-28 19:14:05.175 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/04a1065d-9531-4ec2-ac0a-5e7c677a4f4a.jpg
+2026-07-28 19:14:05.179 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/04a1065d-9531-4ec2-ac0a-5e7c677a4f4a.jpg
+2026-07-28 19:14:05.293 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 138.0964ms - 200
+2026-07-28 19:14:05.297 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 148.4722ms - 200
+2026-07-28 19:14:05.328 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 146.2394ms - 200
+2026-07-28 19:14:05.332 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 158.0262ms - 200
+2026-07-28 19:14:05.471 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/72ffcb2c-89c5-47d5-a73c-8b3efdf24d2e.jpg
+2026-07-28 19:14:05.510 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/72ffcb2c-89c5-47d5-a73c-8b3efdf24d2e.jpg
+2026-07-28 19:14:05.686 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/335f652f-77e0-4b8f-a6fe-94cd497c1490.jpg
+2026-07-28 19:14:05.690 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/335f652f-77e0-4b8f-a6fe-94cd497c1490.jpg
+2026-07-28 19:14:05.698 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 184.7355ms - 200
+2026-07-28 19:14:05.701 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 254.7873ms - 200
+2026-07-28 19:14:05.845 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/234ca7d0-399b-4602-83e4-1087a65c497c.jpg
+2026-07-28 19:14:05.848 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/234ca7d0-399b-4602-83e4-1087a65c497c.jpg
+2026-07-28 19:14:05.850 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 154.794ms - 200
+2026-07-28 19:14:05.853 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 168.7829ms - 200
+2026-07-28 19:14:05.876 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/4d98ed6d-bcc5-4a16-9dd4-93bc559ae40d.jpg
+2026-07-28 19:14:05.879 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/4d98ed6d-bcc5-4a16-9dd4-93bc559ae40d.jpg
+2026-07-28 19:14:06.056 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 202.1222ms - 200
+2026-07-28 19:14:06.061 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 215.4673ms - 200
+2026-07-28 19:14:06.159 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/7855a67c-98e8-4ed3-b7c7-9d6b3e8f875c.jpg
+2026-07-28 19:14:06.163 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/7855a67c-98e8-4ed3-b7c7-9d6b3e8f875c.jpg
+2026-07-28 19:14:06.211 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:06.216 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:06.222 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:06.228 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:06.294 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 61.5652ms - 200
+2026-07-28 19:14:06.298 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 72.658ms - 403
+2026-07-28 19:14:06.301 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 133.5456ms - 200
+2026-07-28 19:14:06.306 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 80.5757ms - 200
+2026-07-28 19:14:06.310 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 94.7272ms - 403
+2026-07-28 19:14:06.314 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 146.9418ms - 200
+2026-07-28 19:14:06.319 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/a66a22fa-fb4c-4e12-868b-3cff48987e87.jpg
+2026-07-28 19:14:06.324 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/a66a22fa-fb4c-4e12-868b-3cff48987e87.jpg
+2026-07-28 19:14:06.371 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 487.4161ms - 200
+2026-07-28 19:14:06.376 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 499.3742ms - 200
+2026-07-28 19:14:06.468 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 139.088ms - 200
+2026-07-28 19:14:06.472 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 152.4053ms - 200
+2026-07-28 19:14:06.620 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:06.626 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-07-28 19:14:06.632 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:06.637 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-07-28 19:14:06.699 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 57.4685ms - 200
+2026-07-28 19:14:06.702 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 71.7173ms - 200
+2026-07-28 19:14:06.707 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 76.4451ms - 403
+2026-07-28 19:14:06.712 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 91.3257ms - 403
+2026-07-28 19:14:06.717 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/3ae06c39-9c54-457b-acc7-a25938aef5b1.jpg
+2026-07-28 19:14:06.721 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/3ae06c39-9c54-457b-acc7-a25938aef5b1.jpg
+2026-07-28 19:14:06.879 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 153.5613ms - 200
+2026-07-28 19:14:06.884 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 166.3333ms - 200
+2026-07-28 19:14:06.901 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/e3262100-8f19-48c5-9141-bd7ec65e471d.jpg
+2026-07-28 19:14:06.906 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/6488b5ef-a93b-49d5-8389-c69f324a11ba.jpg
+2026-07-28 19:14:06.911 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/e3262100-8f19-48c5-9141-bd7ec65e471d.jpg
+2026-07-28 19:14:06.915 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/6488b5ef-a93b-49d5-8389-c69f324a11ba.jpg
+2026-07-28 19:14:07.071 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 150.9012ms - 200
+2026-07-28 19:14:07.104 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 159.1639ms - 200
+2026-07-28 19:14:07.111 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 178.6228ms - 200
+2026-07-28 19:14:07.142 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 207.7541ms - 200
+2026-07-28 19:14:07.192 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/0a9c032c-414c-482f-ae7a-d84674af1efe.jpg
+2026-07-28 19:14:07.197 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/0a9c032c-414c-482f-ae7a-d84674af1efe.jpg
+2026-07-28 19:14:07.371 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 169.2366ms - 200
+2026-07-28 19:14:07.377 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 185.2272ms - 200
+2026-07-28 19:14:07.745 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/7e93324a-d77e-4806-84e3-e3aaa1b2ce8d.jpg
+2026-07-28 19:14:07.749 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/7e93324a-d77e-4806-84e3-e3aaa1b2ce8d.jpg
+2026-07-28 19:14:07.953 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 199.6135ms - 200
+2026-07-28 19:14:07.956 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 211.4237ms - 200
+2026-07-28 19:14:08.174 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f673f15e-c1dd-4509-9059-39fd04802930.jpg
+2026-07-28 19:14:08.177 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/f673f15e-c1dd-4509-9059-39fd04802930.jpg
+2026-07-28 19:14:08.185 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/8cd7d480-5474-4a55-9709-3f6ea2eb4c11.jpg
+2026-07-28 19:14:08.188 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/8cd7d480-5474-4a55-9709-3f6ea2eb4c11.jpg
+2026-07-28 19:14:08.271 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/8b5501b0-c42c-4c20-b56b-e18c7c110373.jpg
+2026-07-28 19:14:08.306 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/8b5501b0-c42c-4c20-b56b-e18c7c110373.jpg
+2026-07-28 19:14:08.310 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/525ee5ab-8c38-41ae-9aa8-28f072bf934d.jpg
+2026-07-28 19:14:08.313 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/uat/TASK-087/525ee5ab-8c38-41ae-9aa8-28f072bf934d.jpg
+2026-07-28 19:14:08.319 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 138.9621ms - 200
+2026-07-28 19:14:08.323 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 148.237ms - 200
+2026-07-28 19:14:08.328 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 131.8049ms - 200
+2026-07-28 19:14:08.331 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 146.2255ms - 200
+2026-07-28 19:14:08.481 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 163.6755ms - 200
+2026-07-28 19:14:08.484 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 174.0178ms - 200
+2026-07-28 19:14:08.543 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 232.9462ms - 200
+2026-07-28 19:14:08.547 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 275.5571ms - 200
+2026-07-28 19:18:00.799 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.FileContentResultExecutor
+      Executing FileContentResult, sending file with download name 'reporte-materialidad-87.pdf' ...
+2026-07-28 19:18:01.391 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.ReporteMaterialidadController.GenerarPorTarea (velios.Api) in 274855.0973ms
+2026-07-28 19:18:01.395 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.ReporteMaterialidadController.GenerarPorTarea (velios.Api)'
+2026-07-28 19:18:01.410 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/ReporteMaterialidad/tarea/87 - 200 43140445 application/pdf 274978.2635ms

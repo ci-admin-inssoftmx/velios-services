@@ -2,6 +2,7 @@
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
@@ -19,9 +20,23 @@ namespace velios.Api.Services;
 public class ReporteMaterialidadService : IReporteMaterialidadService
 {
     private const string Titulo = "INFORME DE TAREA";
+    private const int MaxConcurrencia = 8; // límite de descargas simultáneas
     private readonly IReporteMaterialidadRepository _repository;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IConfiguration _configuration;
+    private readonly HttpClient _httpClient; // PUNTO PERF: cliente reutilizado en vez de crear uno por descarga
+
+    // =========================================================================
+    // PUNTO PERF: recursos estáticos (logo, íconos) cargados UNA sola vez
+    // por el tiempo de vida de la app en lugar de leerlos del disco en cada reporte.
+    // =========================================================================
+    private static readonly Lazy<byte[]?> _logoVeliosBytes = new(() => CargarRecursoEstatico("logo_velios.png"));
+    private static readonly Lazy<byte[]?> _evidenceLogoBytes = new(() => CargarRecursoEstatico("Logoveliosevidence.png"));
+    private static readonly Lazy<byte[]?> _personaIconBytes = new(() => CargarRecursoEstatico("persona.png"));
+    private static readonly Lazy<byte[]?> _documentoIconBytes = new(() => CargarRecursoEstatico("documento.png"));
+    private static readonly Lazy<byte[]?> _checkIconBytes = new(() => CargarRecursoEstatico("check.png"));
+    private static readonly Lazy<byte[]?> _carpetaIconBytes = new(() => CargarRecursoEstatico("carpeta.png"));
+    private static readonly Lazy<byte[]?> _pdfIconBytes = new(() => CargarPdfIconEstatico());
 
     public ReporteMaterialidadService(
         IReporteMaterialidadRepository repository,
@@ -31,6 +46,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         _repository = repository;
         _httpClientFactory = httpClientFactory;
         _configuration = configuration;
+
+        // PUNTO PERF: un solo HttpClient para todo el servicio (evita overhead de sockets)
+        _httpClient = _httpClientFactory.CreateClient("ReporteMaterialidad");
+        _httpClient.Timeout = TimeSpan.FromSeconds(20);
 
         QuestPDF.Settings.License = LicenseType.Community;
     }
@@ -56,35 +75,70 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         tarea.TelefonoCentroTrabajo = await _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
         tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
 
+        // =====================================================================
+        // PUNTO PERF (el más importante): antes esto era un foreach secuencial
+        // (imagen -> mapa -> geocoding -> siguiente evidencia). Con 200 evidencias
+        // eran hasta 600 peticiones HTTP en fila. Ahora se procesan en paralelo
+        // con un límite de concurrencia (SemaphoreSlim) para no saturar el server
+        // ni a Google Maps, y se cachean mapa/geocoding por coordenada para no
+        // repetir la misma llamada cuando varias evidencias comparten ubicación.
+        // =====================================================================
+        var mapaCache = new ConcurrentDictionary<string, byte[]?>();
+        var geoCache = new ConcurrentDictionary<string, GeocodingInfoDto?>();
+        using var semaforo = new SemaphoreSlim(MaxConcurrencia);
 
-        foreach (var evidencia in evidencias)
+        var tareasEvidencia = evidencias.Select(async evidencia =>
         {
-            if (!string.IsNullOrWhiteSpace(evidencia.UrlArchivo))
-                evidencia.ImagenBytes = await DescargarImagenAsync(evidencia.UrlArchivo!);
-
-            if (evidencia.Latitud.HasValue && evidencia.Longitud.HasValue)
+            await semaforo.WaitAsync();
+            try
             {
-                evidencia.MapaBytes = await DescargarMapaAsync(evidencia.Latitud.Value, evidencia.Longitud.Value);
+                if (!string.IsNullOrWhiteSpace(evidencia.UrlArchivo))
+                    evidencia.ImagenBytes = await DescargarImagenAsync(evidencia.UrlArchivo!);
 
-                var geo = await ObtenerGeocodingAsync(evidencia.Latitud.Value, evidencia.Longitud.Value);
-                if (geo is not null)
+                if (evidencia.Latitud.HasValue && evidencia.Longitud.HasValue)
                 {
-                    evidencia.DireccionFormateada = geo.DireccionFormateada;
-                    evidencia.Colonia = geo.Colonia;
-                    evidencia.Municipio = geo.Municipio;
-                    evidencia.Estado = geo.Estado;
-                    evidencia.CodigoPostal = geo.CodigoPostal;
-                    evidencia.Pais = geo.Pais;
+                    var claveCoord = ClaveCoordenada(evidencia.Latitud.Value, evidencia.Longitud.Value);
+
+                    // Mapa y geocoding se piden en paralelo entre sí, y sólo si no
+                    // están ya en caché para esa coordenada.
+                    var mapaTask = mapaCache.TryGetValue(claveCoord, out var mapaCacheado)
+                        ? Task.FromResult(mapaCacheado)
+                        : DescargarMapaAsync(evidencia.Latitud.Value, evidencia.Longitud.Value);
+
+                    var geoTask = geoCache.TryGetValue(claveCoord, out var geoCacheado)
+                        ? Task.FromResult(geoCacheado)
+                        : ObtenerGeocodingAsync(evidencia.Latitud.Value, evidencia.Longitud.Value);
+
+                    await Task.WhenAll(mapaTask, geoTask);
+
+                    evidencia.MapaBytes = mapaCache.GetOrAdd(claveCoord, _ => mapaTask.Result);
+                    var geo = geoCache.GetOrAdd(claveCoord, _ => geoTask.Result);
+
+                    if (geo is not null)
+                    {
+                        evidencia.DireccionFormateada = geo.DireccionFormateada;
+                        evidencia.Colonia = geo.Colonia;
+                        evidencia.Municipio = geo.Municipio;
+                        evidencia.Estado = geo.Estado;
+                        evidencia.CodigoPostal = geo.CodigoPostal;
+                        evidencia.Pais = geo.Pais;
+                    }
+
+                    var lat = evidencia.Latitud.Value.ToString(CultureInfo.InvariantCulture);
+                    var lng = evidencia.Longitud.Value.ToString(CultureInfo.InvariantCulture);
+                    evidencia.GoogleMapsUrl = $"https://www.google.com/maps?q={lat},{lng}";
                 }
 
-                var lat = evidencia.Latitud.Value.ToString(CultureInfo.InvariantCulture);
-                var lng = evidencia.Longitud.Value.ToString(CultureInfo.InvariantCulture);
-                evidencia.GoogleMapsUrl = $"https://www.google.com/maps?q={lat},{lng}";
+                if (string.IsNullOrWhiteSpace(evidencia.DireccionFormateada))
+                    evidencia.DireccionFormateada = evidencia.Direccion;
             }
+            finally
+            {
+                semaforo.Release();
+            }
+        });
 
-            if (string.IsNullOrWhiteSpace(evidencia.DireccionFormateada))
-                evidencia.DireccionFormateada = evidencia.Direccion;
-        }
+        await Task.WhenAll(tareasEvidencia);
 
         tarea.Evidencias = evidencias;
 
@@ -139,13 +193,20 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         };
     }
 
+    // Clave de coordenada redondeada a 5 decimales (~1.1m de precisión) para
+    // agrupar evidencias del mismo punto y no repetir mapa/geocoding.
+    private static string ClaveCoordenada(decimal lat, decimal lng)
+    {
+        var latR = Math.Round(lat, 5);
+        var lngR = Math.Round(lng, 5);
+        return $"{latR.ToString(CultureInfo.InvariantCulture)},{lngR.ToString(CultureInfo.InvariantCulture)}";
+    }
+
     private async Task<byte[]?> DescargarImagenAsync(string url)
     {
         try
         {
-            var client = _httpClientFactory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(20);
-            return await client.GetByteArrayAsync(url);
+            return await _httpClient.GetByteArrayAsync(url);
         }
         catch { return null; }
     }
@@ -156,9 +217,6 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         {
             var apiKey = _configuration["GoogleMaps:ApiKey"];
             if (string.IsNullOrWhiteSpace(apiKey)) return null;
-
-            var client = _httpClientFactory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(20);
 
             var lat = latitud.ToString(CultureInfo.InvariantCulture);
             var lng = longitud.ToString(CultureInfo.InvariantCulture);
@@ -179,7 +237,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 styles +
                 $"&key={apiKey}";
 
-            return await client.GetByteArrayAsync(mapaUrl);
+            return await _httpClient.GetByteArrayAsync(mapaUrl);
         }
         catch { return null; }
     }
@@ -191,14 +249,11 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             var apiKey = _configuration["GoogleMaps:ApiKey"];
             if (string.IsNullOrWhiteSpace(apiKey)) return null;
 
-            var client = _httpClientFactory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(20);
-
             var lat = latitud.ToString(CultureInfo.InvariantCulture);
             var lng = longitud.ToString(CultureInfo.InvariantCulture);
 
             var url = $"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lng}&language=es&key={apiKey}";
-            var json = await client.GetStringAsync(url);
+            var json = await _httpClient.GetStringAsync(url);
 
             using var doc = JsonDocument.Parse(json);
             if (!doc.RootElement.TryGetProperty("results", out var results) || results.GetArrayLength() == 0)
@@ -252,8 +307,12 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
     // =========================================================================
     // CARGA DE RECURSOS — helper genérico para íconos en /Resources
+    // (se sigue usando tal cual, pero ahora sólo se invoca UNA vez gracias
+    // a los Lazy<byte[]?> estáticos de arriba)
     // =========================================================================
-    private static byte[]? CargarRecurso(string nombreArchivo)
+    private static byte[]? CargarRecurso(string nombreArchivo) => CargarRecursoEstatico(nombreArchivo);
+
+    private static byte[]? CargarRecursoEstatico(string nombreArchivo)
     {
         try
         {
@@ -266,6 +325,31 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         catch { }
         return null;
     }
+
+    private static byte[]? CargarPdfIconEstatico()
+    {
+        try
+        {
+            var possibleDirs = new[]
+            {
+                Path.Combine(Directory.GetCurrentDirectory(), "Resources"),
+                Path.Combine(AppContext.BaseDirectory ?? Directory.GetCurrentDirectory(), "Resources")
+            };
+
+            foreach (var dir in possibleDirs)
+            {
+                if (!Directory.Exists(dir)) continue;
+
+                var candidates = new[] { "Icon_PDF.png", "Icon_PDF.jpg", "Icon_PDF.jpeg", "Icon_PDF.bmp", "Icon_PDF.gif", "Icon_PDF.svg" };
+                var found = candidates.Select(c => Path.Combine(dir, c)).FirstOrDefault(File.Exists);
+                if (found != null)
+                    return File.ReadAllBytes(found);
+            }
+        }
+        catch { }
+        return null;
+    }
+
     private static string TruncarTexto(string? texto, int maxCaracteres)
     {
         if (string.IsNullOrWhiteSpace(texto)) return texto ?? string.Empty;
@@ -277,40 +361,14 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         var tarea = reporte.Tarea;
         var cliente = reporte.Cliente;
 
-        var logoPath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "logo_velios.png");
-        byte[]? logoBytes = null;
-
-        // Intentar cargar el logo desde varias ubicaciones (CWD y base directory)
-        if (File.Exists(logoPath))
-            logoBytes = File.ReadAllBytes(logoPath);
-        else
-        {
-            var altPath = Path.Combine(AppContext.BaseDirectory ?? Directory.GetCurrentDirectory(), "Resources", "logo_velios.png");
-            if (File.Exists(altPath))
-                logoBytes = File.ReadAllBytes(altPath);
-        }
-
-        // Cargar logo específico para mostrar junto al nombre de la evidencia (Logoveliosevidence.png)
-        byte[]? evidenceLogoBytes = null;
-        try
-        {
-            var evidenceLogoPath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Logoveliosevidence.png");
-            if (File.Exists(evidenceLogoPath))
-                evidenceLogoBytes = File.ReadAllBytes(evidenceLogoPath);
-            else
-            {
-                var altEvidencePath = Path.Combine(AppContext.BaseDirectory ?? Directory.GetCurrentDirectory(), "Resources", "Logoveliosevidence.png");
-                if (File.Exists(altEvidencePath))
-                    evidenceLogoBytes = File.ReadAllBytes(altEvidencePath);
-            }
-        }
-        catch { evidenceLogoBytes = null; }
-
-        // PUNTOS 1, 2 y 4: Cargar nuevos íconos de diseño desde /Resources
-        byte[]? personaIconBytes = CargarRecurso("persona.png");
-        byte[]? documentoIconBytes = CargarRecurso("documento.png");
-        byte[]? checkIconBytes = CargarRecurso("check.png");
-        byte[]? carpetaIconBytes = CargarRecurso("carpeta.png");
+        // PUNTO PERF: recursos ya cargados en memoria estática, sin tocar disco aquí.
+        byte[]? logoBytes = _logoVeliosBytes.Value;
+        byte[]? evidenceLogoBytes = _evidenceLogoBytes.Value;
+        byte[]? personaIconBytes = _personaIconBytes.Value;
+        byte[]? documentoIconBytes = _documentoIconBytes.Value;
+        byte[]? checkIconBytes = _checkIconBytes.Value;
+        byte[]? carpetaIconBytes = _carpetaIconBytes.Value;
+        byte[]? pdfIconBytes = _pdfIconBytes.Value;
 
         var clienteDisplay = !string.IsNullOrWhiteSpace(cliente.NombreComercial)
             ? cliente.NombreComercial
@@ -329,7 +387,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             var lista = tarea.ImageURL!.Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToList();
 
-            foreach (var url in lista)
+            // PUNTO PERF: los adjuntos también se descargaban uno por uno; ahora
+            // se descargan en paralelo (con el mismo límite de concurrencia).
+            using var semaforoAdjuntos = new SemaphoreSlim(MaxConcurrencia);
+            var tareasAdjuntos = lista.Select(async url =>
             {
                 var ext = Path.GetExtension(url).ToLowerInvariant();
                 var fileName = Path.GetFileName(url);
@@ -338,43 +399,23 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 // Intentar descargar previews sólo para imágenes
                 if (ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".gif" || ext == ".bmp")
                 {
-                    try { bytes = await DescargarImagenAsync(url); } catch { bytes = null; }
+                    await semaforoAdjuntos.WaitAsync();
+                    try { bytes = await DescargarImagenAsync(url); }
+                    catch { bytes = null; }
+                    finally { semaforoAdjuntos.Release(); }
                 }
 
-                archivosTarea.Add(new ArchivoAdjunto
+                return new ArchivoAdjunto
                 {
                     Url = url,
                     FileName = fileName,
                     Extension = ext,
                     Bytes = bytes
-                });
-            }
+                };
+            });
 
+            archivosTarea.AddRange(await Task.WhenAll(tareasAdjuntos));
         }
-        // Intentar cargar un ícono local para PDFs desde Resources (Icon_PDF.*)
-        byte[]? pdfIconBytes = null;
-        try
-        {
-            var possibleDirs = new[]
-            {
-                Path.Combine(Directory.GetCurrentDirectory(), "Resources"),
-                Path.Combine(AppContext.BaseDirectory ?? Directory.GetCurrentDirectory(), "Resources")
-            };
-
-            foreach (var dir in possibleDirs)
-            {
-                if (!Directory.Exists(dir)) continue;
-
-                var candidates = new[] { "Icon_PDF.png", "Icon_PDF.jpg", "Icon_PDF.jpeg", "Icon_PDF.bmp", "Icon_PDF.gif", "Icon_PDF.svg" };
-                var found = candidates.Select(c => Path.Combine(dir, c)).FirstOrDefault(File.Exists);
-                if (found != null)
-                {
-                    pdfIconBytes = File.ReadAllBytes(found);
-                    break;
-                }
-            }
-        }
-        catch { pdfIconBytes = null; }
 
         var document = Document.Create(container =>
         {
