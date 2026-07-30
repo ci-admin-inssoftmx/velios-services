@@ -25,6 +25,7 @@ public class ReporteMaterialidadController : ControllerBase
         stopwatch.Stop();
 
         Response.Headers["X-Tiempo-Generacion"] = $"{stopwatch.ElapsedMilliseconds} ms";
+        Response.Headers["Content-Length"] = pdfBytes.Length.ToString();
 
         return File(
             pdfBytes,
