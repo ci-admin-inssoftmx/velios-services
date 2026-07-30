@@ -154,7 +154,9 @@ builder.Services.AddCors(opt =>
     opt.AddPolicy("LocalDevCors", p =>
         p.AllowAnyHeader()
          .AllowAnyMethod()
-         .AllowAnyOrigin());
+         .AllowAnyOrigin()
+         // 💡 PERMITE QUE JAVASCRIPT LEA EL TAMAÑO DEL ARCHIVO Y LAS CABECERAS PERSONALIZADAS
+         .WithExposedHeaders("Content-Length", "Content-Disposition", "X-Tiempo-Generacion"));
 });
 
 #endregion
