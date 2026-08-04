@@ -31,6 +31,14 @@ jobs:
           }
           Get-ChildItem "obj\Release\net9.0\PubTmp\Out" -Recurse |
             Select-Object -First 20
+
+      - name: Diagnostico FTP URL
+        shell: powershell
+        run: |
+                    $server = "${{ secrets.FTP_SERVER }}"
+                    Write-Host "FTP_SERVER vale: $server"
+                    Write-Host "URL completa: ftp://$server/servicios/dev/app_offline.htm"
+            
       - name: Poner sitio en mantenimiento
         shell: powershell
         run: |
