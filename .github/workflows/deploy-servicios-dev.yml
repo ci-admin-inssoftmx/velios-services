@@ -40,8 +40,8 @@ jobs:
       - name: Crear app_offline.htm temporal
         shell: powershell
         run: |
-          New-Item -Path "app_offline.htm" -ItemType File -Force
-          Set-Content -Path "app_offline.htm" -Value "<html><body><h1>Sitio en mantenimiento</h1></body></html>"
+          New-Item -Path "maintenance" -ItemType Directory -Force
+          Set-Content -Path "maintenance\app_offline.htm" -Value "<html><body><h1>Sitio en mantenimiento</h1></body></html>"
           New-Item -Path "online" -ItemType Directory -Force
 
       - name: Poner sitio en mantenimiento
@@ -52,9 +52,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21
-          local-dir: ./
+          local-dir: maintenance/
           server-dir: /servicios/dev/
-          include: app_offline.htm
           dangerous-clean-slate: false
 
       - name: Deploy FTP DEV
@@ -79,5 +78,4 @@ jobs:
           port: 21
           local-dir: online/
           server-dir: /servicios/dev/
-          include: app_offline.htm
           dangerous-clean-slate: false
