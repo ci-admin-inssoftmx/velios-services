@@ -37,25 +37,6 @@ jobs:
           Get-ChildItem "obj\Release\net9.0\PubTmp\Out" -Recurse |
             Select-Object -First 20
 
-      - name: Crear app_offline.htm temporal
-        shell: powershell
-        run: |
-          New-Item -Path "maintenance" -ItemType Directory -Force
-          Set-Content -Path "maintenance\app_offline.htm" -Value "<html><body><h1>Sitio en mantenimiento</h1></body></html>"
-          New-Item -Path "online" -ItemType Directory -Force
-
-      - name: Poner sitio en mantenimiento
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: 21
-          local-dir: maintenance/
-          server-dir: /servicios/dev/
-          dangerous-clean-slate: false
-
       - name: Deploy FTP DEV
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -65,17 +46,5 @@ jobs:
           protocol: ftp
           port: 21
           local-dir: obj/Release/net9.0/PubTmp/Out/
-          server-dir: /servicios/dev/
-          dangerous-clean-slate: false
-
-      - name: Quitar mantenimiento
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: 21
-          local-dir: online/
           server-dir: /servicios/dev/
           dangerous-clean-slate: false
