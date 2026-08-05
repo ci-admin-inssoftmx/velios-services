@@ -83,7 +83,7 @@ jobs:
             $response.Close()
             Write-Host "app_offline.htm eliminado correctamente"
           } catch {
-            Write-Host "No se encontró app_offline.htm o ya fue eliminado: $_"
+            Write-Host "No se encontró app_offline.htm o ya fue todo eliminado: $_"
           }
 
       - name: Mantener sitio en mantenimiento si fallo el deploy
