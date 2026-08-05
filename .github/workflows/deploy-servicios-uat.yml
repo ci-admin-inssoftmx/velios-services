@@ -37,10 +37,11 @@ jobs:
           Get-ChildItem "obj\Release\net9.0\PubTmp\Out" -Recurse |
             Select-Object -First 20
 
-      - name: Crear app_offline.htm
+      - name: Crear carpeta temporal solo con app_offline.htm
         shell: powershell
         run: |
-          "Sitio en mantenimiento, desplegando nueva versión..." | Out-File -FilePath "app_offline.htm" -Encoding utf8
+          New-Item -ItemType Directory -Path "offline-deploy" -Force
+          "Sitio en mantenimiento, desplegando nueva versión..." | Out-File -FilePath "offline-deploy/app_offline.htm" -Encoding utf8
 
       - name: Subir app_offline.htm (detener sitio y liberar DLL)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -50,11 +51,9 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21
-          local-dir: ./
+          local-dir: offline-deploy/
           server-dir: /servicios/uat/
           dangerous-clean-slate: false
-          include: |
-            app_offline.htm
 
       - name: Esperar liberación del proceso
         shell: powershell
@@ -73,19 +72,8 @@ jobs:
           dangerous-clean-slate: false
 
       - name: Eliminar app_offline.htm (reactivar sitio)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: 21
-          local-dir: ./
-          server-dir: /servicios/uat/
-          dangerous-clean-slate: false
-          include: |
-            app_offline.htm
-          exclude: |
-            **/*
-            !app_offline.htm
-          state-name: .ftp-deploy-remove-offline.json
+        shell: powershell
+        run: |
+          curl -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" `
+            "ftp://${{ secrets.FTP_SERVER }}/servicios/uat/app_offline.htm" `
+            -Q "-DELE /servicios/uat/app_offline.htm"
