@@ -2,7 +2,7 @@ name: Deploy Velios Servicios UAT
 on:
   push:
     branches:
-      - UAT
+      -UAT
 jobs:
   deploy:
     runs-on: windows-latest
