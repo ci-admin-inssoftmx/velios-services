@@ -74,6 +74,21 @@ jobs:
       - name: Eliminar app_offline.htm (reactivar sitio)
         shell: powershell
         run: |
-          curl -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" `
-            "ftp://${{ secrets.FTP_SERVER }}/servicios/uat/app_offline.htm" `
-            -Q "-DELE /servicios/uat/app_offline.htm"
+          $ftpServer = "${{ secrets.FTP_SERVER }}"
+          $ftpUser = "${{ secrets.FTP_USERNAME }}"
+          $ftpPass = "${{ secrets.FTP_PASSWORD }}"
+          $ftpPath = "ftp://$ftpServer/servicios/uat/app_offline.htm"
+
+          $request = [System.Net.FtpWebRequest]::Create($ftpPath)
+          $request.Method = [System.Net.WebRequestMethods+Ftp]::DeleteFile
+          $request.Credentials = New-Object System.Net.NetworkCredential($ftpUser, $ftpPass)
+          $request.UsePassive = $true
+
+          try {
+            $response = $request.GetResponse()
+            Write-Host "app_offline.htm eliminado. Status: $($response.StatusDescription)"
+            $response.Close()
+          } catch {
+            Write-Host "Error al eliminar app_offline.htm: $($_.Exception.Message)"
+            throw
+          }
