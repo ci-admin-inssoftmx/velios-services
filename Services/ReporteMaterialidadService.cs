@@ -18,7 +18,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
     private const string Titulo = "INFORME DE TAREA";
     private const int MaxConcurrencia = 20;
 
-    // Timeout ajustado a 12 segundos para dar tiempo a servidores lentos o S3/Azure Blob
+    // Timeout ajustado a 12 segundos para dar tiempo a servidores lentos o S3/Azure Blob agregado nuevao s
     private static readonly TimeSpan TimeoutDescargaRecurso = TimeSpan.FromSeconds(12);
 
     private readonly IReporteMaterialidadRepository _repository;
