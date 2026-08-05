@@ -59,6 +59,26 @@ jobs:
         shell: powershell
         run: Start-Sleep -Seconds 8
 
+      - name: Listar contenido remoto (diagnóstico)
+        shell: powershell
+        run: |
+          $ftpServer = "${{ secrets.FTP_SERVER }}"
+          $ftpUser = "${{ secrets.FTP_USERNAME }}"
+          $ftpPass = "${{ secrets.FTP_PASSWORD }}"
+          $ftpPath = "ftp://$ftpServer/servicios/uat/"
+
+          $request = [System.Net.FtpWebRequest]::Create($ftpPath)
+          $request.Method = [System.Net.WebRequestMethods+Ftp]::ListDirectory
+          $request.Credentials = New-Object System.Net.NetworkCredential($ftpUser, $ftpPass)
+          $request.UsePassive = $true
+
+          $response = $request.GetResponse()
+          $stream = $response.GetResponseStream()
+          $reader = New-Object System.IO.StreamReader($stream)
+          Write-Host $reader.ReadToEnd()
+          $reader.Close()
+          $response.Close()
+
       - name: Deploy FTP UAT
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -88,7 +108,11 @@ jobs:
             $response = $request.GetResponse()
             Write-Host "app_offline.htm eliminado. Status: $($response.StatusDescription)"
             $response.Close()
-          } catch {
-            Write-Host "Error al eliminar app_offline.htm: $($_.Exception.Message)"
-            throw
+          } catch [System.Net.WebException] {
+            $ftpResponse = $_.Exception.Response
+            if ($ftpResponse -and $ftpResponse.StatusCode -eq [System.Net.FtpStatusCode]::ActionNotTakenFileUnavailable) {
+              Write-Warning "app_offline.htm ya no existe en el servidor (probablemente ya fue limpiado). Continuando sin error."
+            } else {
+              throw
+            }
           }
