@@ -2,37 +2,54 @@
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using velios.Api.Models.ReporteMaterialidad;
 using velios.Api.Models.Tareas;
+ 
+
 
 
 namespace velios.Api.Services;
 
+
 /// <summary>
-/// Servicio encargado de construir el reporte de materialidad preeliminar
+/// Servicio encargado de construir el reporte preliminar
 /// y generar el archivo PDF final por tarea.
 /// </summary>
-public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreeliminarService
+public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
 {
-    private const string Titulo = "INFORME DE TAREA";
+    private const int MaxConcurrencia = 8;
+
     private readonly IReporteMaterialidadRepository _repository;
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
 
-    public ReporteMaterialidadPreeliminarService(
+    // Caché de recursos estáticos (se cargan una sola vez por instancia)
+    private static readonly object _resourceLock = new();
+    private static byte[]? _logoBytes;
+    private static byte[]? _evidenceLogoBytes;
+    private static byte[]? _personaIconBytes;
+    private static byte[]? _documentoIconBytes;
+    private static byte[]? _checkIconBytes;
+    private static byte[]? _carpetaIconBytes;
+    private static byte[]? _pdfIconBytes;
+    private static bool _resourcesLoaded = false;
+
+    public ReportePreeliminarService(
         IReporteMaterialidadRepository repository,
         IHttpClientFactory httpClientFactory,
         IConfiguration configuration)
     {
         _repository = repository;
-        _httpClientFactory = httpClientFactory;
         _configuration = configuration;
-
         QuestPDF.Settings.License = LicenseType.Community;
+
+        _httpClient = httpClientFactory.CreateClient();
+        _httpClient.Timeout = TimeSpan.FromSeconds(30);
     }
 
     public async Task<byte[]> GenerarPdfPorTareaAsync(int tareaId)
@@ -41,50 +58,91 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
         if (tarea is null)
             throw new InvalidOperationException($"No se encontró la tarea con id {tareaId}.");
 
-        byte[]? logoProveedorBytes = null;
-        if (!string.IsNullOrWhiteSpace(tarea.LogoUrlProveedor))
-            logoProveedorBytes = await DescargarImagenAsync(tarea.LogoUrlProveedor);
+        // Descargas iniciales en paralelo
+        var logoProveedorTask = !string.IsNullOrWhiteSpace(tarea.LogoUrlProveedor)
+            ? DescargarImagenAsync(tarea.LogoUrlProveedor)
+            : Task.FromResult<byte[]?>(null);
 
-        var cliente = await _repository.ObtenerClienteAsync(tarea.ClienteId);
+        var clienteTask = _repository.ObtenerClienteAsync(tarea.ClienteId);
+        var evidenciasTask = _repository.ObtenerEvidenciasPorTareaAsync(tarea.TareaId);
+        var observacionesTask = _repository.ObtenerObservacionesPorTareaAsync(tarea.TareaId);
+        var direccionTask = _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
+        var telefonoTask = _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
+        var nombreCTTask = _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
+
+        await Task.WhenAll(logoProveedorTask, clienteTask, evidenciasTask,
+            observacionesTask, direccionTask, telefonoTask, nombreCTTask);
+
+        var logoProveedorBytes = logoProveedorTask.Result;
+        var cliente = clienteTask.Result;
         if (cliente is null)
             throw new InvalidOperationException($"No se encontró el cliente de la tarea con id {tarea.ClienteId}.");
 
-        var evidencias = await _repository.ObtenerEvidenciasPorTareaAsync(tarea.TareaId);
-        var observaciones = await _repository.ObtenerObservacionesPorTareaAsync(tarea.TareaId);
-        tarea.Observaciones = observaciones;
-        tarea.DireccionCentroTrabajo = await _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
-        tarea.TelefonoCentroTrabajo = await _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
-        tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
+        tarea.Observaciones = observacionesTask.Result;
+        tarea.DireccionCentroTrabajo = direccionTask.Result;
+        tarea.TelefonoCentroTrabajo = telefonoTask.Result;
+        tarea.NombreCentroTrabajo = nombreCTTask.Result;
 
+        var evidencias = evidenciasTask.Result;
 
-        foreach (var evidencia in evidencias)
+        // Cachés por coordenadas
+        var mapaCache = new ConcurrentDictionary<string, byte[]?>();
+        var geoCache = new ConcurrentDictionary<string, GeocodingInfoDto?>();
+        var semaforo = new SemaphoreSlim(MaxConcurrencia);
+
+        await Task.WhenAll(evidencias.Select(async evidencia =>
         {
-            if (!string.IsNullOrWhiteSpace(evidencia.UrlArchivo))
-                evidencia.ImagenBytes = await DescargarImagenAsync(evidencia.UrlArchivo!);
-
-            if (evidencia.Latitud.HasValue && evidencia.Longitud.HasValue)
+            await semaforo.WaitAsync();
+            try
             {
-                evidencia.MapaBytes = await DescargarMapaAsync(evidencia.Latitud.Value, evidencia.Longitud.Value);
+                var imagenTask = !string.IsNullOrWhiteSpace(evidencia.UrlArchivo)
+                    ? DescargarImagenAsync(evidencia.UrlArchivo!)
+                    : Task.FromResult<byte[]?>(null);
 
-                var geo = await ObtenerGeocodingAsync(evidencia.Latitud.Value, evidencia.Longitud.Value);
-                if (geo is not null)
+                if (evidencia.Latitud.HasValue && evidencia.Longitud.HasValue)
                 {
-                    evidencia.DireccionFormateada = geo.DireccionFormateada;
-                    evidencia.Colonia = geo.Colonia;
-                    evidencia.Municipio = geo.Municipio;
-                    evidencia.Estado = geo.Estado;
-                    evidencia.CodigoPostal = geo.CodigoPostal;
-                    evidencia.Pais = geo.Pais;
+                    var lat = evidencia.Latitud.Value.ToString(CultureInfo.InvariantCulture);
+                    var lng = evidencia.Longitud.Value.ToString(CultureInfo.InvariantCulture);
+                    var clave = $"{lat},{lng}";
+
+                    var mapaTask = mapaCache.ContainsKey(clave)
+                        ? Task.FromResult(mapaCache[clave])
+                        : DescargarMapaAsync(evidencia.Latitud.Value, evidencia.Longitud.Value)
+                            .ContinueWith(t => { mapaCache.TryAdd(clave, t.Result); return t.Result; });
+
+                    var geoTask = geoCache.ContainsKey(clave)
+                        ? Task.FromResult(geoCache[clave])
+                        : ObtenerGeocodingAsync(evidencia.Latitud.Value, evidencia.Longitud.Value)
+                            .ContinueWith(t => { geoCache.TryAdd(clave, t.Result); return t.Result; });
+
+                    await Task.WhenAll(imagenTask, mapaTask, geoTask);
+
+                    evidencia.ImagenBytes = imagenTask.Result;
+                    evidencia.MapaBytes = mapaTask.Result;
+
+                    var geo = geoTask.Result;
+                    if (geo is not null)
+                    {
+                        evidencia.DireccionFormateada = geo.DireccionFormateada;
+                        evidencia.Colonia = geo.Colonia;
+                        evidencia.Municipio = geo.Municipio;
+                        evidencia.Estado = geo.Estado;
+                        evidencia.CodigoPostal = geo.CodigoPostal;
+                        evidencia.Pais = geo.Pais;
+                    }
+
+                    evidencia.GoogleMapsUrl = $"https://www.google.com/maps?q={lat},{lng}";
+                }
+                else
+                {
+                    evidencia.ImagenBytes = await imagenTask;
                 }
 
-                var lat = evidencia.Latitud.Value.ToString(CultureInfo.InvariantCulture);
-                var lng = evidencia.Longitud.Value.ToString(CultureInfo.InvariantCulture);
-                evidencia.GoogleMapsUrl = $"https://www.google.com/maps?q={lat},{lng}";
+                if (string.IsNullOrWhiteSpace(evidencia.DireccionFormateada))
+                    evidencia.DireccionFormateada = evidencia.Direccion;
             }
-
-            if (string.IsNullOrWhiteSpace(evidencia.DireccionFormateada))
-                evidencia.DireccionFormateada = evidencia.Direccion;
-        }
+            finally { semaforo.Release(); }
+        }));
 
         tarea.Evidencias = evidencias;
 
@@ -96,38 +154,12 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
             Resumen = ConstruirResumen(tarea)
         };
 
-        // Generar QR que apunte a una URL directa cuando esté configurada.
-        // Si en configuración existe 'Qr:DirectUrl' se usará dicha URL como contenido del QR
-        // (puede contener placeholders {tareaId} o {taskCode} que serán reemplazados).
-        byte[]? qrBytes = null;
-        try
-        {
-            // QR directo fijado en código (valor proporcionado por el usuario
-            var token = BuildValidationToken(tarea.TareaId);
-            var BaseUrlFront = _configuration["AppSettings:BaseUrlFront"];
-            var qrDirectTemplate = BaseUrlFront + $"Documentos/Verificar?taskId={tareaId}&token={token}";
-            qrBytes = GenerarQrBytes(qrDirectTemplate);
-        }
-        catch
-        {
-            // En caso de error generar QR local con contenido por defecto
-            try
-            {
-                qrBytes = GenerarQrBytes($"TAREA:{tarea.TareaId}");
-            }
-            catch
-            {
-                qrBytes = null;
-            }
-        }
-
-        return await ConstruirPdfAsync(reporte, qrBytes, logoProveedorBytes);
+        return await ConstruirPdfAsync(reporte, logoProveedorBytes);
     }
 
     private static ResumenReporteDto ConstruirResumen(TareaReporteDto tarea)
     {
         var evidencias = tarea.Evidencias ?? new List<EvidenciaReporteDto>();
-
         return new ResumenReporteDto
         {
             TotalTareas = 1,
@@ -141,12 +173,7 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
 
     private async Task<byte[]?> DescargarImagenAsync(string url)
     {
-        try
-        {
-            var client = _httpClientFactory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(20);
-            return await client.GetByteArrayAsync(url);
-        }
+        try { return await _httpClient.GetByteArrayAsync(url); }
         catch { return null; }
     }
 
@@ -157,13 +184,9 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
             var apiKey = _configuration["GoogleMaps:ApiKey"];
             if (string.IsNullOrWhiteSpace(apiKey)) return null;
 
-            var client = _httpClientFactory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(20);
-
             var lat = latitud.ToString(CultureInfo.InvariantCulture);
             var lng = longitud.ToString(CultureInfo.InvariantCulture);
 
-            // PUNTO 5: Estilos de color azul para el mapa (similar a la referencia)
             var styles =
                 "&style=feature:water|color:0xA9CCE3" +
                 "&style=feature:landscape|color:0xEAF2FB" +
@@ -179,7 +202,9 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                 styles +
                 $"&key={apiKey}";
 
-            return await client.GetByteArrayAsync(mapaUrl);
+            var bytes = await _httpClient.GetByteArrayAsync(mapaUrl);
+            if (bytes is null || bytes.Length < 4) return null;
+            return bytes;
         }
         catch { return null; }
     }
@@ -191,14 +216,11 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
             var apiKey = _configuration["GoogleMaps:ApiKey"];
             if (string.IsNullOrWhiteSpace(apiKey)) return null;
 
-            var client = _httpClientFactory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(20);
-
             var lat = latitud.ToString(CultureInfo.InvariantCulture);
             var lng = longitud.ToString(CultureInfo.InvariantCulture);
 
             var url = $"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lng}&language=es&key={apiKey}";
-            var json = await client.GetStringAsync(url);
+            var json = await _httpClient.GetStringAsync(url);
 
             using var doc = JsonDocument.Parse(json);
             if (!doc.RootElement.TryGetProperty("results", out var results) || results.GetArrayLength() == 0)
@@ -215,10 +237,8 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                 foreach (var component in components.EnumerateArray())
                 {
                     if (!component.TryGetProperty("types", out var types)) continue;
-
                     var typeValues = types.EnumerateArray()
                         .Select(t => t.GetString() ?? string.Empty).ToList();
-
                     var longName = component.TryGetProperty("long_name", out var ln) ? ln.GetString() : null;
 
                     if (typeValues.Contains("sublocality") || typeValues.Contains("sublocality_level_1") || typeValues.Contains("neighborhood"))
@@ -241,7 +261,6 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
         catch { return null; }
     }
 
-    // Clase auxiliar para representar archivos adjuntos de la tarea
     private class ArchivoAdjunto
     {
         public string Url { get; set; } = string.Empty;
@@ -250,16 +269,12 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
         public byte[]? Bytes { get; set; }
     }
 
-    // =========================================================================
-    // CARGA DE RECURSOS — helper genérico para íconos en /Resources
-    // =========================================================================
     private static byte[]? CargarRecurso(string nombreArchivo)
     {
         try
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "Resources", nombreArchivo);
             if (File.Exists(path)) return File.ReadAllBytes(path);
-
             var altPath = Path.Combine(AppContext.BaseDirectory ?? Directory.GetCurrentDirectory(), "Resources", nombreArchivo);
             if (File.Exists(altPath)) return File.ReadAllBytes(altPath);
         }
@@ -267,45 +282,53 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
         return null;
     }
 
-    private async Task<byte[]> ConstruirPdfAsync(ReporteMaterialidadDto reporte, byte[]? qrBytes, byte[]? logoProveedorBytes)
+    private static void CargarRecursosEstaticos()
     {
+        if (_resourcesLoaded) return;
+        lock (_resourceLock)
+        {
+            if (_resourcesLoaded) return;
+
+            var logoPath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "logo_velios.png");
+            _logoBytes = File.Exists(logoPath) ? File.ReadAllBytes(logoPath) : CargarRecurso("logo_velios.png");
+
+            var evidencePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Logoveliosevidence.png");
+            _evidenceLogoBytes = File.Exists(evidencePath) ? File.ReadAllBytes(evidencePath) : CargarRecurso("Logoveliosevidence.png");
+
+            _personaIconBytes = CargarRecurso("persona.png");
+            _documentoIconBytes = CargarRecurso("documento.png");
+            _checkIconBytes = CargarRecurso("check.png");
+            _carpetaIconBytes = CargarRecurso("carpeta.png");
+
+            var possibleDirs = new[]
+            {
+                Path.Combine(Directory.GetCurrentDirectory(), "Resources"),
+                Path.Combine(AppContext.BaseDirectory ?? Directory.GetCurrentDirectory(), "Resources")
+            };
+            foreach (var dir in possibleDirs)
+            {
+                if (!Directory.Exists(dir)) continue;
+                var candidates = new[] { "Icon_PDF.png", "Icon_PDF.jpg", "Icon_PDF.jpeg", "Icon_PDF.bmp" };
+                var found = candidates.Select(c => Path.Combine(dir, c)).FirstOrDefault(File.Exists);
+                if (found != null) { _pdfIconBytes = File.ReadAllBytes(found); break; }
+            }
+
+            _resourcesLoaded = true;
+        }
+    }
+
+    private static string TruncarTexto(string? texto, int maxCaracteres)
+    {
+        if (string.IsNullOrWhiteSpace(texto)) return texto ?? string.Empty;
+        return texto.Length <= maxCaracteres ? texto : texto.Substring(0, maxCaracteres).TrimEnd() + "...";
+    }
+
+    private async Task<byte[]> ConstruirPdfAsync(ReporteMaterialidadDto reporte, byte[]? logoProveedorBytes)
+    {
+        CargarRecursosEstaticos();
+
         var tarea = reporte.Tarea;
         var cliente = reporte.Cliente;
-
-        var logoPath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "logo_velios.png");
-        byte[]? logoBytes = null;
-
-        // Intentar cargar el logo desde varias ubicaciones (CWD y base directory)
-        if (File.Exists(logoPath))
-            logoBytes = File.ReadAllBytes(logoPath);
-        else
-        {
-            var altPath = Path.Combine(AppContext.BaseDirectory ?? Directory.GetCurrentDirectory(), "Resources", "logo_velios.png");
-            if (File.Exists(altPath))
-                logoBytes = File.ReadAllBytes(altPath);
-        }
-
-        // Cargar logo específico para mostrar junto al nombre de la evidencia (Logoveliosevidence.png)
-        byte[]? evidenceLogoBytes = null;
-        try
-        {
-            var evidenceLogoPath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Logoveliosevidence.png");
-            if (File.Exists(evidenceLogoPath))
-                evidenceLogoBytes = File.ReadAllBytes(evidenceLogoPath);
-            else
-            {
-                var altEvidencePath = Path.Combine(AppContext.BaseDirectory ?? Directory.GetCurrentDirectory(), "Resources", "Logoveliosevidence.png");
-                if (File.Exists(altEvidencePath))
-                    evidenceLogoBytes = File.ReadAllBytes(altEvidencePath);
-            }
-        }
-        catch { evidenceLogoBytes = null; }
-
-        // PUNTOS 1, 2 y 4: Cargar nuevos íconos de diseño desde /Resources
-        byte[]? personaIconBytes = CargarRecurso("persona.png");
-        byte[]? documentoIconBytes = CargarRecurso("documento.png");
-        byte[]? checkIconBytes = CargarRecurso("check.png");
-        byte[]? carpetaIconBytes = CargarRecurso("carpeta.png");
 
         var clienteDisplay = !string.IsNullOrWhiteSpace(cliente.NombreComercial)
             ? cliente.NombreComercial
@@ -317,64 +340,42 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
             ? tarea.DireccionCentroTrabajo
             : "Dirección no disponible";
 
-        // Preparar archivos adjuntos de la tarea (tarea.ImageURL puede contener varias URLs separadas por coma)
+        // Adjuntos en paralelo
         var archivosTarea = new List<ArchivoAdjunto>();
         if (!string.IsNullOrWhiteSpace(tarea.ImageURL))
         {
             var lista = tarea.ImageURL!.Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToList();
 
-            foreach (var url in lista)
+            var semAdj = new SemaphoreSlim(MaxConcurrencia);
+            var adjTasks = lista.Select(async url =>
             {
-                var ext = Path.GetExtension(url).ToLowerInvariant();
-                var fileName = Path.GetFileName(url);
-                byte[]? bytes = null;
-
-                // Intentar descargar previews sólo para imágenes
-                if (ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".gif" || ext == ".bmp")
+                await semAdj.WaitAsync();
+                try
                 {
-                    try { bytes = await DescargarImagenAsync(url); } catch { bytes = null; }
+                    var ext = Path.GetExtension(url).ToLowerInvariant();
+                    byte[]? bytes = null;
+                    if (ext is ".png" or ".jpg" or ".jpeg" or ".gif" or ".bmp")
+                        try { bytes = await DescargarImagenAsync(url); } catch { bytes = null; }
+
+                    return new ArchivoAdjunto
+                    {
+                        Url = url,
+                        FileName = Path.GetFileName(url),
+                        Extension = ext,
+                        Bytes = bytes
+                    };
                 }
+                finally { semAdj.Release(); }
+            });
 
-                archivosTarea.Add(new ArchivoAdjunto
-                {
-                    Url = url,
-                    FileName = fileName,
-                    Extension = ext,
-                    Bytes = bytes
-                });
-            }
-
+            archivosTarea = (await Task.WhenAll(adjTasks)).ToList();
         }
-        // Intentar cargar un ícono local para PDFs desde Resources (Icon_PDF.*)
-        byte[]? pdfIconBytes = null;
-        try
-        {
-            var possibleDirs = new[]
-            {
-                Path.Combine(Directory.GetCurrentDirectory(), "Resources"),
-                Path.Combine(AppContext.BaseDirectory ?? Directory.GetCurrentDirectory(), "Resources")
-            };
-
-            foreach (var dir in possibleDirs)
-            {
-                if (!Directory.Exists(dir)) continue;
-
-                var candidates = new[] { "Icon_PDF.png", "Icon_PDF.jpg", "Icon_PDF.jpeg", "Icon_PDF.bmp", "Icon_PDF.gif", "Icon_PDF.svg" };
-                var found = candidates.Select(c => Path.Combine(dir, c)).FirstOrDefault(File.Exists);
-                if (found != null)
-                {
-                    pdfIconBytes = File.ReadAllBytes(found);
-                    break;
-                }
-            }
-        }
-        catch { pdfIconBytes = null; }
 
         var document = Document.Create(container =>
         {
             // =========================================================
-            // PÁGINA 1 - RESUMEN EJECUTIVO
+            // PÁGINA 1
             // =========================================================
             container.Page(page =>
             {
@@ -386,13 +387,13 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                 page.Background().Element(CrearFondoPagina);
 
                 page.Header().Element(c =>
-                    CrearHeader(c, logoBytes, "INFORME DE TAREA", (tarea.Titulo ?? "SIN TÍTULO").Replace("/", "").Trim()));
+                    CrearHeader(c, _logoBytes, "INFORME PRELIMINAR", (tarea.Titulo ?? "SIN TÍTULO").Replace("/", "").Trim()));
 
                 page.Content().PaddingTop(10).Element(c =>
-                    CrearContenidoPrincipalConSidebar(c, reporte, clienteDisplay, direccionDisplay, logoBytes, archivosTarea, pdfIconBytes, personaIconBytes, documentoIconBytes, carpetaIconBytes, logoProveedorBytes));
+                    CrearContenidoPrincipalConSidebar(c, reporte, clienteDisplay, direccionDisplay, _logoBytes, archivosTarea, _pdfIconBytes, _personaIconBytes, _documentoIconBytes, _carpetaIconBytes));
 
                 page.Footer().Element(c =>
-                                CrearFooter(c, clienteDisplay, direccionDisplay, tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", logoBytes, qrBytes, logoProveedorBytes, carpetaIconBytes));
+                    CrearFooter(c, direccionDisplay, tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", _logoBytes, logoProveedorBytes, _carpetaIconBytes));
             });
 
             // =========================================================
@@ -412,90 +413,27 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                     page.Background().Element(CrearFondoPagina);
 
                     page.Header().Element(c =>
-                        CrearHeader(c, logoBytes, "INFORME DE TAREA", (tarea.Titulo ?? "SIN TÍTULO").Replace("/", "").Trim()));
+                        CrearHeader(c, _logoBytes, "INFORME PRELIMINAR", (tarea.Titulo ?? "SIN TÍTULO").Replace("/", "").Trim()));
 
                     page.Content().PaddingTop(10).PaddingLeft(48).Column(column =>
                     {
                         column.Spacing(6);
 
                         column.Item().Text($"EVIDENCIA {i + 1:D2}")
-                                                                    .FontSize(16).Bold().FontColor("#24364D");
+                            .FontSize(16).Bold().FontColor("#24364D");
 
-                        // Foto + sidebar datos
+                        column.Item().Text(tarea.EstatusNombre ?? "Avance")
+                            .FontSize(10).SemiBold().FontColor("#6B7280");
+
                         column.Item().Row(row =>
                         {
                             row.RelativeItem(1.45f).Column(imgCol =>
                             {
-                                imgCol.Item().PaddingBottom(4).Row(r =>
-                                {
-                                    r.ConstantItem(22).Height(22).Element(ic =>
-                                    {
-                                        if (documentoIconBytes is not null && documentoIconBytes.Length > 0)
-                                            ic.Image(documentoIconBytes, ImageScaling.FitArea);
-                                        else
-                                            ic.AlignCenter().AlignMiddle().Text("📄").FontSize(14);
-                                    });
-
-                                    r.ConstantItem(8);
-
-                                    r.ConstantItem(70).AlignMiddle().Text("Avance")
-                                        .Bold().FontSize(10).FontColor("#24364D");
-
-                                    r.RelativeItem().Column(col =>
-                                    {
-                                        var progreso = evidencia.Progreso ?? 0;
-
-                                        string etapaLabel;
-                                        string rangoLabel;
-                                        int segmentosLlenos;
-
-                                        if (progreso <= 10)
-                                        {
-                                            etapaLabel = "En preparación";
-                                            rangoLabel = "0–10%";
-                                            segmentosLlenos = 1;
-                                        }
-                                        else if (progreso <= 25)
-                                        {
-                                            etapaLabel = "En proceso";
-                                            rangoLabel = "10–25%";
-                                            segmentosLlenos = 2;
-                                        }
-                                        else if (progreso <= 60)
-                                        {
-                                            etapaLabel = "En revisión";
-                                            rangoLabel = "25–60%";
-                                            segmentosLlenos = 3;
-                                        }
-                                        else
-                                        {
-                                            etapaLabel = "Finalizado";
-                                            rangoLabel = "60–100%";
-                                            segmentosLlenos = 4;
-                                        }
-
-                                        col.Item().Row(bar =>
-                                        {
-                                            for (int seg = 1; seg <= 4; seg++)
-                                            {
-                                                if (seg > 1) bar.ConstantItem(4);
-                                                bar.RelativeItem().Height(6)
-                                                    .Background(seg <= segmentosLlenos ? "#24364D" : "#E5E7EB")
-                                                    .CornerRadius(3);
-                                            }
-                                        });
-
-                                        col.Item().PaddingTop(3).AlignRight().Text($"{etapaLabel} ({rangoLabel})  -  {evidencia.DateCreated:dd/MM/yyyy}")
-                                            .FontSize(8).FontColor("#6B7280");
-                                    });
-                                });
-
                                 imgCol.Item().Border(1).BorderColor("#D6DCE5").Element(imgBox =>
                                 {
                                     imgBox.Layers(layers =>
                                     {
-                                        // Imagen de fondo solamente (sin overlay) — altura aumentada para llenar el espacio
-                                        layers.PrimaryLayer().Background("#F8FAFC").Height(340).Element(bg =>
+                                        layers.PrimaryLayer().Background("#F8FAFC").Height(420).Element(bg =>
                                         {
                                             if (evidencia.ImagenBytes is not null && evidencia.ImagenBytes.Length > 0)
                                                 bg.AlignCenter().AlignMiddle().Image(evidencia.ImagenBytes, ImageScaling.FitArea);
@@ -507,172 +445,103 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                                     });
                                 });
 
-                                // Nombre del archivo debajo (re-agregado) — pequeño espacio y separación
                                 if (!string.IsNullOrWhiteSpace(evidencia.UrlArchivo))
                                 {
                                     imgCol.Item().PaddingTop(6).Background("#F9FAFB")
                                         .BorderTop(1).BorderColor("#E5E7EB")
                                         .PaddingVertical(6).PaddingHorizontal(10).Row(r =>
                                         {
-                                            // Logo local si está disponible
                                             r.ConstantItem(28).Height(28).AlignCenter().AlignMiddle().Element(ic =>
                                             {
-                                                if (evidenceLogoBytes is not null && evidenceLogoBytes.Length > 0)
-                                                {
-                                                    ic.Element(img => img.Image(evidenceLogoBytes, ImageScaling.FitArea));
-                                                }
+                                                if (_evidenceLogoBytes is not null && _evidenceLogoBytes.Length > 0)
+                                                    ic.Element(img => img.Image(_evidenceLogoBytes, ImageScaling.FitArea));
                                                 else
-                                                {
                                                     ic.Text("🖼️").FontSize(12);
-                                                }
                                             });
-
                                             r.ConstantItem(8);
-
                                             r.RelativeItem().AlignMiddle()
-                                                                                            .Text(Path.GetFileName(evidencia.UrlArchivo))
-                                                                                            .SemiBold().FontSize(11).FontColor("#24364D");
+                                                .Text(Path.GetFileName(evidencia.UrlArchivo))
+                                                .SemiBold().FontSize(9).FontColor("#24364D");
                                         });
                                 }
-                                imgCol.Item().PaddingTop(6).Column(fc =>
-                                {
-                                    fc.Spacing(8);
-                                    fc.Item().Element(x => CrearFilaSimple(x, "Equipo", evidencia.ModeloDispositivo));
-                                    fc.Item().Element(x => CrearFilaSimple(x, "Latitud de captura",
-                                        evidencia.Latitud?.ToString("0.00000000", CultureInfo.InvariantCulture)));
-                                    fc.Item().Element(x => CrearFilaSimple(x, "Longitud de captura",
-                                        evidencia.Longitud?.ToString("0.00000000", CultureInfo.InvariantCulture)));
-                                });
                             });
 
                             row.ConstantItem(12);
 
-                            // =========================================================
-                            // PUNTO 4: Sidebar de evidencia rediseñado en secciones
-                            //          tipo tarjeta, separadas, con íconos.
-                            // PUNTO 5/6: Mapa azul + info del mapa con fondo blanco
-                            // =========================================================
                             row.ConstantItem(185).Background("#F3F4F6").CornerRadius(8).Padding(10).Column(right =>
                             {
-                                right.Spacing(18);
+                                right.Spacing(6);
 
-                                right.Item().Height(3).Background("#24364D");
-                                // --- Proveedor ---
-                                right.Item().Row(r =>
+                                right.Item().Border(1).BorderColor("#E5E7EB").Background(Colors.White).CornerRadius(6).Padding(8).Column(sec =>
                                 {
-                                    r.ConstantItem(20).Height(20).Element(ic =>
+                                    sec.Spacing(5);
+                                    sec.Item().Row(r =>
                                     {
-                                        if (logoProveedorBytes is not null && logoProveedorBytes.Length > 0)
-                                            ic.CornerRadius(10).Element(img => img.Image(logoProveedorBytes, ImageScaling.FitArea));
-                                        else
-                                            ic.Background("#24364D").CornerRadius(10)
-                                                .AlignCenter().AlignMiddle()
-                                                .Text("●").FontSize(8).FontColor(Colors.White);
-                                    });
-                                    r.ConstantItem(6);
-                                    r.RelativeItem().Column(c =>
-                                    {
-                                        c.Item().Text(tarea.NombreProveedor ?? "N/A")
+                                        r.ConstantItem(16).AlignMiddle().Text("📋").FontSize(11);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().AlignMiddle().Text("Datos de captura")
                                             .Bold().FontSize(11).FontColor("#24364D");
-                                        c.Item().Text("Proveedor")
-                                            .FontSize(7).FontColor("#6B7280");
+                                    });
+                                    sec.Item().LineHorizontal(1).LineColor("#D1D5DB");
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("📅").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Fecha de captura", evidencia.DateCreated.ToString("dd/MM/yyyy")));
+                                    });
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("🗄️").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Registrado en sistema", evidencia.DateCreated.ToString("dd/MM/yyyy")));
+                                    });
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("👤").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Usuario de registro", tarea.NombreOperador));
+                                    });
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("📱").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Equipo", evidencia.ModeloDispositivo));
+                                    });
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("📍").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Latitud de captura",
+                                            evidencia.Latitud?.ToString("0.00000000", CultureInfo.InvariantCulture) ?? "N/A"));
+                                    });
+                                    sec.Item().Row(r =>
+                                    {
+                                        r.ConstantItem(14).AlignTop().Text("📍").FontSize(9);
+                                        r.ConstantItem(4);
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Longitud de captura",
+                                            evidencia.Longitud?.ToString("0.00000000", CultureInfo.InvariantCulture) ?? "N/A"));
                                     });
                                 });
 
-                                // --- Usuario de registro ---
-                                right.Item().Row(r =>
+                                right.Item().Border(1).BorderColor("#E5E7EB").Background(Colors.White).CornerRadius(6).Padding(8).Column(sec =>
                                 {
-                                    r.ConstantItem(20).Height(20).Element(ic =>
-                                    {
-                                        if (personaIconBytes is not null && personaIconBytes.Length > 0)
-                                            ic.Image(personaIconBytes, ImageScaling.FitArea);
-                                        else
-                                            ic.Background("#24364D").CornerRadius(10)
-                                                .AlignCenter().AlignMiddle()
-                                                .Text("●").FontSize(8).FontColor(Colors.White);
-                                    });
-                                    r.ConstantItem(6);
-                                    r.RelativeItem().Column(c =>
-                                    {
-                                        c.Item().Text(tarea.NombreOperador ?? "N/A")
-                                            .Bold().FontSize(11).FontColor("#24364D");
-                                        c.Item().Text("Usuario de registro")
-                                            .FontSize(7).FontColor("#6B7280");
-                                    });
+                                    sec.Spacing(5);
+                                    sec.Item().Text("Validación").Bold().FontSize(11).FontColor("#24364D");
+                                    sec.Item().LineHorizontal(1).LineColor("#D1D5DB");
+                                    sec.Item().Element(x => CrearCheckValidacion(x, "Fecha de evidencia coincide con el registro", true, _checkIconBytes));
+                                    sec.Item().Element(x => CrearCheckValidacion(x, "Ubicación validada con sucursal",
+                                        evidencia.Latitud.HasValue && evidencia.Longitud.HasValue, _checkIconBytes));
+                                    sec.Item().Element(x => CrearCheckValidacion(x, "Tomada desde la app Velios", true, _checkIconBytes));
                                 });
 
-                                right.Item().PaddingVertical(2).LineHorizontal(1).LineColor("#D1D5DB");
-
-                                // --- Timeline: Registrado en sistema / Fecha de captura ---
-                                right.Item().Column(tl =>
-                                {
-                                    Action<string, string, bool> addItem = (date, label, filled) =>
-                                    {
-                                        tl.Item().Row(r =>
-                                        {
-                                            r.ConstantItem(18).Column(c =>
-                                            {
-                                                c.Item().Height(1);
-                                                if (filled)
-                                                    c.Item().AlignCenter().Element(el => el.Width(8).Height(8).Border(2).BorderColor("#16C60C").CornerRadius(4).Background("#16C60C"));
-                                                else
-                                                    c.Item().AlignCenter().Element(el => el.Width(8).Height(8).Border(2).BorderColor("#94A3B8").CornerRadius(4).Background(Colors.White));
-                                                c.Item().Height(10).AlignCenter().Element(line => line.Width(2).Height(10).Background("#E5E7EB"));
-                                            });
-                                            r.RelativeItem().Column(c =>
-                                            {
-                                                c.Item().Text(date).SemiBold().FontSize(9).FontColor("#24364D");
-                                                c.Item().Text(label).FontSize(7).FontColor("#6B7280");
-                                            });
-                                        });
-                                    };
-
-                                    addItem(evidencia.DateCreated.ToString("dd/MM/yyyy"), "Registrado en sistema", false);
-                                    tl.Item().PaddingTop(6);
-                                    addItem(evidencia.DateCreated.ToString("dd/MM/yyyy"), "Fecha de captura", true);
-                                });
-
-                                right.Item().LineHorizontal(1).LineColor("#D1D5DB");
-
-                                // --- Checklist simple ---
-                                right.Item().Column(chk =>
-                                {
-                                    chk.Spacing(10);
-                                    Action<string, bool> addCheck = (texto, ok) =>
-                                    {
-                                        chk.Item().Row(r =>
-                                        {
-                                            r.ConstantItem(16).Height(16).Element(box =>
-                                            {
-                                                if (ok && checkIconBytes is not null && checkIconBytes.Length > 0)
-                                                    box.Image(checkIconBytes, ImageScaling.FitArea);
-                                                else
-                                                    box.Background(ok ? "#16C60C" : "#94A3B8").CornerRadius(8)
-                                                        .AlignCenter().AlignMiddle()
-                                                        .Text("✓").FontSize(8).Bold().FontColor(Colors.White);
-                                            });
-                                            r.ConstantItem(6);
-                                            r.RelativeItem().AlignMiddle().Text(texto)
-                                                .FontSize(8).FontColor("#334155");
-                                        });
-                                    };
-
-                                    addCheck("Tomada desde la app Velios", true);
-                                    addCheck("Ubicación validada con sucursal", evidencia.Latitud.HasValue && evidencia.Longitud.HasValue);
-                                    addCheck("Fecha de evidencia coincide con el registro", true);
-                                });
-
-                                // --- Sección: Mapa (azul) + info (fondo blanco) ---
                                 right.Item().Element(c =>
                                 {
-
                                     c.Border(1).BorderColor("#D6DCE5").Background("#F8FAFC").CornerRadius(6).Column(col =>
                                     {
-                                        col.Item().Height(150).Element(box =>
+                                        col.Item().Height(100).Element(box =>
                                         {
                                             box.Layers(layers =>
                                             {
-                                                // Capa 1: imagen del mapa (sin overlay, se ve el mapa real)
                                                 layers.PrimaryLayer().Element(bg =>
                                                 {
                                                     if (evidencia.MapaBytes is not null && evidencia.MapaBytes.Length > 0)
@@ -681,10 +550,16 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                                                         bg.Background("#24364D").AlignCenter().AlignMiddle()
                                                             .Text("Sin mapa").FontSize(8).FontColor(Colors.White);
                                                 });
-
-                                                // Capa 2: pin naranja central (sin fondo blanco detrás)
+                                                layers.Layer().Background("#7324364D");
                                                 layers.Layer().AlignCenter().AlignMiddle()
-                                                    .Text("📍").FontSize(28).FontColor("#F15A24");
+                                                    .Element(pin =>
+                                                    {
+                                                        pin.Width(26).Height(26)
+                                                           .Background(Colors.White)
+                                                           .CornerRadius(13)
+                                                           .AlignCenter().AlignMiddle()
+                                                           .Text("📍").FontSize(13);
+                                                    });
                                             });
                                         });
 
@@ -696,7 +571,7 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                                                     r.ConstantItem(10).Text("⊙").FontSize(9).FontColor("#F15A24");
                                                     r.ConstantItem(3);
                                                     r.RelativeItem().Text(evidencia.DireccionFormateada)
-                        .FontSize(7).FontColor("#374151").LineHeight(1.1f);
+                                                        .FontSize(7).FontColor("#374151").LineHeight(1.1f);
                                                 });
                                         }
                                         if (!string.IsNullOrWhiteSpace(evidencia.GoogleMapsUrl))
@@ -716,22 +591,19 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                                 });
                             });
                         });
-
-                        // Archivos adjuntos (nombre del archivo ya mostrado junto a la imagen si aplica)
-
-                    }); // cierra column principal de evidencia
+                    });
 
                     page.Footer().Element(c =>
-                        CrearFooter(c, clienteDisplay, direccionDisplay, tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", logoBytes, qrBytes, logoProveedorBytes, carpetaIconBytes));
-                }); // cierra container.Page
-            } // cierra for
-        }); // cierra Document.Create
+                        CrearFooter(c, direccionDisplay, tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", _logoBytes, logoProveedorBytes, _carpetaIconBytes));
+                });
+            }
+        });
 
         return document.GeneratePdf();
     }
 
     // =========================================================================
-    // FONDO DE PÁGINA — barra lateral naranja + azul + gris
+    // FONDO DE PÁGINA
     // =========================================================================
     private static void CrearFondoPagina(IContainer container)
     {
@@ -750,13 +622,9 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
     }
 
     // =========================================================================
-    // HEADER — logo PNG + separador + título
+    // HEADER
     // =========================================================================
-    private static void CrearHeader(
-        IContainer container,
-        byte[]? logoBytes,
-        string titulo,
-        string subtitulo)
+    private static void CrearHeader(IContainer container, byte[]? logoBytes, string titulo, string subtitulo)
     {
         container.PaddingLeft(28).PaddingRight(10).PaddingTop(5).Column(column =>
         {
@@ -781,7 +649,6 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                 });
 
                 row.ConstantItem(1).PaddingTop(8).PaddingBottom(8).Background("#D1D5DB");
-
                 row.ConstantItem(12);
 
                 row.RelativeItem().AlignMiddle().Element(containerTitles =>
@@ -794,20 +661,8 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                                 .Padding(8)
                                 .Column(col =>
                                 {
-                                    col.Item().Row(r2 =>
-                                    {
-                                        r2.AutoItem().Text(titulo)
-                                            .FontSize(10).SemiBold().FontColor("#6B7280");
-
-                                        r2.ConstantItem(6);
-
-                                        r2.AutoItem().Background("#EEF2FF").CornerRadius(10)
-                                            .PaddingHorizontal(8).PaddingVertical(2)
-                                            .Text("PREELIMINAR")
-                                            .FontSize(8).Bold().FontColor("#000000");
-                                    });
-                                    col.Item().Text(subtitulo ?? "SIN TÍTULO")
-                                        .FontSize(16).Bold().FontColor("#24364D");
+                                    col.Item().Text(titulo).FontSize(10).SemiBold().FontColor("#6B7280");
+                                    col.Item().Text(subtitulo ?? "SIN TÍTULO").FontSize(16).Bold().FontColor("#24364D");
                                 });
                         });
                     });
@@ -819,7 +674,7 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
     }
 
     // =========================================================================
-    // CONTENIDO PÁGINA 1 — columna izquierda + sidebar derecho
+    // CONTENIDO PÁGINA 1
     // =========================================================================
     private static void CrearContenidoPrincipalConSidebar(
         IContainer container,
@@ -831,32 +686,26 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
         byte[]? pdfIconBytes,
         byte[]? personaIconBytes,
         byte[]? documentoIconBytes,
-        byte[]? carpetaIconBytes,
-        byte[]? logoProveedorBytes)
+        byte[]? carpetaIconBytes)
     {
         var tarea = reporte.Tarea;
         var cliente = reporte.Cliente;
 
-        container.PaddingLeft(28).Shrink().Row(row =>
+        container.PaddingLeft(28).Row(row =>
         {
-            // -----------------------------------------------------------------
-            // COLUMNA IZQUIERDA
-            // -----------------------------------------------------------------
             row.RelativeItem(2.7f).PaddingRight(12).Column(left =>
             {
                 left.Spacing(14);
-
                 left.Item().Element(lc => { });
 
                 left.Item().Element(c =>
-                    CrearSeccionConIcono(c, "Información general  del cliente", content =>
+                    CrearSeccionConIcono(c, "Información general del cliente", content =>
                     {
                         content.Item().Element(x => CrearFilaSimple(x, "Nombre", clienteDisplay));
                         content.Item().Element(x => CrearFilaSimple(x, "Razón Social", cliente.RazonSocial));
                         content.Item().Element(x => CrearFilaSimple(x, "Número de teléfono de la empresa",
-    !string.IsNullOrWhiteSpace(tarea.TelefonoCentroTrabajo) ? tarea.TelefonoCentroTrabajo : cliente.Telefono));
+                            !string.IsNullOrWhiteSpace(tarea.TelefonoCentroTrabajo) ? tarea.TelefonoCentroTrabajo : cliente.Telefono));
                         content.Item().Element(x => CrearFilaSimple(x, "Email del supervisor", tarea.EmailSupervisor));
-
                     }, documentoIconBytes));
 
                 left.Item().Element(c =>
@@ -868,10 +717,7 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                         {
                             text.Span("Descripción de la actividad a desarrollar: ")
                                 .SemiBold().FontSize(9).FontColor("#24364D");
-                            var descripcionCorta = tarea.Descripcion ?? "N/A";
-                            if (descripcionCorta.Length > 300)
-                                descripcionCorta = descripcionCorta[..300] + "...";
-                            text.Span(descripcionCorta)
+                            text.Span(tarea.Descripcion ?? "N/A")
                                 .FontSize(9).FontColor("#6B7280");
                         });
 
@@ -879,46 +725,41 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                         {
                             content.Item().PaddingTop(10).Padding(8).Column(obs =>
                             {
-                                obs.Item().Text("Observaciones:")
-            .SemiBold().FontSize(9).FontColor("#24364D");
+                                obs.Item().Text("Observaciones:").SemiBold().FontSize(9).FontColor("#24364D");
 
-                                obs.Item().PaddingTop(4).Row(row =>
+                                obs.Item().PaddingTop(4).Row(obsRow =>
                                 {
-                                    var obsLimitadas = tarea.Observaciones.Take(6).ToList();
-                                    var mitad = (int)Math.Ceiling(obsLimitadas.Count / 2.0);
-                                    var columnaIzq = obsLimitadas.Take(mitad).ToList();
-                                    var columnaDer = obsLimitadas.Skip(mitad).ToList();
+                                    var mitad = (int)Math.Ceiling(tarea.Observaciones.Count / 2.0);
+                                    var columnaIzq = tarea.Observaciones.Take(mitad).ToList();
+                                    var columnaDer = tarea.Observaciones.Skip(mitad).ToList();
 
-                                    row.RelativeItem().Column(col =>
+                                    obsRow.RelativeItem().Column(col =>
                                     {
                                         col.Spacing(2);
                                         foreach (var item in columnaIzq)
-                                        {
                                             col.Item().Row(r =>
                                             {
                                                 r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
                                                 r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
                                             });
-                                        }
                                     });
 
-                                    row.ConstantItem(8);
+                                    obsRow.ConstantItem(8);
 
-                                    row.RelativeItem().Column(col =>
+                                    obsRow.RelativeItem().Column(col =>
                                     {
                                         col.Spacing(2);
                                         foreach (var item in columnaDer)
-                                        {
                                             col.Item().Row(r =>
                                             {
                                                 r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
                                                 r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
                                             });
-                                        }
                                     });
                                 });
                             });
                         }
+
                         if (archivosTarea != null && archivosTarea.Count > 0)
                         {
                             content.Item().PaddingTop(10).Element(el =>
@@ -950,7 +791,6 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                                                             ".png" or ".jpg" or ".jpeg" or ".gif" or ".bmp" => "🖼️",
                                                             _ => "📁"
                                                         };
-
                                                         var label = (a.Extension ?? string.Empty).TrimStart('.').ToUpperInvariant();
                                                         if (string.IsNullOrWhiteSpace(label)) label = "FILE";
 
@@ -984,259 +824,199 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                     }, documentoIconBytes));
             });
 
-            // -----------------------------------------------------------------
+            // =========================================================
             // SIDEBAR DERECHO
-            // -----------------------------------------------------------------
-            row.ConstantItem(175).Background("#F3F4F6").CornerRadius(8).Padding(10).Column(right =>
+            // =========================================================
+            row.ConstantItem(175).Background("#F3F4F6").CornerRadius(8).Padding(12).Column(right =>
             {
-                right.Spacing(10);
+                right.Spacing(8);
 
-                right.Item().Height(4).Background("#24364D");
+                right.Item().Height(6).Background("#24364D");
 
-                right.Item().Text(tarea.NombreProyecto ?? "Sin plan de trabajo")
-                    .SemiBold().FontSize(12).FontColor("#24364D");
+                right.Item().PaddingTop(4).Text(TruncarTexto(tarea.NombreProyecto ?? "Sin plan de trabajo", 40))
+                    .SemiBold().FontSize(13).FontColor("#24364D");
 
                 right.Item().Row(r =>
                 {
-                    r.ConstantItem(14).AlignMiddle().AlignCenter().Element(ic =>
+                    r.ConstantItem(16).AlignMiddle().AlignCenter().Element(ic =>
                     {
                         if (carpetaIconBytes is not null && carpetaIconBytes.Length > 0)
                             ic.Image(carpetaIconBytes, ImageScaling.FitArea);
                         else
-                            ic.Text("▭").FontSize(10).FontColor("#6B7280");
+                            ic.Text("▭").FontSize(11).FontColor("#6B7280");
                     });
                     r.ConstantItem(4);
-                    r.RelativeItem().AlignMiddle()
-                        .Text("Plan de trabajo").FontSize(8).FontColor("#6B7280");
+                    r.RelativeItem().AlignMiddle().Text("Plan de trabajo").FontSize(9).FontColor("#6B7280");
                 });
 
                 right.Item().LineHorizontal(1).LineColor("#D1D5DB");
 
-                // Proveedor — logo circular + nombre arriba, etiqueta abajo
-                right.Item().Row(r =>
+                // Operador
+                right.Item().PaddingTop(4).Row(r =>
                 {
-                    r.ConstantItem(22).Height(22).Element(ic =>
+                    r.ConstantItem(26).Height(26).Element(ic =>
                     {
-                        if (logoProveedorBytes is not null && logoProveedorBytes.Length > 0)
-                        {
-                            ic.CornerRadius(11).Element(img => img.Image(logoProveedorBytes, ImageScaling.FitArea));
-                        }
+                        if (_personaIconBytes is not null && _personaIconBytes.Length > 0)
+                            ic.Image(_personaIconBytes, ImageScaling.FitArea);
                         else
-                        {
-                            ic.Background("#24364D").CornerRadius(11)
-                                .AlignCenter().AlignMiddle()
-                                .Text("●").FontSize(9).FontColor(Colors.White);
-                        }
+                            ic.Background("#E5E7EB").Border(1).BorderColor("#D1D5DB")
+                                .AlignCenter().AlignMiddle().Text("●").FontSize(14).FontColor("#24364D");
                     });
-                    r.ConstantItem(6);
+                    r.ConstantItem(8);
                     r.RelativeItem().Column(c =>
                     {
-                        c.Item().Text(tarea.NombreProveedor ?? "N/A")
-                            .Bold().FontSize(11).FontColor("#24364D");
-                        c.Item().Text("Proveedor")
-                            .FontSize(7).FontColor("#6B7280");
+                        c.Item().Text(tarea.NombreOperador ?? "N/A").SemiBold().FontSize(11).FontColor("#24364D");
+                        c.Item().Text("Operador").FontSize(8).FontColor("#6B7280");
                     });
                 });
 
-                // Operador — nombre arriba, icono circular + etiqueta abajo
-                right.Item().Column(c =>
+                // Supervisor
+                right.Item().PaddingTop(4).Row(r =>
                 {
-                    c.Item().Text(tarea.NombreOperador ?? "N/A")
-                        .Bold().FontSize(13).FontColor("#24364D");
-
-                    c.Item().PaddingTop(3).Row(r =>
+                    r.ConstantItem(26).Height(26).Element(ic =>
                     {
-                        r.ConstantItem(12).Height(12).Element(ic =>
-                        {
-                            if (personaIconBytes is not null && personaIconBytes.Length > 0)
-                                ic.Image(personaIconBytes, ImageScaling.FitArea);
-                            else
-                                ic.Background("#24364D").CornerRadius(6)
-                                    .AlignCenter().AlignMiddle()
-                                    .Text("●").FontSize(6).FontColor(Colors.White);
-                        });
+                        if (_personaIconBytes is not null && _personaIconBytes.Length > 0)
+                            ic.Image(_personaIconBytes, ImageScaling.FitArea);
+                        else
+                            ic.Background("#E5E7EB").Border(1).BorderColor("#D1D5DB")
+                                .AlignCenter().AlignMiddle().Text("●").FontSize(14).FontColor("#24364D");
+                    });
+                    r.ConstantItem(8);
+                    r.RelativeItem().Column(c =>
+                    {
+                        c.Item().Text(tarea.NombreSupervisor ?? "N/A").SemiBold().FontSize(11).FontColor("#24364D");
+                        c.Item().Text("Supervisor").FontSize(8).FontColor("#6B7280");
+                    });
+                });
+
+                // =========================================================
+                // PRESUPUESTO EXTENDIDO — asignado + ejecutado + diferencia
+                // =========================================================
+                var presupuesto = tarea.PresupuestoAsignado ?? 0;
+                var ejecutado = tarea.PresupuestoUsado ?? 0;
+                var diferencia = presupuesto - ejecutado;
+                var excedido = diferencia < 0;
+
+                right.Item().PaddingTop(8).Background("#24364D").CornerRadius(6).Padding(10).Column(c =>
+                {
+                    // Presupuesto asignado
+                    c.Item().AlignCenter().Text("PRESUPUESTO").FontSize(9).FontColor(Colors.White).SemiBold();
+                    c.Item().AlignCenter().Text(presupuesto > 0 ? $"${presupuesto:N2} {tarea.Moneda}" : "N/A")
+                        .Bold().FontSize(13).FontColor(Colors.White);
+
+                    c.Item().PaddingTop(6).LineHorizontal(1).LineColor("#FFFFFF40");
+
+                    // Ejecutado
+                    c.Item().PaddingTop(6).AlignCenter().Text("EJECUTADO").FontSize(9).FontColor("#CBD5E1").SemiBold();
+                    c.Item().AlignCenter().Text(ejecutado > 0 ? $"${ejecutado:N2} {tarea.Moneda}" : "N/A")
+                        .Bold().FontSize(13).FontColor("#CBD5E1");
+
+                    c.Item().PaddingTop(6).LineHorizontal(1).LineColor("#FFFFFF40");
+
+                    // Diferencia
+                    c.Item().PaddingTop(6).Row(r =>
+                    {
+                        r.ConstantItem(16).AlignMiddle().AlignCenter()
+                            .Text(excedido ? "⚠" : "✓").FontSize(12)
+                            .FontColor(excedido ? "#FCA5A5" : "#86EFAC");
                         r.ConstantItem(4);
-                        r.RelativeItem().AlignMiddle().Text("Operador")
-                            .FontSize(7).FontColor("#6B7280");
-                    });
-                });
-                // Supervisor — nombre arriba, icono circular + etiqueta abajo
-                right.Item().Column(c =>
-                {
-                    c.Item().Text(tarea.NombreSupervisor ?? "N/A")
-                        .Bold().FontSize(13).FontColor("#24364D");
-
-                    c.Item().PaddingTop(3).Row(r =>
-                    {
-                        r.ConstantItem(12).Height(12).Element(ic =>
+                        r.RelativeItem().AlignMiddle().Column(col =>
                         {
-                            if (personaIconBytes is not null && personaIconBytes.Length > 0)
-                                ic.Image(personaIconBytes, ImageScaling.FitArea);
-                            else
-                                ic.Background("#24364D").CornerRadius(6)
-                                    .AlignCenter().AlignMiddle()
-                                    .Text("●").FontSize(6).FontColor(Colors.White);
-                        });
-                        r.ConstantItem(4);
-                        r.RelativeItem().AlignMiddle().Text("Supervisor")
-                            .FontSize(7).FontColor("#6B7280");
-                    });
-                });
-                // Bloque presupuesto — ORIGINAL / EJECUTADO / DISPONIBLE (dinámico)
-                right.Item().Background("#24364D").CornerRadius(6).Padding(12).Column(c =>
-                {
-                    c.Spacing(4);
-
-                    c.Item().AlignCenter().Text("PRESUPUESTO")
-                        .FontSize(9).Bold().FontColor(Colors.White);
-
-                    c.Item().AlignCenter().Text(
-                            tarea.PresupuestoAsignado.HasValue
-                                ? $"${tarea.PresupuestoAsignado.Value:N2} {tarea.Moneda}"
-                                : "N/A")
-                        .Bold().FontSize(12).FontColor(Colors.White);
-                    c.Item().AlignCenter().Text("ORIGINAL")
-                        .FontSize(7).FontColor("#94A3B8");
-
-                    c.Item().AlignCenter().Text(
-                            tarea.PresupuestoUsado.HasValue
-                                ? $"${tarea.PresupuestoUsado.Value:N2} {tarea.Moneda}"
-                                : "N/A")
-                        .Bold().FontSize(12).FontColor(Colors.White);
-                    c.Item().AlignCenter().Text("EJECUTADO")
-                        .FontSize(7).FontColor("#94A3B8");
-
-                    c.Item().AlignCenter().Row(d =>
-                    {
-                        var seExcedio = tarea.PresupuestoDisponible.HasValue && tarea.PresupuestoDisponible.Value < 0;
-
-                        d.AutoItem().Width(14).Height(14)
-                            .Background(seExcedio ? "#EF4444" : "#16C60C")
-                            .CornerRadius(7)
-                            .AlignCenter().AlignMiddle()
-                            .Text(seExcedio ? "✕" : "✓").Bold().FontSize(8).FontColor(Colors.White);
-
-                        d.ConstantItem(4);
-
-                        d.AutoItem().AlignMiddle().Text(
-                                tarea.PresupuestoDisponible.HasValue
-                                    ? $"${tarea.PresupuestoDisponible.Value:N2} {tarea.Moneda}"
+                            col.Item().Text(excedido ? "EXCEDIDO" : "DISPONIBLE")
+                                .FontSize(8).FontColor(excedido ? "#FCA5A5" : "#86EFAC").SemiBold();
+                            col.Item().Text(presupuesto > 0
+                                    ? $"${Math.Abs(diferencia):N2} {tarea.Moneda}"
                                     : "N/A")
-                            .Bold().FontSize(12).FontColor(Colors.White);
+                                .Bold().FontSize(12)
+                                .FontColor(excedido ? "#FCA5A5" : "#86EFAC");
+                        });
                     });
-                    c.Item().AlignCenter().Text(
-                        tarea.PresupuestoDisponible.HasValue && tarea.PresupuestoDisponible.Value < 0
-                            ? "EXCEDIDO"
-                            : "DISPONIBLE")
-                        .FontSize(7).FontColor("#94A3B8");
                 });
 
-                right.Item().Column(suc =>
+                // Sucursal / CT
+                right.Item().PaddingTop(10).Column(suc =>
                 {
                     suc.Item().Row(r =>
                     {
-                        r.ConstantItem(18).AlignTop().Element(ic =>
-                        {
-                            ic.Text("📍").FontSize(11).FontColor("#F15A24");
-                        });
-
-                        r.ConstantItem(5);
-
+                        r.ConstantItem(20).AlignTop().Element(ic =>
+                            ic.Text("📍").FontSize(12).FontColor("#F15A24"));
+                        r.ConstantItem(6);
                         r.RelativeItem().Column(c =>
                         {
-                            c.Item().Text(tarea.NombreCentroTrabajo ?? clienteDisplay)
-                                .SemiBold().FontSize(11).FontColor("#24364D");
-                            c.Item().Text("Sucursal /CT").FontSize(8).FontColor("#6B7280");
-                            c.Item().PaddingTop(2).Text(direccionDisplay)
-                                .FontSize(7).FontColor("#374151");
+                            c.Item().Text(TruncarTexto(tarea.NombreCentroTrabajo ?? clienteDisplay, 35))
+                                .SemiBold().FontSize(13).FontColor("#24364D");
+                            c.Item().Text("Sucursal /CT").FontSize(9).FontColor("#6B7280");
+                            c.Item().PaddingTop(4).Text(TruncarTexto(direccionDisplay, 70))
+                                .FontSize(8).FontColor("#374151");
                         });
                     });
 
-                    suc.Item().PaddingTop(4).LineHorizontal(1).LineColor("#E5E7EB");
+                    suc.Item().PaddingTop(8).LineHorizontal(1).LineColor("#E5E7EB");
 
-                    suc.Item().PaddingTop(4).Column(tl =>
+                    suc.Item().PaddingTop(8).Column(tl =>
                     {
                         Action<string, string, string> addItem = (date, label, state) =>
                         {
                             tl.Item().Row(r =>
                             {
-                                r.ConstantItem(24).Column(c =>
+                                r.ConstantItem(28).Column(c =>
                                 {
-                                    c.Item().Height(2);
+                                    c.Item().Height(4);
                                     if (state == "filled")
-                                    {
-                                        c.Item().AlignCenter().Element(el => el.Width(10).Height(10).Border(2).BorderColor("#16C60C").CornerRadius(5).Background("#16C60C"));
-                                    }
+                                        c.Item().AlignCenter().Element(el => el.Width(12).Height(12).Border(2).BorderColor("#16C60C").CornerRadius(6).Background("#16C60C"));
                                     else
-                                    {
-                                        c.Item().AlignCenter().Element(el => el.Width(10).Height(10).Border(2).BorderColor("#94A3B8").CornerRadius(5).Background(Colors.White));
-                                    }
-
-                                    c.Item().Height(28).AlignCenter().Element(line => line.Width(2).Height(28).Background("#E5E7EB"));
+                                        c.Item().AlignCenter().Element(el => el.Width(12).Height(12).Border(2).BorderColor("#94A3B8").CornerRadius(6).Background(Colors.White));
+                                    c.Item().Height(36).AlignCenter().Element(line => line.Width(2).Height(36).Background("#E5E7EB"));
                                 });
-
                                 r.RelativeItem().Column(c =>
                                 {
-                                    c.Item().Text(date).SemiBold().FontSize(9).FontColor("#24364D");
-                                    c.Item().Text(label).FontSize(7).FontColor("#6B7280");
+                                    c.Item().Text(date).SemiBold().FontSize(11).FontColor("#24364D");
+                                    c.Item().Text(label).FontSize(9).FontColor("#6B7280");
                                 });
                             });
                         };
 
                         addItem(tarea.FechaAsignacion != DateTime.MinValue ? tarea.FechaAsignacion.ToString("dd/MM/yyyy") : "N/A", "Fecha asignación", "empty");
-                        tl.Item().PaddingTop(2);
+                        tl.Item().PaddingTop(6);
                         addItem(tarea.FechaProgramada.HasValue ? tarea.FechaProgramada.Value.ToString("dd/MM/yyyy") : "N/A", "Fecha programada", "empty");
-                        tl.Item().PaddingTop(2);
+                        tl.Item().PaddingTop(6);
                         addItem(tarea.FechaVencimiento != DateTime.MinValue ? tarea.FechaVencimiento.ToString("dd/MM/yyyy") : "N/A", "Fecha vencimiento", "filled");
                     });
                 });
 
-                var fechaVencimiento = tarea.FechaVencimiento;
                 var estaCompletada = tarea.EstatusCodigo is "FINALIZADO" or "CANCELADA";
-                var estaVencida = !estaCompletada && DateTime.Now.Date > fechaVencimiento.Date;
+                var estaVencida = !estaCompletada && DateTime.Now.Date > tarea.FechaVencimiento.Date;
 
                 if (estaVencida)
-                {
-                    right.Item().Background("#EF4444").CornerRadius(6).PaddingVertical(9).AlignCenter()
-                        .Text("VENCIDA").Bold().FontColor(Colors.White).FontSize(11);
-                }
+                    right.Item().PaddingTop(10).Background("#EF4444").CornerRadius(6).PaddingVertical(8).AlignCenter()
+                        .Text("VENCIDA").Bold().FontColor(Colors.White).FontSize(12);
                 else
-                {
-                    right.Item().Background("#16C60C").CornerRadius(6).PaddingVertical(9).AlignCenter()
-                        .Text("EN TIEMPO").Bold().FontColor(Colors.White).FontSize(11);
-                }
+                    right.Item().PaddingTop(10).Background("#16C60C").CornerRadius(6).PaddingVertical(8).AlignCenter()
+                        .Text("EN TIEMPO").Bold().FontColor(Colors.White).FontSize(12);
             });
         });
     }
 
     // =========================================================================
-    // FOOTER — QR placeholder + info central + barra azul con paginación
+    // FOOTER — sin QR
     // =========================================================================
     private static void CrearFooter(
         IContainer container,
-        string clienteDisplay,
         string direccionDisplay,
         string nombreProyecto,
         byte[]? logoBytes,
-        byte[]? qrBytes,
         byte[]? logoProveedorBytes,
         byte[]? carpetaIconBytes)
     {
         container.PaddingLeft(28).Column(column =>
         {
-            // Fila de info — sin QR, ocupa todo el ancho
             column.Item().PaddingBottom(4).Row(r =>
             {
                 r.RelativeItem().AlignMiddle().AlignCenter().Column(c =>
-                {
-                    c.Item().AlignCenter().Text(nombreProyecto)
-                        .Bold().FontSize(11).FontColor("#24364D");
-                });
+                    c.Item().AlignCenter().Text(nombreProyecto).Bold().FontSize(11).FontColor("#24364D"));
 
                 r.ConstantItem(20).AlignMiddle().AlignCenter().Column(c =>
-                {
-                    c.Item().Width(1).Height(22).Background("#BDBDBD");
-                });
+                    c.Item().Width(1).Height(22).Background("#BDBDBD"));
 
                 r.RelativeItem().AlignCenter().Row(logoRow =>
                 {
@@ -1252,9 +1032,7 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                 });
 
                 r.ConstantItem(20).AlignMiddle().AlignCenter().Column(c =>
-                {
-                    c.Item().Width(1).Height(22).Background("#BDBDBD");
-                });
+                    c.Item().Width(1).Height(22).Background("#BDBDBD"));
 
                 r.RelativeItem().AlignMiddle().AlignCenter().Row(eRow =>
                 {
@@ -1271,14 +1049,11 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                 });
             });
 
-            // Barra azul — ahora ocupa todo el ancho sin espacio para QR
             column.Item().Background("#24364D").Row(row =>
             {
                 row.RelativeItem().PaddingVertical(6).PaddingHorizontal(10).Row(r =>
                 {
-                    r.RelativeItem().AlignCenter().Text(direccionDisplay)
-                        .FontSize(8).FontColor(Colors.White);
-
+                    r.RelativeItem().AlignCenter().Text(direccionDisplay).FontSize(8).FontColor(Colors.White);
                     r.ConstantItem(115).AlignRight().Text(text =>
                     {
                         text.Span("PÁGINA ").FontSize(8).FontColor(Colors.White).Bold();
@@ -1292,13 +1067,10 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
     }
 
     // =========================================================================
-    // SECCIÓN CON ÍCONO — cuadro con documento + título
+    // HELPERS
     // =========================================================================
-    private static void CrearSeccionConIcono(
-        IContainer container,
-        string titulo,
-        Action<ColumnDescriptor> contenido,
-        byte[]? documentoIconBytes = null)
+    private static void CrearSeccionConIcono(IContainer container, string titulo,
+        Action<ColumnDescriptor> contenido, byte[]? documentoIconBytes = null)
     {
         container.Column(column =>
         {
@@ -1313,11 +1085,8 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
                         else
                             icon.Text("≡").FontSize(18).Bold().FontColor("#24364D");
                     });
-
                 row.ConstantItem(10);
-
-                row.RelativeItem().AlignMiddle().Text(titulo)
-                    .SemiBold().FontSize(11).FontColor("#24364D");
+                row.RelativeItem().AlignMiddle().Text(titulo).SemiBold().FontSize(11).FontColor("#24364D");
             });
 
             column.Item().PaddingTop(10).Column(inner =>
@@ -1328,77 +1097,16 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
         });
     }
 
-    // =========================================================================
-    // FILA SIMPLE — etiqueta / valor con borde inferior
-    // =========================================================================
     private static void CrearFilaSimple(IContainer container, string etiqueta, string? valor)
     {
         container.BorderBottom(1).BorderColor("#D1D5DB").PaddingBottom(8).Row(row =>
         {
-            row.RelativeItem().Text(etiqueta)
-                .SemiBold().FontSize(9).FontColor("#7C7C7C");
+            row.RelativeItem().Text(etiqueta).SemiBold().FontSize(9).FontColor("#7C7C7C");
             row.RelativeItem(2).Text(string.IsNullOrWhiteSpace(valor) ? "N/A" : valor)
-                .SemiBold().FontSize(11).FontColor("#24364D");
+                .SemiBold().FontSize(9).FontColor("#24364D");
         });
     }
 
-    // =========================================================================
-    // FECHA EN SIDEBAR
-    // =========================================================================
-    private static void CrearFechaSidebar(ColumnDescriptor column, DateTime? fecha, string etiqueta, bool activa)
-    {
-        column.Item().PaddingTop(4).Row(row =>
-        {
-            row.ConstantItem(16).AlignTop().Text(activa ? "●" : "○")
-                .FontSize(13).FontColor(activa ? "#22C55E" : "#6B7280");
-            row.RelativeItem().Column(c =>
-            {
-                c.Item().Text(fecha?.ToString("dd/MM/yyyy") ?? "N/A")
-                    .SemiBold().FontSize(10).FontColor("#24364D");
-                c.Item().Text(etiqueta).FontSize(9).FontColor("#6B7280");
-            });
-        });
-    }
-
-    // =========================================================================
-    // TARJETA RESUMEN — título con fondo azul claro
-    // =========================================================================
-    private static void CrearTarjetaResumen(
-        IContainer container,
-        string titulo,
-        Action<ColumnDescriptor> contenido)
-    {
-        container.Border(1).BorderColor("#D6DCE5").Background(Colors.White).Column(column =>
-        {
-            column.Item().Background("#EEF4FF").BorderBottom(1).BorderColor("#D6DCE5")
-                .PaddingVertical(8).PaddingHorizontal(10)
-                .Text(titulo).FontSize(11).Bold().FontColor("#0B2A6F");
-
-            column.Item().Padding(10).Column(inner =>
-            {
-                inner.Spacing(7);
-                contenido(inner);
-            });
-        });
-    }
-
-    // =========================================================================
-    // CAMPO FICHA
-    // =========================================================================
-    private static void CrearCampoFicha(IContainer container, string etiqueta, string? valor)
-    {
-        container.Column(column =>
-        {
-            column.Item().Text(etiqueta).FontSize(8).SemiBold().FontColor("#64748B");
-            column.Item().PaddingTop(1)
-                .Text(string.IsNullOrWhiteSpace(valor) ? "N/A" : valor)
-                .FontSize(10).FontColor("#0F172A");
-        });
-    }
-
-    // =========================================================================
-    // CAMPO LATERAL (evidencia sidebar)
-    // =========================================================================
     private static void CrearCampoLateral(IContainer container, string etiqueta, string? valor)
     {
         container.Column(column =>
@@ -1410,9 +1118,6 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
         });
     }
 
-    // =========================================================================
-    // CHECK DE VALIDACIÓN
-    // =========================================================================
     private static void CrearCheckValidacion(IContainer container, string texto, bool ok, byte[]? checkIconBytes = null)
     {
         container.Border(1).BorderColor("#D6DCE5").Background(Colors.White).Padding(4).Row(row =>
@@ -1420,53 +1125,16 @@ public class ReporteMaterialidadPreeliminarService : IReporteMaterialidadPreelim
             row.ConstantItem(18).Height(18).AlignMiddle().AlignCenter().Element(box =>
             {
                 if (ok && checkIconBytes is not null && checkIconBytes.Length > 0)
-                {
                     box.Image(checkIconBytes, ImageScaling.FitArea);
-                }
                 else
-                {
                     box.Border(1)
                         .BorderColor(ok ? "#16A34A" : "#94A3B8")
                         .Background(ok ? "#DCFCE7" : "#FFFFFF")
                         .AlignCenter().AlignMiddle()
-                        .Text(ok ? "✓" : "")
-                        .FontSize(10).Bold().FontColor("#166534");
-                }
+                        .Text(ok ? "✓" : "").FontSize(10).Bold().FontColor("#166534");
             });
-
             row.ConstantItem(6);
-
-            row.RelativeItem().AlignMiddle().Text(texto)
-                .FontSize(9).FontColor("#334155");
+            row.RelativeItem().AlignMiddle().Text(texto).FontSize(9).FontColor("#334155");
         });
-    }
-
-
-
-    private static byte[] GenerarQrBytes(string content)
-    {
-        using var generator = new QRCodeGenerator();
-        using var data = generator.CreateQrCode(content, QRCodeGenerator.ECCLevel.Q);
-        var png = new PngByteQRCode(data);
-        return png.GetGraphic(20);
-    }
-
-    private string BuildValidationToken(int tareaId)
-    {
-        var secretKey = _configuration["QrValidation:SecretKey"];
-
-        if (string.IsNullOrWhiteSpace(secretKey))
-        {
-            throw new InvalidOperationException("No existe la configuración QrValidation:SecretKey.");
-        }
-
-        var payload = $"taskId:{tareaId}";
-        var keyBytes = Encoding.UTF8.GetBytes(secretKey);
-        var payloadBytes = Encoding.UTF8.GetBytes(payload);
-
-        using var hmac = new HMACSHA256(keyBytes);
-        var hashBytes = hmac.ComputeHash(payloadBytes);
-
-        return Convert.ToHexString(hashBytes);
     }
 }
