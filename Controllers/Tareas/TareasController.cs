@@ -24,11 +24,13 @@ public class TareasController : ControllerBase
 {
     private readonly AppDbContext _db;
     private readonly ILogger<TareasController> _logger;
+    private readonly ITareaRutaRepository _tareaRutaRepository;
 
-    public TareasController(AppDbContext db, ILogger<TareasController> logger)
+    public TareasController(AppDbContext db, ILogger<TareasController> logger, ITareaRutaRepository tareaRutaRepository)
     {
         _db = db;
         _logger = logger;
+        _tareaRutaRepository = tareaRutaRepository;
     }
 
     /// <summary>
@@ -510,6 +512,37 @@ public class TareasController : ControllerBase
 
             if (model.EvidencePhotos != null && model.EvidencePhotos.Any())
             {
+                // RN-001: si la tarea requiere seguimiento de ruta, el request debe traer una ruta activa
+                if (tarea.SeguimientoRutaActivo)
+                {
+                    if (model.RutaId is null)
+                    {
+                        return BadRequest(new
+                        {
+                            success = false,
+                            message = "Esta tarea requiere iniciar una ruta antes de registrar evidencias.",
+                            errors = new[]
+                            {
+                    new { field = "rutaId", message = "rutaId es obligatorio para esta tarea." }
+                }
+                        });
+                    }
+
+                    var rutaActiva = await _tareaRutaRepository.RutaEstaActivaAsync(model.RutaId.Value, tarea.TareaId);
+                    if (!rutaActiva)
+                    {
+                        return BadRequest(new
+                        {
+                            success = false,
+                            message = "La ruta indicada no está activa.",
+                            errors = new[]
+                            {
+                    new { field = "rutaId", message = "Inicia o reanuda la ruta antes de continuar." }
+                }
+                        });
+                    }
+                }
+
                 foreach (var item in model.EvidencePhotos)
                 {
                     _db.TareaEvidencias.Add(new TareaEvidencia
@@ -536,12 +569,13 @@ public class TareasController : ControllerBase
                         // --- NUEVOS CAMPOS ---
                         Comentario = item.Comentario?.Trim(),
                         Progreso = item.Progreso,
-                        EvidenceHash = item.EvidenceHash?.Trim(),           // ← NUEVO
-                        DeviceUniqueId = item.DeviceInfo?.DeviceUniqueId,   // ← NUEVO
-                        InstallationId = item.DeviceInfo?.InstallationId,   // ← NUEVO
-                        DeviceIdentifier = item.DeviceInfo?.DeviceIdentifier, // ← NUEVO
-                        IsPhysicalDevice = item.DeviceInfo?.IsPhysicalDevice, // ← NUEVO
-                        // ---------------------
+                        EvidenceHash = item.EvidenceHash?.Trim(),
+                        DeviceUniqueId = item.DeviceInfo?.DeviceUniqueId,
+                        InstallationId = item.DeviceInfo?.InstallationId,
+                        DeviceIdentifier = item.DeviceInfo?.DeviceIdentifier,
+                        IsPhysicalDevice = item.DeviceInfo?.IsPhysicalDevice,
+                        RutaId = model.RutaId, // ← NUEVO, RN-006
+                                               // ---------------------
                         DateCreated = DateTime.UtcNow
                     });
                 }
