@@ -37,7 +37,27 @@ jobs:
           Get-ChildItem "obj\Release\net9.0\PubTmp\Out" -Recurse |
             Select-Object -First 20
 
+      - name: Crear carpetas de mantenimiento
+        shell: powershell
+        run: |
+          New-Item -Path "maintenance" -ItemType Directory -Force
+          Set-Content -Path "maintenance\app_offline.htm" -Value "<html><body><h1>Sitio en mantenimiento</h1></body></html>"
+          New-Item -Path "online" -ItemType Directory -Force
+
+      - name: Poner sitio en mantenimiento
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: maintenance/
+          server-dir: /servicios/dev/
+          dangerous-clean-slate: false
+
       - name: Deploy FTP DEV
+        id: deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -48,3 +68,27 @@ jobs:
           local-dir: obj/Release/net9.0/PubTmp/Out/
           server-dir: /servicios/dev/
           dangerous-clean-slate: false
+          exclude: |
+            appsettings.json
+
+      - name: Quitar mantenimiento
+        if: success()
+        shell: powershell
+        run: |
+          $request = [System.Net.FtpWebRequest]::Create("ftp://${{ secrets.FTP_SERVER }}/servicios/dev/app_offline.htm")
+          $request.Method = [System.Net.WebRequestMethods+Ftp]::DeleteFile
+          $request.Credentials = New-Object System.Net.NetworkCredential("${{ secrets.FTP_USERNAME }}", "${{ secrets.FTP_PASSWORD }}")
+          try {
+            $response = $request.GetResponse()
+            $response.Close()
+            Write-Host "app_offline.htm eliminado correctamente"
+          } catch {
+            Write-Host "No se encontró app_offline.htm o ya fue eliminado: $_"
+          }
+
+      - name: Mantener sitio en mantenimiento si falló el deploy
+        if: failure()
+        shell: powershell
+        run: |
+          Write-Host "El deploy falló. El sitio permanece en mantenimiento."
+          Write-Host "Revisar el log y hacer push nuevamente para reintentar."
