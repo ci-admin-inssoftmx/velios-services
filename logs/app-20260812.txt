@@ -1,0 +1,993 @@
+2026-08-12 14:04:46.121 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-08-12 14:04:46.675 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:46.700 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:47.011 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:47.019 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:47.303 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:47.309 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:47.587 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:47.596 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:47.900 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:47.906 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:48.194 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:48.200 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:48.495 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:48.501 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:48.787 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:48.792 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:49.081 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:49.086 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:49.375 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:49.384 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:49.683 [ERR] Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor
+      An exception occurred while trying to decrypt the element.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+2026-08-12 14:04:49.689 [ERR] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      An exception occurred while processing the key element '<key id="37bd44bb-d274-4ef5-bcae-f56219ba2185" version="1" />'.
+System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+2026-08-12 14:04:49.743 [WRN] Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver
+      Key {37bd44bb-d274-4ef5-bcae-f56219ba2185} is ineligible to be the default key because its CreateEncryptor method failed after the maximum number of retries.
+System.AggregateException: One or more errors occurred. (Error occurred during a cryptographic operation.) (Error occurred during a cryptographic operation.) (Error occurred during a cryptographic operation.) (Error occurred during a cryptographic operation.) (Error occurred during a cryptographic operation.) (Error occurred during a cryptographic operation.) (Error occurred during a cryptographic operation.) (Error occurred during a cryptographic operation.) (Error occurred during a cryptographic operation.) (Error occurred during a cryptographic operation.) (Error occurred during a cryptographic operation.)
+ ---> System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)
+   --- End of inner exception stack trace ---
+ ---> (Inner Exception #1) System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)<---
+
+ ---> (Inner Exception #2) System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)<---
+
+ ---> (Inner Exception #3) System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)<---
+
+ ---> (Inner Exception #4) System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)<---
+
+ ---> (Inner Exception #5) System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)<---
+
+ ---> (Inner Exception #6) System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)<---
+
+ ---> (Inner Exception #7) System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)<---
+
+ ---> (Inner Exception #8) System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)<---
+
+ ---> (Inner Exception #9) System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)<---
+
+ ---> (Inner Exception #10) System.Security.Cryptography.CryptographicException: Error occurred during a cryptographic operation.
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapiCore(Byte* pbProtectedData, UInt32 cbProtectedData, Byte* pbOptionalEntropy, UInt32 cbOptionalEntropy)
+   at Microsoft.AspNetCore.DataProtection.Cng.DpapiSecretSerializerHelper.UnprotectWithDpapi(Byte[] protectedSecret)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor.Decrypt(XElement encryptedElement)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.get_Descriptor()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.Key.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key, Int32& retriesRemaining)<---
+
+2026-08-12 14:04:49.766 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      Creating key {26cdc3d5-a1fa-451e-a8d3-8a5390464af1} with creation date 2026-08-12 20:04:46Z, activation date 2026-08-12 20:04:46Z, and expiration date 2026-11-10 20:04:46Z.
+2026-08-12 14:04:49.835 [INF] Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository
+      Writing data to file 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys\key-26cdc3d5-a1fa-451e-a8d3-8a5390464af1.xml'.
+2026-08-12 14:04:50.261 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-08-12 14:04:50.904 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-08-12 14:04:50.909 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-08-12 14:04:51.157 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-08-12 14:04:51.164 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-08-12 14:04:51.169 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-08-12 14:05:40.035 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-08-12 14:05:40.519 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-08-12 14:05:40.873 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 865.27ms
+2026-08-12 14:05:40.883 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-08-12 14:05:47.754 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-08-12 14:05:47.773 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-08-12 14:05:48.017 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 265.2266ms
+2026-08-12 14:05:48.041 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-12 14:05:48.047 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.css - null null
+2026-08-12 14:05:48.068 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-08-12 14:05:48.108 [INF] velios.Api
+      Incoming: GET /swagger/index.css CT=null Len=null
+2026-08-12 14:05:48.119 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-12 14:05:48.124 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-08-12 14:05:48.132 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 77.6225ms
+2026-08-12 14:05:48.176 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The file /index.css was not modified
+2026-08-12 14:05:48.202 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.css - 304 null text/css 159.6183ms
+2026-08-12 14:05:48.209 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 168.3944ms
+2026-08-12 14:05:48.287 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 208.9092ms
+2026-08-12 14:05:48.363 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/favicon-32x32.png - null null
+2026-08-12 14:05:48.369 [INF] velios.Api
+      Incoming: GET /swagger/favicon-32x32.png CT=null Len=null
+2026-08-12 14:05:48.375 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The file /favicon-32x32.png was not modified
+2026-08-12 14:05:48.408 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/favicon-32x32.png - 304 null image/png 18.1303ms
+2026-08-12 14:06:07.106 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-08-12 14:06:07.117 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-08-12 14:06:07.124 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 17.6114ms
+2026-08-12 14:06:07.160 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - null null
+2026-08-12 14:06:07.193 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui.css CT=null Len=null
+2026-08-12 14:06:07.227 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - null null
+2026-08-12 14:06:07.233 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - null null
+2026-08-12 14:06:07.238 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-12 14:06:07.243 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-12 14:06:07.249 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-08-12 14:06:07.253 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-standalone-preset.js CT=null Len=null
+2026-08-12 14:06:07.259 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-bundle.js CT=null Len=null
+2026-08-12 14:06:07.266 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-08-12 14:06:07.307 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 72.8609ms
+2026-08-12 14:06:07.312 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 104.9496ms
+2026-08-12 14:06:07.383 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 142.798ms
+2026-08-12 14:06:07.441 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2026-08-12 14:06:07.441 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-08-12 14:06:07.456 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - 200 152035 text/css 290.896ms
+2026-08-12 14:06:07.458 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - 200 230007 text/javascript 253.2064ms
+2026-08-12 14:06:07.499 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-08-12 14:06:07.505 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - 200 1426050 text/javascript 338.82ms
+2026-08-12 14:06:07.814 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-08-12 14:06:07.819 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-08-12 14:06:08.083 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 259.2791ms
+2026-08-12 14:07:02.287 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/tarea/2882/activa - null null
+2026-08-12 14:07:02.337 [INF] velios.Api
+      Incoming: GET /api/rutas/tarea/2882/activa CT=null Len=null
+2026-08-12 14:07:02.417 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerRutaActiva (velios.Api)'
+2026-08-12 14:07:02.513 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerRutaActiva", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerRutaActiva(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 14:07:04.585 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-08-12 14:07:04.654 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerRutaActiva (velios.Api) in 2114.2666ms
+2026-08-12 14:07:04.659 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerRutaActiva (velios.Api)'
+2026-08-12 14:07:04.666 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/tarea/2882/activa - 404 null application/problem+json; charset=utf-8 2402.4418ms
+2026-08-12 14:07:51.274 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/rutas/iniciar - application/json 86
+2026-08-12 14:07:51.310 [INF] velios.Api
+      Incoming: POST /api/rutas/iniciar CT=application/json Len=86
+2026-08-12 14:07:51.319 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-12 14:07:51.331 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.IniciarRuta (velios.Api)'
+2026-08-12 14:07:51.343 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "IniciarRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] IniciarRuta(IniciarRutaRequest) on controller TareaRutaController (velios.Api).
+2026-08-12 14:07:51.915 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'RutaDto'.
+2026-08-12 14:07:51.993 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.IniciarRuta (velios.Api) in 643.5291ms
+2026-08-12 14:07:51.999 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.IniciarRuta (velios.Api)'
+2026-08-12 14:07:52.004 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/rutas/iniciar - 200 null application/json; charset=utf-8 730.6048ms
+2026-08-12 14:08:54.732 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/tarea/2882/activa - null null
+2026-08-12 14:08:54.741 [INF] velios.Api
+      Incoming: GET /api/rutas/tarea/2882/activa CT=null Len=null
+2026-08-12 14:08:54.786 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerRutaActiva (velios.Api)'
+2026-08-12 14:08:54.792 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerRutaActiva", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerRutaActiva(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 14:08:55.018 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'RutaDto'.
+2026-08-12 14:08:55.023 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerRutaActiva (velios.Api) in 226.1279ms
+2026-08-12 14:08:55.029 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerRutaActiva (velios.Api)'
+2026-08-12 14:08:55.067 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/tarea/2882/activa - 200 null application/json; charset=utf-8 348.323ms
+2026-08-12 14:09:34.012 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/rutas/iniciar - application/json 86
+2026-08-12 14:09:34.046 [INF] velios.Api
+      Incoming: POST /api/rutas/iniciar CT=application/json Len=86
+2026-08-12 14:09:34.058 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-12 14:09:34.062 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.IniciarRuta (velios.Api)'
+2026-08-12 14:09:34.066 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "IniciarRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] IniciarRuta(IniciarRutaRequest) on controller TareaRutaController (velios.Api).
+2026-08-12 14:09:34.188 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing ConflictObjectResult, writing value of type '<>f__AnonymousType34`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-08-12 14:09:34.196 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.IniciarRuta (velios.Api) in 126.128ms
+2026-08-12 14:09:34.200 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.IniciarRuta (velios.Api)'
+2026-08-12 14:09:34.204 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/rutas/iniciar - 409 null application/json; charset=utf-8 192.4794ms
+2026-08-12 14:10:09.191 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - null null
+2026-08-12 14:10:09.199 [INF] velios.Api
+      Incoming: GET /api/rutas/1/resumen CT=null Len=null
+2026-08-12 14:10:09.249 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:10:09.271 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerResumen", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerResumen(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 14:10:09.568 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerResumen (velios.Api) in 290.0619ms
+2026-08-12 14:10:09.575 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:10:09.665 [ERR] Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware
+      An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): El nombre de columna 'Id' no es válido.
+El nombre de columna 'FechaHora' no es válido.
+El nombre de columna 'UrlEvidencia' no es válido.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.QueryAsync[T](IDbConnection cnn, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 434
+   at TareaRutaRepository.ObtenerEvidenciasPorRutaAsync(Int32 rutaId) in C:\Proyectos Inssoft\velios-services\Services\RutaMobile\ITareaRutaRepository.cs:line 82
+   at TareaRutaService.ObtenerResumenAsync(Int32 rutaId) in C:\Proyectos Inssoft\velios-services\Services\RutaMobile\ITareaRutaService.cs:line 41
+   at TareaRutaController.ObtenerResumen(Int32 rutaId) in C:\Proyectos Inssoft\velios-services\Controllers\RutaMobile\RutaMobileController.cs:line 56
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Program.<>c__DisplayClass0_0.<<<Main>$>b__5>d.MoveNext() in C:\Proyectos Inssoft\velios-services\Program.cs:line 238
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+ClientConnectionId:ae11abe6-ea5b-4b0d-912e-7d0b0d6e8846
+Error Number:207,State:1,Class:16
+2026-08-12 14:10:09.690 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - 500 null text/plain; charset=utf-8 499.9093ms
+2026-08-12 14:11:09.161 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/rutas/1/finalizar - application/json 48
+2026-08-12 14:11:09.168 [INF] velios.Api
+      Incoming: PUT /api/rutas/1/finalizar CT=application/json Len=48
+2026-08-12 14:11:09.173 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-12 14:11:09.178 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.FinalizarRuta (velios.Api)'
+2026-08-12 14:11:09.193 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "FinalizarRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] FinalizarRuta(Int32, FinalizarRutaRequest) on controller TareaRutaController (velios.Api).
+2026-08-12 14:11:09.556 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'RutaDto'.
+2026-08-12 14:11:09.564 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.FinalizarRuta (velios.Api) in 365.756ms
+2026-08-12 14:11:09.602 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.FinalizarRuta (velios.Api)'
+2026-08-12 14:11:09.614 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/rutas/1/finalizar - 200 null application/json; charset=utf-8 452.9772ms
+2026-08-12 14:12:03.369 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/tarea/2882/activa - null null
+2026-08-12 14:12:03.388 [INF] velios.Api
+      Incoming: GET /api/rutas/tarea/2882/activa CT=null Len=null
+2026-08-12 14:12:03.393 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerRutaActiva (velios.Api)'
+2026-08-12 14:12:03.398 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerRutaActiva", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerRutaActiva(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 14:12:03.527 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-08-12 14:12:03.533 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerRutaActiva (velios.Api) in 129.1007ms
+2026-08-12 14:12:03.538 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerRutaActiva (velios.Api)'
+2026-08-12 14:12:03.581 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/tarea/2882/activa - 404 null application/problem+json; charset=utf-8 219.0293ms
+2026-08-12 14:15:29.344 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-08-12 14:15:29.818 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-08-12 14:15:30.236 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-08-12 14:15:30.241 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-08-12 14:15:30.449 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-08-12 14:15:30.455 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-08-12 14:15:30.460 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-08-12 14:16:26.752 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-08-12 14:16:27.266 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-08-12 14:16:27.567 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 847.8661ms
+2026-08-12 14:16:27.643 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-12 14:16:27.649 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-08-12 14:16:27.643 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-12 14:16:27.655 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-08-12 14:16:27.669 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 89.2993ms
+2026-08-12 14:16:27.719 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 142.8337ms
+2026-08-12 14:16:27.796 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 218.8052ms
+2026-08-12 14:16:28.010 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-08-12 14:16:28.016 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-08-12 14:16:28.340 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 331.5555ms
+2026-08-12 14:16:53.397 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - null null
+2026-08-12 14:16:53.477 [INF] velios.Api
+      Incoming: GET /api/rutas/1/resumen CT=null Len=null
+2026-08-12 14:16:53.707 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:16:53.798 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerResumen", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerResumen(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 14:16:56.237 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'ResumenRutaDto'.
+2026-08-12 14:16:56.350 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerResumen (velios.Api) in 2524.249ms
+2026-08-12 14:16:56.356 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:16:56.388 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - 200 null application/json; charset=utf-8 2968.8648ms
+2026-08-12 14:23:32.502 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - null null
+2026-08-12 14:23:32.542 [INF] velios.Api
+      Incoming: GET /api/rutas/1/resumen CT=null Len=null
+2026-08-12 14:23:32.550 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:23:32.608 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerResumen", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerResumen(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 14:23:33.349 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'ResumenRutaDto'.
+2026-08-12 14:23:33.360 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerResumen (velios.Api) in 744.4914ms
+2026-08-12 14:23:33.365 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:23:33.370 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - 200 null application/json; charset=utf-8 870.2133ms
+2026-08-12 14:29:17.134 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-08-12 14:29:17.607 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-08-12 14:29:18.029 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-08-12 14:29:18.035 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-08-12 14:29:18.237 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-08-12 14:29:18.243 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-08-12 14:29:18.248 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-08-12 14:33:18.094 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-08-12 14:33:18.683 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-08-12 14:33:18.971 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 886.0662ms
+2026-08-12 14:33:19.069 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-12 14:33:19.069 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-12 14:33:19.073 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-08-12 14:33:19.078 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-08-12 14:33:19.118 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 61.0879ms
+2026-08-12 14:33:19.202 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 222.2309ms
+2026-08-12 14:33:19.287 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 307.4229ms
+2026-08-12 14:33:19.412 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-08-12 14:33:19.418 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-08-12 14:33:19.765 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 353.6227ms
+2026-08-12 14:33:36.009 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - null null
+2026-08-12 14:33:36.029 [INF] velios.Api
+      Incoming: GET /api/rutas/1/resumen CT=null Len=null
+2026-08-12 14:33:36.221 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:33:36.292 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerResumen", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerResumen(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 14:33:39.452 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-12 14:33:39.456 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-12 14:33:39.459 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-12 14:33:39.463 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-12 14:33:39.467 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-12 14:33:40.510 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'ResumenRutaDto'.
+2026-08-12 14:33:40.607 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerResumen (velios.Api) in 4295.2213ms
+2026-08-12 14:33:40.612 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:33:40.638 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - 200 null application/json; charset=utf-8 4629.8249ms
+2026-08-12 14:39:45.483 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - null null
+2026-08-12 14:39:45.503 [INF] velios.Api
+      Incoming: GET /api/rutas/1/resumen CT=null Len=null
+2026-08-12 14:39:45.509 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:39:45.514 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerResumen", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerResumen(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 14:39:46.217 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'ResumenRutaDto'.
+2026-08-12 14:39:46.221 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerResumen (velios.Api) in 704.0497ms
+2026-08-12 14:39:46.224 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:39:46.227 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - 200 null application/json; charset=utf-8 745.5865ms
+2026-08-12 14:42:35.555 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - null null
+2026-08-12 14:42:35.558 [INF] velios.Api
+      Incoming: GET /api/rutas/1/resumen CT=null Len=null
+2026-08-12 14:42:35.565 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:42:35.568 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerResumen", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerResumen(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 14:42:35.894 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'ResumenRutaDto'.
+2026-08-12 14:42:35.898 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerResumen (velios.Api) in 326.5454ms
+2026-08-12 14:42:35.901 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:42:35.939 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - 200 null application/json; charset=utf-8 359.415ms
+2026-08-12 14:42:39.799 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-08-12 14:42:39.814 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-08-12 14:42:39.818 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 20.0253ms
+2026-08-12 14:42:39.846 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - null null
+2026-08-12 14:42:39.850 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui.css CT=null Len=null
+2026-08-12 14:42:39.878 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - null null
+2026-08-12 14:42:39.906 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - null null
+2026-08-12 14:42:39.910 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.css - null null
+2026-08-12 14:42:39.913 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-bundle.js CT=null Len=null
+2026-08-12 14:42:39.941 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-standalone-preset.js CT=null Len=null
+2026-08-12 14:42:39.947 [INF] velios.Api
+      Incoming: GET /swagger/index.css CT=null Len=null
+2026-08-12 14:42:39.950 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-08-12 14:42:39.987 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-12 14:42:40.022 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-08-12 14:42:40.058 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 110.0143ms
+2026-08-12 14:42:40.091 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-12 14:42:40.109 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 145.441ms
+2026-08-12 14:42:40.126 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/index.css'. Physical path: 'N/A'
+2026-08-12 14:42:40.157 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.css - 200 202 text/css 276.4113ms
+2026-08-12 14:42:40.215 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2026-08-12 14:42:40.218 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-08-12 14:42:40.255 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - 200 152035 text/css 372.8793ms
+2026-08-12 14:42:40.258 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - 200 230007 text/javascript 408.6111ms
+2026-08-12 14:42:40.263 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 236.9806ms
+2026-08-12 14:42:40.306 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-08-12 14:42:40.309 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - 200 1426050 text/javascript 460.2097ms
+2026-08-12 14:42:40.436 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-08-12 14:42:40.441 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-08-12 14:42:40.453 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/favicon-32x32.png - null null
+2026-08-12 14:42:40.477 [INF] velios.Api
+      Incoming: GET /swagger/favicon-32x32.png CT=null Len=null
+2026-08-12 14:42:40.504 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2026-08-12 14:42:40.540 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/favicon-32x32.png - 200 628 image/png 54.891ms
+2026-08-12 14:42:40.611 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 176.12ms
+2026-08-12 14:42:49.130 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - null null
+2026-08-12 14:42:49.133 [INF] velios.Api
+      Incoming: GET /api/rutas/1/resumen CT=null Len=null
+2026-08-12 14:42:49.137 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:42:49.141 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerResumen", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerResumen(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 14:42:49.357 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'ResumenRutaDto'.
+2026-08-12 14:42:49.387 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerResumen (velios.Api) in 216.8787ms
+2026-08-12 14:42:49.390 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 14:42:49.395 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/1/resumen - 200 null application/json; charset=utf-8 263.8217ms
+2026-08-12 15:12:46.284 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-08-12 15:12:46.638 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-08-12 15:12:47.024 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-08-12 15:12:47.027 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-08-12 15:12:47.187 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-08-12 15:12:47.191 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-08-12 15:12:47.194 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-08-12 15:12:50.554 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-08-12 15:12:50.889 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-08-12 15:12:51.098 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 565.8536ms
+2026-08-12 15:12:51.104 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-08-12 15:12:56.986 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-08-12 15:12:57.001 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-08-12 15:12:57.117 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 134.0982ms
+2026-08-12 15:12:57.131 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-12 15:12:57.135 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-08-12 15:12:57.140 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-12 15:12:57.144 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-08-12 15:12:57.151 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 21.0111ms
+2026-08-12 15:12:57.205 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 75.4738ms
+2026-08-12 15:12:57.248 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 109.7277ms
+2026-08-12 15:12:57.403 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-08-12 15:12:57.407 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-08-12 15:12:57.529 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 124.4875ms
+2026-08-12 15:17:26.734 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/Authenticate/Login - application/json 63
+2026-08-12 15:17:26.747 [INF] velios.Api
+      Incoming: POST /api/Authenticate/Login CT=application/json Len=63
+2026-08-12 15:17:26.767 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-12 15:17:26.792 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AuthenticateController.Login (velios.Api)'
+2026-08-12 15:17:26.842 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[velios.Api.Models.Common.ApiResponse`1[velios.Api.Models.Auth.LoginDataResponse]]] Login(velios.Api.Models.Auth.LoginRequest) on controller velios.Api.Controllers.AuthenticateController (velios.Api).
+2026-08-12 15:17:28.048 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-12 15:17:28.053 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-12 15:17:28.057 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-12 15:17:28.060 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-12 15:17:28.065 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-12 15:17:30.230 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[velios.Api.Models.Auth.LoginDataResponse, velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-08-12 15:17:30.288 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AuthenticateController.Login (velios.Api) in 3430.4532ms
+2026-08-12 15:17:30.291 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AuthenticateController.Login (velios.Api)'
+2026-08-12 15:17:30.305 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/Authenticate/Login - 200 null application/json; charset=utf-8 3611.6166ms
+2026-08-12 15:20:46.693 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/2882 - application/json 139
+2026-08-12 15:20:46.701 [INF] velios.Api
+      Incoming: PUT /api/tasks/2882 CT=application/json Len=139
+2026-08-12 15:20:46.705 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-12 15:20:46.773 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-08-12 15:20:46.784 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-08-12 15:20:47.018 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing NotFoundObjectResult, writing value of type '<>f__AnonymousType81`2[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-08-12 15:20:47.026 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 238.4754ms
+2026-08-12 15:20:47.028 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-08-12 15:20:47.066 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/2882 - 404 null application/json; charset=utf-8 370.3906ms
+2026-08-12 15:21:01.051 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2882 - application/json 139
+2026-08-12 15:21:01.054 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2882 CT=application/json Len=139
+2026-08-12 15:21:01.057 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-12 15:21:01.069 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-08-12 15:21:01.074 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-08-12 15:21:01.308 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType79`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType80`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-08-12 15:21:01.313 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 236.3714ms
+2026-08-12 15:21:01.316 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-08-12 15:21:01.321 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2882 - 400 null application/json; charset=utf-8 268.6952ms
+2026-08-12 15:22:25.544 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2882 - application/json 158
+2026-08-12 15:22:25.552 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2882 CT=application/json Len=158
+2026-08-12 15:22:25.588 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-12 15:22:25.593 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-08-12 15:22:25.596 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-08-12 15:22:25.866 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType79`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType80`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-08-12 15:22:25.869 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 270.6742ms
+2026-08-12 15:22:25.901 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-08-12 15:22:25.904 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2882 - 400 null application/json; charset=utf-8 361.8335ms
+2026-08-12 15:22:36.552 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2882 - application/json 158
+2026-08-12 15:22:36.555 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2882 CT=application/json Len=158
+2026-08-12 15:22:36.559 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-12 15:22:36.570 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-08-12 15:22:36.575 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-08-12 15:22:36.790 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType79`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType80`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-08-12 15:22:36.793 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 215.5151ms
+2026-08-12 15:22:36.795 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-08-12 15:22:36.818 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2882 - 400 null application/json; charset=utf-8 246.5892ms
+2026-08-12 15:23:33.954 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/rutas/iniciar - application/json 86
+2026-08-12 15:23:33.985 [INF] velios.Api
+      Incoming: POST /api/rutas/iniciar CT=application/json Len=86
+2026-08-12 15:23:33.988 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-12 15:23:33.991 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.IniciarRuta (velios.Api)'
+2026-08-12 15:23:33.997 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "IniciarRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] IniciarRuta(IniciarRutaRequest) on controller TareaRutaController (velios.Api).
+2026-08-12 15:23:34.390 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'RutaDto'.
+2026-08-12 15:23:34.407 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.IniciarRuta (velios.Api) in 406.7882ms
+2026-08-12 15:23:34.409 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.IniciarRuta (velios.Api)'
+2026-08-12 15:23:34.412 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/rutas/iniciar - 200 null application/json; charset=utf-8 489.4415ms
+2026-08-12 15:24:01.639 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2882 - application/json 157
+2026-08-12 15:24:01.677 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2882 CT=application/json Len=157
+2026-08-12 15:24:01.679 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-12 15:24:01.682 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-08-12 15:24:01.685 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-08-12 15:24:02.535 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type '<>f__AnonymousType82`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-08-12 15:24:02.540 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 851.8403ms
+2026-08-12 15:24:02.542 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-08-12 15:24:02.545 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2882 - 200 null application/json; charset=utf-8 943.4863ms
+2026-08-12 15:25:47.240 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/2/resumen - null null
+2026-08-12 15:25:47.246 [INF] velios.Api
+      Incoming: GET /api/rutas/2/resumen CT=null Len=null
+2026-08-12 15:25:47.250 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 15:25:47.262 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerResumen", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerResumen(Int32) on controller TareaRutaController (velios.Api).
+2026-08-12 15:25:47.971 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'ResumenRutaDto'.
+2026-08-12 15:25:47.980 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerResumen (velios.Api) in 714.5043ms
+2026-08-12 15:25:47.982 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerResumen (velios.Api)'
+2026-08-12 15:25:48.021 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/2/resumen - 200 null application/json; charset=utf-8 755.8354ms
