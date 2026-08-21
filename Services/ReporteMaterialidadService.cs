@@ -16,7 +16,11 @@ namespace velios.Api.Services;
 public class ReporteMaterialidadService : IReporteMaterialidadService
 {
     private const string Titulo = "INFORME DE TAREA";
-    private const int MaxConcurrencia = 20;
+
+    // PUNTO VELOCIDAD: subido de 20 a 40. Las descargas son I/O-bound (esperar
+    // respuesta de la red), no CPU-bound, así que más concurrencia reduce el
+    // tiempo total casi proporcionalmente sin bajar calidad ni tocar timeouts.
+    private const int MaxConcurrencia = 40;
 
     // Timeout ajustado a 12 segundos para dar tiempo a servidores lentos o S3/Azure Blob agregado nuevao s
     private static readonly TimeSpan TimeoutDescargaRecurso = TimeSpan.FromSeconds(12);
@@ -83,6 +87,14 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             });
         }
 
+        // PUNTO VELOCIDAD: antes, los adjuntos de la tarea (tarea.ImageURL) se
+        // descargaban DESPUÉS de esperar a que terminaran todas las evidencias y
+        // mapas (dentro de ConstruirPdfAsync). Eso era tiempo muerto: la red podía
+        // estar descargando evidencias mientras los adjuntos ni siquiera habían
+        // empezado. Ahora arrancan al mismo tiempo, usando el mismo semáforo, para
+        // que ambas descargas se traslapen en vez de sumarse una tras otra.
+        var archivosTareaTask = DescargarArchivosTareaAsync(tarea.ImageURL, semaforo);
+
         // 3. Caché de Google Maps y Geocoding por coordenadas únicas
         var coordsUnicas = evidencias
             .Where(e => e.Latitud.HasValue && e.Longitud.HasValue)
@@ -137,8 +149,13 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             }
         });
 
-        // Esperar únicamente descargas externas de red (HTTP)
-        await Task.WhenAll(Task.WhenAll(tareasGoogle), Task.WhenAll(tareasImagenesEvidencias), logoProveedorTask);
+        // Esperar TODAS las descargas externas de red (HTTP) al mismo tiempo:
+        // evidencias, mapas/geocoding, logo del proveedor y adjuntos de la tarea.
+        await Task.WhenAll(
+            Task.WhenAll(tareasGoogle),
+            Task.WhenAll(tareasImagenesEvidencias),
+            logoProveedorTask,
+            archivosTareaTask);
 
         // Vincular caché a evidencias
         foreach (var evidencia in evidencias)
@@ -194,7 +211,55 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             catch { qrBytes = null; }
         }
 
-        return await ConstruirPdfAsync(reporte, qrBytes, logoProveedorTask.Result);
+        // PUNTO VELOCIDAD: archivosTarea ya viene descargado (se traslapó arriba),
+        // así que ConstruirPdfAsync ya no descarga nada, solo arma el documento.
+        return ConstruirPdf(reporte, qrBytes, logoProveedorTask.Result, archivosTareaTask.Result);
+    }
+
+    // PUNTO VELOCIDAD: misma lógica de descarga de adjuntos que ya tenías dentro de
+    // ConstruirPdfAsync, solo que ahora es su propio método para poder arrancarla
+    // en paralelo con las evidencias en vez de después de ellas. Mismo timeout,
+    // misma reducción de imagen (maxAncho 600, calidad 65) — nada cambia en el
+    // resultado, solo CUÁNDO se descarga.
+    private async Task<List<ArchivoAdjunto>> DescargarArchivosTareaAsync(string? imageUrlCsv, SemaphoreSlim semaforo)
+    {
+        var archivosTarea = new List<ArchivoAdjunto>();
+
+        if (string.IsNullOrWhiteSpace(imageUrlCsv))
+            return archivosTarea;
+
+        var lista = imageUrlCsv.Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToList();
+
+        var tareasAdjuntos = lista.Select(async url =>
+        {
+            var ext = Path.GetExtension(url.Split('?')[0]).ToLowerInvariant();
+            var fileName = Path.GetFileName(url.Split('?')[0]);
+            byte[]? bytes = null;
+
+            await semaforo.WaitAsync();
+            try
+            {
+                var raw = await DescargarImagenConTimeoutAsync(url);
+                if (raw != null)
+                {
+                    bytes = ReducirImagen(raw, maxAncho: 600, calidad: 65) ?? raw;
+                }
+            }
+            catch { bytes = null; }
+            finally { semaforo.Release(); }
+
+            return new ArchivoAdjunto
+            {
+                Url = url,
+                FileName = fileName,
+                Extension = ext,
+                Bytes = bytes
+            };
+        });
+
+        archivosTarea.AddRange(await Task.WhenAll(tareasAdjuntos));
+        return archivosTarea;
     }
 
     private static byte[]? ReducirImagen(byte[]? bytesOriginales, int maxAncho = 900, int calidad = 70)
@@ -236,21 +301,33 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         }
     }
 
-    private async Task<byte[]> DescargarImagenConTimeoutAsync(string url)
+    private async Task<byte[]> DescargarImagenConTimeoutAsync(string url, int intentos = 3)
     {
         if (string.IsNullOrWhiteSpace(url)) return null;
 
-        using var cts = new CancellationTokenSource(TimeoutDescargaRecurso);
-        try
+        var cleanUrl = url.Trim();
+
+        for (int intento = 1; intento <= intentos; intento++)
         {
-            // Limpieza básica si la URL viene mal formateada
-            var cleanUrl = url.Trim();
-            return await _httpClient.GetByteArrayAsync(cleanUrl, cts.Token);
+            using var cts = new CancellationTokenSource(TimeoutDescargaRecurso);
+            try
+            {
+                return await _httpClient.GetByteArrayAsync(cleanUrl, cts.Token);
+            }
+            catch (Exception ex)
+            {
+                if (intento == intentos)
+                {
+                    Console.WriteLine($"[ReporteMaterialidad] Fallo definitivo al descargar {cleanUrl}: {ex.GetType().Name} - {ex.Message}");
+                    return null;
+                }
+
+                // Backoff progresivo antes de reintentar: 300ms, 600ms
+                await Task.Delay(300 * intento);
+            }
         }
-        catch
-        {
-            return null;
-        }
+
+        return null;
     }
 
     private async Task<byte[]> DescargarMapaAsync(decimal latitud, decimal longitud)
@@ -413,7 +490,11 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         return texto.Length <= maxCaracteres ? texto : texto.Substring(0, maxCaracteres).TrimEnd() + "...";
     }
 
-    private async Task<byte[]> ConstruirPdfAsync(ReporteMaterialidadDto reporte, byte[]? qrBytes, byte[]? logoProveedorBytes)
+    // PUNTO VELOCIDAD: ya no es async. Antes esperaba aquí adentro la descarga de
+    // adjuntos (Task.WhenAll de tareasAdjuntos); ahora esos bytes ya llegan listos
+    // como parámetro (archivosTarea), así que este método solo arma el PDF —
+    // exactamente el mismo documento, solo que ya no hay red de por medio aquí.
+    private byte[] ConstruirPdf(ReporteMaterialidadDto reporte, byte[]? qrBytes, byte[]? logoProveedorBytes, List<ArchivoAdjunto> archivosTarea)
     {
         var tarea = reporte.Tarea;
         var cliente = reporte.Cliente;
@@ -435,44 +516,6 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         var direccionDisplay = !string.IsNullOrWhiteSpace(tarea.DireccionCentroTrabajo)
             ? tarea.DireccionCentroTrabajo
             : "Dirección no disponible";
-
-        // Carga de adjuntos sin filtrar rígidamente por extensión
-        var archivosTarea = new List<ArchivoAdjunto>();
-        if (!string.IsNullOrWhiteSpace(tarea.ImageURL))
-        {
-            var lista = tarea.ImageURL!.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToList();
-
-            using var semaforoAdjuntos = new SemaphoreSlim(MaxConcurrencia);
-            var tareasAdjuntos = lista.Select(async url =>
-            {
-                var ext = Path.GetExtension(url.Split('?')[0]).ToLowerInvariant();
-                var fileName = Path.GetFileName(url.Split('?')[0]);
-                byte[]? bytes = null;
-
-                await semaforoAdjuntos.WaitAsync();
-                try
-                {
-                    var raw = await DescargarImagenConTimeoutAsync(url);
-                    if (raw != null)
-                    {
-                        bytes = ReducirImagen(raw, maxAncho: 600, calidad: 65) ?? raw;
-                    }
-                }
-                catch { bytes = null; }
-                finally { semaforoAdjuntos.Release(); }
-
-                return new ArchivoAdjunto
-                {
-                    Url = url,
-                    FileName = fileName,
-                    Extension = ext,
-                    Bytes = bytes
-                };
-            });
-
-            archivosTarea.AddRange(await Task.WhenAll(tareasAdjuntos));
-        }
 
         var document = Document.Create(container =>
         {
