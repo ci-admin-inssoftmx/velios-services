@@ -3,36 +3,32 @@
   "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\requests\\tareaupdaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\requests\\tareaupdaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\rutamobile\\itarearutarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\rutamobile\\itarearutarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\tareaevidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\tareaevidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\tareas\\tareascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\rutamobile\\itarearutaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\rutamobile\\itarearutaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\reportematerialidadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\reportematerialidadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\rutamobile\\rutadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\rutamobile\\rutadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\reportematerialidad\\tareareportedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\reportematerialidad\\tareareportedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\rutamobile\\rutamobilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\rutamobile\\rutamobilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\ireportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\ireportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\reportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\reportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,45 +38,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "TareaUpdateRequest.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
-              "RelativeDocumentMoniker": "Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
-              "RelativeToolTip": "Models\\Tareas\\Requests\\TareaUpdateRequest.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAiwEoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-12T20:53:38.762Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Tarea.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
-              "RelativeDocumentMoniker": "Models\\Tareas\\Tarea.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
-              "RelativeToolTip": "Models\\Tareas\\Tarea.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-12T20:52:47.294Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "TareasController.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
               "RelativeDocumentMoniker": "Controllers\\Tareas\\TareasController.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\Tareas\\TareasController.cs",
               "RelativeToolTip": "Controllers\\Tareas\\TareasController.cs",
-              "ViewState": "AgIAAHMCAAAAAAAAAAAwwIwCAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAD4vyUAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-12T20:50:48.241Z",
+              "WhenOpened": "2026-08-25T05:25:14.106Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ITareaRutaRepository.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\RutaMobile\\ITareaRutaRepository.cs",
+              "RelativeDocumentMoniker": "Services\\RutaMobile\\ITareaRutaRepository.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\RutaMobile\\ITareaRutaRepository.cs",
+              "RelativeToolTip": "Services\\RutaMobile\\ITareaRutaRepository.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAuwG8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-25T05:23:13.482Z",
               "EditorCaption": ""
             },
             {
@@ -93,71 +76,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TareaEvidencia.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\TareaEvidencia.cs",
-              "RelativeDocumentMoniker": "Models\\Tareas\\TareaEvidencia.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\TareaEvidencia.cs",
-              "RelativeToolTip": "Models\\Tareas\\TareaEvidencia.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-12T20:48:21.566Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "RutaMobileController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\RutaMobile\\RutaMobileController.cs",
-              "RelativeDocumentMoniker": "Controllers\\RutaMobile\\RutaMobileController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\RutaMobile\\RutaMobileController.cs",
-              "RelativeToolTip": "Controllers\\RutaMobile\\RutaMobileController.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAqwD8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-12T19:49:40.212Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ITareaRutaService.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\RutaMobile\\ITareaRutaService.cs",
-              "RelativeDocumentMoniker": "Services\\RutaMobile\\ITareaRutaService.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\RutaMobile\\ITareaRutaService.cs",
-              "RelativeToolTip": "Services\\RutaMobile\\ITareaRutaService.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAuwG4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-12T19:48:45.93Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ITareaRutaRepository.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\RutaMobile\\ITareaRutaRepository.cs",
-              "RelativeDocumentMoniker": "Services\\RutaMobile\\ITareaRutaRepository.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\RutaMobile\\ITareaRutaRepository.cs",
-              "RelativeToolTip": "Services\\RutaMobile\\ITareaRutaRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
+              "Title": "TareaReporteDto.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\ReporteMaterialidad\\TareaReporteDto.cs",
+              "RelativeDocumentMoniker": "Models\\ReporteMaterialidad\\TareaReporteDto.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\ReporteMaterialidad\\TareaReporteDto.cs",
+              "RelativeToolTip": "Models\\ReporteMaterialidad\\TareaReporteDto.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAywA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-12T19:46:57.129Z",
+              "WhenOpened": "2026-08-25T04:27:54.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IReporteMaterialidadRepository.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\IReporteMaterialidadRepository.cs",
+              "RelativeDocumentMoniker": "Services\\IReporteMaterialidadRepository.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\IReporteMaterialidadRepository.cs",
+              "RelativeToolTip": "Services\\IReporteMaterialidadRepository.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-25T03:59:49.962Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "RutaDTO.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\RutaMobile\\RutaDTO.cs",
-              "RelativeDocumentMoniker": "Models\\RutaMobile\\RutaDTO.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\RutaMobile\\RutaDTO.cs",
-              "RelativeToolTip": "Models\\RutaMobile\\RutaDTO.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAqwDcAAAABAAAAAAAAAA==",
+              "Title": "Tarea.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
+              "RelativeDocumentMoniker": "Models\\Tareas\\Tarea.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
+              "RelativeToolTip": "Models\\Tareas\\Tarea.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAuwEoAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-12T19:45:49.602Z",
+              "WhenOpened": "2026-08-25T03:55:21.651Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ReporteMaterialidadRepository.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadRepository.cs",
+              "RelativeDocumentMoniker": "Services\\ReporteMaterialidadRepository.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadRepository.cs",
+              "RelativeToolTip": "Services\\ReporteMaterialidadRepository.cs",
+              "ViewState": "AgIAAN0AAAAAAAAAAAAiwOAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-25T03:55:08.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReporteMaterialidadService.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadService.cs",
+              "RelativeDocumentMoniker": "Services\\ReporteMaterialidadService.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadService.cs",
+              "RelativeToolTip": "Services\\ReporteMaterialidadService.cs",
+              "ViewState": "AgIAAA8EAAAAAAAAAAAswBwEAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-25T02:53:41.79Z",
               "EditorCaption": ""
             }
           ]
