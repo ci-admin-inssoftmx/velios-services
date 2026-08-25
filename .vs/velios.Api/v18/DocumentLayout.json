@@ -7,20 +7,20 @@
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\reportematerialidadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\reportematerialidad\\tareareportedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\reportematerialidad\\tareareportedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\ireportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\ireportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\reportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\reportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\reportematerialidad\\tareareportedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\reportematerialidad\\tareareportedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\ireportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\ireportematerialidadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\tareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -34,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,26 +50,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-25T16:59:58.396Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "TareaReporteDto.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\ReporteMaterialidad\\TareaReporteDto.cs",
               "RelativeDocumentMoniker": "Models\\ReporteMaterialidad\\TareaReporteDto.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\ReporteMaterialidad\\TareaReporteDto.cs",
               "RelativeToolTip": "Models\\ReporteMaterialidad\\TareaReporteDto.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAywA4AAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-25T04:27:54.482Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "IReporteMaterialidadRepository.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\IReporteMaterialidadRepository.cs",
               "RelativeDocumentMoniker": "Services\\IReporteMaterialidadRepository.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\IReporteMaterialidadRepository.cs",
               "RelativeToolTip": "Services\\IReporteMaterialidadRepository.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-25T03:59:49.962Z",
               "EditorCaption": ""
@@ -82,20 +95,20 @@
               "RelativeDocumentMoniker": "Models\\Tareas\\Tarea.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\Tareas\\Tarea.cs",
               "RelativeToolTip": "Models\\Tareas\\Tarea.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAuwEkAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEkAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-25T03:55:21.651Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "ReporteMaterialidadRepository.cs",
               "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadRepository.cs",
               "RelativeDocumentMoniker": "Services\\ReporteMaterialidadRepository.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadRepository.cs",
               "RelativeToolTip": "Services\\ReporteMaterialidadRepository.cs",
-              "ViewState": "AgIAAN4AAAAAAAAAAAAiwPEAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAMcAAAAAAAAAAAAiwNsAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-25T03:55:08.925Z",
               "EditorCaption": ""
@@ -108,22 +121,9 @@
               "RelativeDocumentMoniker": "Services\\ReporteMaterialidadService.cs",
               "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadService.cs",
               "RelativeToolTip": "Services\\ReporteMaterialidadService.cs",
-              "ViewState": "AgIAACAEAAAAAAAAAAAswDcEAAB3AAAAAAAAAA==",
+              "ViewState": "AgIAACwDAAAAAAAAAAArwEgDAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-25T02:53:41.79Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-08-25T01:52:22.818Z",
               "EditorCaption": ""
             }
           ]
