@@ -60,8 +60,6 @@ builder.Services.AddScoped<IServicioProveedorService, ServicioProveedorService>(
 // 2) Registro de servicios (DI - Dependency Injection)
 // ------------------------------------------------------------
 
-builder.Services.AddScoped<ITareaRutaRepository, TareaRutaRepository>();
-builder.Services.AddScoped<ITareaRutaService, TareaRutaService>();
 // Email sender
 builder.Services.AddScoped<IEmailSender, BrevoSmtpEmailSender>();
 
@@ -75,7 +73,7 @@ builder.Services.AddSingleton<IPasswordHasher, LegacyPasswordHasher>();
 builder.Services.AddScoped<IProveedorDocumentService, ProveedorDocumentService>();
 
 // Registro del módulo de reporte de materialidad
-builder.Services.AddScoped<IReporteMaterialidadPreeliminarService, ReportePreeliminarService>(); 
+builder.Services.AddScoped<IReporteMaterialidadPreeliminarService, ReporteMaterialidadPreeliminarService>();
 builder.Services.AddScoped<IReporteMaterialidadRepository, ReporteMaterialidadRepository>();
 builder.Services.AddScoped<IReporteMaterialidadService, ReporteMaterialidadService>();
 

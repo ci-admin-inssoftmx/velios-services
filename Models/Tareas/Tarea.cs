@@ -10,9 +10,6 @@ public class Tarea
     [Column("TareaId")]
     public int TareaId { get; set; }
 
-    [Column("SeguimientoRutaActivo")]
-    public bool SeguimientoRutaActivo { get; set; }
-
     [Column("TaskCode")]
     [MaxLength(50)]
     public string TaskCode { get; set; } = string.Empty;

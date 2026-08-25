@@ -10,9 +10,6 @@ public class TareaEvidencia
     [Column("EvidenciaId")]
     public int EvidenciaId { get; set; }
 
-    [Column("RutaId")]
-    public int? RutaId { get; set; }
-
     [Column("TareaId")]
     public int TareaId { get; set; }
 
