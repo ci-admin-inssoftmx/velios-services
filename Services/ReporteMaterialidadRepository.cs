@@ -7,24 +7,18 @@ namespace velios.Api.Services;
 
 /// <summary>
 /// Implementación del repositorio de reportes de materialidad
-/// usando AppDbContext sin afectar la lógica existente.
+/// usando AppDbContext y NomclickDbContext sin afectar la lógica existente.
 /// </summary>
-/// 
-
-
 public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
 {
     private readonly AppDbContext _context;
+    private readonly NomclickDbContext _nomclickContext;
 
-    public ReporteMaterialidadRepository(AppDbContext context)
+    public ReporteMaterialidadRepository(AppDbContext context, NomclickDbContext nomclickContext)
     {
         _context = context;
+        _nomclickContext = nomclickContext;
     }
-
-    /// <summary>
-    /// Obtiene una tarea específica con nombres de operador y supervisor.
-    /// </summary>
-    /// 
 
     public async Task<List<string>> ObtenerObservacionesPorTareaAsync(int tareaId)
     {
@@ -47,16 +41,17 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
                 on t.TrabajadorId equals opTmp.TrabajadorId into operadoresJoin
             from operador in operadoresJoin.DefaultIfEmpty()
 
-            join provTmp in _context.Proveedores.AsNoTracking()
-    on operador.ProveedorId equals provTmp.ProveedorId into proveedoresJoin
-            from proveedor in proveedoresJoin.DefaultIfEmpty()
+                // JOIN DIRECTO usando t.ProveedorId
+            join provDirTmp in _context.Proveedores.AsNoTracking()
+                on t.ProveedorId equals provDirTmp.ProveedorId into proveedorDirectoJoin
+            from proveedorDirecto in proveedorDirectoJoin.DefaultIfEmpty()
 
             join supTmp in _context.ProveedorTrabajadores.AsNoTracking()
                 on t.SupervisorId equals supTmp.TrabajadorId into supervisoresJoin
             from supervisor in supervisoresJoin.DefaultIfEmpty()
 
             join proyTmp in _context.ClienteProyectos.AsNoTracking()
-    on t.ProyectoId equals proyTmp.ProyectoId into proyectosJoin
+                on t.ProyectoId equals proyTmp.ProyectoId into proyectosJoin
             from proyecto in proyectosJoin.DefaultIfEmpty()
 
             where t.TareaId == tareaId && !t.IsDeleted
@@ -64,10 +59,14 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
             {
                 TareaId = t.TareaId,
                 NombreProyecto = proyecto != null ? proyecto.Nombre : null,
-                LogoUrlProveedor = proveedor != null ? proveedor.LogoUrl : null,
-                NombreProveedor = proveedor != null
-    ? (!string.IsNullOrWhiteSpace(proveedor.NombreComercial) ? proveedor.NombreComercial : proveedor.RazonSocial)
-    : null,
+
+                // Mapeo directo del ProveedorId y datos desde t.ProveedorId
+                ProveedorId = t.ProveedorId,
+                LogoUrlProveedor = proveedorDirecto != null ? proveedorDirecto.LogoUrl : null,
+                NombreProveedor = proveedorDirecto != null
+                    ? (!string.IsNullOrWhiteSpace(proveedorDirecto.NombreComercial) ? proveedorDirecto.NombreComercial : proveedorDirecto.RazonSocial)
+                    : null,
+
                 TaskCode = t.TaskCode,
                 ClienteId = t.ClienteId,
                 ProyectoId = t.ProyectoId,
@@ -109,6 +108,7 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
 
         return await query.FirstOrDefaultAsync();
     }
+
     public async Task<string?> ObtenerDireccionCentroTrabajoAsync(int? centroTrabajoId)
     {
         if (!centroTrabajoId.HasValue) return null;
@@ -122,12 +122,12 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
 
         var partes = new[]
         {
-        ct.Calle,
-        ct.Numero,
-        ct.Colonia,
-        ct.Municipio,
-        ct.Estado
-    }.Where(p => !string.IsNullOrWhiteSpace(p));
+            ct.Calle,
+            ct.Numero,
+            ct.Colonia,
+            ct.Municipio,
+            ct.Estado
+        }.Where(p => !string.IsNullOrWhiteSpace(p));
 
         return string.Join(", ", partes);
     }
@@ -142,6 +142,7 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
             .Select(c => c.Nombre)
             .FirstOrDefaultAsync();
     }
+
     /// <summary>
     /// Obtiene la información principal del cliente.
     /// </summary>
@@ -155,7 +156,6 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
                 ClienteId = c.ClienteId,
                 NombreComercial = c.NombreComercial,
                 RazonSocial = c.RazonSocial,
-                //Direccion = c.Direccion,
                 Telefono = c.TelefonoContacto,
                 RFC = c.RFC
             })
@@ -205,13 +205,6 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
             }
         ).ToListAsync();
     }
-    private readonly NomclickDbContext _nomclickContext;
-
-    public ReporteMaterialidadRepository(AppDbContext context, NomclickDbContext nomclickContext)
-    {
-        _context = context;
-        _nomclickContext = nomclickContext;
-    }
 
     public async Task<string?> ObtenerTelefonoCentroTrabajoAsync(int? centroTrabajoId)
     {
@@ -223,6 +216,7 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
             .Select(c => c.Telefono)
             .FirstOrDefaultAsync();
     }
+
     public async Task<string?> ObtenerNombreProveedorAsync(int? proveedorId)
     {
         if (!proveedorId.HasValue) return null;
@@ -240,5 +234,4 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
         var result = await command.ExecuteScalarAsync();
         return result is DBNull || result is null ? null : result.ToString();
     }
-
 }
