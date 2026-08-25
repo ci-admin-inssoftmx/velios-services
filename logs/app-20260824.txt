@@ -1,0 +1,103 @@
+2026-08-24 23:39:10.038 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-08-24 23:39:10.287 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-08-24 23:39:10.466 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-08-24 23:39:10.469 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-08-24 23:39:10.570 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-08-24 23:39:10.573 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-08-24 23:39:10.575 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-08-24 23:39:12.429 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-08-24 23:39:12.672 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-08-24 23:39:12.786 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 374.2235ms
+2026-08-24 23:39:12.791 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-08-24 23:39:16.046 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-08-24 23:39:16.055 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-08-24 23:39:16.138 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 91.8115ms
+2026-08-24 23:39:16.155 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-08-24 23:39:16.190 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-08-24 23:39:16.193 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-24 23:39:16.196 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-24 23:39:16.200 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 46.8591ms
+2026-08-24 23:39:16.222 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 28.6191ms
+2026-08-24 23:39:16.277 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 58.985ms
+2026-08-24 23:39:16.330 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-08-24 23:39:16.333 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-08-24 23:39:16.416 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 85.3211ms
+2026-08-24 23:39:48.369 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/tasks?idUsuario=45&tipoUsuario=3 - null null
+2026-08-24 23:39:48.389 [INF] velios.Api
+      Incoming: GET /api/tasks?idUsuario=45&tipoUsuario=3 CT=null Len=null
+2026-08-24 23:39:48.449 [INF] Microsoft.AspNetCore.Authorization.DefaultAuthorizationService
+      Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-08-24 23:39:48.457 [INF] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler
+      AuthenticationScheme: Bearer was challenged.
+2026-08-24 23:39:48.460 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/tasks?idUsuario=45&tipoUsuario=3 - 401 0 null 90.728ms
+2026-08-24 23:40:24.140 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/Authenticate/Login - application/json 63
+2026-08-24 23:40:24.195 [INF] velios.Api
+      Incoming: POST /api/Authenticate/Login CT=application/json Len=63
+2026-08-24 23:40:24.206 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-08-24 23:40:24.212 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AuthenticateController.Login (velios.Api)'
+2026-08-24 23:40:24.248 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[velios.Api.Models.Common.ApiResponse`1[velios.Api.Models.Auth.LoginDataResponse]]] Login(velios.Api.Models.Auth.LoginRequest) on controller velios.Api.Controllers.AuthenticateController (velios.Api).
+2026-08-24 23:40:25.054 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-24 23:40:25.058 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-24 23:40:25.061 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-24 23:40:25.064 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-24 23:40:25.068 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-24 23:40:27.022 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[velios.Api.Models.Auth.LoginDataResponse, velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-08-24 23:40:27.065 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AuthenticateController.Login (velios.Api) in 2802.0369ms
+2026-08-24 23:40:27.068 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AuthenticateController.Login (velios.Api)'
+2026-08-24 23:40:27.077 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/Authenticate/Login - 200 null application/json; charset=utf-8 2936.133ms
+2026-08-24 23:40:55.666 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/tasks?idUsuario=45&tipoUsuario=3 - null null
+2026-08-24 23:40:55.700 [INF] velios.Api
+      Incoming: GET /api/tasks?idUsuario=45&tipoUsuario=3 CT=null Len=null
+2026-08-24 23:40:55.744 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.List (velios.Api)'
+2026-08-24 23:40:55.751 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "List", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[velios.Api.Models.Common.ApiResponse`1[System.Object]]] List(Int64, Int32) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-08-24 23:40:57.812 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-08-24 23:40:57.838 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.List (velios.Api) in 2085.1228ms
+2026-08-24 23:40:57.841 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.List (velios.Api)'
+2026-08-24 23:40:57.844 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/tasks?idUsuario=45&tipoUsuario=3 - 200 null application/json; charset=utf-8 2177.5429ms

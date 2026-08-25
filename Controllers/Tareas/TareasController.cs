@@ -88,6 +88,7 @@ public class TareasController : ControllerBase
                     title = x.t.Titulo,
                     description = x.t.Descripcion,
                     statusCode = x.e.Codigo,
+                    seguimientoRutaActivo = x.t.SeguimientoRutaActivo, // ← NUEVO
                     planTrabajo = x.p != null ? x.p.Nombre : "SIN PLAN",
                     client = new
                     {
@@ -135,10 +136,14 @@ public class TareasController : ControllerBase
                 }).ToListAsync();
 
             // ── GASTOS — se traen en una sola query con todos los TareaIds ──
+            // ── GASTOS — se traen en una sola query con todos los TareaIds ──
             var tareaIds = tareas.Select(x => x.tareaId).ToList();
 
-            var gastosPorTarea = await _db.GastosTarea.AsNoTracking()
-                .Where(g => tareaIds.Contains(g.IdTarea))
+            // ── RUTAS ACTIVAS — se traen en una sola query con todos los TareaIds ──
+            var tareaIdsConRutaActiva = (await _tareaRutaRepository.ObtenerTareaIdsConRutaActivaAsync(tareaIds)).ToHashSet();
+            // ─────────────────────────────────────────────────────────────────────
+
+            var gastosPorTarea = await _db.GastosTarea.AsNoTracking().Where(g => tareaIds.Contains(g.IdTarea))
                 .OrderBy(g => g.IdGastoTarea)
                 .Select(g => new
                 {
@@ -178,7 +183,12 @@ public class TareasController : ControllerBase
                 t.trabajador,
                 t.supervisor,
                 t.centroTrabajo,
-                presupuesto = new
+                seguimientoRuta = new // ← NUEVO
+                {
+                    activo = t.seguimientoRutaActivo,
+                    rutaActiva = tareaIdsConRutaActiva.Contains(t.tareaId)
+                },
+                 presupuesto = new
                 {
                     presupuestoAsignado = t.presupuestoAsignado,
                     presupuestoUsado = t.presupuestoUsado,

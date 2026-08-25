@@ -10,6 +10,9 @@ public interface ITareaRutaRepository
     Task<RutaDto?> ObtenerRutaPorIdAsync(int rutaId);
     Task<List<EvidenciaGeoDto>> ObtenerEvidenciasPorRutaAsync(int rutaId);
     Task<bool> RutaEstaActivaAsync(int rutaId, int tareaId);
+    Task<List<int>> ObtenerTareaIdsConRutaActivaAsync(IEnumerable<int> tareaIds);
+
+
 
 }
 
@@ -94,5 +97,16 @@ public class TareaRutaRepository : ITareaRutaRepository
         using var conn = new SqlConnection(_connectionString);
         var count = await conn.ExecuteScalarAsync<int>(sql, new { RutaId = rutaId, TareaId = tareaId });
         return count > 0;
+    }
+    public async Task<List<int>> ObtenerTareaIdsConRutaActivaAsync(IEnumerable<int> tareaIds)
+    {
+        const string sql = @"
+        SELECT DISTINCT TareaId
+        FROM tb_TareaRuta
+        WHERE TareaId IN @TareaIds AND Estado = 1";
+
+        using var conn = new SqlConnection(_connectionString);
+        var result = await conn.QueryAsync<int>(sql, new { TareaIds = tareaIds });
+        return result.ToList();
     }
 }
