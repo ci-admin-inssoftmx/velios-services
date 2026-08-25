@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using velios.Api.Data;
 using velios.Api.Models.ReporteMaterialidad;
 
@@ -221,6 +222,23 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
             .Where(c => c.IdCentroDeTrabajo == centroTrabajoId.Value)
             .Select(c => c.Telefono)
             .FirstOrDefaultAsync();
+    }
+    public async Task<string?> ObtenerNombreProveedorAsync(int? proveedorId)
+    {
+        if (!proveedorId.HasValue) return null;
+
+        const string sql = @"
+        SELECT TOP 1 ISNULL(NombreComercial, RazonSocial)
+        FROM dbo.tb_Proveedores
+        WHERE ProveedorId = @proveedorId";
+
+        await using var connection = new SqlConnection(
+            _context.Database.GetConnectionString());
+        await using var command = new SqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@proveedorId", proveedorId.Value);
+        await connection.OpenAsync();
+        var result = await command.ExecuteScalarAsync();
+        return result is DBNull || result is null ? null : result.ToString();
     }
 
 }

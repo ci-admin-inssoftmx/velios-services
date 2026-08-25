@@ -1,4 +1,5 @@
-﻿using QRCoder;
+﻿using Microsoft.EntityFrameworkCore;
+using QRCoder;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -64,20 +65,26 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
     }
 
     public async Task<byte[]> GenerarPdfPorTareaAsync(int tareaId)
+
     {
-        // 1. Consultas a BD en SECUENCIA (EF Core no permite multithreading en el mismo DbContext)
+
+        // PRIMERO obtener tarea
         var tarea = await _repository.ObtenerTareaAsync(tareaId)
             ?? throw new InvalidOperationException($"No se encontró la tarea con id {tareaId}.");
+
+        // DESPUÉS usar tarea.ProveedorId
+        var nombreProveedorTask = _repository.ObtenerNombreProveedorAsync(tarea.ProveedorId);
 
         var evidencias = await _repository.ObtenerEvidenciasPorTareaAsync(tareaId);
         tarea.Observaciones = await _repository.ObtenerObservacionesPorTareaAsync(tareaId);
 
         var cliente = await _repository.ObtenerClienteAsync(tarea.ClienteId)
-            ?? throw new InvalidOperationException($"No se encontró el cliente con id {tarea.ClienteId}.");
+            ?? throw new InvalidOperationException($"No se encontró el cliente.");
 
         tarea.DireccionCentroTrabajo = await _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
         tarea.TelefonoCentroTrabajo = await _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
         tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
+        tarea.NombreProveedor = await nombreProveedorTask;
 
         using var semaforo = new SemaphoreSlim(MaxConcurrencia);
         using var semaforoArchivos = new SemaphoreSlim(MaxConcurrenciaArchivosPropios);
@@ -1026,18 +1033,17 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                             ic.Image(personaIconBytes, ImageScaling.FitArea);
                         else
                             ic.Background("#E5E7EB").Border(1).BorderColor("#D1D5DB")
-                                .AlignCenter().AlignMiddle()
-                                .Text("●").FontSize(14).FontColor("#24364D");
+                                .AlignCenter().AlignMiddle().Text("●").FontSize(14).FontColor("#24364D");
                     });
                     r.ConstantItem(8);
                     r.RelativeItem().Column(c =>
                     {
-                        c.Item().Text(tarea.NombreOperador ?? "N/A")
-                            .SemiBold().FontSize(11).FontColor("#24364D");
-                        c.Item().Text("Operador").FontSize(8).FontColor("#6B7280");
+                        c.Item().Text(tarea.NombreSupervisor ?? "N/A").SemiBold().FontSize(11).FontColor("#24364D");
+                        c.Item().Text("Supervisor").FontSize(8).FontColor("#6B7280");
                     });
                 });
 
+                // Proveedor
                 right.Item().PaddingTop(4).Row(r =>
                 {
                     r.ConstantItem(26).Height(26).Element(ic =>
@@ -1046,27 +1052,55 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                             ic.Image(personaIconBytes, ImageScaling.FitArea);
                         else
                             ic.Background("#E5E7EB").Border(1).BorderColor("#D1D5DB")
-                                .AlignCenter().AlignMiddle()
-                                .Text("●").FontSize(14).FontColor("#24364D");
+                                .AlignCenter().AlignMiddle().Text("●").FontSize(14).FontColor("#24364D");
                     });
                     r.ConstantItem(8);
                     r.RelativeItem().Column(c =>
                     {
-                        c.Item().Text(tarea.NombreSupervisor ?? "N/A")
-                            .SemiBold().FontSize(11).FontColor("#24364D");
-                        c.Item().Text("Supervisor").FontSize(8).FontColor("#6B7280");
+                        c.Item().Text(tarea.NombreProveedor ?? "N/A").SemiBold().FontSize(11).FontColor("#24364D");
+                        c.Item().Text("Proveedor").FontSize(8).FontColor("#6B7280");
                     });
                 });
 
-                right.Item().PaddingTop(8).Background("#24364D").CornerRadius(6).Padding(10).AlignCenter().Column(c =>
+                var presupuesto = tarea.PresupuestoAsignado ?? 0;
+                var ejecutado = tarea.PresupuestoUsado ?? 0;
+                var diferencia = presupuesto - ejecutado;
+                var excedido = diferencia < 0;
+
+                right.Item().PaddingTop(8).Background("#24364D").CornerRadius(6).Padding(10).Column(c =>
                 {
-                    c.Item().AlignCenter().Text("PRESUPUESTO")
-                        .FontSize(9).FontColor(Colors.White).SemiBold();
-                    c.Item().AlignCenter().Text(
-                            tarea.PresupuestoAsignado.HasValue
-                                ? $"${tarea.PresupuestoAsignado.Value:N2} {tarea.Moneda}"
-                                : "N/A")
-                        .Bold().FontSize(15).FontColor(Colors.White);
+                    // Presupuesto asignado
+                    c.Item().AlignCenter().Text("PRESUPUESTO").FontSize(9).FontColor(Colors.White).SemiBold();
+                    c.Item().AlignCenter().Text(presupuesto > 0 ? $"${presupuesto:N2} {tarea.Moneda}" : "N/A")
+                        .Bold().FontSize(13).FontColor(Colors.White);
+
+                    c.Item().PaddingTop(6).LineHorizontal(1).LineColor("#FFFFFF40");
+
+                    // Ejecutado
+                    c.Item().PaddingTop(6).AlignCenter().Text("EJECUTADO").FontSize(9).FontColor("#CBD5E1").SemiBold();
+                    c.Item().AlignCenter().Text(ejecutado > 0 ? $"${ejecutado:N2} {tarea.Moneda}" : "N/A")
+                        .Bold().FontSize(13).FontColor("#CBD5E1");
+
+                    c.Item().PaddingTop(6).LineHorizontal(1).LineColor("#FFFFFF40");
+
+                    // Diferencia
+                    c.Item().PaddingTop(6).Row(r =>
+                    {
+                        r.ConstantItem(16).AlignMiddle().AlignCenter()
+                            .Text(excedido ? "⚠" : "✓").FontSize(12)
+                            .FontColor(excedido ? "#FCA5A5" : "#86EFAC");
+                        r.ConstantItem(4);
+                        r.RelativeItem().AlignMiddle().Column(col =>
+                        {
+                            col.Item().Text(excedido ? "EXCEDIDO" : "DISPONIBLE")
+                                .FontSize(8).FontColor(excedido ? "#FCA5A5" : "#86EFAC").SemiBold();
+                            col.Item().Text(presupuesto > 0
+                                    ? $"${Math.Abs(diferencia):N2} {tarea.Moneda}"
+                                    : "N/A")
+                                .Bold().FontSize(12)
+                                .FontColor(excedido ? "#FCA5A5" : "#86EFAC");
+                        });
+                    });
                 });
 
                 right.Item().PaddingTop(10).Column(suc =>
