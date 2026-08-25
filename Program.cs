@@ -75,7 +75,7 @@ builder.Services.AddSingleton<IPasswordHasher, LegacyPasswordHasher>();
 builder.Services.AddScoped<IProveedorDocumentService, ProveedorDocumentService>();
 
 // Registro del módulo de reporte de materialidad
-builder.Services.AddScoped<IReporteMaterialidadPreeliminarService, ReporteMaterialidadPreeliminarService>();
+builder.Services.AddScoped<IReporteMaterialidadPreeliminarService, ReportePreeliminarService>();
 builder.Services.AddScoped<IReporteMaterialidadRepository, ReporteMaterialidadRepository>();
 builder.Services.AddScoped<IReporteMaterialidadService, ReporteMaterialidadService>();
 
