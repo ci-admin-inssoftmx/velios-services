@@ -22,6 +22,11 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
     // tiempo total casi proporcionalmente sin bajar calidad ni tocar timeouts.
     private const int MaxConcurrencia = 40;
 
+    // Semáforo aparte y más conservador SOLO para el servidor de archivos propio
+    // (archivosvelios.adhw.com.mx), que se satura y empieza a responder 403 o a
+    // colgarse si le mandamos 40 peticiones a la vez. Google Maps sí aguanta el
+    // paralelismo alto y se queda con MaxConcurrencia.
+    private const int MaxConcurrenciaArchivosPropios = 10;
     // Timeout ajustado a 12 segundos para dar tiempo a servidores lentos o S3/Azure Blob agregado nuevao s
     private static readonly TimeSpan TimeoutDescargaRecurso = TimeSpan.FromSeconds(12);
 
@@ -75,15 +80,23 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
 
         using var semaforo = new SemaphoreSlim(MaxConcurrencia);
-
+        using var semaforoArchivos = new SemaphoreSlim(MaxConcurrenciaArchivosPropios);
         // 2. Descarga de Logo Proveedor (si existe) - (Esto SÍ puede ir en paralelo porque es HTTP, no EF Core)
         Task<byte[]?> logoProveedorTask = Task.FromResult<byte[]?>(null);
         if (!string.IsNullOrWhiteSpace(tarea.LogoUrlProveedor))
         {
             logoProveedorTask = Task.Run(async () =>
             {
-                var raw = await DescargarImagenConTimeoutAsync(tarea.LogoUrlProveedor);
-                return ReducirImagen(raw, maxAncho: 400, calidad: 80);
+                await semaforoArchivos.WaitAsync();
+                try
+                {
+                    var raw = await DescargarImagenConTimeoutAsync(tarea.LogoUrlProveedor);
+                    return ReducirImagen(raw, maxAncho: 400, calidad: 80);
+                }
+                finally
+                {
+                    semaforoArchivos.Release();
+                }
             });
         }
 
@@ -93,8 +106,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         // estar descargando evidencias mientras los adjuntos ni siquiera habían
         // empezado. Ahora arrancan al mismo tiempo, usando el mismo semáforo, para
         // que ambas descargas se traslapen en vez de sumarse una tras otra.
-        var archivosTareaTask = DescargarArchivosTareaAsync(tarea.ImageURL, semaforo);
-
+        var archivosTareaTask = DescargarArchivosTareaAsync(tarea.ImageURL, semaforoArchivos);
         // 3. Caché de Google Maps y Geocoding por coordenadas únicas
         var coordsUnicas = evidencias
             .Where(e => e.Latitud.HasValue && e.Longitud.HasValue)
@@ -133,7 +145,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         {
             if (string.IsNullOrWhiteSpace(evidencia.UrlArchivo)) return;
 
-            await semaforo.WaitAsync();
+            await semaforoArchivos.WaitAsync();
             try
             {
                 var raw = await DescargarImagenConTimeoutAsync(evidencia.UrlArchivo);
@@ -145,7 +157,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             }
             finally
             {
-                semaforo.Release();
+                semaforoArchivos.Release();
             }
         });
 
