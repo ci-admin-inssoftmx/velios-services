@@ -55,12 +55,15 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         QuestPDF.Settings.License = LicenseType.Community;
     }
 
-    public async Task<byte[]> GenerarPdfPorTareaAsync(int tareaId)
+    public async Task<byte[]> GenerarPdfPorTareaAsync(int tareaId, IProgress<(int Procesados, int Total)>? progreso = null)
     {
         var tarea = await _repository.ObtenerTareaAsync(tareaId)
             ?? throw new InvalidOperationException($"No se encontró la tarea con id {tareaId}.");
 
         var evidencias = await _repository.ObtenerEvidenciasPorTareaAsync(tareaId);
+        var totalRegistros = evidencias.Count;
+        var registrosProcesados = 0;
+        progreso?.Report((0, totalRegistros));
         tarea.Observaciones = await _repository.ObtenerObservacionesPorTareaAsync(tareaId);
 
         var cliente = await _repository.ObtenerClienteAsync(tarea.ClienteId)
@@ -128,21 +131,29 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
         var tareasImagenesEvidencias = evidencias.Select(async evidencia =>
         {
-            if (string.IsNullOrWhiteSpace(evidencia.UrlArchivo)) return;
-
-            await semaforoArchivos.WaitAsync();
             try
             {
-                var raw = await DescargarImagenConTimeoutAsync(evidencia.UrlArchivo);
-                if (raw != null && raw.Length > 0)
+                if (string.IsNullOrWhiteSpace(evidencia.UrlArchivo)) return;
+
+                await semaforoArchivos.WaitAsync();
+                try
                 {
-                    var reducida = ReducirImagen(raw, maxAncho: 900, calidad: 70);
-                    evidencia.ImagenBytes = reducida ?? raw;
+                    var raw = await DescargarImagenConTimeoutAsync(evidencia.UrlArchivo);
+                    if (raw != null && raw.Length > 0)
+                    {
+                        var reducida = ReducirImagen(raw, maxAncho: 900, calidad: 70);
+                        evidencia.ImagenBytes = reducida ?? raw;
+                    }
+                }
+                finally
+                {
+                    semaforoArchivos.Release();
                 }
             }
             finally
             {
-                semaforoArchivos.Release();
+                var actual = Interlocked.Increment(ref registrosProcesados);
+                progreso?.Report((actual, totalRegistros));
             }
         });
 
