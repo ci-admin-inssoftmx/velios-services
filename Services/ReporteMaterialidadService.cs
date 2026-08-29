@@ -142,7 +142,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                     if (raw != null && raw.Length > 0)
                     {
                         var reducida = ReducirImagen(raw, maxAncho: 900, calidad: 70);
-                        evidencia.ImagenBytes = reducida ?? raw;
+                        evidencia.ImagenBytes = reducida; // antes: reducida ?? raw
                     }
                 }
                 finally
@@ -268,7 +268,11 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             using var inputStream = new MemoryStream(bytesOriginales);
             using var original = SKBitmap.Decode(inputStream);
 
-            if (original == null) return bytesOriginales;
+            if (original == null)
+            {
+                Console.WriteLine("[ReporteMaterialidad] SKBitmap.Decode devolvió null: los bytes descargados no son una imagen válida.");
+                return null; // antes: return bytesOriginales;
+            }
 
             int nuevoAncho = original.Width;
             int nuevoAlto = original.Height;
@@ -289,11 +293,12 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             image.Encode(SKEncodedImageFormat.Jpeg, calidad).SaveTo(outputStream);
             var resultado = outputStream.ToArray();
 
-            return resultado.Length > 0 ? resultado : bytesOriginales;
+            return resultado.Length > 0 ? resultado : null; // antes: ": bytesOriginales"
         }
-        catch
+        catch (Exception ex)
         {
-            return bytesOriginales;
+            Console.WriteLine($"[ReporteMaterialidad] Excepción decodificando imagen: {ex.GetType().Name} - {ex.Message}");
+            return null; // antes: return bytesOriginales;
         }
     }
 

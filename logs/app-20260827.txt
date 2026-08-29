@@ -1709,3 +1709,713 @@ System.IO.DirectoryNotFoundException: Could not find a part of the path 'D:\arch
    at Hangfire.Server.BackgroundJobPerformer.PerformJobWithFilters(PerformContext context, FilterCollection`1 filters) in C:\projects\hangfire-525\src\Hangfire.Core\Server\BackgroundJobPerformer.cs:line 119
    at Hangfire.Server.BackgroundJobPerformer.Perform(PerformContext context) in C:\projects\hangfire-525\src\Hangfire.Core\Server\BackgroundJobPerformer.cs:line 78
    at Hangfire.Server.Worker.PerformJob(BackgroundProcessContext context, IStorageConnection connection, String jobId, BackgroundJob backgroundJob, IReadOnlyDictionary`2& customData) in C:\projects\hangfire-525\src\Hangfire.Core\Server\Worker.cs:line 320
+2026-08-27 13:58:48.654 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Start installing Hangfire SQL objects...
+2026-08-27 13:58:50.286 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Hangfire SQL objects installed.
+2026-08-27 13:58:50.922 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-08-27 13:58:51.171 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-08-27 13:58:51.400 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-08-27 13:58:51.404 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-08-27 13:58:51.512 [INF] Hangfire.BackgroundJobServer
+      Starting Hangfire Server using job storage: 'SQL Server: 54.39.102.101@VELIOS_DEV'
+2026-08-27 13:58:51.515 [INF] Hangfire.BackgroundJobServer
+      Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-08-27 13:58:51.518 [INF] Hangfire.BackgroundJobServer
+      Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-08-27 13:58:51.611 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-08-27 13:58:51.637 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-08-27 13:58:51.677 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-08-27 13:58:52.006 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:26736:e550967e successfully announced in 396.6661 ms
+2026-08-27 13:58:52.016 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:26736:e550967e is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-08-27 13:58:52.332 [INF] Hangfire.Server.ServerWatchdog
+      1 servers were removed due to timeout
+2026-08-27 13:58:52.379 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:26736:e550967e all the dispatchers started
+2026-08-27 13:58:57.478 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-27 13:58:57.482 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-27 13:58:57.485 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-27 13:58:57.488 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-27 13:58:57.492 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-27 13:58:59.033 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-27 13:58:59.036 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-27 13:58:59.039 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-27 13:58:59.042 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-08-27 13:58:59.842 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-08-27 13:58:59.848 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-08-27 13:58:59.921 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-08-27 13:58:59.924 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-08-27 13:58:59.933 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/ded0b018-92c1-4254-9070-79a0302beaf8.png
+2026-08-27 13:58:59.935 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/ded0b018-92c1-4254-9070-79a0302beaf8.png
+2026-08-27 13:58:59.943 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/494be63b-e69d-4840-81d8-581b81bc17dd.pdf
+2026-08-27 13:58:59.945 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/494be63b-e69d-4840-81d8-581b81bc17dd.pdf
+2026-08-27 13:58:59.970 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/edba4e3d-8896-4460-9403-0de72157093a.png
+2026-08-27 13:58:59.975 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/edba4e3d-8896-4460-9403-0de72157093a.png
+2026-08-27 13:59:00.023 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/83ab5d61-8705-48e5-bc5a-c31b0455bef6.pdf
+2026-08-27 13:59:00.058 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/83ab5d61-8705-48e5-bc5a-c31b0455bef6.pdf
+2026-08-27 13:59:00.084 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/364a4bee-3c1b-4fb9-9570-f15366a9e4eb.xlsx
+2026-08-27 13:59:00.087 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/364a4bee-3c1b-4fb9-9570-f15366a9e4eb.xlsx
+2026-08-27 13:59:00.096 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/138c97f9-aacc-473e-b1ad-90e13bdc38d1.xlsx
+2026-08-27 13:59:00.168 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/138c97f9-aacc-473e-b1ad-90e13bdc38d1.xlsx
+2026-08-27 13:59:00.267 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2ff31d7b-52ba-4be9-9883-4ca3ec7265a8.pdf
+2026-08-27 13:59:00.274 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2ff31d7b-52ba-4be9-9883-4ca3ec7265a8.pdf
+2026-08-27 13:59:00.311 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/292b763b-6fc6-4dbb-8dab-53558d8a3160.png
+2026-08-27 13:59:00.317 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/292b763b-6fc6-4dbb-8dab-53558d8a3160.png
+2026-08-27 13:59:00.320 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/1271b68f-cc68-4007-bb67-c9641b9c7f76.png
+2026-08-27 13:59:00.357 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/1271b68f-cc68-4007-bb67-c9641b9c7f76.png
+2026-08-27 13:59:00.364 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/9096f429-65af-421b-a587-eac37cd302b3.png
+2026-08-27 13:59:00.405 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/9096f429-65af-421b-a587-eac37cd302b3.png
+2026-08-27 13:59:00.730 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-08-27 13:59:00.733 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-08-27 13:59:00.736 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-08-27 13:59:00.740 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-08-27 13:59:00.744 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/ded0b018-92c1-4254-9070-79a0302beaf8.png
+2026-08-27 13:59:00.747 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/ded0b018-92c1-4254-9070-79a0302beaf8.png
+2026-08-27 13:59:00.750 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/494be63b-e69d-4840-81d8-581b81bc17dd.pdf
+2026-08-27 13:59:00.753 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/494be63b-e69d-4840-81d8-581b81bc17dd.pdf
+2026-08-27 13:59:00.757 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/edba4e3d-8896-4460-9403-0de72157093a.png
+2026-08-27 13:59:00.787 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/edba4e3d-8896-4460-9403-0de72157093a.png
+2026-08-27 13:59:00.791 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/83ab5d61-8705-48e5-bc5a-c31b0455bef6.pdf
+2026-08-27 13:59:00.794 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/83ab5d61-8705-48e5-bc5a-c31b0455bef6.pdf
+2026-08-27 13:59:00.797 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/364a4bee-3c1b-4fb9-9570-f15366a9e4eb.xlsx
+2026-08-27 13:59:00.800 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/364a4bee-3c1b-4fb9-9570-f15366a9e4eb.xlsx
+2026-08-27 13:59:00.804 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/138c97f9-aacc-473e-b1ad-90e13bdc38d1.xlsx
+2026-08-27 13:59:00.808 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/138c97f9-aacc-473e-b1ad-90e13bdc38d1.xlsx
+2026-08-27 13:59:00.811 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2ff31d7b-52ba-4be9-9883-4ca3ec7265a8.pdf
+2026-08-27 13:59:00.814 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2ff31d7b-52ba-4be9-9883-4ca3ec7265a8.pdf
+2026-08-27 13:59:00.818 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/292b763b-6fc6-4dbb-8dab-53558d8a3160.png
+2026-08-27 13:59:00.822 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/292b763b-6fc6-4dbb-8dab-53558d8a3160.png
+2026-08-27 13:59:00.850 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/1271b68f-cc68-4007-bb67-c9641b9c7f76.png
+2026-08-27 13:59:00.853 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/1271b68f-cc68-4007-bb67-c9641b9c7f76.png
+2026-08-27 13:59:00.857 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/9096f429-65af-421b-a587-eac37cd302b3.png
+2026-08-27 13:59:00.861 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/9096f429-65af-421b-a587-eac37cd302b3.png
+2026-08-27 13:59:01.004 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 1138.4853ms - 403
+2026-08-27 13:59:01.004 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 1060.4398ms - 200
+2026-08-27 13:59:01.004 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 251.5906ms - 403
+2026-08-27 13:59:01.004 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 244.2897ms - 200
+2026-08-27 13:59:01.012 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 1173.0177ms - 403
+2026-08-27 13:59:01.013 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 278.9795ms - 403
+2026-08-27 13:59:01.015 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 272.8341ms - 200
+2026-08-27 13:59:01.018 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 1087.8014ms - 200
+2026-08-27 13:59:01.123 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 1140.7729ms - 200
+2026-08-27 13:59:01.126 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 1176.8927ms - 200
+2026-08-27 13:59:01.140 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 862.8078ms - 200
+2026-08-27 13:59:01.143 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 1191.2669ms - 200
+2026-08-27 13:59:01.146 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 945.1754ms - 200
+2026-08-27 13:59:01.149 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 825.9645ms - 200
+2026-08-27 13:59:01.187 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 1206.3672ms - 200
+2026-08-27 13:59:01.190 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 912.5173ms - 200
+2026-08-27 13:59:01.196 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 1134.9921ms - 200
+2026-08-27 13:59:01.195 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 828.6826ms - 200
+2026-08-27 13:59:01.199 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 1019.2338ms - 200
+2026-08-27 13:59:01.203 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 882.0025ms - 200
+2026-08-27 13:59:01.234 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 1115.795ms - 200
+2026-08-27 13:59:01.238 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 1217.3139ms - 200
+2026-08-27 13:59:01.241 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 785.7589ms - 200
+2026-08-27 13:59:01.244 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 1062.1366ms - 200
+2026-08-27 13:59:01.247 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 883.0555ms - 200
+2026-08-27 13:59:01.249 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 1185.6885ms - 200
+2026-08-27 13:59:01.335 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2f39588a-41c1-4361-8f6f-d51caa856e3e.pdf
+2026-08-27 13:59:01.339 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2f39588a-41c1-4361-8f6f-d51caa856e3e.pdf
+2026-08-27 13:59:01.382 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 578.2537ms - 200
+2026-08-27 13:59:01.385 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 588.3473ms - 200
+2026-08-27 13:59:01.388 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 587.9706ms - 200
+2026-08-27 13:59:01.391 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 600.5216ms - 200
+2026-08-27 13:59:01.425 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 638.5729ms - 200
+2026-08-27 13:59:01.458 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 616.7953ms - 200
+2026-08-27 13:59:01.462 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 649.4657ms - 200
+2026-08-27 13:59:01.489 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 678.3607ms - 200
+2026-08-27 13:59:01.492 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2a6ed9a4-4e53-4acd-b313-cc6a024636a5.pdf
+2026-08-27 13:59:01.495 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 683.6582ms - 200
+2026-08-27 13:59:01.497 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 749.8409ms - 200
+2026-08-27 13:59:01.500 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2a6ed9a4-4e53-4acd-b313-cc6a024636a5.pdf
+2026-08-27 13:59:01.502 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 644.8607ms - 200
+2026-08-27 13:59:01.505 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 570.3174ms - 200
+2026-08-27 13:59:01.509 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 751.2396ms - 200
+2026-08-27 13:59:01.512 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 651.7169ms - 200
+2026-08-27 13:59:01.536 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 609.2631ms - 200
+2026-08-27 13:59:01.539 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/bf3ad28c-1521-43cd-8338-6308b809c89f.xlsx
+2026-08-27 13:59:01.542 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 625.3331ms - 200
+2026-08-27 13:59:01.545 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 724.095ms - 200
+2026-08-27 13:59:01.548 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/bf3ad28c-1521-43cd-8338-6308b809c89f.xlsx
+2026-08-27 13:59:01.550 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 744.0367ms - 200
+2026-08-27 13:59:01.553 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 577.6412ms - 200
+2026-08-27 13:59:01.556 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 730.4679ms - 200
+2026-08-27 13:59:01.950 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2f39588a-41c1-4361-8f6f-d51caa856e3e.pdf
+2026-08-27 13:59:01.954 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2f39588a-41c1-4361-8f6f-d51caa856e3e.pdf
+2026-08-27 13:59:02.009 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 664.9925ms - 200
+2026-08-27 13:59:02.012 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 677.2728ms - 200
+2026-08-27 13:59:02.122 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 567.6188ms - 200
+2026-08-27 13:59:02.125 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 663.3979ms - 200
+2026-08-27 13:59:02.127 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 619.868ms - 200
+2026-08-27 13:59:02.184 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 173.1713ms - 200
+2026-08-27 13:59:02.189 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 240.1775ms - 200
+2026-08-27 13:59:02.194 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 668.0791ms - 200
+2026-08-27 13:59:02.708 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/bf3ad28c-1521-43cd-8338-6308b809c89f.xlsx
+2026-08-27 13:59:02.712 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/bf3ad28c-1521-43cd-8338-6308b809c89f.xlsx
+2026-08-27 13:59:02.720 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2a6ed9a4-4e53-4acd-b313-cc6a024636a5.pdf
+2026-08-27 13:59:02.724 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2a6ed9a4-4e53-4acd-b313-cc6a024636a5.pdf
+2026-08-27 13:59:02.880 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 165.035ms - 200
+2026-08-27 13:59:02.885 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 176.2407ms - 200
+2026-08-27 13:59:02.887 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 161.0952ms - 200
+2026-08-27 13:59:02.890 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 170.3102ms - 200
+2026-08-27 13:59:03.966 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 4026.7183ms - 200
+2026-08-27 13:59:03.969 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 4035.5912ms - 200
+2026-08-27 13:59:13.673 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2f39588a-41c1-4361-8f6f-d51caa856e3e.pdf
+2026-08-27 13:59:13.676 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2f39588a-41c1-4361-8f6f-d51caa856e3e.pdf
+2026-08-27 13:59:14.285 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2f39588a-41c1-4361-8f6f-d51caa856e3e.pdf
+2026-08-27 13:59:14.287 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2f39588a-41c1-4361-8f6f-d51caa856e3e.pdf
+2026-08-27 13:59:14.709 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 1028.618ms - 200
+2026-08-27 13:59:14.713 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 1039.77ms - 200
+2026-08-27 13:59:14.933 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 642.5068ms - 200
+2026-08-27 13:59:14.936 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 651.6427ms - 200
+2026-08-27 13:59:17.952 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-08-27 13:59:18.121 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-08-27 13:59:18.310 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 377.3797ms
+2026-08-27 13:59:18.340 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-08-27 13:59:22.616 [WRN] Hangfire.AutomaticRetryAttribute
+      Failed to process the job '1': an exception occurred. Retry attempt 9 of 10 will be performed in 01:11:13.
+QuestPDF.Drawing.Exceptions.DocumentComposeException: Cannot decode the provided image.
+   at QuestPDF.Infrastructure.StaticImageCache.DecodeImage(SkData imageData, Boolean isShared)
+   at QuestPDF.Infrastructure.Image.FromBinaryData(Byte[] imageBytes)
+   at QuestPDF.Fluent.ImageExtensions.Image(IContainer parent, Byte[] imageData)
+   at QuestPDF.Fluent.ImageExtensions.Image(IContainer parent, Byte[] imageData, ImageScaling scaling)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__17(IContainer bg) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 581
+   at QuestPDF.Fluent.ElementExtensions.Element(IContainer parent, Action`1 handler, String handlerName, String parentName, String sourceFilePath, Int32 sourceLineNumber)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__16(LayersDescriptor layers) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 577
+   at QuestPDF.Fluent.LayerExtensions.Layers(IContainer element, Action`1 handler)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__14(IContainer imgBox) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 575
+   at QuestPDF.Fluent.ElementExtensions.Element(IContainer parent, Action`1 handler, String handlerName, String parentName, String sourceFilePath, Int32 sourceLineNumber)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__12(ColumnDescriptor imgCol) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 573
+   at QuestPDF.Fluent.ColumnExtensions.Column(IContainer element, Action`1 handler)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__11(RowDescriptor row) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 571
+   at QuestPDF.Fluent.RowExtensions.Row(IContainer element, Action`1 handler)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__9(ColumnDescriptor column) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 569
+   at QuestPDF.Fluent.ColumnExtensions.Column(IContainer element, Action`1 handler)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__6(PageDescriptor page) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 559
+   at QuestPDF.Fluent.PageExtensions.Page(IDocumentContainer document, Action`1 handler)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_0.<ConstruirPdf>b__0(IDocumentContainer container) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 547
+   at QuestPDF.Fluent.Document.Compose(IDocumentContainer container)
+   at QuestPDF.Drawing.DocumentGenerator.ConfigureContent(IDocument document, DocumentSettings settings, SemanticTreeManager semanticTreeManager, Boolean useOriginalImages)
+   at QuestPDF.Drawing.DocumentGenerator.RenderDocument(IDocumentCanvas canvas, IDocument document, DocumentSettings settings)
+   at QuestPDF.Drawing.DocumentGenerator.GeneratePdf(SkWriteStream stream, IDocument document)
+   at QuestPDF.Fluent.GenerateExtensions.GeneratePdf(IDocument document, Stream stream)
+   at QuestPDF.Fluent.GenerateExtensions.GeneratePdf(IDocument document)
+   at velios.Api.Services.ReporteMaterialidadService.ConstruirPdf(ReporteMaterialidadDto reporte, Byte[] qrBytes, Byte[] logoProveedorBytes, List`1 archivosTarea) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 757
+   at velios.Api.Services.ReporteMaterialidadService.GenerarPdfPorTareaAsync(Int32 tareaId, IProgress`1 progreso) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 218
+   at velios.Api.Services.GenerarReporteMaterialidadJob.Ejecutar(String jobId, String claveHash, Int32 tareaId) in C:\Proyectos Inssoft\velios-services\Services\ReporteStreaming\GenerarReporteMaterialidadJob.cs:line 48
+   at velios.Api.Services.GenerarReporteMaterialidadJob.Ejecutar(String jobId, String claveHash, Int32 tareaId) in C:\Proyectos Inssoft\velios-services\Services\ReporteStreaming\GenerarReporteMaterialidadJob.cs:line 67
+   at InvokeStub_TaskAwaiter.GetResult(Object, Object, IntPtr*)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+2026-08-27 13:59:26.294 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2f39588a-41c1-4361-8f6f-d51caa856e3e.pdf
+2026-08-27 13:59:26.296 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2676/2f39588a-41c1-4361-8f6f-d51caa856e3e.pdf
+2026-08-27 13:59:26.765 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.ClientHandler
+      Received HTTP response headers after 465.8434ms - 200
+2026-08-27 13:59:26.767 [INF] System.Net.Http.HttpClient.ReporteMaterialidad.LogicalHandler
+      End processing HTTP request after 473.3492ms - 200
+2026-08-27 13:59:37.833 [WRN] Hangfire.AutomaticRetryAttribute
+      Failed to process the job '2': an exception occurred. Retry attempt 7 of 10 will be performed in 00:23:01.
+QuestPDF.Drawing.Exceptions.DocumentComposeException: Cannot decode the provided image.
+   at QuestPDF.Infrastructure.StaticImageCache.DecodeImage(SkData imageData, Boolean isShared)
+   at QuestPDF.Infrastructure.Image.FromBinaryData(Byte[] imageBytes)
+   at QuestPDF.Fluent.ImageExtensions.Image(IContainer parent, Byte[] imageData)
+   at QuestPDF.Fluent.ImageExtensions.Image(IContainer parent, Byte[] imageData, ImageScaling scaling)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__17(IContainer bg) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 581
+   at QuestPDF.Fluent.ElementExtensions.Element(IContainer parent, Action`1 handler, String handlerName, String parentName, String sourceFilePath, Int32 sourceLineNumber)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__16(LayersDescriptor layers) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 577
+   at QuestPDF.Fluent.LayerExtensions.Layers(IContainer element, Action`1 handler)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__14(IContainer imgBox) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 575
+   at QuestPDF.Fluent.ElementExtensions.Element(IContainer parent, Action`1 handler, String handlerName, String parentName, String sourceFilePath, Int32 sourceLineNumber)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__12(ColumnDescriptor imgCol) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 573
+   at QuestPDF.Fluent.ColumnExtensions.Column(IContainer element, Action`1 handler)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__11(RowDescriptor row) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 571
+   at QuestPDF.Fluent.RowExtensions.Row(IContainer element, Action`1 handler)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__9(ColumnDescriptor column) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 569
+   at QuestPDF.Fluent.ColumnExtensions.Column(IContainer element, Action`1 handler)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_2.<ConstruirPdf>b__6(PageDescriptor page) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 559
+   at QuestPDF.Fluent.PageExtensions.Page(IDocumentContainer document, Action`1 handler)
+   at velios.Api.Services.ReporteMaterialidadService.<>c__DisplayClass28_0.<ConstruirPdf>b__0(IDocumentContainer container) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 547
+   at QuestPDF.Fluent.Document.Compose(IDocumentContainer container)
+   at QuestPDF.Drawing.DocumentGenerator.ConfigureContent(IDocument document, DocumentSettings settings, SemanticTreeManager semanticTreeManager, Boolean useOriginalImages)
+   at QuestPDF.Drawing.DocumentGenerator.RenderDocument(IDocumentCanvas canvas, IDocument document, DocumentSettings settings)
+   at QuestPDF.Drawing.DocumentGenerator.GeneratePdf(SkWriteStream stream, IDocument document)
+   at QuestPDF.Fluent.GenerateExtensions.GeneratePdf(IDocument document, Stream stream)
+   at QuestPDF.Fluent.GenerateExtensions.GeneratePdf(IDocument document)
+   at velios.Api.Services.ReporteMaterialidadService.ConstruirPdf(ReporteMaterialidadDto reporte, Byte[] qrBytes, Byte[] logoProveedorBytes, List`1 archivosTarea) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 757
+   at velios.Api.Services.ReporteMaterialidadService.GenerarPdfPorTareaAsync(Int32 tareaId, IProgress`1 progreso) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadService.cs:line 218
+   at velios.Api.Services.GenerarReporteMaterialidadJob.Ejecutar(String jobId, String claveHash, Int32 tareaId) in C:\Proyectos Inssoft\velios-services\Services\ReporteStreaming\GenerarReporteMaterialidadJob.cs:line 48
+   at velios.Api.Services.GenerarReporteMaterialidadJob.Ejecutar(String jobId, String claveHash, Int32 tareaId) in C:\Proyectos Inssoft\velios-services\Services\ReporteStreaming\GenerarReporteMaterialidadJob.cs:line 67
+   at InvokeStub_TaskAwaiter.GetResult(Object, Object, IntPtr*)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+2026-08-27 13:59:47.718 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 167
+2026-08-27 13:59:48.032 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 314.8802ms
+2026-08-27 13:59:49.051 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/retries - null null
+2026-08-27 13:59:50.042 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 167
+2026-08-27 13:59:50.158 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/css18240212800737 - null null
+2026-08-27 13:59:50.192 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/css-dark18240224601660 - null null
+2026-08-27 13:59:50.247 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/retries - 200 null text/html 1173.3683ms
+2026-08-27 13:59:50.251 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-27 13:59:50.290 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-27 13:59:50.296 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/js182401752471364 - null null
+2026-08-27 13:59:50.300 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 258.7732ms
+2026-08-27 13:59:50.390 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/css18240212800737 - 200 null text/css 239.5795ms
+2026-08-27 13:59:50.424 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/css-dark18240224601660 - 200 null text/css 239.3408ms
+2026-08-27 13:59:50.428 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 177.8515ms
+2026-08-27 13:59:50.436 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/js182401752471364 - 200 null application/javascript 182.3707ms
+2026-08-27 13:59:50.494 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 243.6518ms
+2026-08-27 13:59:52.513 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 167
+2026-08-27 13:59:52.750 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 209.7902ms
+2026-08-27 13:59:54.660 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/jobs/enqueued - null null
+2026-08-27 13:59:54.742 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 167
+2026-08-27 13:59:54.960 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 217.3442ms
+2026-08-27 13:59:55.170 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/jobs/enqueued - 200 null text/html 508.6362ms
+2026-08-27 13:59:55.184 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-27 13:59:55.186 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-27 13:59:55.190 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 7.8082ms
+2026-08-27 13:59:55.220 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 37.0618ms
+2026-08-27 13:59:57.011 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/jobs/scheduled - null null
+2026-08-27 13:59:57.228 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 13:59:57.455 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 225.9426ms
+2026-08-27 13:59:58.026 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/jobs/scheduled - 200 null text/html 1014.9035ms
+2026-08-27 13:59:58.042 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-27 13:59:58.066 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-27 13:59:58.070 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 29.0385ms
+2026-08-27 13:59:58.080 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 39.1765ms
+2026-08-27 14:00:00.088 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:00.297 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 207.5236ms
+2026-08-27 14:00:01.115 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/jobs/scheduled - null null
+2026-08-27 14:00:01.872 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/jobs/scheduled - 200 null text/html 755.1658ms
+2026-08-27 14:00:01.888 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-27 14:00:01.891 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-27 14:00:01.895 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 6.696ms
+2026-08-27 14:00:01.905 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 16.9888ms
+2026-08-27 14:00:03.908 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/jobs/scheduled - null null
+2026-08-27 14:00:03.928 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:04.204 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 256.8302ms
+2026-08-27 14:00:04.486 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/jobs/scheduled - 200 null text/html 579.6378ms
+2026-08-27 14:00:04.503 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/css18240212800737 - null null
+2026-08-27 14:00:04.505 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/css-dark18240224601660 - null null
+2026-08-27 14:00:04.543 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/js182401752471364 - null null
+2026-08-27 14:00:04.548 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-08-27 14:00:04.552 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/css-dark18240224601660 - 200 null text/css 48.2398ms
+2026-08-27 14:00:04.556 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-08-27 14:00:04.587 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 46.2804ms
+2026-08-27 14:00:04.618 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/css18240212800737 - 200 null text/css 86.9363ms
+2026-08-27 14:00:04.622 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/hangfire/fonts/glyphicons-halflings-regular/woff2 - null null
+2026-08-27 14:00:04.627 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/fonts/glyphicons-halflings-regular/woff2 - 200 null font/woff2 4.4599ms
+2026-08-27 14:00:04.630 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/hangfire/js182401752471364 - 200 null application/javascript 120.6179ms
+2026-08-27 14:00:04.635 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 88.9695ms
+2026-08-27 14:00:06.685 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:06.897 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 211.4449ms
+2026-08-27 14:00:09.518 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:09.758 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 214.8669ms
+2026-08-27 14:00:12.513 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:12.728 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 215.2191ms
+2026-08-27 14:00:15.509 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:15.717 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 207.8077ms
+2026-08-27 14:00:18.512 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:18.719 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 207.3806ms
+2026-08-27 14:00:21.510 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:21.722 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 212.6918ms
+2026-08-27 14:00:24.508 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:24.719 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 211.4079ms
+2026-08-27 14:00:27.506 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:27.717 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 209.5319ms
+2026-08-27 14:00:30.513 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:30.746 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 232.5573ms
+2026-08-27 14:00:33.527 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:33.740 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 219.5632ms
+2026-08-27 14:00:36.529 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:36.738 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 211.5897ms
+2026-08-27 14:00:39.523 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:39.730 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 227.4783ms
+2026-08-27 14:00:42.512 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:42.726 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 214.1459ms
+2026-08-27 14:00:45.515 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:45.719 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 203.8911ms
+2026-08-27 14:00:48.518 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:48.730 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 211.2044ms
+2026-08-27 14:00:51.543 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:51.781 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 237.5295ms
+2026-08-27 14:00:54.517 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:54.733 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 215.5713ms
+2026-08-27 14:00:57.511 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:00:57.722 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 210.4232ms
+2026-08-27 14:01:00.512 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:00.722 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 209.4423ms
+2026-08-27 14:01:03.509 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:03.721 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 211.9653ms
+2026-08-27 14:01:06.514 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:06.731 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 217.3398ms
+2026-08-27 14:01:09.516 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:09.730 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 213.8601ms
+2026-08-27 14:01:12.514 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:12.734 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 220.1472ms
+2026-08-27 14:01:15.511 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:15.951 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 439.599ms
+2026-08-27 14:01:18.511 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:18.753 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 241.3366ms
+2026-08-27 14:01:21.510 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:21.933 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 422.2951ms
+2026-08-27 14:01:24.513 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:24.718 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 205.4513ms
+2026-08-27 14:01:27.510 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:27.722 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 212.4763ms
+2026-08-27 14:01:30.553 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:30.762 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 210.2921ms
+2026-08-27 14:01:33.516 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:33.723 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 209.6653ms
+2026-08-27 14:01:36.507 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:36.720 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 213.2583ms
+2026-08-27 14:01:39.509 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:39.716 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 207.3241ms
+2026-08-27 14:01:42.509 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:42.713 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 203.4708ms
+2026-08-27 14:01:45.509 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:45.736 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 227.9447ms
+2026-08-27 14:01:48.512 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:48.732 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 219.9432ms
+2026-08-27 14:01:51.520 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:51.728 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 209.623ms
+2026-08-27 14:01:54.520 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:54.728 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 209.7029ms
+2026-08-27 14:01:57.508 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:01:57.716 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 208.3872ms
+2026-08-27 14:02:00.517 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:01.471 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 952.8395ms
+2026-08-27 14:02:03.525 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:03.729 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 208.4176ms
+2026-08-27 14:02:06.517 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:06.728 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 212.5913ms
+2026-08-27 14:02:09.511 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:09.723 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 210.863ms
+2026-08-27 14:02:12.513 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:12.720 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 206.9807ms
+2026-08-27 14:02:15.516 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:15.812 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 296.2769ms
+2026-08-27 14:02:18.513 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:18.721 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 207.5211ms
+2026-08-27 14:02:21.524 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:21.736 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 211.7766ms
+2026-08-27 14:02:24.512 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:24.717 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 205.2383ms
+2026-08-27 14:02:27.517 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:27.981 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 464.8712ms
+2026-08-27 14:02:30.513 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:30.729 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 216.6618ms
+2026-08-27 14:02:33.511 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/hangfire/stats - application/x-www-form-urlencoded; charset=UTF-8 392
+2026-08-27 14:02:33.934 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/hangfire/stats - 200 null application/json 419.7316ms

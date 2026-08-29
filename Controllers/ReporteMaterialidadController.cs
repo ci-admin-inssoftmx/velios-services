@@ -111,4 +111,29 @@ public class ReporteMaterialidadController : ControllerBase
             error = progreso.MensajeError
         });
     }
+
+    [HttpGet("test-almacenamiento")]
+    public async Task<IActionResult> TestAlmacenamiento([FromServices] IAlmacenamientoService almacenamiento)
+    {
+        var contenido = System.Text.Encoding.UTF8.GetBytes("prueba de guardado");
+        using var stream = new MemoryStream(contenido);
+        var url = await almacenamiento.Guardar(stream, "prueba.txt");
+        return Ok(new { url });
+    }
+    [HttpGet("test-hash")]
+    public IActionResult TestHash()
+    {
+        var hash1 = ReporteCacheKeyBuilder.Calcular("MaterialidadTarea", new { tareaId = 2676 }, proveedorId: null, clienteId: null);
+        var hash2 = ReporteCacheKeyBuilder.Calcular("MaterialidadTarea", new { tareaId = 2676 }, proveedorId: null, clienteId: null);
+        var hash3 = ReporteCacheKeyBuilder.Calcular("MaterialidadTarea", new { tareaId = 9999 }, proveedorId: null, clienteId: null);
+
+        return Ok(new
+        {
+            hash1,
+            hash2,
+            hash3,
+            mismosFiltrosCoinciden = hash1 == hash2,
+            filtroDistintoCambia = hash1 != hash3
+        });
+    }
 }

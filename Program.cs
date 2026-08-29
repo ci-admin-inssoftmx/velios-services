@@ -232,6 +232,9 @@ builder.Services.AddAuthorization();
 
 // ✅ A partir de aquí, ya NO se pueden modificar builder.Services
 var app = builder.Build();
+app.Logger.LogInformation("ENV: {Env} | RutaBase: {Ruta}",
+    app.Environment.EnvironmentName,
+    builder.Configuration["ReportesAlmacenamiento:RutaBase"]);
 app.UseHangfireDashboard("/hangfire");
 
 app.UseStaticFiles();
