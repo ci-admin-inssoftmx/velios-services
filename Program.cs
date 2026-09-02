@@ -237,6 +237,14 @@ app.Logger.LogInformation("ENV: {Env} | RutaBase: {Ruta}",
     builder.Configuration["ReportesAlmacenamiento:RutaBase"]);
 app.UseHangfireDashboard("/hangfire");
 
+// ------------------------------------------------------------
+// CORS (DEBE IR ANTES de UseStaticFiles: si no, los archivos servidos
+// por UseStaticFiles —como los PDFs de reportes-generados— salen sin
+// el header Access-Control-Allow-Origin y el navegador los bloquea,
+// aunque el backend responda 200)
+// ------------------------------------------------------------
+app.UseCors("LocalDevCors");
+
 app.UseStaticFiles();
 
 app.UseStaticFiles(new StaticFileOptions
@@ -245,12 +253,9 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(builder.Environment.ContentRootPath, "Resources")),
     RequestPath = "/Resources"
 });
+
 #region ============================= PIPELINE HTTP =============================
 
-// ------------------------------------------------------------
-// Diagnóstico: confirma si la request llega al pipeline (antes de MVC)
-// (No leer Body aquí, especialmente multipart)
-// ------------------------------------------------------------
 app.Use(async (ctx, next) =>
 {
     app.Logger.LogInformation("Incoming: {Method} {Path}{Query} CT={CT} Len={Len}",
@@ -263,41 +268,16 @@ app.Use(async (ctx, next) =>
     await next();
 });
 
-
-// ------------------------------------------------------------
-// Swagger UI
-// (si quieres solo en Development, envuélvelo en if(app.Environment.IsDevelopment()))
-// ------------------------------------------------------------
 app.UseSwagger();
 app.UseSwaggerUI();
 
-
-// ------------------------------------------------------------
-// HTTPS Redirection
-// ------------------------------------------------------------
 app.UseHttpsRedirection();
 
+// (Ya no va aquí — se movió arriba, antes de UseStaticFiles)
 
-// ------------------------------------------------------------
-// CORS (DEBE IR ANTES de Authentication/Authorization)
-// ------------------------------------------------------------
-app.UseCors("LocalDevCors");
-
-
-// ------------------------------------------------------------
-// Seguridad: AuthN / AuthZ
-// ------------------------------------------------------------
 app.UseAuthentication();
 app.UseAuthorization();
 
-
-// ------------------------------------------------------------
-// Endpoints Controllers
-// ------------------------------------------------------------
 app.MapControllers();
 
 #endregion
-
-Console.WriteLine($"API started at {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
-
-app.Run();
