@@ -4,6 +4,8 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Serilog;
+using Serilog.Extensions.Logging;
 using Serilog.Extensions.Logging;
 using System.Text;
 using velios.Api.Data;
@@ -17,8 +19,7 @@ using velios.Api.Services.ProveedoresDocs;
 using velios.Api.Services.Security;
 using velios.Api.Services.ServiciosCategoria;
 using velios.Api.Services.ServiciosProveedor;
-using Serilog;
-using Serilog.Extensions.Logging;
+using Hangfire;
 
 
 /// <summary>
@@ -45,7 +46,27 @@ Console.WriteLine($"[Serilog] Logs escribiéndose en: {Path.GetDirectoryName(log
 builder.Logging.AddProvider(new SerilogLoggerProvider(serilogLogger, dispose: true));
 
 #region ============================= CONFIGURACIÓN DE SERVICIOS =============================
+// Pegar junto al resto de registros de servicios en Program.cs
+// Hangfire: usa tu misma base de datos VELIOS como almacenamiento de jobs
+builder.Services.AddHangfire(config => config
+    .UseSqlServerStorage(builder.Configuration.GetConnectionString("VeliosConnection")));
 
+builder.Services.AddHangfireServer();
+
+builder.Services.AddScoped<GenerarReporteMaterialidadJob>();
+
+// Progreso (singleton: debe sobrevivir entre requests del mismo proceso)
+builder.Services.AddSingleton<IProgresoStore, ProgresoStore>();
+
+// Cache de reportes (scoped: usa la conexión Dapper por request, igual que tus otros repos)
+builder.Services.AddScoped<IReporteCacheRepository, ReporteCacheRepository>();
+
+// Almacenamiento: hoy local, mañana se cambia a AlmacenamientoS3Service sin tocar nada más
+builder.Services.AddScoped<IAlmacenamientoService, AlmacenamientoLocalService>();
+
+// Si sirven el reporte guardado desde wwwroot/reportes-generados, habilitar archivos estáticos
+// (probablemente ya lo tienen, pero por si no):
+// app.UseStaticFiles();
 
 // ------------------------------------------------------------
 // 1) Configuración de opciones (Settings)
@@ -75,7 +96,7 @@ builder.Services.AddSingleton<IPasswordHasher, LegacyPasswordHasher>();
 builder.Services.AddScoped<IProveedorDocumentService, ProveedorDocumentService>();
 
 // Registro del módulo de reporte de materialidad
-builder.Services.AddScoped<IReporteMaterialidadPreeliminarService, ReportePreeliminarService>(); 
+builder.Services.AddScoped<IReporteMaterialidadPreeliminarService, ReportePreeliminarService>();
 builder.Services.AddScoped<IReporteMaterialidadRepository, ReporteMaterialidadRepository>();
 builder.Services.AddScoped<IReporteMaterialidadService, ReporteMaterialidadService>();
 
@@ -211,6 +232,10 @@ builder.Services.AddAuthorization();
 
 // ✅ A partir de aquí, ya NO se pueden modificar builder.Services
 var app = builder.Build();
+app.Logger.LogInformation("ENV: {Env} | RutaBase: {Ruta}",
+    app.Environment.EnvironmentName,
+    builder.Configuration["ReportesAlmacenamiento:RutaBase"]);
+app.UseHangfireDashboard("/hangfire");
 
 app.UseStaticFiles();
 

@@ -58,6 +58,8 @@ public class Tarea
     [MaxLength(10)]
     public string Moneda { get; set; } = "MXN";
 
+    public string? NombreProveedor { get; set; }
+
     [Column("DateCreated")]
     public DateTime DateCreated { get; set; }
 

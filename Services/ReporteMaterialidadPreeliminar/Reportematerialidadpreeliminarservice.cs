@@ -171,10 +171,37 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
         };
     }
 
-    private async Task<byte[]?> DescargarImagenAsync(string url)
+    // Timeout por intento y reintentos con backoff — antes una sola falla (403,
+    // timeout, hiccup de red) descartaba la imagen para siempre sin volver a
+    // intentar. Mismo patrón que ya se validó en el reporte final.
+    private static readonly TimeSpan TimeoutDescargaImagen = TimeSpan.FromSeconds(12);
+
+    private async Task<byte[]?> DescargarImagenAsync(string url, int intentos = 3)
     {
-        try { return await _httpClient.GetByteArrayAsync(url); }
-        catch { return null; }
+        if (string.IsNullOrWhiteSpace(url)) return null;
+
+        var cleanUrl = url.Trim();
+
+        for (int intento = 1; intento <= intentos; intento++)
+        {
+            using var cts = new CancellationTokenSource(TimeoutDescargaImagen);
+            try
+            {
+                return await _httpClient.GetByteArrayAsync(cleanUrl, cts.Token);
+            }
+            catch (Exception ex)
+            {
+                if (intento == intentos)
+                {
+                    Console.WriteLine($"[ReportePreeliminar] Fallo definitivo al descargar {cleanUrl}: {ex.GetType().Name} - {ex.Message}");
+                    return null;
+                }
+
+                await Task.Delay(300 * intento);
+            }
+        }
+
+        return null;
     }
 
     private async Task<byte[]?> DescargarMapaAsync(decimal latitud, decimal longitud)
