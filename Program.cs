@@ -237,7 +237,17 @@ app.Logger.LogInformation("ENV: {Env} | RutaBase: {Ruta}",
     builder.Configuration["ReportesAlmacenamiento:RutaBase"]);
 app.UseHangfireDashboard("/hangfire");
 
-app.UseStaticFiles();
+// Nota: se agrega Access-Control-Allow-Origin manualmente aquí (en vez de
+// mover app.UseCors() más arriba) porque reordenar UseCors rompió el login.
+// Este OnPrepareResponse resuelve el CORS de los archivos estáticos (PDFs
+// de reportes-generados) sin tocar el orden del resto del pipeline.
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        ctx.Context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+    }
+});
 
 app.UseStaticFiles(new StaticFileOptions
 {
