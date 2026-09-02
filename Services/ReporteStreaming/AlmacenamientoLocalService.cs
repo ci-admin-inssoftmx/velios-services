@@ -1,48 +1,44 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+﻿using velios.Api.Services;
 
-namespace velios.Api.Services
+public class AlmacenamientoLocalService : IAlmacenamientoService
 {
-    /// <summary>
-    /// Guarda los reportes generados en disco (ej. wwwroot/reportes-generados),
-    /// adecuado para el esquema actual de despliegue en IIS vía FTP.
-    /// </summary>
-    public class AlmacenamientoLocalService : IAlmacenamientoService
+    private readonly string _rutaBase;
+    private readonly string _urlBase;
+    private readonly string _publicBaseUrl; // NUEVO
+
+    public AlmacenamientoLocalService(IConfiguration configuration)
     {
-        private readonly string _rutaBase;
-        private readonly string _urlBase;
+        _rutaBase = configuration["ReportesAlmacenamiento:RutaBase"] ?? "wwwroot/reportes-generados";
+        _urlBase = configuration["ReportesAlmacenamiento:UrlBase"] ?? "/reportes-generados";
+        _publicBaseUrl = configuration["ReportesAlmacenamiento:PublicBaseUrl"]?.TrimEnd('/'); // NUEVO
 
-        public AlmacenamientoLocalService(IConfiguration configuration)
+        Directory.CreateDirectory(_rutaBase);
+    }
+
+    public async Task<string> Guardar(Stream contenido, string nombreArchivo)
+    {
+        var nombreSeguro = SanitizarNombreArchivo(nombreArchivo);
+        var rutaCompleta = Path.Combine(_rutaBase, nombreSeguro);
+
+        await using (var fs = File.Create(rutaCompleta))
         {
-            // Agregar a appsettings.json:
-            // "ReportesAlmacenamiento": { "RutaBase": "wwwroot/reportes-generados", "UrlBase": "/reportes-generados" }
-            _rutaBase = configuration["ReportesAlmacenamiento:RutaBase"] ?? "wwwroot/reportes-generados";
-            _urlBase = configuration["ReportesAlmacenamiento:UrlBase"] ?? "/reportes-generados";
-
-            Directory.CreateDirectory(_rutaBase);
+            if (contenido.CanSeek) contenido.Position = 0;
+            await contenido.CopyToAsync(fs);
         }
 
-        public async Task<string> Guardar(Stream contenido, string nombreArchivo)
-        {
-            var nombreSeguro = SanitizarNombreArchivo(nombreArchivo);
-            var rutaCompleta = Path.Combine(_rutaBase, nombreSeguro);
+        var rutaRelativa = $"{_urlBase}/{nombreSeguro}";
 
-            await using (var fs = File.Create(rutaCompleta))
-            {
-                if (contenido.CanSeek) contenido.Position = 0;
-                await contenido.CopyToAsync(fs);
-            }
+        // NUEVO: si hay PublicBaseUrl configurado, arma la URL absoluta.
+        // Si no está configurado, cae al comportamiento anterior (relativa) sin romper nada.
+        return string.IsNullOrEmpty(_publicBaseUrl)
+            ? rutaRelativa
+            : $"{_publicBaseUrl}{rutaRelativa}";
+    }
 
-            return $"{_urlBase}/{nombreSeguro}";
-        }
-
-        private static string SanitizarNombreArchivo(string nombre)
-        {
-            foreach (var c in Path.GetInvalidFileNameChars())
-                nombre = nombre.Replace(c, '_');
-            return nombre;
-        }
+    private static string SanitizarNombreArchivo(string nombre)
+    {
+        foreach (var c in Path.GetInvalidFileNameChars())
+            nombre = nombre.Replace(c, '_');
+        return nombre;
     }
 }
