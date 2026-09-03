@@ -20,5 +20,9 @@ namespace velios.Api.Data
 
         /// <summary>Marca como Expirado todo lo vencido. Pensado para un job recurrente de limpieza.</summary>
         Task<int> ExpirarVencidos();
+
+        /// <summary>Marca como Expirado un registro puntual (Completado y vencido) antes de crear uno nuevo,
+        /// para liberar el índice único sin esperar al recurring job.</summary>
+        Task MarcarExpirado(string claveHash);
     }
 }

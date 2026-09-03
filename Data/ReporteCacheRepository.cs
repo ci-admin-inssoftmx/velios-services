@@ -117,5 +117,17 @@ namespace velios.Api.Data
             using var conn = new SqlConnection(_connectionString);
             return await conn.ExecuteAsync(sql);
         }
+        public async Task MarcarExpirado(string claveHash)
+        {
+            const string sql = @"
+        UPDATE tb_ReporteCache
+        SET Estado = 'Expirado'
+        WHERE ClaveHash = @ClaveHash
+          AND Estado = 'Completado'";
+
+            using var conn = new SqlConnection(_connectionString);
+            await conn.ExecuteAsync(sql, new { ClaveHash = claveHash });
+        }
     }
+
 }

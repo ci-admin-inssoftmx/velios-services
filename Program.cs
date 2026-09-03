@@ -236,6 +236,12 @@ app.Logger.LogInformation("ENV: {Env} | RutaBase: {Ruta}",
     app.Environment.EnvironmentName,
     builder.Configuration["ReportesAlmacenamiento:RutaBase"]);
 app.UseHangfireDashboard("/hangfire");
+// Recurring job: pasa a Expirado los reportes Completado cuyo TTL ya venció,
+// liberando el índice único para que puedan regenerarse.
+RecurringJob.AddOrUpdate<IReporteCacheRepository>(
+    "expirar-reportes-cache-vencidos",
+    repo => repo.ExpirarVencidos(),
+    Cron.Hourly);
 
 // Nota: se agrega Access-Control-Allow-Origin manualmente aquí (en vez de
 // mover app.UseCors() más arriba) porque reordenar UseCors rompió el login.
