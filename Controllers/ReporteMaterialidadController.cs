@@ -52,6 +52,10 @@ public class ReporteMaterialidadController : ControllerBase
 
     // -----------------------------------------------------------------
     // NUEVO — flujo async con cache + progreso.
+    // Fix aplicado: maneja el caso de un reporte Completado ya expirado
+    // (lo pasa a Expirado antes de crear uno nuevo, en vez de tronar
+    // contra el índice único), y protege contra la carrera de dos
+    // solicitudes casi simultáneas para el mismo hash.
     // -----------------------------------------------------------------
     [HttpPost("tarea/{tareaId}/solicitar")]
     public async Task<IActionResult> Solicitar(int tareaId, [FromQuery] int usuarioId)
@@ -60,11 +64,19 @@ public class ReporteMaterialidadController : ControllerBase
 
         var existente = await _reporteCacheRepository.ObtenerVigentePorClave(claveHash);
 
-        if (existente != null
-            && existente.Estado == ReporteCacheEstados.Completado
-            && (existente.FechaExpiracion == null || existente.FechaExpiracion > DateTime.UtcNow))
+        if (existente != null && existente.Estado == ReporteCacheEstados.Completado)
         {
-            return Ok(new { estado = "listo", url = existente.UrlDescarga });
+            var vigente = existente.FechaExpiracion == null || existente.FechaExpiracion > DateTime.UtcNow;
+            if (vigente)
+            {
+                return Ok(new { estado = "listo", url = existente.UrlDescarga });
+            }
+
+            // Ya expiró pero el recurring job de limpieza todavía no lo marcó
+            // (ventana de hasta 1h). Lo sacamos del filtro del índice único
+            // antes de crear uno nuevo, para no chocar con él.
+            await _reporteCacheRepository.MarcarExpirado(claveHash);
+            existente = null;
         }
 
         if (existente != null && existente.Estado == ReporteCacheEstados.Procesando)
@@ -74,16 +86,33 @@ public class ReporteMaterialidadController : ControllerBase
 
         var jobId = Guid.NewGuid().ToString("N");
 
-        await _reporteCacheRepository.Crear(new ReporteCacheEntity
+        try
         {
-            ClaveHash = claveHash,
-            TipoReporte = "MaterialidadTarea",
-            FiltrosJson = JsonSerializer.Serialize(new { tareaId }),
-            UsuarioSolicitanteId = usuarioId,
-            Estado = ReporteCacheEstados.Procesando,
-            HangfireJobId = jobId,
-            FechaSolicitud = DateTime.UtcNow
-        });
+            await _reporteCacheRepository.Crear(new ReporteCacheEntity
+            {
+                ClaveHash = claveHash,
+                TipoReporte = "MaterialidadTarea",
+                FiltrosJson = JsonSerializer.Serialize(new { tareaId }),
+                UsuarioSolicitanteId = usuarioId,
+                Estado = ReporteCacheEstados.Procesando,
+                HangfireJobId = jobId,
+                FechaSolicitud = DateTime.UtcNow
+            });
+        }
+        catch (Microsoft.Data.SqlClient.SqlException ex) when (ex.Number == 2601 || ex.Number == 2627)
+        {
+            // Dos solicitudes casi simultáneas para el mismo hash: la otra
+            // ganó la carrera y ya insertó su fila. En vez de devolver un
+            // 500, respondemos con el estado real de esa otra solicitud.
+            var otraVigente = await _reporteCacheRepository.ObtenerVigentePorClave(claveHash);
+            if (otraVigente != null)
+            {
+                return otraVigente.Estado == ReporteCacheEstados.Completado
+                    ? Ok(new { estado = "listo", url = otraVigente.UrlDescarga })
+                    : Ok(new { estado = "procesando", jobId = otraVigente.HangfireJobId });
+            }
+            throw; // caso raro: no encontramos nada, no ocultamos el error real
+        }
 
         _progresoStore.Iniciar(jobId);
 
@@ -120,6 +149,7 @@ public class ReporteMaterialidadController : ControllerBase
         var url = await almacenamiento.Guardar(stream, "prueba.txt");
         return Ok(new { url });
     }
+
     [HttpGet("test-hash")]
     public IActionResult TestHash()
     {
