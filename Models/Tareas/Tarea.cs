@@ -55,6 +55,7 @@ public class Tarea
     [MaxLength(10)]
     public string Moneda { get; set; } = "MXN";
 
+    [NotMapped]
     public string? NombreProveedor { get; set; }
 
     [Column("DateCreated")]
