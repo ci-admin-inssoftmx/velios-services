@@ -281,6 +281,7 @@ public class TareasController : ControllerBase
                 {
                     type = x.Tipo ?? "IMAGE",
                     url = x.UrlArchivo ?? "",
+                    rutaId = x.RutaId, // ← NUEVO
                     mimeType = x.MimeType ?? null,
                     sizeInBytes = x.SizeBytes ?? null,
                     createdAt = x.DateCreated,
@@ -363,6 +364,7 @@ public class TareasController : ControllerBase
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
                 statusCode = tarea.Estatus.Codigo,
+                seguimientoRutaActivo = tarea.Tarea.SeguimientoRutaActivo, // ← NUEVO
                 createdAt = tarea.Tarea.DateCreated,
                 updatedAt = tarea.Tarea.DateModified,
                 client = new { name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE" },

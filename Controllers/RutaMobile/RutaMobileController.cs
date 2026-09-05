@@ -61,4 +61,21 @@ public class TareaRutaController : ControllerBase
             return NotFound();
         }
     }
+    [HttpGet("tarea/{tareaId}/avance")]
+    public async Task<IActionResult> ObtenerAvanceConRuta(int tareaId)
+    {
+        var ultimaRuta = await _repository.ObtenerUltimaRutaPorTareaAsync(tareaId);
+        if (ultimaRuta == null)
+            return NotFound();
+
+        try
+        {
+            var resumen = await _service.ObtenerResumenAsync(ultimaRuta.Id);
+            return Ok(resumen);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
+    }
 }

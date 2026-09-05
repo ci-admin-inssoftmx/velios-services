@@ -11,9 +11,7 @@ public interface ITareaRutaRepository
     Task<List<EvidenciaGeoDto>> ObtenerEvidenciasPorRutaAsync(int rutaId);
     Task<bool> RutaEstaActivaAsync(int rutaId, int tareaId);
     Task<List<int>> ObtenerTareaIdsConRutaActivaAsync(IEnumerable<int> tareaIds);
-
-
-
+    Task<RutaDto?> ObtenerUltimaRutaPorTareaAsync(int tareaId); // ← NUEVO
 }
 
 public class TareaRutaRepository : ITareaRutaRepository
@@ -108,5 +106,17 @@ public class TareaRutaRepository : ITareaRutaRepository
         using var conn = new SqlConnection(_connectionString);
         var result = await conn.QueryAsync<int>(sql, new { TareaIds = tareaIds });
         return result.ToList();
+    }
+    public async Task<RutaDto?> ObtenerUltimaRutaPorTareaAsync(int tareaId)
+    {
+        const string sql = @"
+            SELECT TOP 1 Id, TareaId, Estado, LatitudInicio, LongitudInicio, FechaHoraInicio,
+                   LatitudFin, LongitudFin, FechaHoraFin
+            FROM tb_TareaRuta
+            WHERE TareaId = @TareaId
+            ORDER BY Id DESC";
+
+        using var conn = new SqlConnection(_connectionString);
+        return await conn.QuerySingleOrDefaultAsync<RutaDto>(sql, new { TareaId = tareaId });
     }
 }
