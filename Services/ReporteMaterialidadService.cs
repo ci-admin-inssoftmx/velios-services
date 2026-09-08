@@ -342,13 +342,17 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             var lng = longitud.ToString(CultureInfo.InvariantCulture);
 
             var styles =
-                "&style=feature:water|color:0xA9CCE3" +
-                "&style=feature:landscape|color:0xEAF2FB" +
-                "&style=feature:road|color:0xFFFFFF" +
-                "&style=feature:road|element:geometry.stroke|color:0xC9D6E3" +
-                "&style=feature:poi|visibility:simplified" +
-                "&style=feature:poi|element:geometry|color:0xD6E4F0" +
-                "&style=feature:administrative|element:labels.text.fill|color:0x24364D";
+                "&style=feature:all|element:geometry|color:0x1a2744" +
+                "&style=feature:all|element:labels.text.fill|color:0x8ec3b9" +
+                "&style=feature:all|element:labels.text.stroke|color:0x1a3646" +
+                "&style=feature:water|element:geometry|color:0x0e1626" +
+                "&style=feature:road|element:geometry|color:0x304a7d" +
+                "&style=feature:road|element:geometry.stroke|color:0x255763" +
+                "&style=feature:road.highway|element:geometry|color:0x2c6675" +
+                "&style=feature:poi|element:geometry|color:0x283d6a" +
+                "&style=feature:landscape|element:geometry|color:0x1d2c4d" +
+                "&style=feature:transit|element:geometry|color:0x2f3948" +
+                "&style=feature:administrative|element:geometry.stroke|color:0x4b6878";
 
             var mapaUrl =
                 $"https://maps.googleapis.com/maps/api/staticmap" +
@@ -694,8 +698,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
 
                                 right.Item().Element(c =>
                                 {
-                                    c.Border(1).BorderColor("#D6DCE5").Background("#F8FAFC").CornerRadius(6).Column(col =>
-                                    {
+                                    c.Border(1).BorderColor("#D6DCE5").Background(Colors.White).CornerRadius(6).Column(col => {
                                         col.Item().Height(100).Element(box =>
                                         {
                                             box.Layers(layers =>
@@ -703,9 +706,9 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                                                 layers.PrimaryLayer().Element(bg =>
                                                 {
                                                     if (evidencia.MapaBytes is not null && evidencia.MapaBytes.Length > 0)
-                                                        bg.Image(evidencia.MapaBytes, ImageScaling.FitArea);
+                                                        bg.Background("#1a2744").Image(evidencia.MapaBytes, ImageScaling.FitWidth);
                                                     else
-                                                        bg.Background("#24364D").AlignCenter().AlignMiddle()
+                                                        bg.Background("#1a2744").AlignCenter().AlignMiddle()
                                                             .Text("Sin mapa").FontSize(8).FontColor(Colors.White);
                                                 });
 

@@ -671,4 +671,47 @@ public class TareasController : ControllerBase
 
         return errors;
     }
+    /// <summary>
+    /// Activa o desactiva el Seguimiento de ruta para una tarea, desde Web Proveedor.
+    /// </summary>
+    [HttpPut("{taskId}/seguimiento-ruta")]
+    public async Task<ActionResult<object>> ActualizarSeguimientoRuta(string taskId, [FromBody] bool activo)
+    {
+        try
+        {
+            var tarea = await _db.Tareas.FirstOrDefaultAsync(x => x.TaskCode == taskId && !x.IsDeleted);
+
+            if (tarea == null)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "Tarea no encontrada"
+                });
+            }
+
+            tarea.SeguimientoRutaActivo = activo;
+            tarea.DateModified = DateTime.UtcNow;
+
+            await _db.SaveChangesAsync();
+
+            return Ok(new
+            {
+                success = true,
+                message = activo ? "Seguimiento de ruta activado." : "Seguimiento de ruta desactivado.",
+                seguimientoRutaActivo = tarea.SeguimientoRutaActivo
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar seguimiento de ruta para tarea {TaskId}.", taskId);
+
+            return BadRequest(new
+            {
+                success = false,
+                message = "Ocurrió un error al actualizar la configuración de ruta",
+                errors = GetErrorMessages(ex)
+            });
+        }
+    }
 }

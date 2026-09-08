@@ -43,6 +43,11 @@ var serilogLogger = new LoggerConfiguration()
     .CreateLogger();
 
 Console.WriteLine($"[Serilog] Logs escribiéndose en: {Path.GetDirectoryName(logsPath)}");
+
+
+builder.Services.AddScoped<ITareaRutaEsperadaRepository, TareaRutaEsperadaRepository>();
+
+
 builder.Logging.AddProvider(new SerilogLoggerProvider(serilogLogger, dispose: true));
 
 #region ============================= CONFIGURACIÓN DE SERVICIOS =============================
