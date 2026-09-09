@@ -365,6 +365,13 @@ public class TareasController : ControllerBase
                 description = tarea.Tarea.Descripcion,
                 statusCode = tarea.Estatus.Codigo,
                 seguimientoRutaActivo = tarea.Tarea.SeguimientoRutaActivo, // ← NUEVO
+                asistenciaDinamicaActiva = tarea.Tarea.AsistenciaDinamicaActiva, // ← NUEVO
+                seguimientoRuta = new  // ← NUEVO
+                {
+                    activo = tarea.Tarea.SeguimientoRutaActivo,
+                    rutaActiva = await _tareaRutaRepository.ObtenerRutaActivaAsync(tarea.Tarea.TareaId) != null
+                },
+
                 createdAt = tarea.Tarea.DateCreated,
                 updatedAt = tarea.Tarea.DateModified,
                 client = new { name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE" },
@@ -710,6 +717,49 @@ public class TareasController : ControllerBase
             {
                 success = false,
                 message = "Ocurrió un error al actualizar la configuración de ruta",
+                errors = GetErrorMessages(ex)
+            });
+        }
+    }
+    /// <summary>
+    /// Activa o desactiva Asistencia dinámica para una tarea, desde Web Proveedor.
+    /// </summary>
+    [HttpPut("{taskId}/asistencia-dinamica")]
+    public async Task<ActionResult<object>> ActualizarAsistenciaDinamica(string taskId, [FromBody] bool activo)
+    {
+        try
+        {
+            var tarea = await _db.Tareas.FirstOrDefaultAsync(x => x.TaskCode == taskId && !x.IsDeleted);
+
+            if (tarea == null)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "Tarea no encontrada"
+                });
+            }
+
+            tarea.AsistenciaDinamicaActiva = activo;
+            tarea.DateModified = DateTime.UtcNow;
+
+            await _db.SaveChangesAsync();
+
+            return Ok(new
+            {
+                success = true,
+                message = activo ? "Asistencia dinámica activada." : "Asistencia dinámica desactivada.",
+                asistenciaDinamicaActiva = tarea.AsistenciaDinamicaActiva
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar asistencia dinámica para tarea {TaskId}.", taskId);
+
+            return BadRequest(new
+            {
+                success = false,
+                message = "Ocurrió un error al actualizar la configuración",
                 errors = GetErrorMessages(ex)
             });
         }

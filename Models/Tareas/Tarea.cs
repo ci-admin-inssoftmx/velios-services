@@ -82,4 +82,7 @@ public class Tarea
 
     [Column("PresupuestoUsado", TypeName = "decimal(18,2)")]
     public decimal? PresupuestoUsado { get; set; }
+
+    [Column("AsistenciaDinamicaActiva")]
+    public bool AsistenciaDinamicaActiva { get; set; }
 }
