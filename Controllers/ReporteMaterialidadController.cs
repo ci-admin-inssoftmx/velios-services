@@ -166,4 +166,16 @@ public class ReporteMaterialidadController : ControllerBase
             filtroDistintoCambia = hash1 != hash3
         });
     }
+    [HttpGet("tarea/{tareaId}/estado")]
+    public async Task<IActionResult> Estado(int tareaId)
+    {
+        var claveHash = ReporteCacheKeyBuilder.Calcular("MaterialidadTarea", new { tareaId }, proveedorId: null, clienteId: null);
+        var existente = await _reporteCacheRepository.ObtenerVigentePorClave(claveHash);
+
+        var existe = existente != null
+            && existente.Estado == ReporteCacheEstados.Completado
+            && (existente.FechaExpiracion == null || existente.FechaExpiracion > DateTime.UtcNow);
+
+        return Ok(new { existe, url = existe ? existente.UrlDescarga : null });
+    }
 }
