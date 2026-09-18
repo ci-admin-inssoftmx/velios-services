@@ -267,3 +267,380 @@ DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
       Executed endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
 2026-09-18 13:54:40.000 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
       Request finished HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=999 - 200 null application/json; charset=utf-8 192.9522ms
+2026-09-18 14:01:44.035 [INF] velios.Api
+      ENV: Development | RutaBase: C:\dev\velios-local\ReportesMaterialidad
+2026-09-18 14:01:44.098 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Start installing Hangfire SQL objects...
+2026-09-18 14:01:45.327 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Hangfire SQL objects installed.
+2026-09-18 14:01:46.210 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-09-18 14:01:46.340 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-09-18 14:01:46.565 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-09-18 14:01:46.568 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-09-18 14:01:46.633 [INF] Hangfire.BackgroundJobServer
+      Starting Hangfire Server using job storage: 'SQL Server: 54.39.102.101@VELIOS_DEV'
+2026-09-18 14:01:46.635 [INF] Hangfire.BackgroundJobServer
+      Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-09-18 14:01:46.637 [INF] Hangfire.BackgroundJobServer
+      Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-09-18 14:01:46.666 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-09-18 14:01:46.668 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-09-18 14:01:46.670 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-09-18 14:01:46.793 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:30208:e4c9ed1a successfully announced in 128.4149 ms
+2026-09-18 14:01:46.819 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:30208:e4c9ed1a is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-09-18 14:01:47.095 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:30208:e4c9ed1a all the dispatchers started
+2026-09-18 14:01:47.098 [INF] Hangfire.Server.ServerWatchdog
+      1 servers were removed due to timeout
+2026-09-18 14:02:55.722 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-09-18 14:02:55.904 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-09-18 14:02:56.004 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 290.4518ms
+2026-09-18 14:02:56.010 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-09-18 14:02:58.912 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-09-18 14:02:58.922 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-09-18 14:02:58.991 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 76.8477ms
+2026-09-18 14:02:59.010 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-09-18 14:02:59.014 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-09-18 14:02:59.021 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 10.4324ms
+2026-09-18 14:02:59.025 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-09-18 14:02:59.028 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-09-18 14:02:59.103 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 77.3916ms
+2026-09-18 14:02:59.129 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 100.1981ms
+2026-09-18 14:02:59.190 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-09-18 14:02:59.193 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-09-18 14:02:59.270 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 79.0746ms
+2026-09-18 14:03:45.237 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 145
+2026-09-18 14:03:45.246 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=145
+2026-09-18 14:03:45.256 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:03:45.305 [INF] Microsoft.AspNetCore.Authorization.DefaultAuthorizationService
+      Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-09-18 14:03:45.317 [INF] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler
+      AuthenticationScheme: Bearer was challenged.
+2026-09-18 14:03:45.322 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 401 0 null 112.4376ms
+2026-09-18 14:04:01.909 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 145
+2026-09-18 14:04:01.916 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=145
+2026-09-18 14:04:01.924 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:04:01.997 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:04:02.026 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:04:02.696 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-18 14:04:02.715 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-18 14:04:02.719 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-18 14:04:02.723 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-18 14:04:02.726 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-18 14:04:03.322 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType89`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType90`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-18 14:04:03.343 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 1303.7688ms
+2026-09-18 14:04:03.346 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:04:03.357 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 400 null application/json; charset=utf-8 1447.8687ms
+2026-09-18 14:04:38.629 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 145
+2026-09-18 14:04:38.656 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=145
+2026-09-18 14:04:38.685 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:04:38.689 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:04:38.691 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:04:38.878 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType89`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType90`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-18 14:04:38.882 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 188.523ms
+2026-09-18 14:04:38.884 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:04:38.887 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 400 null application/json; charset=utf-8 257.5257ms
+2026-09-18 14:04:53.963 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 145
+2026-09-18 14:04:53.966 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=145
+2026-09-18 14:04:53.968 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:04:53.971 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:04:53.974 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:04:54.538 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType89`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType90`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-18 14:04:54.541 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 563.8442ms
+2026-09-18 14:04:54.543 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:04:54.546 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 400 null application/json; charset=utf-8 582.4182ms
+2026-09-18 14:04:57.943 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-09-18 14:04:57.956 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-09-18 14:04:57.959 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 15.1922ms
+2026-09-18 14:04:57.980 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - null null
+2026-09-18 14:04:58.021 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - null null
+2026-09-18 14:04:58.025 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-09-18 14:04:58.051 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - null null
+2026-09-18 14:04:58.056 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-bundle.js CT=null Len=null
+2026-09-18 14:04:58.059 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.css - null null
+2026-09-18 14:04:58.062 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-09-18 14:04:58.102 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-standalone-preset.js CT=null Len=null
+2026-09-18 14:04:58.106 [INF] velios.Api
+      Incoming: GET /swagger/index.css CT=null Len=null
+2026-09-18 14:04:58.136 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui.css CT=null Len=null
+2026-09-18 14:04:58.139 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-09-18 14:04:58.141 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-09-18 14:04:58.144 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 161.8613ms
+2026-09-18 14:04:58.183 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 119.4947ms
+2026-09-18 14:04:58.207 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/index.css'. Physical path: 'N/A'
+2026-09-18 14:04:58.210 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.css - 200 202 text/css 230.7027ms
+2026-09-18 14:04:58.218 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-09-18 14:04:58.221 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2026-09-18 14:04:58.224 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - 200 230007 text/javascript 241.2422ms
+2026-09-18 14:04:58.226 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - 200 152035 text/css 246.9726ms
+2026-09-18 14:04:58.236 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 170.6493ms
+2026-09-18 14:04:58.242 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-09-18 14:04:58.246 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - 200 1426050 text/javascript 265.8122ms
+2026-09-18 14:04:58.322 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-09-18 14:04:58.325 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-09-18 14:04:58.351 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/favicon-32x32.png - null null
+2026-09-18 14:04:58.355 [INF] velios.Api
+      Incoming: GET /swagger/favicon-32x32.png CT=null Len=null
+2026-09-18 14:04:58.359 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2026-09-18 14:04:58.362 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/favicon-32x32.png - 200 628 image/png 33.7761ms
+2026-09-18 14:04:58.414 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 93.1867ms
+2026-09-18 14:05:37.477 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 145
+2026-09-18 14:05:37.511 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=145
+2026-09-18 14:05:37.513 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:05:37.515 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:05:37.518 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:05:37.628 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType89`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType90`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-18 14:05:37.630 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 110.1043ms
+2026-09-18 14:05:37.632 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:05:37.635 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 400 null application/json; charset=utf-8 185.5763ms
+2026-09-18 14:06:34.087 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 145
+2026-09-18 14:06:34.123 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=145
+2026-09-18 14:06:34.125 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:06:34.128 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:06:34.130 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:06:34.240 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType89`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType90`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-18 14:06:34.242 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 110.0804ms
+2026-09-18 14:06:34.243 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:06:34.267 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 400 null application/json; charset=utf-8 182.5ms
+2026-09-18 14:06:35.628 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 145
+2026-09-18 14:06:35.630 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=145
+2026-09-18 14:06:35.632 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:06:35.635 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:06:35.637 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:06:35.748 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType89`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType90`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-18 14:06:35.750 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 111.1917ms
+2026-09-18 14:06:35.752 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:06:35.755 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 400 null application/json; charset=utf-8 126.7215ms
+2026-09-18 14:09:20.440 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/rutas/iniciar - application/json 86
+2026-09-18 14:09:20.451 [INF] velios.Api
+      Incoming: POST /api/rutas/iniciar CT=application/json Len=86
+2026-09-18 14:09:20.455 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:09:20.458 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.IniciarRuta (velios.Api)'
+2026-09-18 14:09:20.469 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "IniciarRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] IniciarRuta(IniciarRutaRequest) on controller TareaRutaController (velios.Api).
+2026-09-18 14:09:20.874 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'RutaDto'.
+2026-09-18 14:09:20.886 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.IniciarRuta (velios.Api) in 413.424ms
+2026-09-18 14:09:20.922 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.IniciarRuta (velios.Api)'
+2026-09-18 14:09:20.929 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/rutas/iniciar - 200 null application/json; charset=utf-8 489.0446ms
+2026-09-18 14:09:35.915 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 145
+2026-09-18 14:09:35.918 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=145
+2026-09-18 14:09:35.921 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:09:35.925 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:09:35.928 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:09:36.039 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType89`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType90`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-18 14:09:36.041 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 111.0708ms
+2026-09-18 14:09:36.043 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:09:36.046 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 400 null application/json; charset=utf-8 132.1825ms
+2026-09-18 14:10:11.885 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 160
+2026-09-18 14:10:11.917 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=160
+2026-09-18 14:10:11.951 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:10:11.954 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:10:11.957 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:10:11.976 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2026-09-18 14:10:11.993 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 34.3333ms
+2026-09-18 14:10:11.996 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:10:11.999 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 400 null application/problem+json; charset=utf-8 113.4074ms
+2026-09-18 14:10:33.268 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 160
+2026-09-18 14:10:33.273 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=160
+2026-09-18 14:10:33.278 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:10:33.280 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:10:33.283 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:10:33.287 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2026-09-18 14:10:33.290 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 4.3813ms
+2026-09-18 14:10:33.292 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:10:33.294 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 400 null application/problem+json; charset=utf-8 26.2631ms
+2026-09-18 14:12:00.803 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 161
+2026-09-18 14:12:00.841 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=161
+2026-09-18 14:12:00.843 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:12:00.845 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:12:00.846 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:12:01.211 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType89`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType90`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][], velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-18 14:12:01.214 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 365.0545ms
+2026-09-18 14:12:01.239 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:12:01.273 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 400 null application/json; charset=utf-8 471.0444ms
+2026-09-18 14:12:48.128 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - application/json 161
+2026-09-18 14:12:48.134 [INF] velios.Api
+      Incoming: PUT /api/tasks/TASK-2674 CT=application/json Len=161
+2026-09-18 14:12:48.136 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 14:12:48.140 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:12:48.143 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Update", controller = "Tareas"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Object]] Update(System.String, velios.Api.Models.Tareas.Requests.TareaUpdateRequest) on controller velios.Api.Controllers.TareasController (velios.Api).
+2026-09-18 14:12:49.002 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type '<>f__AnonymousType92`3[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-18 14:12:49.006 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.TareasController.Update (velios.Api) in 860.7515ms
+2026-09-18 14:12:49.048 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.TareasController.Update (velios.Api)'
+2026-09-18 14:12:49.056 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/tasks/TASK-2674 - 200 null application/json; charset=utf-8 931.4477ms

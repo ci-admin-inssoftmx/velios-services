@@ -544,6 +544,8 @@ public class TareasController : ControllerBase
                             {
                     new { field = "rutaId", message = "rutaId es obligatorio para esta tarea." }
                 }
+
+
                         });
                     }
 
@@ -560,7 +562,59 @@ public class TareasController : ControllerBase
                 }
                         });
                     }
+
                 }
+
+                // ── NUEVO: Asistencia dinámica — requiere asistencia registrada hoy antes de capturar evidencias ──
+                if (tarea.AsistenciaDinamicaActiva)
+                {
+                    if (tarea.TrabajadorId is null)
+                    {
+                        return BadRequest(new
+                        {
+                            success = false,
+                            message = "Esta tarea no tiene un trabajador asignado.",
+                            errors = new[]
+                            {
+                                new { field = "trabajadorId", message = "No se puede verificar la asistencia sin un trabajador asignado." }
+                            }
+                        });
+                    }
+
+                    TimeZoneInfo zonaMexico;
+                    try
+                    {
+                        zonaMexico = TimeZoneInfo.FindSystemTimeZoneById("America/Mexico_City");
+                    }
+                    catch (TimeZoneNotFoundException)
+                    {
+                        zonaMexico = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time (Mexico)");
+                    }
+
+                    var hoyLocal = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zonaMexico).Date;
+
+                    var tieneAsistencia = await _db.AsistenciaRegistros
+                        .AsNoTracking()
+                        .AnyAsync(a => a.TareaId == tarea.TareaId
+                                    && a.TrabajadorId == tarea.TrabajadorId.Value
+                                    && a.Fecha == hoyLocal
+                                    && a.TipoRegistro == "Entrada"
+                                    && !a.IsDeleted);
+
+                    if (!tieneAsistencia)
+                    {
+                        return BadRequest(new
+                        {
+                            success = false,
+                            message = "Esta tarea requiere registrar tu asistencia antes de capturar evidencias.",
+                            errors = new[]
+                            {
+                                new { field = "asistencia", message = "Registra tu asistencia dinámica antes de continuar." }
+                            }
+                        });
+                    }
+                }
+                // ──────────────────────────────────────────────────────────────────────────────
 
                 foreach (var item in model.EvidencePhotos)
                 {

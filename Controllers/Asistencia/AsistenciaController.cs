@@ -388,7 +388,10 @@ public class AsistenciaController : ControllerBase
                 {
                     tieneAsistencia = registro != null,
                     asistenciaRegistroId = registro?.AsistenciaRegistroId,
-                    horaEntrada = registro?.HoraEntrada
+                    horaEntrada = registro?.HoraEntrada,
+                    latitud = registro?.Latitud,   // ← NUEVO
+                    longitud = registro?.Longitud  // ← NUEVO
+
                 }
             });
         }
