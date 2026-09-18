@@ -1,0 +1,269 @@
+2026-09-18 13:47:57.786 [INF] velios.Api
+      ENV: Development | RutaBase: C:\dev\velios-local\ReportesMaterialidad
+2026-09-18 13:47:57.912 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Start installing Hangfire SQL objects...
+2026-09-18 13:47:59.339 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Hangfire SQL objects installed.
+2026-09-18 13:48:00.312 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-09-18 13:48:00.481 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-09-18 13:48:00.785 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-09-18 13:48:00.788 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-09-18 13:48:00.872 [INF] Hangfire.BackgroundJobServer
+      Starting Hangfire Server using job storage: 'SQL Server: 54.39.102.101@VELIOS_DEV'
+2026-09-18 13:48:00.907 [INF] Hangfire.BackgroundJobServer
+      Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-09-18 13:48:00.909 [INF] Hangfire.BackgroundJobServer
+      Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-09-18 13:48:00.936 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-09-18 13:48:00.939 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-09-18 13:48:00.970 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-09-18 13:48:01.123 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:17364:3ae77cfc successfully announced in 150.8329 ms
+2026-09-18 13:48:01.164 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:17364:3ae77cfc is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-09-18 13:48:01.392 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:17364:3ae77cfc all the dispatchers started
+2026-09-18 13:48:07.644 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-09-18 13:48:07.925 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-09-18 13:48:08.091 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 462.5911ms
+2026-09-18 13:48:08.095 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-09-18 13:48:13.832 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-09-18 13:48:13.839 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-09-18 13:48:13.930 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 98.2689ms
+2026-09-18 13:48:13.942 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-09-18 13:48:13.945 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-09-18 13:48:13.948 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-09-18 13:48:13.951 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 9.0483ms
+2026-09-18 13:48:13.958 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-09-18 13:48:14.015 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 27.9876ms
+2026-09-18 13:48:14.074 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 117.2155ms
+2026-09-18 13:49:10.687 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-09-18 13:49:10.696 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-09-18 13:49:10.700 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 36.7566ms
+2026-09-18 13:49:10.716 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - null null
+2026-09-18 13:49:10.719 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - null null
+2026-09-18 13:49:10.748 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui.css CT=null Len=null
+2026-09-18 13:49:10.754 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - null null
+2026-09-18 13:49:10.756 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-bundle.js CT=null Len=null
+2026-09-18 13:49:10.786 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-09-18 13:49:10.788 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-standalone-preset.js CT=null Len=null
+2026-09-18 13:49:10.794 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-09-18 13:49:10.834 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-09-18 13:49:10.864 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-09-18 13:49:10.898 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 109.0559ms
+2026-09-18 13:49:10.904 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 142.8499ms
+2026-09-18 13:49:10.920 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 84.0016ms
+2026-09-18 13:49:10.955 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-09-18 13:49:10.956 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2026-09-18 13:49:10.960 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-09-18 13:49:10.969 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - 200 152035 text/css 248.78ms
+2026-09-18 13:49:10.971 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - 200 230007 text/javascript 241.7741ms
+2026-09-18 13:49:10.996 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - 200 1426050 text/javascript 248.5992ms
+2026-09-18 13:49:11.095 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-09-18 13:49:11.098 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-09-18 13:49:11.196 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 99.4407ms
+2026-09-18 13:50:43.489 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 - null null
+2026-09-18 13:50:43.510 [INF] velios.Api
+      Incoming: GET /api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 CT=null Len=null
+2026-09-18 13:50:43.570 [INF] Microsoft.AspNetCore.Authorization.DefaultAuthorizationService
+      Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-09-18 13:50:43.579 [INF] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler
+      AuthenticationScheme: Bearer was challenged.
+2026-09-18 13:50:43.583 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 - 401 0 null 102.1048ms
+2026-09-18 13:51:26.573 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/Authenticate/Login - application/json 63
+2026-09-18 13:51:26.584 [INF] velios.Api
+      Incoming: POST /api/Authenticate/Login CT=application/json Len=63
+2026-09-18 13:51:26.595 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 13:51:26.605 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AuthenticateController.Login (velios.Api)'
+2026-09-18 13:51:26.647 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[velios.Api.Models.Common.ApiResponse`1[velios.Api.Models.Auth.LoginDataResponse]]] Login(velios.Api.Models.Auth.LoginRequest) on controller velios.Api.Controllers.AuthenticateController (velios.Api).
+2026-09-18 13:51:27.402 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-18 13:51:27.405 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-18 13:51:27.409 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-18 13:51:27.412 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-18 13:51:27.414 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-18 13:51:28.072 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[velios.Api.Models.Auth.LoginDataResponse, velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-18 13:51:28.111 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AuthenticateController.Login (velios.Api) in 1453.8955ms
+2026-09-18 13:51:28.114 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AuthenticateController.Login (velios.Api)'
+2026-09-18 13:51:28.126 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/Authenticate/Login - 200 null application/json; charset=utf-8 1553.3851ms
+2026-09-18 13:51:47.004 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 - null null
+2026-09-18 13:51:47.008 [INF] velios.Api
+      Incoming: GET /api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 CT=null Len=null
+2026-09-18 13:51:47.065 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
+2026-09-18 13:51:47.072 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "TieneAsistenciaHoy", controller = "Asistencia"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TieneAsistenciaHoy(Int32, Int64) on controller velios.Api.Controllers.AsistenciaController (velios.Api).
+2026-09-18 13:51:47.247 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-18 13:51:47.263 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api) in 187.7376ms
+2026-09-18 13:51:47.265 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
+2026-09-18 13:51:47.267 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 - 200 null application/json; charset=utf-8 263.9507ms
+2026-09-18 13:52:49.799 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/Asistencia/CreateRegistroAsistencia - application/json 179
+2026-09-18 13:52:49.801 [INF] velios.Api
+      Incoming: POST /api/Asistencia/CreateRegistroAsistencia CT=application/json Len=179
+2026-09-18 13:52:49.804 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 13:52:49.809 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AsistenciaController.CreateRegistroAsistencia (velios.Api)'
+2026-09-18 13:52:49.814 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "CreateRegistroAsistencia", controller = "Asistencia"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[velios.Api.Models.Common.ApiResponse`1[System.Object]]] CreateRegistroAsistencia(velios.Api.Models.Asistencia.AsistenciaRegistroCreateModel) on controller velios.Api.Controllers.AsistenciaController (velios.Api).
+2026-09-18 13:52:50.863 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-18 13:52:50.868 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AsistenciaController.CreateRegistroAsistencia (velios.Api) in 1051.1337ms
+2026-09-18 13:52:50.893 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AsistenciaController.CreateRegistroAsistencia (velios.Api)'
+2026-09-18 13:52:50.899 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/Asistencia/CreateRegistroAsistencia - 200 null application/json; charset=utf-8 1134.2266ms
+2026-09-18 13:53:23.075 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 - null null
+2026-09-18 13:53:23.080 [INF] velios.Api
+      Incoming: GET /api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 CT=null Len=null
+2026-09-18 13:53:23.089 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
+2026-09-18 13:53:23.091 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "TieneAsistenciaHoy", controller = "Asistencia"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TieneAsistenciaHoy(Int32, Int64) on controller velios.Api.Controllers.AsistenciaController (velios.Api).
+2026-09-18 13:53:23.205 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-18 13:53:23.208 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api) in 114.1939ms
+2026-09-18 13:53:23.210 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
+2026-09-18 13:53:23.212 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 - 200 null application/json; charset=utf-8 136.5255ms
+2026-09-18 13:53:28.665 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 - null null
+2026-09-18 13:53:28.667 [INF] velios.Api
+      Incoming: GET /api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 CT=null Len=null
+2026-09-18 13:53:28.670 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
+2026-09-18 13:53:28.672 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "TieneAsistenciaHoy", controller = "Asistencia"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TieneAsistenciaHoy(Int32, Int64) on controller velios.Api.Controllers.AsistenciaController (velios.Api).
+2026-09-18 13:53:28.781 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-18 13:53:28.784 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api) in 109.4441ms
+2026-09-18 13:53:28.787 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
+2026-09-18 13:53:28.789 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 - 200 null application/json; charset=utf-8 123.7022ms
+2026-09-18 13:53:46.857 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/Asistencia/CreateRegistroAsistencia - application/json 179
+2026-09-18 13:53:46.859 [INF] velios.Api
+      Incoming: POST /api/Asistencia/CreateRegistroAsistencia CT=application/json Len=179
+2026-09-18 13:53:46.861 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-18 13:53:46.864 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AsistenciaController.CreateRegistroAsistencia (velios.Api)'
+2026-09-18 13:53:46.866 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "CreateRegistroAsistencia", controller = "Asistencia"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[velios.Api.Models.Common.ApiResponse`1[System.Object]]] CreateRegistroAsistencia(velios.Api.Models.Asistencia.AsistenciaRegistroCreateModel) on controller velios.Api.Controllers.AsistenciaController (velios.Api).
+2026-09-18 13:53:47.304 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-18 13:53:47.308 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AsistenciaController.CreateRegistroAsistencia (velios.Api) in 438.1927ms
+2026-09-18 13:53:47.310 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AsistenciaController.CreateRegistroAsistencia (velios.Api)'
+2026-09-18 13:53:47.312 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/Asistencia/CreateRegistroAsistencia - 200 null application/json; charset=utf-8 455.1108ms
+2026-09-18 13:53:53.002 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 - null null
+2026-09-18 13:53:53.005 [INF] velios.Api
+      Incoming: GET /api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 CT=null Len=null
+2026-09-18 13:53:53.008 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
+2026-09-18 13:53:53.010 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "TieneAsistenciaHoy", controller = "Asistencia"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TieneAsistenciaHoy(Int32, Int64) on controller velios.Api.Controllers.AsistenciaController (velios.Api).
+2026-09-18 13:53:53.126 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-18 13:53:53.128 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api) in 116.2606ms
+2026-09-18 13:53:53.130 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
+2026-09-18 13:53:53.132 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=13 - 200 null application/json; charset=utf-8 129.8973ms
+2026-09-18 13:54:39.843 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=999 - null null
+2026-09-18 13:54:39.850 [INF] velios.Api
+      Incoming: GET /api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=999 CT=null Len=null
+2026-09-18 13:54:39.852 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
+2026-09-18 13:54:39.855 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "TieneAsistenciaHoy", controller = "Asistencia"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TieneAsistenciaHoy(Int32, Int64) on controller velios.Api.Controllers.AsistenciaController (velios.Api).
+2026-09-18 13:54:39.963 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-18 13:54:39.965 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api) in 107.4316ms
+2026-09-18 13:54:39.993 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AsistenciaController.TieneAsistenciaHoy (velios.Api)'
+2026-09-18 13:54:40.000 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/Asistencia/tiene-asistencia-hoy?tareaId=2674&trabajadorId=999 - 200 null application/json; charset=utf-8 192.9522ms

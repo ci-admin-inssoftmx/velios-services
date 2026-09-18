@@ -102,6 +102,12 @@ public class AsistenciaRegistro
     public int? CentroTrabajoId { get; set; }
 
     /// <summary>
+    /// Identificador de la tarea asociada a esta asistencia (opcional).
+    /// </summary>
+    [Column("TareaId")]
+    public int? TareaId { get; set; }
+
+    /// <summary>
     /// Borrado lógico.
     /// </summary>
     [Column("IsDeleted")]
