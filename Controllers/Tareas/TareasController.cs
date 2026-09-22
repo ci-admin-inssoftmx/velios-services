@@ -89,6 +89,7 @@ public class TareasController : ControllerBase
                     description = x.t.Descripcion,
                     statusCode = x.e.Codigo,
                     seguimientoRutaActivo = x.t.SeguimientoRutaActivo, // ← NUEVO
+                    asistenciaDinamicaActiva = x.t.AsistenciaDinamicaActiva, // ← NUEVO
                     planTrabajo = x.p != null ? x.p.Nombre : "SIN PLAN",
                     client = new
                     {
@@ -188,7 +189,8 @@ public class TareasController : ControllerBase
                     activo = t.seguimientoRutaActivo,
                     rutaActiva = tareaIdsConRutaActiva.Contains(t.tareaId)
                 },
-                 presupuesto = new
+                asistenciaDinamicaActiva = t.asistenciaDinamicaActiva, // ← NUEVO
+                presupuesto = new
                 {
                     presupuestoAsignado = t.presupuestoAsignado,
                     presupuestoUsado = t.presupuestoUsado,
