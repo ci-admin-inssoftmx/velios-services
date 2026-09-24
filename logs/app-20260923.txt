@@ -1,0 +1,302 @@
+2026-09-23 23:05:37.721 [INF] velios.Api
+      ENV: Development | RutaBase: C:\dev\velios-local\ReportesMaterialidad
+2026-09-23 23:05:37.852 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Start installing Hangfire SQL objects...
+2026-09-23 23:05:39.686 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Hangfire SQL objects installed.
+2026-09-23 23:05:40.829 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-09-23 23:05:41.005 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-09-23 23:05:41.256 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-09-23 23:05:41.260 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-09-23 23:05:41.396 [INF] Hangfire.BackgroundJobServer
+      Starting Hangfire Server using job storage: 'SQL Server: 54.39.102.101@VELIOS_DEV'
+2026-09-23 23:05:41.399 [INF] Hangfire.BackgroundJobServer
+      Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-09-23 23:05:41.402 [INF] Hangfire.BackgroundJobServer
+      Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-09-23 23:05:41.468 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-09-23 23:05:41.471 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-09-23 23:05:41.474 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-09-23 23:05:41.607 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:10384:483d7baf successfully announced in 161.4529 ms
+2026-09-23 23:05:41.675 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:10384:483d7baf is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-09-23 23:05:41.994 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:10384:483d7baf all the dispatchers started
+2026-09-23 23:05:48.017 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-09-23 23:05:48.352 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-09-23 23:05:48.494 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 495.7808ms
+2026-09-23 23:05:48.499 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-09-23 23:05:55.234 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-09-23 23:05:55.243 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-09-23 23:05:55.357 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 122.6113ms
+2026-09-23 23:05:55.381 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-09-23 23:05:55.385 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-09-23 23:05:55.388 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-09-23 23:05:55.393 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 11.8568ms
+2026-09-23 23:05:55.397 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-09-23 23:05:55.454 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 64.9212ms
+2026-09-23 23:05:55.496 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 97.7192ms
+2026-09-23 23:05:55.646 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-09-23 23:05:55.648 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-09-23 23:05:55.746 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 99.6557ms
+2026-09-23 23:06:58.227 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 PUT https://localhost:7132/api/rutas-esperadas/tarea/2908 - application/json 214
+2026-09-23 23:06:58.263 [INF] velios.Api
+      Incoming: PUT /api/rutas-esperadas/tarea/2908 CT=application/json Len=214
+2026-09-23 23:06:58.273 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-23 23:06:58.316 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaEsperadaController.GuardarParadas (velios.Api)'
+2026-09-23 23:06:58.361 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "GuardarParadas", controller = "TareaRutaEsperada"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GuardarParadas(Int32, GuardarRutaEsperadaRequest) on controller TareaRutaEsperadaController (velios.Api).
+2026-09-23 23:06:58.466 [INF] System.Net.Http.HttpClient.IGeocodingService.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-09-23 23:06:58.469 [INF] System.Net.Http.HttpClient.IGeocodingService.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-09-23 23:06:58.809 [INF] System.Net.Http.HttpClient.IGeocodingService.ClientHandler
+      Received HTTP response headers after 330.1374ms - 200
+2026-09-23 23:06:58.813 [INF] System.Net.Http.HttpClient.IGeocodingService.LogicalHandler
+      End processing HTTP request after 355.3627ms - 200
+2026-09-23 23:06:58.819 [INF] System.Net.Http.HttpClient.IGeocodingService.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-09-23 23:06:58.821 [INF] System.Net.Http.HttpClient.IGeocodingService.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-09-23 23:06:59.020 [INF] System.Net.Http.HttpClient.IGeocodingService.ClientHandler
+      Received HTTP response headers after 196.3482ms - 200
+2026-09-23 23:06:59.022 [INF] System.Net.Http.HttpClient.IGeocodingService.LogicalHandler
+      End processing HTTP request after 202.4119ms - 200
+2026-09-23 23:06:59.749 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ParadaRutaEsperadaDto, velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-23 23:06:59.773 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaEsperadaController.GuardarParadas (velios.Api) in 1401.0903ms
+2026-09-23 23:06:59.776 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaEsperadaController.GuardarParadas (velios.Api)'
+2026-09-23 23:06:59.781 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 PUT https://localhost:7132/api/rutas-esperadas/tarea/2908 - 200 null application/json; charset=utf-8 1584.0608ms
+2026-09-23 23:19:07.506 [INF] velios.Api
+      ENV: Development | RutaBase: C:\dev\velios-local\ReportesMaterialidad
+2026-09-23 23:19:07.622 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Start installing Hangfire SQL objects...
+2026-09-23 23:19:08.977 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Hangfire SQL objects installed.
+2026-09-23 23:19:10.003 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-09-23 23:19:10.179 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-09-23 23:19:10.383 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-09-23 23:19:10.386 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-09-23 23:19:10.485 [INF] Hangfire.BackgroundJobServer
+      Starting Hangfire Server using job storage: 'SQL Server: 54.39.102.101@VELIOS_DEV'
+2026-09-23 23:19:10.488 [INF] Hangfire.BackgroundJobServer
+      Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-09-23 23:19:10.490 [INF] Hangfire.BackgroundJobServer
+      Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-09-23 23:19:10.518 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-09-23 23:19:10.519 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-09-23 23:19:10.521 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-09-23 23:19:10.675 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:11908:e926109e successfully announced in 120.6145 ms
+2026-09-23 23:19:10.683 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:11908:e926109e is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-09-23 23:19:10.946 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:11908:e926109e all the dispatchers started
+2026-09-23 23:19:10.948 [INF] Hangfire.Server.ServerWatchdog
+      1 servers were removed due to timeout
+2026-09-23 23:19:23.851 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-09-23 23:19:24.183 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-09-23 23:19:24.305 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 467.1943ms
+2026-09-23 23:19:24.310 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-09-23 23:19:29.685 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-09-23 23:19:29.696 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-09-23 23:19:29.825 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 138.7564ms
+2026-09-23 23:19:29.851 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-09-23 23:19:29.856 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-09-23 23:19:29.861 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-09-23 23:19:29.865 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-09-23 23:19:29.871 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 21.8634ms
+2026-09-23 23:19:29.912 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 55.5814ms
+2026-09-23 23:19:29.987 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 123.5052ms
+2026-09-23 23:19:30.062 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-09-23 23:19:30.065 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-09-23 23:19:30.162 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 100.28ms
+2026-09-23 23:19:57.885 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/tarea/2908/avance - null null
+2026-09-23 23:19:57.935 [INF] velios.Api
+      Incoming: GET /api/rutas/tarea/2908/avance CT=null Len=null
+2026-09-23 23:19:57.983 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerAvanceConRuta (velios.Api)'
+2026-09-23 23:19:58.067 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerAvanceConRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerAvanceConRuta(Int32) on controller TareaRutaController (velios.Api).
+2026-09-23 23:19:58.513 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-09-23 23:19:58.546 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerAvanceConRuta (velios.Api) in 468.6233ms
+2026-09-23 23:19:58.548 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerAvanceConRuta (velios.Api)'
+2026-09-23 23:19:58.554 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/tarea/2908/avance - 404 null application/problem+json; charset=utf-8 672.2374ms
+2026-09-23 23:20:37.774 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/Authenticate/Login - application/json 63
+2026-09-23 23:20:37.787 [INF] velios.Api
+      Incoming: POST /api/Authenticate/Login CT=application/json Len=63
+2026-09-23 23:20:37.795 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-23 23:20:37.801 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AuthenticateController.Login (velios.Api)'
+2026-09-23 23:20:37.811 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[velios.Api.Models.Common.ApiResponse`1[velios.Api.Models.Auth.LoginDataResponse]]] Login(velios.Api.Models.Auth.LoginRequest) on controller velios.Api.Controllers.AuthenticateController (velios.Api).
+2026-09-23 23:20:38.560 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-23 23:20:38.563 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-23 23:20:38.566 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-23 23:20:38.569 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-23 23:20:38.572 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-09-23 23:20:39.411 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[velios.Api.Models.Auth.LoginDataResponse, velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-23 23:20:39.444 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AuthenticateController.Login (velios.Api) in 1629.9039ms
+2026-09-23 23:20:39.446 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AuthenticateController.Login (velios.Api)'
+2026-09-23 23:20:39.456 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/Authenticate/Login - 200 null application/json; charset=utf-8 1703.5147ms
+2026-09-23 23:20:55.938 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/tarea/2908/avance - null null
+2026-09-23 23:20:55.942 [INF] velios.Api
+      Incoming: GET /api/rutas/tarea/2908/avance CT=null Len=null
+2026-09-23 23:20:56.008 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerAvanceConRuta (velios.Api)'
+2026-09-23 23:20:56.010 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerAvanceConRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerAvanceConRuta(Int32) on controller TareaRutaController (velios.Api).
+2026-09-23 23:20:56.118 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-09-23 23:20:56.121 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerAvanceConRuta (velios.Api) in 108.7461ms
+2026-09-23 23:20:56.123 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerAvanceConRuta (velios.Api)'
+2026-09-23 23:20:56.126 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/tarea/2908/avance - 404 null application/problem+json; charset=utf-8 188.9397ms
+2026-09-23 23:21:07.792 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/tarea/2908/avance - null null
+2026-09-23 23:21:07.795 [INF] velios.Api
+      Incoming: GET /api/rutas/tarea/2908/avance CT=null Len=null
+2026-09-23 23:21:07.799 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerAvanceConRuta (velios.Api)'
+2026-09-23 23:21:07.801 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerAvanceConRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerAvanceConRuta(Int32) on controller TareaRutaController (velios.Api).
+2026-09-23 23:21:07.913 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-09-23 23:21:07.916 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerAvanceConRuta (velios.Api) in 111.6501ms
+2026-09-23 23:21:07.918 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerAvanceConRuta (velios.Api)'
+2026-09-23 23:21:07.920 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/tarea/2908/avance - 404 null application/problem+json; charset=utf-8 128.9001ms
+2026-09-23 23:21:53.752 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/tarea/2908/avance - null null
+2026-09-23 23:21:53.761 [INF] velios.Api
+      Incoming: GET /api/rutas/tarea/2908/avance CT=null Len=null
+2026-09-23 23:21:53.764 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerAvanceConRuta (velios.Api)'
+2026-09-23 23:21:53.768 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerAvanceConRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerAvanceConRuta(Int32) on controller TareaRutaController (velios.Api).
+2026-09-23 23:21:53.874 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-09-23 23:21:53.876 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerAvanceConRuta (velios.Api) in 105.8453ms
+2026-09-23 23:21:53.879 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerAvanceConRuta (velios.Api)'
+2026-09-23 23:21:53.923 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/tarea/2908/avance - 404 null application/problem+json; charset=utf-8 155.8141ms
+2026-09-23 23:22:17.116 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/rutas/iniciar - application/json 86
+2026-09-23 23:22:17.153 [INF] velios.Api
+      Incoming: POST /api/rutas/iniciar CT=application/json Len=86
+2026-09-23 23:22:17.187 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-09-23 23:22:17.189 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.IniciarRuta (velios.Api)'
+2026-09-23 23:22:17.194 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "IniciarRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] IniciarRuta(IniciarRutaRequest) on controller TareaRutaController (velios.Api).
+2026-09-23 23:22:17.559 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'RutaDto'.
+2026-09-23 23:22:17.575 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.IniciarRuta (velios.Api) in 378.4715ms
+2026-09-23 23:22:17.578 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.IniciarRuta (velios.Api)'
+2026-09-23 23:22:17.580 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/rutas/iniciar - 200 null application/json; charset=utf-8 464.1704ms
+2026-09-23 23:22:34.239 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/tarea/2908/avance - null null
+2026-09-23 23:22:34.242 [INF] velios.Api
+      Incoming: GET /api/rutas/tarea/2908/avance CT=null Len=null
+2026-09-23 23:22:34.244 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TareaRutaController.ObtenerAvanceConRuta (velios.Api)'
+2026-09-23 23:22:34.246 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "ObtenerAvanceConRuta", controller = "TareaRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerAvanceConRuta(Int32) on controller TareaRutaController (velios.Api).
+2026-09-23 23:22:34.691 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'ResumenRutaDto'.
+2026-09-23 23:22:34.701 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TareaRutaController.ObtenerAvanceConRuta (velios.Api) in 450.444ms
+2026-09-23 23:22:34.707 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TareaRutaController.ObtenerAvanceConRuta (velios.Api)'
+2026-09-23 23:22:34.712 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/tarea/2908/avance - 200 null application/json; charset=utf-8 471.2022ms

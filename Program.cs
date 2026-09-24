@@ -50,6 +50,8 @@ builder.Services.AddScoped<ITareaRutaEsperadaRepository, TareaRutaEsperadaReposi
 
 builder.Logging.AddProvider(new SerilogLoggerProvider(serilogLogger, dispose: true));
 
+builder.Services.AddHttpClient<IGeocodingService, GeocodingService>();
+
 #region ============================= CONFIGURACIÓN DE SERVICIOS =============================
 // Pegar junto al resto de registros de servicios en Program.cs
 // Hangfire: usa tu misma base de datos VELIOS como almacenamiento de jobs
