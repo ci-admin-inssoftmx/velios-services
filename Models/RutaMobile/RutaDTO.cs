@@ -30,6 +30,14 @@ public class RutaDto
     public decimal? LongitudFin { get; set; }
     public DateTime? FechaHoraFin { get; set; }
 }
+public class PuntoEsperadoDto
+{
+    public int Orden { get; set; }
+    public int TipoParada { get; set; } // 1=Inicio, 2=Parada, 3=Fin
+    public string Direccion { get; set; } = string.Empty;
+    public decimal? Latitud { get; set; }
+    public decimal? Longitud { get; set; }
+}
 
 public class EvidenciaGeoDto
 {
@@ -53,4 +61,5 @@ public class ResumenRutaDto
     public RutaDto Ruta { get; set; }
     public List<GrupoEvidenciasDto> GruposEvidencias { get; set; } = new();
     public List<string> Observaciones { get; set; } = new();
+    public List<PuntoEsperadoDto> PuntosEsperados { get; set; } = new();
 }

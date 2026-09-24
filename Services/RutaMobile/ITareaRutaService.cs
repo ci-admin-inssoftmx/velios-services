@@ -12,13 +12,16 @@ public class TareaRutaService : ITareaRutaService
     private const double UmbralAgrupacionMetros = 25;
     private readonly ITareaRutaRepository _repository;
     private readonly IReporteMaterialidadRepository _observacionesRepository; // ya existe, la reutilizamos
+    private readonly ITareaRutaEsperadaRepository _rutaEsperadaRepository; // ← NUEVO
 
     public TareaRutaService(
         ITareaRutaRepository repository,
-        IReporteMaterialidadRepository observacionesRepository)
+        IReporteMaterialidadRepository observacionesRepository,
+        ITareaRutaEsperadaRepository rutaEsperadaRepository) // ← NUEVO
     {
         _repository = repository;
         _observacionesRepository = observacionesRepository;
+        _rutaEsperadaRepository = rutaEsperadaRepository; // ← NUEVO
     }
 
     public async Task<RutaDto> IniciarRutaAsync(IniciarRutaRequest request)
@@ -46,16 +49,26 @@ public class TareaRutaService : ITareaRutaService
 
         var evidenciasTask = _repository.ObtenerEvidenciasPorRutaAsync(rutaId);
         var observacionesTask = _observacionesRepository.ObtenerObservacionesPorTareaAsync(ruta.TareaId);
+        var puntosEsperadosTask = _rutaEsperadaRepository.ObtenerParadasAsync(ruta.TareaId); // ← NUEVO
 
-        await Task.WhenAll(evidenciasTask, observacionesTask);
+        await Task.WhenAll(evidenciasTask, observacionesTask, puntosEsperadosTask); // ← actualizado
 
         return new ResumenRutaDto
         {
             Ruta = ruta,
             GruposEvidencias = AgruparPorCercania(evidenciasTask.Result),
-            Observaciones = observacionesTask.Result
+            Observaciones = observacionesTask.Result,
+            PuntosEsperados = puntosEsperadosTask.Result.Select(p => new PuntoEsperadoDto // ← NUEVO
+            {
+                Orden = p.Orden,
+                TipoParada = p.TipoParada,
+                Direccion = p.Direccion,
+                Latitud = p.Latitud,
+                Longitud = p.Longitud
+            }).ToList()
         };
     }
+
     private List<GrupoEvidenciasDto> AgruparPorCercania(List<EvidenciaGeoDto> evidencias)
     {
         var grupos = new List<GrupoEvidenciasDto>();

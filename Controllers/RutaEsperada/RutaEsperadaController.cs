@@ -5,10 +5,12 @@
 public class TareaRutaEsperadaController : ControllerBase
 {
     private readonly ITareaRutaEsperadaRepository _repository;
+    private readonly IGeocodingService _geocodingService;
 
-    public TareaRutaEsperadaController(ITareaRutaEsperadaRepository repository)
+    public TareaRutaEsperadaController(ITareaRutaEsperadaRepository repository, IGeocodingService geocodingService)
     {
         _repository = repository;
+        _geocodingService = geocodingService;
     }
 
     [HttpGet("tarea/{tareaId}")]
@@ -26,6 +28,21 @@ public class TareaRutaEsperadaController : ControllerBase
 
         try
         {
+            // ── NUEVO: geocodifica cada dirección que no traiga ya coordenadas ──
+            foreach (var parada in request.Paradas)
+            {
+                if (!string.IsNullOrWhiteSpace(parada.Direccion) && parada.Latitud is null)
+                {
+                    var coords = await _geocodingService.GeocodificarAsync(parada.Direccion);
+                    if (coords != null)
+                    {
+                        parada.Latitud = coords.Value.lat;
+                        parada.Longitud = coords.Value.lng;
+                    }
+                }
+            }
+            // ─────────────────────────────────────────────────────────────────
+
             await _repository.GuardarParadasAsync(tareaId, request.Paradas);
             var paradasGuardadas = await _repository.ObtenerParadasAsync(tareaId);
             return Ok(paradasGuardadas);
