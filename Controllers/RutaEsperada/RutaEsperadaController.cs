@@ -28,10 +28,26 @@ public class TareaRutaEsperadaController : ControllerBase
 
         try
         {
-            // ── NUEVO: geocodifica cada dirección que no traiga ya coordenadas ──
-            foreach (var parada in request.Paradas)
+            // Trae lo ya guardado, para reutilizar coordenadas si el texto no cambió
+            var paradasExistentes = await _repository.ObtenerParadasAsync(tareaId);
+
+            // Geocodifica en PARALELO solo las direcciones nuevas o modificadas
+            var tareasGeocoding = request.Paradas.Select(async parada =>
             {
-                if (!string.IsNullOrWhiteSpace(parada.Direccion) && parada.Latitud is null)
+                var existente = paradasExistentes.FirstOrDefault(p =>
+                    p.Orden == parada.Orden &&
+                    p.TipoParada == parada.TipoParada &&
+                    string.Equals(p.Direccion?.Trim(), parada.Direccion?.Trim(), StringComparison.OrdinalIgnoreCase));
+
+                if (existente?.Latitud != null && existente.Longitud != null)
+                {
+                    // Dirección sin cambios — reutiliza coordenadas, sin llamar a Google
+                    parada.Latitud = existente.Latitud;
+                    parada.Longitud = existente.Longitud;
+                    return;
+                }
+
+                if (!string.IsNullOrWhiteSpace(parada.Direccion))
                 {
                     var coords = await _geocodingService.GeocodificarAsync(parada.Direccion);
                     if (coords != null)
@@ -40,8 +56,9 @@ public class TareaRutaEsperadaController : ControllerBase
                         parada.Longitud = coords.Value.lng;
                     }
                 }
-            }
-            // ─────────────────────────────────────────────────────────────────
+            });
+
+            await Task.WhenAll(tareasGeocoding); // ← en paralelo, no secuencial
 
             await _repository.GuardarParadasAsync(tareaId, request.Paradas);
             var paradasGuardadas = await _repository.ObtenerParadasAsync(tareaId);
