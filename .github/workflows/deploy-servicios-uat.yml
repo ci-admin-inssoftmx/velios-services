@@ -1,0 +1,118 @@
+name: Deploy Velios Servicios UAT
+on:
+  push:
+    branches:
+      - UAT
+jobs:
+  deploy:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Código
+        uses: actions/checkout@v4
+
+      - name: Configurar MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Configurar NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restaurar paquetes
+        run: nuget restore velios.Api.sln
+
+      - name: Publicar Sitio
+        shell: powershell
+        run: |
+          msbuild velios.Api.csproj `
+            /p:DeployOnBuild=true `
+            /p:PublishProfile=FolderProfile3 `
+            /p:Configuration=Release `
+            /verbosity:minimal
+
+      - name: Validar Out
+        shell: powershell
+        run: |
+          if (!(Test-Path "obj\Release\net9.0\PubTmp\Out")) {
+            throw "No se encontró la carpeta Out"
+          }
+          Get-ChildItem "obj\Release\net9.0\PubTmp\Out" -Recurse |
+            Select-Object -First 20
+
+      - name: Crear carpeta temporal solo con app_offline.htm
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Path "offline-deploy" -Force
+          "Sitio en mantenimiento, desplegando nueva versión..." | Out-File -FilePath "offline-deploy/app_offline.htm" -Encoding utf8
+
+      - name: Subir app_offline.htm (detener sitio y liberar DLL)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: offline-deploy/
+          server-dir: /servicios/uat/
+          dangerous-clean-slate: false
+
+      - name: Esperar liberación del proceso
+        shell: powershell
+        run: Start-Sleep -Seconds 8
+
+      - name: Listar contenido remoto (diagnóstico)
+        shell: powershell
+        run: |
+          $ftpServer = "${{ secrets.FTP_SERVER }}"
+          $ftpUser = "${{ secrets.FTP_USERNAME }}"
+          $ftpPass = "${{ secrets.FTP_PASSWORD }}"
+          $ftpPath = "ftp://$ftpServer/servicios/uat/"
+
+          $request = [System.Net.FtpWebRequest]::Create($ftpPath)
+          $request.Method = [System.Net.WebRequestMethods+Ftp]::ListDirectory
+          $request.Credentials = New-Object System.Net.NetworkCredential($ftpUser, $ftpPass)
+          $request.UsePassive = $true
+
+          $response = $request.GetResponse()
+          $stream = $response.GetResponseStream()
+          $reader = New-Object System.IO.StreamReader($stream)
+          Write-Host $reader.ReadToEnd()
+          $reader.Close()
+          $response.Close()
+
+      - name: Deploy FTP UAT
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: obj/Release/net9.0/PubTmp/Out/
+          server-dir: /servicios/uat/
+          dangerous-clean-slate: false
+
+      - name: Eliminar app_offline.htm (reactivar sitio)
+        shell: powershell
+        run: |
+          $ftpServer = "${{ secrets.FTP_SERVER }}"
+          $ftpUser = "${{ secrets.FTP_USERNAME }}"
+          $ftpPass = "${{ secrets.FTP_PASSWORD }}"
+          $ftpPath = "ftp://$ftpServer/servicios/uat/app_offline.htm"
+
+          $request = [System.Net.FtpWebRequest]::Create($ftpPath)
+          $request.Method = [System.Net.WebRequestMethods+Ftp]::DeleteFile
+          $request.Credentials = New-Object System.Net.NetworkCredential($ftpUser, $ftpPass)
+          $request.UsePassive = $true
+
+          try {
+            $response = $request.GetResponse()
+            Write-Host "app_offline.htm eliminado. Status: $($response.StatusDescription)"
+            $response.Close()
+          } catch [System.Net.WebException] {
+            $ftpResponse = $_.Exception.Response
+            if ($ftpResponse -and $ftpResponse.StatusCode -eq [System.Net.FtpStatusCode]::ActionNotTakenFileUnavailable) {
+              Write-Warning "app_offline.htm ya no existe en el servidor (probablemente ya fue limpiado). Continuando sin error."
+            } else {
+              throw
+            }
+          }
