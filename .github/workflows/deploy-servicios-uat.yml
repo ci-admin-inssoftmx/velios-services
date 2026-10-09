@@ -90,8 +90,7 @@ jobs:
           local-dir: obj/Release/net9.0/PubTmp/Out/
           server-dir: /servicios/uat/
           dangerous-clean-slate: false
-          exclude: |
-            appsettings.json
+
 
       - name: Eliminar app_offline.htm (reactivar sitio)
         shell: powershell
