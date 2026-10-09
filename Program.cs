@@ -20,10 +20,13 @@ using velios.Api.Services.Security;
 using velios.Api.Services.ServiciosCategoria;
 using velios.Api.Services.ServiciosProveedor;
 using Hangfire;
+using velios.Api.Services.BackgroundServices;
+using Serilog;
+using Serilog.Extensions.Logging;
 
 
 /// <summary>
-/// Punto de entrada de Velios API (Minimal Hosting .NET 6+).
+/// Punto de entrada de Velios API (Minimal Hosting .NET 6+)....
 /// 
 /// REGLA CLAVE:
 /// - Todo builder.Services.* debe ir ANTES de builder.Build()
@@ -109,6 +112,7 @@ builder.Services.AddScoped<IProveedorDocumentService, ProveedorDocumentService>(
 builder.Services.AddScoped<IReporteMaterialidadPreeliminarService, ReportePreeliminarService>();
 builder.Services.AddScoped<IReporteMaterialidadRepository, ReporteMaterialidadRepository>();
 builder.Services.AddScoped<IReporteMaterialidadService, ReporteMaterialidadService>();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddHttpClient();
 
@@ -191,6 +195,14 @@ builder.Services.AddCors(opt =>
          // 💡 PERMITE QUE JAVASCRIPT LEA EL TAMAÑO DEL ARCHIVO Y LAS CABECERAS PERSONALIZADAS
          .WithExposedHeaders("Content-Length", "Content-Disposition", "X-Tiempo-Generacion"));
 });
+
+
+/// <summary>
+/// Registra el servicio en segundo plano encargado de procesar las notificaciones
+/// de manera periódica dentro del contenedor de inyección de dependencias.
+/// Cuando la aplicación inicie, crea y ejecuta este servicio en segundo plano.
+/// </summary>
+builder.Services.AddHostedService<NotificacionesBackgroundService>();
 
 #endregion
 
