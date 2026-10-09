@@ -148,7 +148,7 @@ public class TareasController : ControllerBase
             var tareaIdsConRutaActiva = (await _tareaRutaRepository.ObtenerTareaIdsConRutaActivaAsync(tareaIds)).ToHashSet();
             // ─────────────────────────────────────────────────────────────────────
 
-            var gastosPorTarea = await _db.GastosTarea.AsNoTracking().Where(g => tareaIds.Contains(g.IdTarea))
+            //var gastosPorTarea = await _db.GastosTarea.AsNoTracking().Where(g => tareaIds.Contains(g.IdTarea));
 
 
             // -------  Nueva lógica para historial de solicitudes de presupuesto excedido ----------
@@ -928,6 +928,7 @@ public class TareasController : ControllerBase
                 errors = GetErrorMessages(ex)
             });
         }
+    }
 
     /// <summary>
     /// Obtiene la cantidad de minutos configurada para determinar el tiempo de espera
