@@ -17,6 +17,7 @@ using velios.Api.Services.ProveedoresDocs;
 using velios.Api.Services.Security;
 using velios.Api.Services.ServiciosCategoria;
 using velios.Api.Services.ServiciosProveedor;
+using velios.Api.Services.BackgroundServices;
 using Serilog;
 using Serilog.Extensions.Logging;
 
@@ -159,6 +160,14 @@ builder.Services.AddCors(opt =>
          // 💡 PERMITE QUE JAVASCRIPT LEA EL TAMAÑO DEL ARCHIVO Y LAS CABECERAS PERSONALIZADAS
          .WithExposedHeaders("Content-Length", "Content-Disposition", "X-Tiempo-Generacion"));
 });
+
+
+/// <summary>
+/// Registra el servicio en segundo plano encargado de procesar las notificaciones
+/// de manera periódica dentro del contenedor de inyección de dependencias.
+/// Cuando la aplicación inicie, crea y ejecuta este servicio en segundo plano.
+/// </summary>
+builder.Services.AddHostedService<NotificacionesBackgroundService>();
 
 #endregion
 

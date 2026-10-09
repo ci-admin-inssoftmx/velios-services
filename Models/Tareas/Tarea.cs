@@ -76,4 +76,8 @@ public class Tarea
 
     [Column("PresupuestoUsado", TypeName = "decimal(18,2)")]
     public decimal? PresupuestoUsado { get; set; }
+
+
+    [Column("PresupuestoFinalAutorizado", TypeName = "decimal(18,2)")]
+    public decimal? PresupuestoFinalAutorizado { get; set; }
 }
