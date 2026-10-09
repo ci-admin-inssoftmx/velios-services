@@ -55,8 +55,7 @@ jobs:
           local-dir: maintenance/
           server-dir: /servicios/dev/
           dangerous-clean-slate: false
-          exclude: |
-            appsettings.json
+
 
       - name: Deploy FTP DEV
         id: deploy
