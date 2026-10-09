@@ -58,33 +58,24 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
         if (tarea is null)
             throw new InvalidOperationException($"No se encontró la tarea con id {tareaId}.");
 
-        // Descargas iniciales en paralelo
+        // Logo del proveedor: es una descarga HTTP (no usa el DbContext),
+        // así que puede correr en paralelo con las consultas a la BD.
         var logoProveedorTask = !string.IsNullOrWhiteSpace(tarea.LogoUrlProveedor)
             ? DescargarImagenAsync(tarea.LogoUrlProveedor)
             : Task.FromResult<byte[]?>(null);
 
-        var clienteTask = _repository.ObtenerClienteAsync(tarea.ClienteId);
-        var evidenciasTask = _repository.ObtenerEvidenciasPorTareaAsync(tarea.TareaId);
-        var observacionesTask = _repository.ObtenerObservacionesPorTareaAsync(tarea.TareaId);
-        var direccionTask = _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
-        var telefonoTask = _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
-        var nombreCTTask = _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
-
-        await Task.WhenAll(logoProveedorTask, clienteTask, evidenciasTask,
-            observacionesTask, direccionTask, telefonoTask, nombreCTTask);
-
-        var logoProveedorBytes = logoProveedorTask.Result;
-        var cliente = clienteTask.Result;
+        // Consultas a BD: una a la vez. AppDbContext no soporta operaciones concurrentes.
+        var cliente = await _repository.ObtenerClienteAsync(tarea.ClienteId);
         if (cliente is null)
             throw new InvalidOperationException($"No se encontró el cliente de la tarea con id {tarea.ClienteId}.");
 
-        tarea.Observaciones = observacionesTask.Result;
-        tarea.DireccionCentroTrabajo = direccionTask.Result;
-        tarea.TelefonoCentroTrabajo = telefonoTask.Result;
-        tarea.NombreCentroTrabajo = nombreCTTask.Result;
+        var evidencias = await _repository.ObtenerEvidenciasPorTareaAsync(tarea.TareaId);
+        tarea.Observaciones = await _repository.ObtenerObservacionesPorTareaAsync(tarea.TareaId);
+        tarea.DireccionCentroTrabajo = await _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
+        tarea.TelefonoCentroTrabajo = await _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
+        tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
 
-        var evidencias = evidenciasTask.Result;
-
+        var logoProveedorBytes = await logoProveedorTask;
         // Cachés por coordenadas
         var mapaCache = new ConcurrentDictionary<string, byte[]?>();
         var geoCache = new ConcurrentDictionary<string, GeocodingInfoDto?>();

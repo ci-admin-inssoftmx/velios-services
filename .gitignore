@@ -26,3 +26,7 @@ EOF
 /.vs/velios.Api/v18/DocumentLayout.json
 /Properties/PublishProfiles/FolderProfile3.pubxml
 /appsettings.json
+
+
+logs/
+logs/app-20260729.txt

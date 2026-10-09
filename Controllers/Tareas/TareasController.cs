@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net.NetworkInformation;
 using velios.Api.Data;
 using velios.Api.Models.Clientes;
 using velios.Api.Models.Common;
+using velios.Api.Models.Notificaciones;
 using velios.Api.Models.Tareas;
 using velios.Api.Models.Tareas.Requests;
-
+using velios.Api.Utils;
+using static QRCoder.PayloadGenerator;
 namespace velios.Api.Controllers;
 
 /// <summary>
@@ -68,7 +71,7 @@ public class TareasController : ControllerBase
                 from tr in trGroup.DefaultIfEmpty()
                 join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
                 from sv in svGroup.DefaultIfEmpty()
-                where !t.IsDeleted && !c.IsDeleted 
+                where !t.IsDeleted && !c.IsDeleted
                 select new { t, c, e, p, ct, tr, sv };
 
             // ── FILTRO POR USUARIO ──────────────────────────────────────────
@@ -133,7 +136,8 @@ public class TareasController : ControllerBase
                     },
                     presupuestoAsignado = x.t.PresupuestoAsignado,
                     presupuestoUsado = x.t.PresupuestoUsado,
-                    presupuestoDisponible = x.t.PresupuestoDisponible
+                    presupuestoDisponible = x.t.PresupuestoDisponible,
+                    presupuestoFinalAutorizado = x.t.PresupuestoFinalAutorizado
                 }).ToListAsync();
 
             // ── GASTOS — se traen en una sola query con todos los TareaIds ──
@@ -144,7 +148,28 @@ public class TareasController : ControllerBase
             var tareaIdsConRutaActiva = (await _tareaRutaRepository.ObtenerTareaIdsConRutaActivaAsync(tareaIds)).ToHashSet();
             // ─────────────────────────────────────────────────────────────────────
 
-            var gastosPorTarea = await _db.GastosTarea.AsNoTracking().Where(g => tareaIds.Contains(g.IdTarea))
+            //var gastosPorTarea = await _db.GastosTarea.AsNoTracking().Where(g => tareaIds.Contains(g.IdTarea));
+
+
+            // -------  Nueva lógica para historial de solicitudes de presupuesto excedido ----------
+            // 
+            // Se optienen los minutos que se toman en cuenta para determinar si el cliente no dio respuesta a una solicitud
+            //Por default deben ser 1440 minitos = 24 horas
+            var minutosSegundaNotificacion =
+                await GetMinutosSegundaNotificacionAsync();
+
+            
+            // Se optiene el id del estatus del gasto con la clave SIN_RESPUESTA
+            var idEstatusGastoSinRespuesta =
+                await GetIdEstatusGastoSinRespuestaAsync(Constants.EstatusGasto.SIN_RESPUESTA);
+
+            //determina la fecha limite de acuerdo a minutosSegundaNotificacion
+            var fechaLimite = DateTime.Now.AddMinutes(
+                -minutosSegundaNotificacion);
+
+
+            var gastosPorTarea = await _db.GastosTarea.AsNoTracking()
+                .Where(g => tareaIds.Contains(g.IdTarea))
                 .OrderBy(g => g.IdGastoTarea)
                 .Select(g => new
                 {
@@ -165,7 +190,21 @@ public class TareasController : ControllerBase
                                 .Where(t => t.TrabajadorId == (long)g.RegisteredById)
                                 .Select(t => (t.Nombre + " " + t.ApellidoPaterno + " " + t.ApellidoMaterno).Trim())
                                 .FirstOrDefault()
-                            : null
+                            : null,
+                    execedePresupuesto = g.ExecedePresupuesto,
+                    idCatEstatusGasto = g.IdCatEstatusGasto,
+                    descripcionEstatus =
+                        _db.CatEstatusGasto
+                            .Where(p => g.IdCatEstatusGasto.HasValue &&
+                                        p.IdCatEstatusGasto == g.IdCatEstatusGasto.Value)
+                            .Select(p => p.Estatus)
+                            .FirstOrDefault() ?? string.Empty,
+                    fechaClienteRespuestaGasto = g.FechaClienteRespuestaGasto,
+                    excedeTiempoRespuesta =
+                        g.IdCatEstatusGasto == idEstatusGastoSinRespuesta &&
+                        g.ExecedePresupuesto == true &&
+                        g.FechaRegistro <= fechaLimite,
+                    minutosSegundaNotificacion
                 })
                 .ToListAsync();
             // ───────────────────────────────────────────────────────────────
@@ -195,13 +234,23 @@ public class TareasController : ControllerBase
                     presupuestoAsignado = t.presupuestoAsignado,
                     presupuestoUsado = t.presupuestoUsado,
                     presupuestoDisponible = t.presupuestoDisponible,
+                    presupuestoFinalAutorizado = t.presupuestoFinalAutorizado,
                     gastos = gastosPorTarea
                         .Where(g => g.IdTarea == t.tareaId)
                         .Select(g => new
                         {
                             g.idGasto,
                             g.gasto,
-                            g.fechaRegistro
+                            g.descripcion,
+                            g.nombreUsuario,
+                            g.fechaRegistro,
+                            g.execedePresupuesto,
+                            g.idCatEstatusGasto ,
+                            g.descripcionEstatus,
+                            g.fechaClienteRespuestaGasto,
+                            g.excedeTiempoRespuesta,
+                            g.minutosSegundaNotificacion
+
                         }).ToList()
                 }
             }).ToList();
@@ -237,6 +286,23 @@ public class TareasController : ControllerBase
         var requestId = Guid.NewGuid().ToString();
         try
         {
+
+            // Se optienen los minutos que se toman en cuenta para determinar si el cliente no dio respuesta a una solicitud
+            //Por default deben ser 1440 minitos = 24 horas
+            var minutosSegundaNotificacion =
+                await GetMinutosSegundaNotificacionAsync();
+
+            // Se optiene el id del estatus del gasto con la clave SIN_RESPUESTA
+            var idEstatusGastoSinRespuesta =
+                await GetIdEstatusGastoSinRespuestaAsync(Constants.EstatusGasto.SIN_RESPUESTA);
+
+            //determina la fecha limite de acuerdo a minutosSegundaNotificacion
+            var fechaLimite = DateTime.Now.AddMinutes(
+                -minutosSegundaNotificacion);
+
+
+
+
             var tarea = await (
                 from t in _db.Tareas.AsNoTracking()
                 join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
@@ -356,7 +422,21 @@ public class TareasController : ControllerBase
                                 .Where(t => t.TrabajadorId == (long)x.RegisteredById)
                                 .Select(t => (t.Nombre + " " + t.ApellidoPaterno + " " + t.ApellidoMaterno).Trim())
                                 .FirstOrDefault()
-                            : null
+                            : null,
+                    execedePresupuesto = x.ExecedePresupuesto,
+                    idCatEstatusGasto = x.IdCatEstatusGasto,
+                    descripcionEstatus =
+                        _db.CatEstatusGasto
+                            .Where(p => x.IdCatEstatusGasto.HasValue &&
+                                        p.IdCatEstatusGasto == x.IdCatEstatusGasto.Value)
+                            .Select(p => p.Estatus)
+                            .FirstOrDefault() ?? string.Empty,
+                    fechaClienteRespuestaGasto = x.FechaClienteRespuestaGasto,
+                    excedeTiempoRespuesta =
+                        x.IdCatEstatusGasto == idEstatusGastoSinRespuesta &&
+                        x.ExecedePresupuesto == true &&
+                        x.FechaRegistro <= fechaLimite,
+                    minutosSegundaNotificacion
                 })
                 .ToListAsync();
             // ─────────────────────────────────────────────────────────────────────
@@ -412,6 +492,7 @@ public class TareasController : ControllerBase
                     presupuestoAsignado = tarea.Tarea.PresupuestoAsignado,
                     presupuestoUsado = tarea.Tarea.PresupuestoUsado,
                     presupuestoDisponible = tarea.Tarea.PresupuestoDisponible,
+                    presupuestoFinalAutorizado = tarea.Tarea.PresupuestoFinalAutorizado,
                     gastos
                 }
                 // ─────────────────────────────────────────────────────────────────
@@ -536,6 +617,22 @@ public class TareasController : ControllerBase
                 // RN-001: si la tarea requiere seguimiento de ruta, el request debe traer una ruta activa
                 if (tarea.SeguimientoRutaActivo)
                 {
+                    // Compatibilidad: si el cliente (p. ej. una versión anterior de la app) no envía rutaId,
+                    // se usa la ruta activa de la tarea. Solo puede haber una ruta activa por tarea
+                    // (IniciarRutaAsync lo impide), así que no hay ambigüedad. Si no existe ninguna ruta
+                    // activa, se mantiene el error original más abajo.
+                    if (model.RutaId is null)
+                    {
+                        var rutaActivaDeLaTarea = await _tareaRutaRepository.ObtenerRutaActivaAsync(tarea.TareaId);
+                        if (rutaActivaDeLaTarea != null)
+                        {
+                            model.RutaId = rutaActivaDeLaTarea.Id;
+                            _logger.LogInformation(
+                                "PUT tasks/{TaskId}: el cliente no envió rutaId; se usó la ruta activa {RutaId} de la tarea {TareaId}.",
+                                taskId, rutaActivaDeLaTarea.Id, tarea.TareaId);
+                        }
+                    }
+
                     if (model.RutaId is null)
                     {
                         return BadRequest(new
@@ -721,6 +818,18 @@ public class TareasController : ControllerBase
         }
     }
 
+
+    /// <summary>
+    /// Obtiene los mensajes de error de una excepción y de todas sus excepciones
+    /// internas asociadas.
+    /// </summary>
+    /// <param name="ex">
+    /// Excepción de la que se desean obtener los mensajes de error.
+    /// </param>
+    /// <returns>
+    /// Lista de mensajes correspondientes a la excepción principal y a cada una
+    /// de sus excepciones internas, en el orden en que se encuentran anidadas.
+    /// </returns>
     private static List<string> GetErrorMessages(Exception ex)
     {
         var errors = new List<string>();
@@ -819,5 +928,80 @@ public class TareasController : ControllerBase
                 errors = GetErrorMessages(ex)
             });
         }
+    }
+
+    /// <summary>
+    /// Obtiene la cantidad de minutos configurada para determinar el tiempo de espera
+    /// antes de enviar una segunda notificación.
+    /// </summary>
+    /// <returns>
+    /// Cantidad de minutos configurada para la segunda notificación.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// Se produce cuando la configuración no existe o su valor no es un número entero
+    /// válido mayor que cero.
+    /// </exception>
+    private async Task<int> GetMinutosSegundaNotificacionAsync()
+    {
+        var configuracion = await _db.ConfiguracionNotificacion
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x =>
+                x.Clave == Constants.ConfiguracionNotificacion
+                    .TIEMPO_SEGUNDA_NOTIFICACION_MINUTOS);
+
+        return GetConfigInt(configuracion?.Valor);
+    }
+
+    /// <summary>
+    /// Convierte el valor de una configuración a un número entero válido.
+    /// </summary>
+    /// <param name="valor">
+    /// Valor de configuración que se desea convertir.
+    /// </param>
+    /// <returns>
+    /// Número entero obtenido a partir del valor proporcionado.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// Se produce cuando el valor no es un número entero válido o es menor o igual a cero.
+    /// </exception>
+    private int GetConfigInt(string? valor)
+    {
+        if (!int.TryParse(valor, out var resultado) || resultado <= 0)
+        {
+            throw new InvalidOperationException(
+                $"La configuración '{valor}' debe ser un número entero mayor a cero.");
+        }
+
+        return resultado;
+    }
+
+
+    /// <summary>
+    /// Obtiene el identificador del estatus de gasto correspondiente a la descripción
+    /// proporcionada.
+    /// </summary>
+    /// <param name="estatusDesc">
+    /// Descripción del estatus de gasto que se desea consultar.
+    /// </param>
+    /// <returns>
+    /// Identificador del estatus de gasto encontrado.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// Se produce cuando no existe un estatus de gasto con la descripción proporcionada.
+    /// </exception>
+    private async Task<int> GetIdEstatusGastoSinRespuestaAsync(string estatusDesc)
+    {
+        var estatus = await _db.CatEstatusGasto
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x =>
+                x.Estatus == estatusDesc);
+
+        if (estatus == null)
+        {
+            throw new InvalidOperationException(
+                $"No se encontró el estatus de gasto '{estatusDesc}'.");
+        }
+
+        return estatus.IdCatEstatusGasto;
     }
 }

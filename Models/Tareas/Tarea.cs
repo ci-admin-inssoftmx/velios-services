@@ -85,4 +85,7 @@ public class Tarea
 
     [Column("AsistenciaDinamicaActiva")]
     public bool AsistenciaDinamicaActiva { get; set; }
+
+    [Column("PresupuestoFinalAutorizado", TypeName = "decimal(18,2)")]
+    public decimal? PresupuestoFinalAutorizado { get; set; }
 }
