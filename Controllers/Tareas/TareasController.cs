@@ -68,7 +68,7 @@ public class TareasController : ControllerBase
                 from tr in trGroup.DefaultIfEmpty()
                 join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
                 from sv in svGroup.DefaultIfEmpty()
-                where !t.IsDeleted && !c.IsDeleted 
+                where !t.IsDeleted && !c.IsDeleted
                 select new { t, c, e, p, ct, tr, sv };
 
             // ── FILTRO POR USUARIO ──────────────────────────────────────────
@@ -536,6 +536,22 @@ public class TareasController : ControllerBase
                 // RN-001: si la tarea requiere seguimiento de ruta, el request debe traer una ruta activa
                 if (tarea.SeguimientoRutaActivo)
                 {
+                    // Compatibilidad: si el cliente (p. ej. una versión anterior de la app) no envía rutaId,
+                    // se usa la ruta activa de la tarea. Solo puede haber una ruta activa por tarea
+                    // (IniciarRutaAsync lo impide), así que no hay ambigüedad. Si no existe ninguna ruta
+                    // activa, se mantiene el error original más abajo.
+                    if (model.RutaId is null)
+                    {
+                        var rutaActivaDeLaTarea = await _tareaRutaRepository.ObtenerRutaActivaAsync(tarea.TareaId);
+                        if (rutaActivaDeLaTarea != null)
+                        {
+                            model.RutaId = rutaActivaDeLaTarea.Id;
+                            _logger.LogInformation(
+                                "PUT tasks/{TaskId}: el cliente no envió rutaId; se usó la ruta activa {RutaId} de la tarea {TareaId}.",
+                                taskId, rutaActivaDeLaTarea.Id, tarea.TareaId);
+                        }
+                    }
+
                     if (model.RutaId is null)
                     {
                         return BadRequest(new
