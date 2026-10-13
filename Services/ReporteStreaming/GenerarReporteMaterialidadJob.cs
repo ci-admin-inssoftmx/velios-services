@@ -14,21 +14,28 @@ namespace velios.Api.Services
     /// </summary>
     public class GenerarReporteMaterialidadJob
     {
+        private const int TtlHorasEnCurso = 6;      // tarea aún abierta: las evidencias pueden seguir creciendo
+        private const int TtlDiasFinalizada = 30;   // tarea FINALIZADO: el reporte ya no cambia
         private readonly IReporteMaterialidadService _reporteMaterialidadService;
         private readonly IProgresoStore _progresoStore;
         private readonly IReporteCacheRepository _reporteCacheRepository;
         private readonly IAlmacenamientoService _almacenamientoService;
+        private readonly IReporteMaterialidadRepository _reporteMaterialidadRepository;
+
+
 
         public GenerarReporteMaterialidadJob(
             IReporteMaterialidadService reporteMaterialidadService,
             IProgresoStore progresoStore,
             IReporteCacheRepository reporteCacheRepository,
-            IAlmacenamientoService almacenamientoService)
+            IAlmacenamientoService almacenamientoService,
+            IReporteMaterialidadRepository reporteMaterialidadRepository)
         {
             _reporteMaterialidadService = reporteMaterialidadService;
             _progresoStore = progresoStore;
             _reporteCacheRepository = reporteCacheRepository;
             _almacenamientoService = almacenamientoService;
+            _reporteMaterialidadRepository = reporteMaterialidadRepository;
         }
 
         // Firma pensada para BackgroundJob.Enqueue<GenerarReporteMaterialidadJob>(j => j.Ejecutar(jobId, claveHash, tareaId));
@@ -52,11 +59,17 @@ namespace velios.Api.Services
                 await using var ms = new MemoryStream(pdfBytes);
                 var url = await _almacenamientoService.Guardar(ms, nombreArchivo);
 
+                var tarea = await _reporteMaterialidadRepository.ObtenerTareaAsync(tareaId);
+                var finalizada = tarea?.EstatusCodigo == "FINALIZADO";
+                var expiracion = finalizada
+                    ? DateTime.UtcNow.AddDays(TtlDiasFinalizada)
+                    : DateTime.UtcNow.AddHours(TtlHorasEnCurso);
+
                 await _reporteCacheRepository.MarcarCompletado(
                     claveHash,
                     urlDescarga: url,
                     rutaAlmacenamiento: url,
-                    fechaExpiracion: DateTime.UtcNow.AddHours(6)); // TTL corto: las evidencias de una tarea pueden seguir creciendo
+                    fechaExpiracion: expiracion);
 
                 _progresoStore.MarcarCompletado(jobId, url);
             }
