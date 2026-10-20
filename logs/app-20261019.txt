@@ -1,0 +1,3063 @@
+2026-10-19 16:59:02.512 [INF] velios.Api
+      ENV: Development | RutaBase: C:\dev\velios-local\ReportesMaterialidad
+2026-10-19 16:59:02.660 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Start installing Hangfire SQL objects...
+2026-10-19 16:59:05.294 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Hangfire SQL objects installed.
+2026-10-19 16:59:06.368 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-10-19 16:59:06.566 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-10-19 16:59:06.825 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-10-19 16:59:06.828 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-10-19 16:59:06.913 [INF] Hangfire.BackgroundJobServer
+      Starting Hangfire Server using job storage: 'SQL Server: 54.39.102.101@VELIOS_DEV'
+2026-10-19 16:59:06.936 [INF] Hangfire.BackgroundJobServer
+      Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-10-19 16:59:06.939 [INF] Hangfire.BackgroundJobServer
+      Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-10-19 16:59:06.988 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-10-19 16:59:06.991 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-10-19 16:59:06.994 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-10-19 16:59:07.129 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:46456:d11666e0 successfully announced in 140.5605 ms
+2026-10-19 16:59:07.164 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:46456:d11666e0 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-10-19 16:59:07.438 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:46456:d11666e0 all the dispatchers started
+2026-10-19 16:59:10.014 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-10-19 16:59:10.320 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-10-19 16:59:10.527 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 529.2237ms
+2026-10-19 16:59:10.535 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-10-19 16:59:25.665 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-10-19 16:59:25.673 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-10-19 16:59:25.784 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 117.8781ms
+2026-10-19 16:59:25.794 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - null null
+2026-10-19 16:59:25.797 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - null null
+2026-10-19 16:59:25.798 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - null null
+2026-10-19 16:59:25.802 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-bundle.js CT=null Len=null
+2026-10-19 16:59:25.829 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-standalone-preset.js CT=null Len=null
+2026-10-19 16:59:25.832 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui.css CT=null Len=null
+2026-10-19 16:59:25.862 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-10-19 16:59:25.867 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-10-19 16:59:25.869 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-10-19 16:59:25.871 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-10-19 16:59:25.876 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 11.1731ms
+2026-10-19 16:59:25.914 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 76.034ms
+2026-10-19 16:59:25.948 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2026-10-19 16:59:25.949 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-10-19 16:59:25.954 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - 200 230007 text/javascript 157.9081ms
+2026-10-19 16:59:25.955 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - 200 152035 text/css 159.347ms
+2026-10-19 16:59:25.970 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-10-19 16:59:25.973 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - 200 1426050 text/javascript 178.2341ms
+2026-10-19 16:59:25.985 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 146.2367ms
+2026-10-19 16:59:26.147 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-10-19 16:59:26.150 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-10-19 16:59:26.277 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 129.8207ms
+2026-10-19 16:59:46.580 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/ReporteMaterialidadPreeliminar/tarea/7 - null null
+2026-10-19 16:59:46.626 [INF] velios.Api
+      Incoming: GET /api/ReporteMaterialidadPreeliminar/tarea/7 CT=null Len=null
+2026-10-19 16:59:46.654 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api)'
+2026-10-19 16:59:46.716 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "GenerarPorTarea", controller = "ReporteMaterialidadPreeliminar"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GenerarPorTarea(Int32) on controller velios.Api.Controllers.ReporteMaterialidadPreeliminarController (velios.Api).
+2026-10-19 16:59:47.804 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 16:59:47.807 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 16:59:47.810 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 16:59:47.813 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 16:59:47.816 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 16:59:48.648 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api) in 1919.2902ms
+2026-10-19 16:59:48.652 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api)'
+2026-10-19 16:59:48.713 [ERR] Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware
+      An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No se encontró la tarea con id 7.
+   at velios.Api.Services.ReportePreeliminarService.GenerarPdfPorTareaAsync(Int32 tareaId) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs:line 59
+   at velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea(Int32 tareaId) in C:\Proyectos Inssoft\velios-services\Controllers\ReportePreeliminar\ReporteMaterialidadPreeliminarController.cs:line 23
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Program.<>c__DisplayClass0_0.<<<Main>$>b__8>d.MoveNext() in C:\Proyectos Inssoft\velios-services\Program.cs:line 289
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-10-19 16:59:48.728 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/ReporteMaterialidadPreeliminar/tarea/7 - 500 null text/plain; charset=utf-8 2149.6413ms
+2026-10-19 17:00:01.168 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/ReporteMaterialidadPreeliminar/tarea/2864 - null null
+2026-10-19 17:00:01.178 [INF] velios.Api
+      Incoming: GET /api/ReporteMaterialidadPreeliminar/tarea/2864 CT=null Len=null
+2026-10-19 17:00:01.183 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api)'
+2026-10-19 17:00:01.186 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "GenerarPorTarea", controller = "ReporteMaterialidadPreeliminar"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GenerarPorTarea(Int32) on controller velios.Api.Controllers.ReporteMaterialidadPreeliminarController (velios.Api).
+2026-10-19 17:00:01.355 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/proveedores/66/logo.png
+2026-10-19 17:00:01.358 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/proveedores/66/logo.png
+2026-10-19 17:00:01.966 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:00:01.968 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:00:01.971 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:00:01.973 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:00:02.722 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 1351.6515ms - 200
+2026-10-19 17:00:02.725 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 1372.4335ms - 200
+2026-10-19 17:00:03.305 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/ff84b0d3-1db8-41e6-9499-c716dcbf940c.jpg
+2026-10-19 17:00:03.308 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/ff84b0d3-1db8-41e6-9499-c716dcbf940c.jpg
+2026-10-19 17:00:03.314 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:00:03.315 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:00:03.322 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:00:03.324 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:00:03.331 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/03825553-119e-4b99-beca-7367675fe959.jpg
+2026-10-19 17:00:03.333 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/03825553-119e-4b99-beca-7367675fe959.jpg
+2026-10-19 17:00:03.336 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:00:03.338 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:00:03.377 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:00:03.380 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:00:03.382 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/d798036b-ff81-488a-8312-27d669209703.jpg
+2026-10-19 17:00:03.385 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/d798036b-ff81-488a-8312-27d669209703.jpg
+2026-10-19 17:00:03.392 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:00:03.395 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:00:03.398 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:00:03.400 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:00:03.420 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 110.1735ms - 200
+2026-10-19 17:00:03.423 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 117.298ms - 200
+2026-10-19 17:00:03.538 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 202.9184ms - 200
+2026-10-19 17:00:03.540 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 209.7639ms - 200
+2026-10-19 17:00:03.562 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 235.5058ms - 200
+2026-10-19 17:00:03.564 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 242.4769ms - 200
+2026-10-19 17:00:03.577 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 258.4605ms - 403
+2026-10-19 17:00:03.580 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 265.7523ms - 403
+2026-10-19 17:00:03.583 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 242.7181ms - 403
+2026-10-19 17:00:03.585 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 249.8563ms - 403
+2026-10-19 17:00:03.588 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 205.9271ms - 200
+2026-10-19 17:00:03.590 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 249.322ms - 200
+2026-10-19 17:00:03.626 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 227.8692ms - 403
+2026-10-19 17:00:03.629 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 236.7804ms - 403
+2026-10-19 17:00:03.653 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 265.8791ms - 200
+2026-10-19 17:00:03.655 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 272.9917ms - 200
+2026-10-19 17:00:03.745 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 342.1365ms - 200
+2026-10-19 17:00:03.747 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 349.3574ms - 200
+2026-10-19 17:00:04.264 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api) in 3074.7143ms
+2026-10-19 17:00:04.267 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api)'
+2026-10-19 17:00:04.335 [ERR] Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware
+      An unhandled exception has occurred while executing the request.
+QuestPDF.Drawing.Exceptions.DocumentLayoutException: The provided document content contains conflicting size constraints. For example, some elements may require more space than is available. 
+
+The layout issue is likely present in the following part of the document: 
+
+-> Document
+
+-> Page
+
+-> Page
+
+-> Content
+
+-> Content
+
+-> In method:   c =>
+                    CrearContenidoPrincipalConSidebar(c, reporte, clienteDisplay, direccionDisplay, _logoBytes, archivosTarea, _pdfIconBytes, _personaIconBytes, _documentoIconBytes, _carpetaIconBytes)
+   Called from: ConstruirPdfAsync
+   Source path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+   Line number: 411
+
+
+
+To learn more, please analyse the document measurement of the problematic location: 
+
+🔴 Padding
+===========
+Available Space: (Width: 555.000, Height: 625.200)
+Space Plan: Wrap
+Wrap Reason: Forwarded from child
+-----------
+Top: 0
+Right: 0
+Bottom: 0
+Left: 28
+
+
+   🔴 Row
+   =======
+   Available Space: (Width: 527.000, Height: 625.200)
+   Space Plan: Wrap
+   Wrap Reason: One of the items does not fit (even partially) in the available space.
+   -------
+   Content Direction: LeftToRight
+
+
+      🟢 Padding
+      ===========
+      Available Space: (Width: 352.000, Height: 625.200)
+      Space Plan: FullRender (Width: 352.000, Height: 347.600)
+      -----------
+      Top: 0
+      Right: 12
+      Bottom: 0
+      Left: 0
+
+
+         🟢 Column
+         ==========
+         Available Space: (Width: 340.000, Height: 625.200)
+         Space Plan: FullRender (Width: 340.000, Height: 347.600)
+         ----------
+
+
+            🟢 SourceCodePointer
+            =====================
+            Available Space: (Width: 340.000, Height: 625.200)
+            Space Plan: FullRender (Width: 0.000, Height: 0.000)
+            ---------------------
+            Method Name: lc => { }
+            Called From: CrearContenidoPrincipalConSidebar
+            File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+            Line Number: 720
+
+
+               🟢 Empty
+               =========
+               Available Space: (Width: 340.000, Height: 625.200)
+               Space Plan: FullRender (Width: 0.000, Height: 0.000)
+               ---------
+
+
+            🟢 SourceCodePointer
+            =====================
+            Available Space: (Width: 340.000, Height: 611.200)
+            Space Plan: FullRender (Width: 340.000, Height: 154.000)
+            ---------------------
+            Method Name: c =>
+                    CrearSeccionConIcono(c, "Información general del cliente", content =>
+                    {
+                        content.Item().Element(x => CrearFilaSimple(x, "Nombre", clienteDisplay));
+                        content.Item().Element(x => CrearFilaSimple(x, "Razón Social", cliente.RazonSocial));
+                        content.Item().Element(x => CrearFilaSimple(x, "Número de teléfono de la empresa",
+                            !string.IsNullOrWhiteSpace(tarea.TelefonoCentroTrabajo) ? tarea.TelefonoCentroTrabajo : cliente.Telefono));
+                        content.Item().Element(x => CrearFilaSimple(x, "Email del supervisor", tarea.EmailSupervisor));
+                    }, documentoIconBytes)
+            Called From: CrearContenidoPrincipalConSidebar
+            File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+            Line Number: 722
+
+
+               🟢 Column
+               ==========
+               Available Space: (Width: 340.000, Height: 611.200)
+               Space Plan: FullRender (Width: 340.000, Height: 154.000)
+               ----------
+
+
+                  🟢 Row
+                  =======
+                  Available Space: (Width: 340.000, Height: 611.200)
+                  Space Plan: FullRender (Width: 340.000, Height: 34.000)
+                  -------
+                  Content Direction: LeftToRight
+
+
+                     🟢 Constrained
+                     ===============
+                     Available Space: (Width: 34.000, Height: 34.000)
+                     Space Plan: FullRender (Width: 34.000, Height: 34.000)
+                     ---------------
+                     Content Direction: LeftToRight
+                     Min Width: -
+                     Max Width: -
+                     Min Height: 34
+                     Max Height: 34
+                     Enforce Size When Empty: False
+
+
+                        🟢 StyledBox
+                        =============
+                        Available Space: (Width: 34.000, Height: 34.000)
+                        Space Plan: FullRender (Width: 34.000, Height: 34.000)
+                        -------------
+                        Border Left: 1
+                        Border Top: 1
+                        Border Right: 1
+                        Border Bottom: 1
+                        Border Radius Top Left: 0
+                        Border Radius Top Right: 0
+                        Border Radius Bottom Left: 0
+                        Border Radius Bottom Right: 0
+                        Border Alignment: -
+                        Background Color: #F9FAFB
+                        Background Gradient Angle: -
+                        Border Color: #D1D5DB
+                        Border Gradient Angle: -
+                        Shadow: -
+
+
+                           🟢 Alignment
+                           =============
+                           Available Space: (Width: 34.000, Height: 34.000)
+                           Space Plan: FullRender (Width: 34.000, Height: 34.000)
+                           -------------
+                           Vertical: Middle
+                           Horizontal: Center
+
+
+                              🟢 SourceCodePointer
+                              =====================
+                              Available Space: (Width: 34.000, Height: 34.000)
+                              Space Plan: FullRender (Width: 34.000, Height: 34.000)
+                              ---------------------
+                              Method Name: icon =>
+                    {
+                        if (documentoIconBytes is not null && documentoIconBytes.Length > 0)
+                            icon.Padding(6).Image(documentoIconBytes, ImageScaling.FitArea);
+                        else
+                            icon.Text("≡").FontSize(18).Bold().FontColor("#24364D");
+                    }
+                              Called From: CrearSeccionConIcono
+                              File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+                              Line Number: 1109
+
+
+                                 🟢 Padding
+                                 ===========
+                                 Available Space: (Width: 34.000, Height: 34.000)
+                                 Space Plan: FullRender (Width: 34.000, Height: 34.000)
+                                 -----------
+                                 Top: 6
+                                 Right: 6
+                                 Bottom: 6
+                                 Left: 6
+
+
+                                    🟢 AspectRatio
+                                    ===============
+                                    Available Space: (Width: 22.000, Height: 22.000)
+                                    Space Plan: FullRender (Width: 22.000, Height: 22.000)
+                                    ---------------
+                                    Content Direction: LeftToRight
+                                    Ratio: 1
+                                    Option: FitArea
+
+
+                                       🟢 Image
+                                       =========
+                                       Available Space: (Width: 22.000, Height: 22.000)
+                                       Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                                       ---------
+                                       Document Image: QuestPDF.Infrastructure.Image
+
+
+                     🟢 Empty
+                     =========
+                     Available Space: (Width: 10.000, Height: 34.000)
+                     Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                     ---------
+
+
+                     🟢 Alignment
+                     =============
+                     Available Space: (Width: 296.000, Height: 34.000)
+                     Space Plan: FullRender (Width: 149.424, Height: 13.200)
+                     -------------
+                     Vertical: Middle
+                     Horizontal: -
+
+
+                        🟢 TextBlock
+                        =============
+                        Available Space: (Width: 296.000, Height: 34.000)
+                        Space Plan: FullRender (Width: 149.424, Height: 13.200)
+                        -------------
+                        Alignment: Start
+                        Content Direction: LeftToRight
+                        Line Clamp: -
+                        Line Clamp Ellipsis: -
+                        Paragraph Spacing: 0
+                        Paragraph First Line Indentation: 0
+                        Text: Información general del cliente
+
+
+                  🟢 Padding
+                  ===========
+                  Available Space: (Width: 340.000, Height: 577.200)
+                  Space Plan: FullRender (Width: 340.000, Height: 120.000)
+                  -----------
+                  Top: 10
+                  Right: 0
+                  Bottom: 0
+                  Left: 0
+
+
+                     🟢 Column
+                     ==========
+                     Available Space: (Width: 340.000, Height: 567.200)
+                     Space Plan: FullRender (Width: 340.000, Height: 110.000)
+                     ----------
+
+
+                        🟢 SourceCodePointer
+                        =====================
+                        Available Space: (Width: 340.000, Height: 567.200)
+                        Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                        ---------------------
+                        Method Name: x => CrearFilaSimple(x, "Nombre", clienteDisplay)
+                        Called From: CrearContenidoPrincipalConSidebar
+                        File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+                        Line Number: 725
+
+
+                           🟢 StyledBox
+                           =============
+                           Available Space: (Width: 340.000, Height: 567.200)
+                           Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                           -------------
+                           Border Left: 0
+                           Border Top: 0
+                           Border Right: 0
+                           Border Bottom: 1
+                           Border Radius Top Left: 0
+                           Border Radius Top Right: 0
+                           Border Radius Bottom Left: 0
+                           Border Radius Bottom Right: 0
+                           Border Alignment: -
+                           Background Color: #00000000
+                           Background Gradient Angle: -
+                           Border Color: #D1D5DB
+                           Border Gradient Angle: -
+                           Shadow: -
+
+
+                              🟢 Padding
+                              ===========
+                              Available Space: (Width: 340.000, Height: 567.200)
+                              Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                              -----------
+                              Top: 0
+                              Right: 0
+                              Bottom: 8
+                              Left: 0
+
+
+                                 🟢 Row
+                                 =======
+                                 Available Space: (Width: 340.000, Height: 559.200)
+                                 Space Plan: FullRender (Width: 340.000, Height: 10.800)
+                                 -------
+                                 Content Direction: LeftToRight
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 113.333, Height: 10.800)
+                                    Space Plan: FullRender (Width: 32.400, Height: 10.800)
+                                    -------------
+                                    Alignment: Start
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: Nombre
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 226.667, Height: 10.800)
+                                    Space Plan: FullRender (Width: 53.303, Height: 10.800)
+                                    -------------
+                                    Alignment: Start
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: Lunes prueba
+
+
+                        🟢 SourceCodePointer
+                        =====================
+                        Available Space: (Width: 340.000, Height: 540.400)
+                        Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                        ---------------------
+                        Method Name: x => CrearFilaSimple(x, "Razón Social", cliente.RazonSocial)
+                        Called From: CrearContenidoPrincipalConSidebar
+                        File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+                        Line Number: 726
+
+
+                           🟢 StyledBox
+                           =============
+                           Available Space: (Width: 340.000, Height: 540.400)
+                           Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                           -------------
+                           Border Left: 0
+                           Border Top: 0
+                           Border Right: 0
+                           Border Bottom: 1
+                           Border Radius Top Left: 0
+                           Border Radius Top Right: 0
+                           Border Radius Bottom Left: 0
+                           Border Radius Bottom Right: 0
+                           Border Alignment: -
+                           Background Color: #00000000
+                           Background Gradient Angle: -
+                           Border Color: #D1D5DB
+                           Border Gradient Angle: -
+                           Shadow: -
+
+
+                              🟢 Padding
+                              ===========
+                              Available Space: (Width: 340.000, Height: 540.400)
+                              Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                              -----------
+                              Top: 0
+                              Right: 0
+                              Bottom: 8
+                              Left: 0
+
+
+                                 🟢 Row
+                                 =======
+                                 Available Space: (Width: 340.000, Height: 532.400)
+                                 Space Plan: FullRender (Width: 340.000, Height: 10.800)
+                                 -------
+                                 Content Direction: LeftToRight
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 113.333, Height: 10.800)
+                                    Space Plan: FullRender (Width: 49.901, Height: 10.800)
+                                    -------------
+                                    Alignment: Start
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: Razón Social
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 226.667, Height: 10.800)
+                                    Space Plan: FullRender (Width: 97.839, Height: 10.800)
+                                    -------------
+                                    Alignment: Start
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: Lunes prueboa SA de CV
+
+
+                        🟢 SourceCodePointer
+                        =====================
+                        Available Space: (Width: 340.000, Height: 513.600)
+                        Space Plan: FullRender (Width: 340.000, Height: 29.600)
+                        ---------------------
+                        Method Name: x => CrearFilaSimple(x, "Número de teléfono de la empresa",
+                            !string.IsNullOrWhiteSpace(tarea.TelefonoCentroTrabajo) ? tarea.TelefonoCentroTrabajo : cliente.Telefono)
+                        Called From: CrearContenidoPrincipalConSidebar
+                        File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+                        Line Number: 727
+
+
+                           🟢 StyledBox
+                           =============
+                           Available Space: (Width: 340.000, Height: 513.600)
+                           Space Plan: FullRender (Width: 340.000, Height: 29.600)
+                           -------------
+                           Border Left: 0
+                           Border Top: 0
+                           Border Right: 0
+                           Border Bottom: 1
+                           Border Radius Top Left: 0
+                           Border Radius Top Right: 0
+                           Border Radius Bottom Left: 0
+                           Border Radius Bottom Right: 0
+                           Border Alignment: -
+                           Background Color: #00000000
+                           Background Gradient Angle: -
+                           Border Color: #D1D5DB
+                           Border Gradient Angle: -
+                           Shadow: -
+
+
+                              🟢 Padding
+                              ===========
+                              Available Space: (Width: 340.000, Height: 513.600)
+                              Space Plan: FullRender (Width: 340.000, Height: 29.600)
+                              -----------
+                              Top: 0
+                              Right: 0
+                              Bottom: 8
+                              Left: 0
+
+
+                                 🟢 Row
+                                 =======
+                                 Available Space: (Width: 340.000, Height: 505.600)
+                                 Space Plan: FullRender (Width: 340.000, Height: 21.600)
+                                 -------
+                                 Content Direction: LeftToRight
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 113.333, Height: 21.600)
+                                    Space Plan: FullRender (Width: 101.133, Height: 21.600)
+                                    -------------
+                                    Alignment: Start
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: Número de teléfono de la empresa
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 226.667, Height: 21.600)
+                                    Space Plan: FullRender (Width: 52.200, Height: 10.800)
+                                    -------------
+                                    Alignment: Start
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: 5544354567
+
+
+                        🟢 SourceCodePointer
+                        =====================
+                        Available Space: (Width: 340.000, Height: 476.000)
+                        Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                        ---------------------
+                        Method Name: x => CrearFilaSimple(x, "Email del supervisor", tarea.EmailSupervisor)
+                        Called From: CrearContenidoPrincipalConSidebar
+                        File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+                        Line Number: 729
+
+
+                           🟢 StyledBox
+                           =============
+                           Available Space: (Width: 340.000, Height: 476.000)
+                           Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                           -------------
+                           Border Left: 0
+                           Border Top: 0
+                           Border Right: 0
+                           Border Bottom: 1
+                           Border Radius Top Left: 0
+                           Border Radius Top Right: 0
+                           Border Radius Bottom Left: 0
+                           Border Radius Bottom Right: 0
+                           Border Alignment: -
+                           Background Color: #00000000
+                           Background Gradient Angle: -
+                           Border Color: #D1D5DB
+                           Border Gradient Angle: -
+                           Shadow: -
+
+
+                              🟢 Padding
+                              ===========
+                              Available Space: (Width: 340.000, Height: 476.000)
+                              Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                              -----------
+                              Top: 0
+                              Right: 0
+                              Bottom: 8
+                              Left: 0
+
+
+                                 🟢 Row
+                                 =======
+                                 Available Space: (Width: 340.000, Height: 468.000)
+                                 Space Plan: FullRender (Width: 340.000, Height: 10.800)
+                                 -------
+                                 Content Direction: LeftToRight
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 113.333, Height: 10.800)
+                                    Space Plan: FullRender (Width: 79.479, Height: 10.800)
+                                    -------------
+                                    Alignment: Start
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: Email del supervisor
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 226.667, Height: 10.800)
+                                    Space Plan: FullRender (Width: 132.147, Height: 10.800)
+                                    -------------
+                                    Alignment: Start
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: prebaoscatvioviernes@gmail.com
+
+
+            🟢 SourceCodePointer
+            =====================
+            Available Space: (Width: 340.000, Height: 443.200)
+            Space Plan: FullRender (Width: 340.000, Height: 165.600)
+            ---------------------
+            Method Name: c =>
+                    CrearSeccionConIcono(c, "Información de tarea", content =>
+                    {
+                        content.Item().Element(x => CrearFilaSimple(x, "Nombre", (tarea.Titulo ?? "").Replace("/", "").Trim()));
+
+                        content.Item().PaddingTop(14).Text(text =>
+                        {
+                            text.Span("Descripción de la actividad a desarrollar: ")
+                                .SemiBold().FontSize(9).FontColor("#24364D");
+                            text.Span(tarea.Descripcion ?? "N/A")
+                                .FontSize(9).FontColor("#6B7280");
+                        });
+
+                        if (tarea.Observaciones.Count > 0)
+                        {
+                            content.Item().PaddingTop(10).Padding(8).Column(obs =>
+                            {
+                                obs.Item().Text("Observaciones:").SemiBold().FontSize(9).FontColor("#24364D");
+
+                                obs.Item().PaddingTop(4).Row(obsRow =>
+                                {
+                                    var mitad = (int)Math.Ceiling(tarea.Observaciones.Count / 2.0);
+                                    var columnaIzq = tarea.Observaciones.Take(mitad).ToList();
+                                    var columnaDer = tarea.Observaciones.Skip(mitad).ToList();
+
+                                    obsRow.RelativeItem().Column(col =>
+                                    {
+                                        col.Spacing(2);
+                                        foreach (var item in columnaIzq)
+                                            col.Item().Row(r =>
+                                            {
+                                                r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
+                                                r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
+                                            });
+                                    });
+
+                                    obsRow.ConstantItem(8);
+
+                                    obsRow.RelativeItem().Column(col =>
+                                    {
+                                        col.Spacing(2);
+                                        foreach (var item in columnaDer)
+                                            col.Item().Row(r =>
+                                            {
+                                                r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
+                                                r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
+                                            });
+                                    });
+                                });
+                            });
+                        }
+
+                        if (archivosTarea != null && archivosTarea.Count > 0)
+                        {
+                            content.Item().PaddingTop(10).Element(el =>
+                                CrearSeccionConIcono(el, "Archivos adjuntos de la tarea", filesContent =>
+                                {
+                                    filesContent.Item().Column(fc =>
+                                    {
+                                        foreach (var a in archivosTarea)
+                                        {
+                                            fc.Item().PaddingTop(6).Row(r =>
+                                            {
+                                                r.ConstantItem(36).Height(36).AlignCenter().AlignMiddle().Element(icon =>
+                                                {
+                                                    if (a.Extension == ".pdf" && pdfIconBytes is not null && pdfIconBytes.Length > 0)
+                                                    {
+                                                        icon.Background(Colors.White).Border(1).BorderColor("#D1D5DB")
+                                                            .AlignCenter().AlignMiddle()
+                                                            .Element(img => img.Image(pdfIconBytes, ImageScaling.FitArea));
+                                                    }
+                                                    else
+                                                    {
+                                                        var emoji = a.Extension switch
+                                                        {
+                                                            ".xls" or ".xlsx" => "📊",
+                                                            ".ppt" or ".pptx" => "📽️",
+                                                            ".doc" or ".docx" => "📄",
+                                                            ".pdf" => "📕",
+                                                            ".zip" or ".rar" => "🗜️",
+                                                            ".png" or ".jpg" or ".jpeg" or ".gif" or ".bmp" => "🖼️",
+                                                            _ => "📁"
+                                                        };
+                                                        var label = (a.Extension ?? string.Empty).TrimStart('.').ToUpperInvariant();
+                                                        if (string.IsNullOrWhiteSpace(label)) label = "FILE";
+
+                                                        icon.Background(Colors.White).Border(1).BorderColor("#D1D5DB")
+                                                            .AlignCenter().AlignMiddle()
+                                                            .Column(ic =>
+                                                            {
+                                                                ic.Item().Text(emoji).FontSize(12);
+                                                                ic.Item().Text(label).FontSize(8).FontColor("#6B7280");
+                                                            });
+                                                    }
+                                                });
+
+                                                r.ConstantItem(8);
+
+                                                r.RelativeItem().Column(info =>
+                                                {
+                                                    info.Item().Text(text =>
+                                                    {
+                                                        if (!string.IsNullOrWhiteSpace(a.Url))
+                                                            text.Hyperlink(a.FileName, a.Url).FontSize(8).FontColor("#1D4ED8").Underline();
+                                                        else
+                                                            text.Span("N/A").FontSize(8).FontColor("#6B7280");
+                                                    });
+                                                });
+                                            });
+                                        }
+                                    });
+                                }, documentoIconBytes));
+                        }
+                    }, documentoIconBytes)
+            Called From: CrearContenidoPrincipalConSidebar
+            File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+            Line Number: 732
+
+
+               🟢 Column
+               ==========
+               Available Space: (Width: 340.000, Height: 443.200)
+               Space Plan: FullRender (Width: 340.000, Height: 165.600)
+               ----------
+
+
+                  🟢 Row
+                  =======
+                  Available Space: (Width: 340.000, Height: 443.200)
+                  Space Plan: FullRender (Width: 340.000, Height: 34.000)
+                  -------
+                  Content Direction: LeftToRight
+
+
+                     🟢 Constrained
+                     ===============
+                     Available Space: (Width: 34.000, Height: 34.000)
+                     Space Plan: FullRender (Width: 34.000, Height: 34.000)
+                     ---------------
+                     Content Direction: LeftToRight
+                     Min Width: -
+                     Max Width: -
+                     Min Height: 34
+                     Max Height: 34
+                     Enforce Size When Empty: False
+
+
+                        🟢 StyledBox
+                        =============
+                        Available Space: (Width: 34.000, Height: 34.000)
+                        Space Plan: FullRender (Width: 34.000, Height: 34.000)
+                        -------------
+                        Border Left: 1
+                        Border Top: 1
+                        Border Right: 1
+                        Border Bottom: 1
+                        Border Radius Top Left: 0
+                        Border Radius Top Right: 0
+                        Border Radius Bottom Left: 0
+                        Border Radius Bottom Right: 0
+                        Border Alignment: -
+                        Background Color: #F9FAFB
+                        Background Gradient Angle: -
+                        Border Color: #D1D5DB
+                        Border Gradient Angle: -
+                        Shadow: -
+
+
+                           🟢 Alignment
+                           =============
+                           Available Space: (Width: 34.000, Height: 34.000)
+                           Space Plan: FullRender (Width: 34.000, Height: 34.000)
+                           -------------
+                           Vertical: Middle
+                           Horizontal: Center
+
+
+                              🟢 SourceCodePointer
+                              =====================
+                              Available Space: (Width: 34.000, Height: 34.000)
+                              Space Plan: FullRender (Width: 34.000, Height: 34.000)
+                              ---------------------
+                              Method Name: icon =>
+                    {
+                        if (documentoIconBytes is not null && documentoIconBytes.Length > 0)
+                            icon.Padding(6).Image(documentoIconBytes, ImageScaling.FitArea);
+                        else
+                            icon.Text("≡").FontSize(18).Bold().FontColor("#24364D");
+                    }
+                              Called From: CrearSeccionConIcono
+                              File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+                              Line Number: 1109
+
+
+                                 🟢 Padding
+                                 ===========
+                                 Available Space: (Width: 34.000, Height: 34.000)
+                                 Space Plan: FullRender (Width: 34.000, Height: 34.000)
+                                 -----------
+                                 Top: 6
+                                 Right: 6
+                                 Bottom: 6
+                                 Left: 6
+
+
+                                    🟢 AspectRatio
+                                    ===============
+                                    Available Space: (Width: 22.000, Height: 22.000)
+                                    Space Plan: FullRender (Width: 22.000, Height: 22.000)
+                                    ---------------
+                                    Content Direction: LeftToRight
+                                    Ratio: 1
+                                    Option: FitArea
+
+
+                                       🟢 Image
+                                       =========
+                                       Available Space: (Width: 22.000, Height: 22.000)
+                                       Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                                       ---------
+                                       Document Image: QuestPDF.Infrastructure.Image
+
+
+                     🟢 Empty
+                     =========
+                     Available Space: (Width: 10.000, Height: 34.000)
+                     Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                     ---------
+
+
+                     🟢 Alignment
+                     =============
+                     Available Space: (Width: 296.000, Height: 34.000)
+                     Space Plan: FullRender (Width: 100.672, Height: 13.200)
+                     -------------
+                     Vertical: Middle
+                     Horizontal: -
+
+
+                        🟢 TextBlock
+                        =============
+                        Available Space: (Width: 296.000, Height: 34.000)
+                        Space Plan: FullRender (Width: 100.672, Height: 13.200)
+                        -------------
+                        Alignment: Start
+                        Content Direction: LeftToRight
+                        Line Clamp: -
+                        Line Clamp Ellipsis: -
+                        Paragraph Spacing: 0
+                        Paragraph First Line Indentation: 0
+                        Text: Información de tarea
+
+
+                  🟢 Padding
+                  ===========
+                  Available Space: (Width: 340.000, Height: 409.200)
+                  Space Plan: FullRender (Width: 340.000, Height: 131.600)
+                  -----------
+                  Top: 10
+                  Right: 0
+                  Bottom: 0
+                  Left: 0
+
+
+                     🟢 Column
+                     ==========
+                     Available Space: (Width: 340.000, Height: 399.200)
+                     Space Plan: FullRender (Width: 340.000, Height: 121.600)
+                     ----------
+
+
+                        🟢 SourceCodePointer
+                        =====================
+                        Available Space: (Width: 340.000, Height: 399.200)
+                        Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                        ---------------------
+                        Method Name: x => CrearFilaSimple(x, "Nombre", (tarea.Titulo ?? "").Replace("/", "").Trim())
+                        Called From: CrearContenidoPrincipalConSidebar
+                        File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+                        Line Number: 735
+
+
+                           🟢 StyledBox
+                           =============
+                           Available Space: (Width: 340.000, Height: 399.200)
+                           Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                           -------------
+                           Border Left: 0
+                           Border Top: 0
+                           Border Right: 0
+                           Border Bottom: 1
+                           Border Radius Top Left: 0
+                           Border Radius Top Right: 0
+                           Border Radius Bottom Left: 0
+                           Border Radius Bottom Right: 0
+                           Border Alignment: -
+                           Background Color: #00000000
+                           Background Gradient Angle: -
+                           Border Color: #D1D5DB
+                           Border Gradient Angle: -
+                           Shadow: -
+
+
+                              🟢 Padding
+                              ===========
+                              Available Space: (Width: 340.000, Height: 399.200)
+                              Space Plan: FullRender (Width: 340.000, Height: 18.800)
+                              -----------
+                              Top: 0
+                              Right: 0
+                              Bottom: 8
+                              Left: 0
+
+
+                                 🟢 Row
+                                 =======
+                                 Available Space: (Width: 340.000, Height: 391.200)
+                                 Space Plan: FullRender (Width: 340.000, Height: 10.800)
+                                 -------
+                                 Content Direction: LeftToRight
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 113.333, Height: 10.800)
+                                    Space Plan: FullRender (Width: 32.400, Height: 10.800)
+                                    -------------
+                                    Alignment: Start
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: Nombre
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 226.667, Height: 10.800)
+                                    Space Plan: FullRender (Width: 123.678, Height: 10.800)
+                                    -------------
+                                    Alignment: Start
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: 2864: Remodelación de prueba
+
+
+                        🟢 Padding
+                        ===========
+                        Available Space: (Width: 340.000, Height: 372.400)
+                        Space Plan: FullRender (Width: 222.291, Height: 24.800)
+                        -----------
+                        Top: 14
+                        Right: 0
+                        Bottom: 0
+                        Left: 0
+
+
+                           🟢 TextBlock
+                           =============
+                           Available Space: (Width: 340.000, Height: 358.400)
+                           Space Plan: FullRender (Width: 222.291, Height: 10.800)
+                           -------------
+                           Alignment: Start
+                           Content Direction: LeftToRight
+                           Line Clamp: -
+                           Line Clamp Ellipsis: -
+                           Paragraph Spacing: 0
+                           Paragraph First Line Indentation: 0
+                           Text: Descripción de la actividad a desarrollar:  prueba servicio
+
+
+                        🟢 Padding
+                        ===========
+                        Available Space: (Width: 340.000, Height: 339.600)
+                        Space Plan: FullRender (Width: 340.000, Height: 62.000)
+                        -----------
+                        Top: 18
+                        Right: 8
+                        Bottom: 8
+                        Left: 8
+
+
+                           🟢 Column
+                           ==========
+                           Available Space: (Width: 324.000, Height: 313.600)
+                           Space Plan: FullRender (Width: 324.000, Height: 36.000)
+                           ----------
+
+
+                              🟢 TextBlock
+                              =============
+                              Available Space: (Width: 324.000, Height: 313.600)
+                              Space Plan: FullRender (Width: 61.119, Height: 10.800)
+                              -------------
+                              Alignment: Start
+                              Content Direction: LeftToRight
+                              Line Clamp: -
+                              Line Clamp Ellipsis: -
+                              Paragraph Spacing: 0
+                              Paragraph First Line Indentation: 0
+                              Text: Observaciones:
+
+
+                              🟢 Padding
+                              ===========
+                              Available Space: (Width: 324.000, Height: 302.800)
+                              Space Plan: FullRender (Width: 324.000, Height: 25.200)
+                              -----------
+                              Top: 4
+                              Right: 0
+                              Bottom: 0
+                              Left: 0
+
+
+                                 🟢 Row
+                                 =======
+                                 Available Space: (Width: 324.000, Height: 298.800)
+                                 Space Plan: FullRender (Width: 324.000, Height: 21.200)
+                                 -------
+                                 Content Direction: LeftToRight
+
+
+                                    🟢 Column
+                                    ==========
+                                    Available Space: (Width: 158.000, Height: 21.200)
+                                    Space Plan: FullRender (Width: 158.000, Height: 21.200)
+                                    ----------
+
+
+                                       🟢 Row
+                                       =======
+                                       Available Space: (Width: 158.000, Height: 21.200)
+                                       Space Plan: FullRender (Width: 158.000, Height: 9.600)
+                                       -------
+                                       Content Direction: LeftToRight
+
+
+                                          🟢 TextBlock
+                                          =============
+                                          Available Space: (Width: 8.000, Height: 9.600)
+                                          Space Plan: FullRender (Width: 4.640, Height: 9.600)
+                                          -------------
+                                          Alignment: Start
+                                          Content Direction: LeftToRight
+                                          Line Clamp: -
+                                          Line Clamp Ellipsis: -
+                                          Paragraph Spacing: 0
+                                          Paragraph First Line Indentation: 0
+                                          Text: •
+
+
+                                          🟢 TextBlock
+                                          =============
+                                          Available Space: (Width: 150.000, Height: 9.600)
+                                          Space Plan: FullRender (Width: 24.536, Height: 8.800)
+                                          -------------
+                                          Alignment: Start
+                                          Content Direction: LeftToRight
+                                          Line Clamp: -
+                                          Line Clamp Ellipsis: -
+                                          Paragraph Spacing: 0
+                                          Paragraph First Line Indentation: 0
+                                          Text: prueba
+
+
+                                       🟢 Row
+                                       =======
+                                       Available Space: (Width: 158.000, Height: 9.600)
+                                       Space Plan: FullRender (Width: 158.000, Height: 9.600)
+                                       -------
+                                       Content Direction: LeftToRight
+
+
+                                          🟢 TextBlock
+                                          =============
+                                          Available Space: (Width: 8.000, Height: 9.600)
+                                          Space Plan: FullRender (Width: 4.640, Height: 9.600)
+                                          -------------
+                                          Alignment: Start
+                                          Content Direction: LeftToRight
+                                          Line Clamp: -
+                                          Line Clamp Ellipsis: -
+                                          Paragraph Spacing: 0
+                                          Paragraph First Line Indentation: 0
+                                          Text: •
+
+
+                                          🟢 TextBlock
+                                          =============
+                                          Available Space: (Width: 150.000, Height: 9.600)
+                                          Space Plan: FullRender (Width: 24.536, Height: 8.800)
+                                          -------------
+                                          Alignment: Start
+                                          Content Direction: LeftToRight
+                                          Line Clamp: -
+                                          Line Clamp Ellipsis: -
+                                          Paragraph Spacing: 0
+                                          Paragraph First Line Indentation: 0
+                                          Text: prueba
+
+
+                                    🟢 Empty
+                                    =========
+                                    Available Space: (Width: 8.000, Height: 21.200)
+                                    Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                                    ---------
+
+
+                                    🟢 Column
+                                    ==========
+                                    Available Space: (Width: 158.000, Height: 21.200)
+                                    Space Plan: FullRender (Width: 158.000, Height: 9.600)
+                                    ----------
+
+
+                                       🟢 Row
+                                       =======
+                                       Available Space: (Width: 158.000, Height: 21.200)
+                                       Space Plan: FullRender (Width: 158.000, Height: 9.600)
+                                       -------
+                                       Content Direction: LeftToRight
+
+
+                                          🟢 TextBlock
+                                          =============
+                                          Available Space: (Width: 8.000, Height: 9.600)
+                                          Space Plan: FullRender (Width: 4.640, Height: 9.600)
+                                          -------------
+                                          Alignment: Start
+                                          Content Direction: LeftToRight
+                                          Line Clamp: -
+                                          Line Clamp Ellipsis: -
+                                          Paragraph Spacing: 0
+                                          Paragraph First Line Indentation: 0
+                                          Text: •
+
+
+                                          🟢 TextBlock
+                                          =============
+                                          Available Space: (Width: 150.000, Height: 9.600)
+                                          Space Plan: FullRender (Width: 24.536, Height: 8.800)
+                                          -------------
+                                          Alignment: Start
+                                          Content Direction: LeftToRight
+                                          Line Clamp: -
+                                          Line Clamp Ellipsis: -
+                                          Paragraph Spacing: 0
+                                          Paragraph First Line Indentation: 0
+                                          Text: prueba
+
+
+      🔴 ScaleToFit
+      ==============
+      Available Space: (Width: 175.000, Height: 625.200)
+      Space Plan: Wrap
+      Wrap Reason: Cannot find the perfect scale to fit the child element in the available space.
+      --------------
+
+
+         🟡 StyledBox
+         =============
+         Available Space: (Width: 12,619.719, Height: 45,084.848)
+         Space Plan: PartialRender (Width: 12,619.719, Height: 273.600)
+         -------------
+         Border Left: 0
+         Border Top: 0
+         Border Right: 0
+         Border Bottom: 0
+         Border Radius Top Left: 8
+         Border Radius Top Right: 8
+         Border Radius Bottom Left: 8
+         Border Radius Bottom Right: 8
+         Border Alignment: -
+         Background Color: #F3F4F6
+         Background Gradient Angle: -
+         Border Color: #00000000
+         Border Gradient Angle: -
+         Shadow: -
+
+
+            🟡 Padding
+            ===========
+            Available Space: (Width: 12,619.719, Height: 45,084.848)
+            Space Plan: PartialRender (Width: 12,619.719, Height: 273.600)
+            -----------
+            Top: 12
+            Right: 12
+            Bottom: 12
+            Left: 12
+
+
+               🟡 Column
+               ==========
+               Available Space: (Width: 12,595.719, Height: 45,060.848)
+               Space Plan: PartialRender (Width: 12,595.719, Height: 249.600)
+               ----------
+
+
+                  🟢 Constrained
+                  ===============
+                  Available Space: (Width: 12,595.719, Height: 45,060.848)
+                  Space Plan: FullRender (Width: 0.000, Height: 6.000)
+                  ---------------
+                  Content Direction: LeftToRight
+                  Min Width: -
+                  Max Width: -
+                  Min Height: 6
+                  Max Height: 6
+                  Enforce Size When Empty: False
+
+
+                     🟢 StyledBox
+                     =============
+                     Available Space: (Width: 12,595.719, Height: 6.000)
+                     Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                     -------------
+                     Border Left: 0
+                     Border Top: 0
+                     Border Right: 0
+                     Border Bottom: 0
+                     Border Radius Top Left: 0
+                     Border Radius Top Right: 0
+                     Border Radius Bottom Left: 0
+                     Border Radius Bottom Right: 0
+                     Border Alignment: -
+                     Background Color: #24364D
+                     Background Gradient Angle: -
+                     Border Color: #00000000
+                     Border Gradient Angle: -
+                     Shadow: -
+
+
+                        🟢 Empty
+                        =========
+                        Available Space: (Width: 12,595.719, Height: 6.000)
+                        Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                        ---------
+
+
+                  🟢 Padding
+                  ===========
+                  Available Space: (Width: 12,595.719, Height: 45,046.848)
+                  Space Plan: FullRender (Width: 136.287, Height: 17.800)
+                  -----------
+                  Top: 4
+                  Right: 0
+                  Bottom: 0
+                  Left: 0
+
+
+                     🟢 TextBlock
+                     =============
+                     Available Space: (Width: 12,595.719, Height: 45,042.848)
+                     Space Plan: FullRender (Width: 136.287, Height: 13.800)
+                     -------------
+                     Alignment: Start
+                     Content Direction: LeftToRight
+                     Line Clamp: -
+                     Line Clamp Ellipsis: -
+                     Paragraph Spacing: 0
+                     Paragraph First Line Indentation: 0
+                     Text: prueba ñññ plan de trabajo
+
+
+                  🟢 Row
+                  =======
+                  Available Space: (Width: 12,595.719, Height: 45,021.047)
+                  Space Plan: FullRender (Width: 12,595.719, Height: 16.000)
+                  -------
+                  Content Direction: LeftToRight
+
+
+                     🟢 Alignment
+                     =============
+                     Available Space: (Width: 16.000, Height: 16.000)
+                     Space Plan: FullRender (Width: 16.000, Height: 16.000)
+                     -------------
+                     Vertical: Middle
+                     Horizontal: Center
+
+
+                        🟢 SourceCodePointer
+                        =====================
+                        Available Space: (Width: 16.000, Height: 16.000)
+                        Space Plan: FullRender (Width: 16.000, Height: 16.000)
+                        ---------------------
+                        Method Name: ic =>
+                    {
+                        if (carpetaIconBytes is not null && carpetaIconBytes.Length > 0)
+                            ic.Image(carpetaIconBytes, ImageScaling.FitArea);
+                        else
+                            ic.Text("▭").FontSize(11).FontColor("#6B7280");
+                    }
+                        Called From: CrearContenidoPrincipalConSidebar
+                        File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+                        Line Number: 863
+
+
+                           🟢 AspectRatio
+                           ===============
+                           Available Space: (Width: 16.000, Height: 16.000)
+                           Space Plan: FullRender (Width: 16.000, Height: 16.000)
+                           ---------------
+                           Content Direction: LeftToRight
+                           Ratio: 1
+                           Option: FitArea
+
+
+                              🟢 Image
+                              =========
+                              Available Space: (Width: 16.000, Height: 16.000)
+                              Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                              ---------
+                              Document Image: QuestPDF.Infrastructure.Image
+
+
+                     🟢 Empty
+                     =========
+                     Available Space: (Width: 4.000, Height: 16.000)
+                     Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                     ---------
+
+
+                     🟢 Alignment
+                     =============
+                     Available Space: (Width: 12,575.719, Height: 16.000)
+                     Space Plan: FullRender (Width: 59.076, Height: 10.800)
+                     -------------
+                     Vertical: Middle
+                     Horizontal: -
+
+
+                        🟢 TextBlock
+                        =============
+                        Available Space: (Width: 12,575.719, Height: 16.000)
+                        Space Plan: FullRender (Width: 59.076, Height: 10.800)
+                        -------------
+                        Alignment: Start
+                        Content Direction: LeftToRight
+                        Line Clamp: -
+                        Line Clamp Ellipsis: -
+                        Paragraph Spacing: 0
+                        Paragraph First Line Indentation: 0
+                        Text: Plan de trabajo
+
+
+                  🟢 Line
+                  ========
+                  Available Space: (Width: 12,595.719, Height: 44,997.047)
+                  Space Plan: FullRender (Width: 0.000, Height: 1.000)
+                  --------
+                  Type: Horizontal
+                  Color: #D1D5DB
+                  Thickness: 1
+
+
+                  🟢 Padding
+                  ===========
+                  Available Space: (Width: 12,595.719, Height: 44,988.047)
+                  Space Plan: FullRender (Width: 12,595.719, Height: 30.000)
+                  -----------
+                  Top: 4
+                  Right: 0
+                  Bottom: 0
+                  Left: 0
+
+
+                     🟢 Row
+                     =======
+                     Available Space: (Width: 12,595.719, Height: 44,984.047)
+                     Space Plan: FullRender (Width: 12,595.719, Height: 26.000)
+                     -------
+                     Content Direction: LeftToRight
+
+
+                        🟢 Constrained
+                        ===============
+                        Available Space: (Width: 26.000, Height: 26.000)
+                        Space Plan: FullRender (Width: 26.000, Height: 26.000)
+                        ---------------
+                        Content Direction: LeftToRight
+                        Min Width: -
+                        Max Width: -
+                        Min Height: 26
+                        Max Height: 26
+                        Enforce Size When Empty: False
+
+
+                           🟢 SourceCodePointer
+                           =====================
+                           Available Space: (Width: 26.000, Height: 26.000)
+                           Space Plan: FullRender (Width: 26.000, Height: 26.000)
+                           ---------------------
+                           Method Name: ic =>
+                    {
+                        if (_personaIconBytes is not null && _personaIconBytes.Length > 0)
+                            ic.Image(_personaIconBytes, ImageScaling.FitArea);
+                        else
+                            ic.Background("#E5E7EB").Border(1).BorderColor("#D1D5DB")
+                                .AlignCenter().AlignMiddle().Text("●").FontSize(14).FontColor("#24364D");
+                    }
+                           Called From: CrearContenidoPrincipalConSidebar
+                           File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+                           Line Number: 879
+
+
+                              🟢 AspectRatio
+                              ===============
+                              Available Space: (Width: 26.000, Height: 26.000)
+                              Space Plan: FullRender (Width: 26.000, Height: 26.000)
+                              ---------------
+                              Content Direction: LeftToRight
+                              Ratio: 1
+                              Option: FitArea
+
+
+                                 🟢 Image
+                                 =========
+                                 Available Space: (Width: 26.000, Height: 26.000)
+                                 Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                                 ---------
+                                 Document Image: QuestPDF.Infrastructure.Image
+
+
+                        🟢 Empty
+                        =========
+                        Available Space: (Width: 8.000, Height: 26.000)
+                        Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                        ---------
+
+
+                        🟢 Column
+                        ==========
+                        Available Space: (Width: 12,561.719, Height: 26.000)
+                        Space Plan: FullRender (Width: 121.122, Height: 20.400)
+                        ----------
+
+
+                           🟢 TextBlock
+                           =============
+                           Available Space: (Width: 12,561.719, Height: 26.000)
+                           Space Plan: FullRender (Width: 121.122, Height: 10.800)
+                           -------------
+                           Alignment: Start
+                           Content Direction: LeftToRight
+                           Line Clamp: -
+                           Line Clamp Ellipsis: -
+                           Paragraph Spacing: 0
+                           Paragraph First Line Indentation: 0
+                           Text: preba operador prueba prueba
+
+
+                           🟢 TextBlock
+                           =============
+                           Available Space: (Width: 12,561.719, Height: 15.200)
+                           Space Plan: FullRender (Width: 33.784, Height: 9.600)
+                           -------------
+                           Alignment: Start
+                           Content Direction: LeftToRight
+                           Line Clamp: -
+                           Line Clamp Ellipsis: -
+                           Paragraph Spacing: 0
+                           Paragraph First Line Indentation: 0
+                           Text: Operador
+
+
+                  🟢 Padding
+                  ===========
+                  Available Space: (Width: 12,595.719, Height: 44,950.047)
+                  Space Plan: FullRender (Width: 12,595.719, Height: 30.000)
+                  -----------
+                  Top: 4
+                  Right: 0
+                  Bottom: 0
+                  Left: 0
+
+
+                     🟢 Row
+                     =======
+                     Available Space: (Width: 12,595.719, Height: 44,946.047)
+                     Space Plan: FullRender (Width: 12,595.719, Height: 26.000)
+                     -------
+                     Content Direction: LeftToRight
+
+
+                        🟢 Constrained
+                        ===============
+                        Available Space: (Width: 26.000, Height: 26.000)
+                        Space Plan: FullRender (Width: 26.000, Height: 26.000)
+                        ---------------
+                        Content Direction: LeftToRight
+                        Min Width: -
+                        Max Width: -
+                        Min Height: 26
+                        Max Height: 26
+                        Enforce Size When Empty: False
+
+
+                           🟢 SourceCodePointer
+                           =====================
+                           Available Space: (Width: 26.000, Height: 26.000)
+                           Space Plan: FullRender (Width: 26.000, Height: 26.000)
+                           ---------------------
+                           Method Name: ic =>
+                    {
+                        if (_personaIconBytes is not null && _personaIconBytes.Length > 0)
+                            ic.Image(_personaIconBytes, ImageScaling.FitArea);
+                        else
+                            ic.Background("#E5E7EB").Border(1).BorderColor("#D1D5DB")
+                                .AlignCenter().AlignMiddle().Text("●").FontSize(14).FontColor("#24364D");
+                    }
+                           Called From: CrearContenidoPrincipalConSidebar
+                           File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+                           Line Number: 899
+
+
+                              🟢 AspectRatio
+                              ===============
+                              Available Space: (Width: 26.000, Height: 26.000)
+                              Space Plan: FullRender (Width: 26.000, Height: 26.000)
+                              ---------------
+                              Content Direction: LeftToRight
+                              Ratio: 1
+                              Option: FitArea
+
+
+                                 🟢 Image
+                                 =========
+                                 Available Space: (Width: 26.000, Height: 26.000)
+                                 Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                                 ---------
+                                 Document Image: QuestPDF.Infrastructure.Image
+
+
+                        🟢 Empty
+                        =========
+                        Available Space: (Width: 8.000, Height: 26.000)
+                        Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                        ---------
+
+
+                        🟢 Column
+                        ==========
+                        Available Space: (Width: 12,561.719, Height: 26.000)
+                        Space Plan: FullRender (Width: 138.108, Height: 19.200)
+                        ----------
+
+
+                           🟢 TextBlock
+                           =============
+                           Available Space: (Width: 12,561.719, Height: 26.000)
+                           Space Plan: FullRender (Width: 138.108, Height: 9.600)
+                           -------------
+                           Alignment: Start
+                           Content Direction: LeftToRight
+                           Line Clamp: -
+                           Line Clamp Ellipsis: -
+                           Paragraph Spacing: 0
+                           Paragraph First Line Indentation: 0
+                           Text: Prueba octavio vieernes prueba prueba
+
+
+                           🟢 TextBlock
+                           =============
+                           Available Space: (Width: 12,561.719, Height: 16.400)
+                           Space Plan: FullRender (Width: 37.300, Height: 9.600)
+                           -------------
+                           Alignment: Start
+                           Content Direction: LeftToRight
+                           Line Clamp: -
+                           Line Clamp Ellipsis: -
+                           Paragraph Spacing: 0
+                           Paragraph First Line Indentation: 0
+                           Text: Supervisor
+
+
+                  🟡 Padding
+                  ===========
+                  Available Space: (Width: 12,595.719, Height: 44,912.047)
+                  Space Plan: PartialRender (Width: 120.626, Height: 100.800)
+                  -----------
+                  Top: 8
+                  Right: 0
+                  Bottom: 0
+                  Left: 0
+
+
+                     🟡 StyledBox
+                     =============
+                     Available Space: (Width: 12,595.719, Height: 44,904.047)
+                     Space Plan: PartialRender (Width: 120.626, Height: 92.800)
+                     -------------
+                     Border Left: 0
+                     Border Top: 0
+                     Border Right: 0
+                     Border Bottom: 0
+                     Border Radius Top Left: 6
+                     Border Radius Top Right: 6
+                     Border Radius Bottom Left: 6
+                     Border Radius Bottom Right: 6
+                     Border Alignment: -
+                     Background Color: #24364D
+                     Background Gradient Angle: -
+                     Border Color: #00000000
+                     Border Gradient Angle: -
+                     Shadow: -
+
+
+                        🟡 Padding
+                        ===========
+                        Available Space: (Width: 12,595.719, Height: 44,904.047)
+                        Space Plan: PartialRender (Width: 120.626, Height: 92.800)
+                        -----------
+                        Top: 10
+                        Right: 10
+                        Bottom: 10
+                        Left: 10
+
+
+                           🟡 Column
+                           ==========
+                           Available Space: (Width: 12,575.719, Height: 44,884.047)
+                           Space Plan: PartialRender (Width: 100.626, Height: 72.800)
+                           ----------
+
+
+                              🟢 Alignment
+                              =============
+                              Available Space: (Width: 12,575.719, Height: 44,884.047)
+                              Space Plan: FullRender (Width: 62.550, Height: 10.800)
+                              -------------
+                              Vertical: -
+                              Horizontal: Center
+
+
+                                 🟢 TextBlock
+                                 =============
+                                 Available Space: (Width: 12,575.719, Height: 44,884.047)
+                                 Space Plan: FullRender (Width: 62.550, Height: 10.800)
+                                 -------------
+                                 Alignment: Center
+                                 Content Direction: LeftToRight
+                                 Line Clamp: -
+                                 Line Clamp Ellipsis: -
+                                 Paragraph Spacing: 0
+                                 Paragraph First Line Indentation: 0
+                                 Text: PRESUPUESTO
+
+
+                              🟢 Alignment
+                              =============
+                              Available Space: (Width: 12,575.719, Height: 44,873.246)
+                              Space Plan: FullRender (Width: 100.626, Height: 15.600)
+                              -------------
+                              Vertical: -
+                              Horizontal: Center
+
+
+                                 🟢 TextBlock
+                                 =============
+                                 Available Space: (Width: 12,575.719, Height: 44,873.246)
+                                 Space Plan: FullRender (Width: 100.626, Height: 15.600)
+                                 -------------
+                                 Alignment: Center
+                                 Content Direction: LeftToRight
+                                 Line Clamp: -
+                                 Line Clamp Ellipsis: -
+                                 Paragraph Spacing: 0
+                                 Paragraph First Line Indentation: 0
+                                 Text: $10,000.00 MXN
+
+
+                              🟢 Padding
+                              ===========
+                              Available Space: (Width: 12,575.719, Height: 44,857.648)
+                              Space Plan: FullRender (Width: 0.000, Height: 7.000)
+                              -----------
+                              Top: 6
+                              Right: 0
+                              Bottom: 0
+                              Left: 0
+
+
+                                 🟢 Line
+                                 ========
+                                 Available Space: (Width: 12,575.719, Height: 44,851.648)
+                                 Space Plan: FullRender (Width: 0.000, Height: 1.000)
+                                 --------
+                                 Type: Horizontal
+                                 Color: #FFFF40
+                                 Thickness: 1
+
+
+                              🟢 Padding
+                              ===========
+                              Available Space: (Width: 12,575.719, Height: 44,850.648)
+                              Space Plan: FullRender (Width: 51.687, Height: 16.800)
+                              -----------
+                              Top: 6
+                              Right: 0
+                              Bottom: 0
+                              Left: 0
+
+
+                                 🟢 Alignment
+                                 =============
+                                 Available Space: (Width: 12,575.719, Height: 44,844.648)
+                                 Space Plan: FullRender (Width: 51.687, Height: 10.800)
+                                 -------------
+                                 Vertical: -
+                                 Horizontal: Center
+
+
+                                    🟢 TextBlock
+                                    =============
+                                    Available Space: (Width: 12,575.719, Height: 44,844.648)
+                                    Space Plan: FullRender (Width: 51.687, Height: 10.800)
+                                    -------------
+                                    Alignment: Center
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: EJECUTADO
+
+
+                              🟢 Alignment
+                              =============
+                              Available Space: (Width: 12,575.719, Height: 44,833.848)
+                              Space Plan: FullRender (Width: 100.626, Height: 15.600)
+                              -------------
+                              Vertical: -
+                              Horizontal: Center
+
+
+                                 🟢 TextBlock
+                                 =============
+                                 Available Space: (Width: 12,575.719, Height: 44,833.848)
+                                 Space Plan: FullRender (Width: 100.626, Height: 15.600)
+                                 -------------
+                                 Alignment: Center
+                                 Content Direction: LeftToRight
+                                 Line Clamp: -
+                                 Line Clamp Ellipsis: -
+                                 Paragraph Spacing: 0
+                                 Paragraph First Line Indentation: 0
+                                 Text: $10,500.00 MXN
+
+
+                              🟢 Padding
+                              ===========
+                              Available Space: (Width: 12,575.719, Height: 44,818.246)
+                              Space Plan: FullRender (Width: 0.000, Height: 7.000)
+                              -----------
+                              Top: 6
+                              Right: 0
+                              Bottom: 0
+                              Left: 0
+
+
+                                 🟢 Line
+                                 ========
+                                 Available Space: (Width: 12,575.719, Height: 44,812.246)
+                                 Space Plan: FullRender (Width: 0.000, Height: 1.000)
+                                 --------
+                                 Type: Horizontal
+                                 Color: #FFFF40
+                                 Thickness: 1
+
+
+                              🔴 Padding
+                              ===========
+                              Available Space: (Width: 12,575.719, Height: 44,811.246)
+                              Space Plan: Wrap
+                              Wrap Reason: Forwarded from child
+                              -----------
+                              Top: 6
+                              Right: 0
+                              Bottom: 0
+                              Left: 0
+
+
+                                 🔴 Row
+                                 =======
+                                 Available Space: (Width: 12,575.719, Height: 44,805.246)
+                                 Space Plan: Wrap
+                                 Wrap Reason: One of the items does not fit (even partially) in the available space.
+                                 -------
+                                 Content Direction: LeftToRight
+
+
+                                    🔴 Alignment
+                                    =============
+                                    Available Space: (Width: 16.000, Height: 44,805.246)
+                                    Space Plan: Wrap
+                                    Wrap Reason: Forwarded from child
+                                    -------------
+                                    Vertical: Middle
+                                    Horizontal: Center
+
+
+                                       🚨 TextBlock 🚨
+                                       ================
+                                       Available Space: (Width: 16.000, Height: 44,805.246)
+                                       Space Plan: Wrap
+                                       Wrap Reason: The available space is not sufficient to render even a single character.
+                                       ----------------
+                                       Alignment: Center
+                                       Content Direction: LeftToRight
+                                       Line Clamp: -
+                                       Line Clamp Ellipsis: -
+                                       Paragraph Spacing: 0
+                                       Paragraph First Line Indentation: 0
+                                       Text: ⚠
+
+
+                                    🟢 Empty
+                                    =========
+                                    Available Space: (Width: 4.000, Height: 44,805.246)
+                                    Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                                    ---------
+
+
+                                    🟢 Alignment
+                                    =============
+                                    Available Space: (Width: 12,555.719, Height: 44,805.246)
+                                    Space Plan: FullRender (Width: 76.158, Height: 24.000)
+                                    -------------
+                                    Vertical: Middle
+                                    Horizontal: -
+
+
+                                       🟢 Column
+                                       ==========
+                                       Available Space: (Width: 12,555.719, Height: 44,805.246)
+                                       Space Plan: FullRender (Width: 76.158, Height: 24.000)
+                                       ----------
+
+
+                                          🟢 TextBlock
+                                          =============
+                                          Available Space: (Width: 12,555.719, Height: 44,805.246)
+                                          Space Plan: FullRender (Width: 40.500, Height: 9.600)
+                                          -------------
+                                          Alignment: Start
+                                          Content Direction: LeftToRight
+                                          Line Clamp: -
+                                          Line Clamp Ellipsis: -
+                                          Paragraph Spacing: 0
+                                          Paragraph First Line Indentation: 0
+                                          Text: EXCEDIDO
+
+
+                                          🟢 TextBlock
+                                          =============
+                                          Available Space: (Width: 12,555.719, Height: 44,795.645)
+                                          Space Plan: FullRender (Width: 76.158, Height: 14.400)
+                                          -------------
+                                          Alignment: Start
+                                          Content Direction: LeftToRight
+                                          Line Clamp: -
+                                          Line Clamp Ellipsis: -
+                                          Paragraph Spacing: 0
+                                          Paragraph First Line Indentation: 0
+                                          Text: $500.00 MXN
+
+
+                  ⚪️ Padding
+                  ===========
+                  Top: 10
+                  Right: 0
+                  Bottom: 0
+                  Left: 0
+
+
+                  ⚪️ Padding
+                  ===========
+                  Top: 10
+                  Right: 0
+                  Bottom: 0
+                  Left: 0
+
+
+Legend: 
+🚨 - Element that is likely the root cause of the layout issue based on library heuristics and prediction. 
+🔴 - Element that cannot be drawn due to the provided layout constraints. This element likely causes the layout issue, or one of its descendant children is responsible for the problem. 
+🟡 - Element that can be partially drawn on the page and will also be rendered on the consecutive page. In more complex layouts, this element may also cause issues or contain a child that is the actual root cause.
+🟢 - Element that is successfully and completely drawn on the page.
+⚪️ - Element that has not been drawn on the faulty page. Its children are omitted.
+
+
+This detailed information is generated because you run the application with a debugger attached or with the QuestPDF.Settings.EnableDebugging flag set to true. 
+   at QuestPDF.Drawing.DocumentGenerator.<RenderPass>g__ThrowLayoutException|11_2(<>c__DisplayClass11_0&)
+   at QuestPDF.Drawing.DocumentGenerator.RenderPass(PageContext pageContext, IDocumentCanvas canvas, ContainerElement content)
+   at QuestPDF.Drawing.DocumentGenerator.RenderDocument(IDocumentCanvas canvas, IDocument document, DocumentSettings settings)
+   at QuestPDF.Drawing.DocumentGenerator.GeneratePdf(SkWriteStream stream, IDocument document)
+   at QuestPDF.Fluent.GenerateExtensions.GeneratePdf(IDocument document, Stream stream)
+   at QuestPDF.Fluent.GenerateExtensions.GeneratePdf(IDocument document)
+   at velios.Api.Services.ReportePreeliminarService.ConstruirPdfAsync(ReporteMaterialidadDto reporte, Byte[] logoProveedorBytes) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs:line 621
+   at velios.Api.Services.ReportePreeliminarService.GenerarPdfPorTareaAsync(Int32 tareaId) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs:line 148
+   at velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea(Int32 tareaId) in C:\Proyectos Inssoft\velios-services\Controllers\ReportePreeliminar\ReporteMaterialidadPreeliminarController.cs:line 23
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Program.<>c__DisplayClass0_0.<<<Main>$>b__8>d.MoveNext() in C:\Proyectos Inssoft\velios-services\Program.cs:line 289
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-10-19 17:00:04.344 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/ReporteMaterialidadPreeliminar/tarea/2864 - 500 null text/plain; charset=utf-8 3174.5775ms
+2026-10-19 17:02:29.667 [INF] velios.Api
+      ENV: Development | RutaBase: C:\dev\velios-local\ReportesMaterialidad
+2026-10-19 17:02:29.744 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Start installing Hangfire SQL objects...
+2026-10-19 17:02:31.292 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Hangfire SQL objects installed.
+2026-10-19 17:02:32.318 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-10-19 17:02:32.457 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-10-19 17:02:32.651 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-10-19 17:02:32.654 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-10-19 17:02:32.763 [INF] Hangfire.BackgroundJobServer
+      Starting Hangfire Server using job storage: 'SQL Server: 54.39.102.101@VELIOS_DEV'
+2026-10-19 17:02:32.766 [INF] Hangfire.BackgroundJobServer
+      Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-10-19 17:02:32.768 [INF] Hangfire.BackgroundJobServer
+      Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-10-19 17:02:32.801 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-10-19 17:02:32.830 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-10-19 17:02:32.833 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-10-19 17:02:32.967 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:45092:146cfc02 successfully announced in 128.4839 ms
+2026-10-19 17:02:32.979 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:45092:146cfc02 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-10-19 17:02:33.284 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:45092:146cfc02 all the dispatchers started
+2026-10-19 17:03:00.301 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-10-19 17:03:00.506 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-10-19 17:03:00.611 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 320.6464ms
+2026-10-19 17:03:00.617 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-10-19 17:03:06.433 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-10-19 17:03:06.444 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-10-19 17:03:06.558 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 99.9721ms
+2026-10-19 17:03:06.562 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-10-19 17:03:06.596 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-10-19 17:03:06.603 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-10-19 17:03:06.606 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-10-19 17:03:06.610 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 48.6598ms
+2026-10-19 17:03:06.644 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 77.3314ms
+2026-10-19 17:03:06.688 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 124.5349ms
+2026-10-19 17:03:06.747 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-10-19 17:03:06.780 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-10-19 17:03:06.904 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 157.3422ms
+2026-10-19 17:03:23.765 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/ReporteMaterialidadPreeliminar/tarea/2864 - null null
+2026-10-19 17:03:23.770 [INF] velios.Api
+      Incoming: GET /api/ReporteMaterialidadPreeliminar/tarea/2864 CT=null Len=null
+2026-10-19 17:03:23.777 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api)'
+2026-10-19 17:03:23.811 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "GenerarPorTarea", controller = "ReporteMaterialidadPreeliminar"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GenerarPorTarea(Int32) on controller velios.Api.Controllers.ReporteMaterialidadPreeliminarController (velios.Api).
+2026-10-19 17:03:24.627 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:03:24.631 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:03:24.633 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:03:24.636 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:03:24.638 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:03:25.408 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/proveedores/66/logo.png
+2026-10-19 17:03:25.412 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/proveedores/66/logo.png
+2026-10-19 17:03:25.897 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 477.0848ms - 200
+2026-10-19 17:03:25.901 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 496.7788ms - 200
+2026-10-19 17:03:26.011 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:03:26.015 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:03:26.018 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:03:26.021 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:03:26.737 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/ff84b0d3-1db8-41e6-9499-c716dcbf940c.jpg
+2026-10-19 17:03:26.740 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/ff84b0d3-1db8-41e6-9499-c716dcbf940c.jpg
+2026-10-19 17:03:26.745 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:03:26.748 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:03:26.755 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:03:26.757 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:03:26.765 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/03825553-119e-4b99-beca-7367675fe959.jpg
+2026-10-19 17:03:26.768 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/03825553-119e-4b99-beca-7367675fe959.jpg
+2026-10-19 17:03:26.770 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:03:26.773 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:03:26.781 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:03:26.783 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:03:26.791 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/d798036b-ff81-488a-8312-27d669209703.jpg
+2026-10-19 17:03:26.794 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/d798036b-ff81-488a-8312-27d669209703.jpg
+2026-10-19 17:03:26.801 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:03:26.804 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:03:26.807 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:03:26.810 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:03:26.855 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 112.3159ms - 200
+2026-10-19 17:03:26.858 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 120.4439ms - 200
+2026-10-19 17:03:26.940 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 153.883ms - 200
+2026-10-19 17:03:26.943 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 162.3947ms - 200
+2026-10-19 17:03:26.954 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 141.813ms - 200
+2026-10-19 17:03:26.956 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 149.4702ms - 200
+2026-10-19 17:03:26.966 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 215.6213ms - 403
+2026-10-19 17:03:26.970 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 224.6802ms - 403
+2026-10-19 17:03:26.972 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 201.8969ms - 200
+2026-10-19 17:03:26.975 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 209.5563ms - 200
+2026-10-19 17:03:26.978 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 200.5736ms - 403
+2026-10-19 17:03:26.981 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 209.7682ms - 403
+2026-10-19 17:03:26.996 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 188.3256ms - 403
+2026-10-19 17:03:26.999 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 197.3796ms - 403
+2026-10-19 17:03:27.091 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 293.2867ms - 200
+2026-10-19 17:03:27.094 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 303.1541ms - 200
+2026-10-19 17:03:27.123 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 363.0905ms - 200
+2026-10-19 17:03:27.125 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 371.053ms - 200
+2026-10-19 17:03:29.726 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.FileContentResultExecutor
+      Executing FileContentResult, sending file with download name 'reporte-materialidad-preeliminar-2864.pdf' ...
+2026-10-19 17:03:29.760 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api) in 5937.1587ms
+2026-10-19 17:03:29.765 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api)'
+2026-10-19 17:03:29.779 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/ReporteMaterialidadPreeliminar/tarea/2864 - 200 966385 application/pdf 6013.9718ms
+2026-10-19 17:04:53.409 [INF] velios.Api
+      ENV: Development | RutaBase: C:\dev\velios-local\ReportesMaterialidad
+2026-10-19 17:04:53.488 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Start installing Hangfire SQL objects...
+2026-10-19 17:04:54.980 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Hangfire SQL objects installed.
+2026-10-19 17:04:55.997 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-10-19 17:04:56.161 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-10-19 17:04:56.375 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-10-19 17:04:56.379 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-10-19 17:04:56.474 [INF] Hangfire.BackgroundJobServer
+      Starting Hangfire Server using job storage: 'SQL Server: 54.39.102.101@VELIOS_DEV'
+2026-10-19 17:04:56.477 [INF] Hangfire.BackgroundJobServer
+      Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-10-19 17:04:56.481 [INF] Hangfire.BackgroundJobServer
+      Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-10-19 17:04:56.515 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-10-19 17:04:56.517 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-10-19 17:04:56.520 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-10-19 17:04:56.651 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:7608:b0f75e2c successfully announced in 132.9304 ms
+2026-10-19 17:04:56.713 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:7608:b0f75e2c is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-10-19 17:04:56.962 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:7608:b0f75e2c all the dispatchers started
+2026-10-19 17:05:07.216 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-10-19 17:05:07.465 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-10-19 17:05:07.600 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 396.3159ms
+2026-10-19 17:05:07.607 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-10-19 17:05:10.576 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-10-19 17:05:10.587 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-10-19 17:05:10.694 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 117.7637ms
+2026-10-19 17:05:10.715 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-10-19 17:05:10.720 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-10-19 17:05:10.724 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-10-19 17:05:10.729 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 16.0824ms
+2026-10-19 17:05:10.733 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-10-19 17:05:10.774 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 53.7989ms
+2026-10-19 17:05:10.809 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 76.5201ms
+2026-10-19 17:05:10.878 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-10-19 17:05:10.882 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-10-19 17:05:10.997 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 122.2779ms
+2026-10-19 17:05:24.356 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/ReporteMaterialidadPreeliminar/tarea/2864 - null null
+2026-10-19 17:05:24.396 [INF] velios.Api
+      Incoming: GET /api/ReporteMaterialidadPreeliminar/tarea/2864 CT=null Len=null
+2026-10-19 17:05:24.403 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api)'
+2026-10-19 17:05:24.448 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "GenerarPorTarea", controller = "ReporteMaterialidadPreeliminar"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GenerarPorTarea(Int32) on controller velios.Api.Controllers.ReporteMaterialidadPreeliminarController (velios.Api).
+2026-10-19 17:05:25.495 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:05:25.498 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:05:25.501 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:05:25.503 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:05:25.506 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:05:26.418 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/proveedores/66/logo.png
+2026-10-19 17:05:26.422 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/proveedores/66/logo.png
+2026-10-19 17:05:27.023 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:05:27.026 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:05:27.031 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:05:27.034 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-19 17:05:27.040 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 595.0741ms - 200
+2026-10-19 17:05:27.044 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 628.7078ms - 200
+2026-10-19 17:05:27.736 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/ff84b0d3-1db8-41e6-9499-c716dcbf940c.jpg
+2026-10-19 17:05:27.739 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/ff84b0d3-1db8-41e6-9499-c716dcbf940c.jpg
+2026-10-19 17:05:27.750 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:05:27.752 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:05:27.758 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:05:27.761 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:05:27.768 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/03825553-119e-4b99-beca-7367675fe959.jpg
+2026-10-19 17:05:27.770 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/03825553-119e-4b99-beca-7367675fe959.jpg
+2026-10-19 17:05:27.773 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:05:27.776 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:05:27.779 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:05:27.782 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:05:27.786 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/d798036b-ff81-488a-8312-27d669209703.jpg
+2026-10-19 17:05:27.789 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2864/d798036b-ff81-488a-8312-27d669209703.jpg
+2026-10-19 17:05:27.791 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:05:27.794 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-10-19 17:05:27.798 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:05:27.801 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-10-19 17:05:27.852 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 110.3775ms - 200
+2026-10-19 17:05:27.855 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 118.9579ms - 200
+2026-10-19 17:05:27.918 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 154.5932ms - 200
+2026-10-19 17:05:27.921 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 162.4034ms - 200
+2026-10-19 17:05:27.949 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 192.8715ms - 403
+2026-10-19 17:05:27.952 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 202.0731ms - 403
+2026-10-19 17:05:27.981 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 182.7058ms - 403
+2026-10-19 17:05:27.984 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 201.3201ms - 403
+2026-10-19 17:05:27.987 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 176.0088ms - 200
+2026-10-19 17:05:27.989 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 195.0852ms - 403
+2026-10-19 17:05:27.991 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 215.9908ms - 403
+2026-10-19 17:05:27.994 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 218.3187ms - 200
+2026-10-19 17:05:27.998 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 194.3934ms - 200
+2026-10-19 17:05:28.030 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 232.6275ms - 200
+2026-10-19 17:05:28.096 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 309.6324ms - 200
+2026-10-19 17:05:28.099 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 319.9077ms - 200
+2026-10-19 17:05:28.144 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 352.1859ms - 200
+2026-10-19 17:05:28.148 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 360.8172ms - 200
+2026-10-19 17:05:29.150 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api) in 4689.0045ms
+2026-10-19 17:05:29.155 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api)'
+2026-10-19 17:05:29.207 [ERR] Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware
+      An unhandled exception has occurred while executing the request.
+QuestPDF.Drawing.Exceptions.DocumentLayoutException: The provided document content contains conflicting size constraints. For example, some elements may require more space than is available. 
+
+The layout issue is likely present in the following part of the document: 
+
+-> Document
+
+-> Page
+
+-> Page
+
+-> Content
+
+-> Content
+
+-> In method:   c =>
+                    CrearContenidoPrincipalConSidebar(c, reporte, clienteDisplay, direccionDisplay, _logoBytes, archivosTarea, _pdfIconBytes, _personaIconBytes, _documentoIconBytes, _carpetaIconBytes)
+   Called from: ConstruirPdfAsync
+   Source path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+   Line number: 410
+
+
+
+To learn more, please analyse the document measurement of the problematic location: 
+
+🔴 Padding
+===========
+Available Space: (Width: 555.000, Height: 625.200)
+Space Plan: Wrap
+Wrap Reason: Forwarded from child
+-----------
+Top: 0
+Right: 0
+Bottom: 0
+Left: 28
+
+
+   🔴 Row
+   =======
+   Available Space: (Width: 527.000, Height: 625.200)
+   Space Plan: Wrap
+   Wrap Reason: One of the items does not fit (even partially) in the available space.
+   -------
+   Content Direction: LeftToRight
+
+
+      🟢 Padding
+      ===========
+      Available Space: (Width: 352.000, Height: 625.200)
+      Space Plan: Empty (Width: 0.000, Height: 0.000)
+      -----------
+      Top: 0
+      Right: 12
+      Bottom: 0
+      Left: 0
+
+
+         🟢 Column
+         ==========
+         Available Space: (Width: 340.000, Height: 625.200)
+         Space Plan: Empty (Width: 0.000, Height: 0.000)
+         ----------
+
+
+            ⚪️ SourceCodePointer
+            =====================
+            Method Name: lc => { }
+            Called From: CrearContenidoPrincipalConSidebar
+            File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+            Line Number: 717
+
+
+            ⚪️ SourceCodePointer
+            =====================
+            Method Name: c =>
+                    CrearSeccionConIcono(c, "Información general del cliente", content =>
+                    {
+                        content.Item().Element(x => CrearFilaSimple(x, "Nombre", clienteDisplay));
+                        content.Item().Element(x => CrearFilaSimple(x, "Razón Social", cliente.RazonSocial));
+                        content.Item().Element(x => CrearFilaSimple(x, "Número de teléfono de la empresa",
+                            !string.IsNullOrWhiteSpace(tarea.TelefonoCentroTrabajo) ? tarea.TelefonoCentroTrabajo : cliente.Telefono));
+                        content.Item().Element(x => CrearFilaSimple(x, "Email del supervisor", tarea.EmailSupervisor));
+                    }, documentoIconBytes)
+            Called From: CrearContenidoPrincipalConSidebar
+            File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+            Line Number: 719
+
+
+            ⚪️ SourceCodePointer
+            =====================
+            Method Name: c =>
+                    CrearSeccionConIcono(c, "Información de tarea", content =>
+                    {
+                        content.Item().Element(x => CrearFilaSimple(x, "Nombre", (tarea.Titulo ?? "").Replace("/", "").Trim()));
+
+                        content.Item().PaddingTop(14).Text(text =>
+                        {
+                            text.Span("Descripción de la actividad a desarrollar: ")
+                                .SemiBold().FontSize(9).FontColor("#24364D");
+                            text.Span(tarea.Descripcion ?? "N/A")
+                                .FontSize(9).FontColor("#6B7280");
+                        });
+
+                        if (tarea.Observaciones.Count > 0)
+                        {
+                            content.Item().PaddingTop(10).Padding(8).Column(obs =>
+                            {
+                                obs.Item().Text("Observaciones:").SemiBold().FontSize(9).FontColor("#24364D");
+
+                                obs.Item().PaddingTop(4).Row(obsRow =>
+                                {
+                                    var mitad = (int)Math.Ceiling(tarea.Observaciones.Count / 2.0);
+                                    var columnaIzq = tarea.Observaciones.Take(mitad).ToList();
+                                    var columnaDer = tarea.Observaciones.Skip(mitad).ToList();
+
+                                    obsRow.RelativeItem().Column(col =>
+                                    {
+                                        col.Spacing(2);
+                                        foreach (var item in columnaIzq)
+                                            col.Item().Row(r =>
+                                            {
+                                                r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
+                                                r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
+                                            });
+                                    });
+
+                                    obsRow.ConstantItem(8);
+
+                                    obsRow.RelativeItem().Column(col =>
+                                    {
+                                        col.Spacing(2);
+                                        foreach (var item in columnaDer)
+                                            col.Item().Row(r =>
+                                            {
+                                                r.ConstantItem(8).Text("•").FontSize(8).FontColor("#24364D");
+                                                r.RelativeItem().Text(item).FontSize(8).FontColor("#6B7280").LineHeight(1.1f);
+                                            });
+                                    });
+                                });
+                            });
+                        }
+
+                        if (archivosTarea != null && archivosTarea.Count > 0)
+                        {
+                            content.Item().PaddingTop(10).Element(el =>
+                                CrearSeccionConIcono(el, "Archivos adjuntos de la tarea", filesContent =>
+                                {
+                                    filesContent.Item().Column(fc =>
+                                    {
+                                        foreach (var a in archivosTarea)
+                                        {
+                                            fc.Item().PaddingTop(6).Row(r =>
+                                            {
+                                                r.ConstantItem(36).Height(36).AlignCenter().AlignMiddle().Element(icon =>
+                                                {
+                                                    if (a.Extension == ".pdf" && pdfIconBytes is not null && pdfIconBytes.Length > 0)
+                                                    {
+                                                        icon.Background(Colors.White).Border(1).BorderColor("#D1D5DB")
+                                                            .AlignCenter().AlignMiddle()
+                                                            .Element(img => img.Image(pdfIconBytes, ImageScaling.FitArea));
+                                                    }
+                                                    else
+                                                    {
+                                                        var emoji = a.Extension switch
+                                                        {
+                                                            ".xls" or ".xlsx" => "📊",
+                                                            ".ppt" or ".pptx" => "📽️",
+                                                            ".doc" or ".docx" => "📄",
+                                                            ".pdf" => "📕",
+                                                            ".zip" or ".rar" => "🗜️",
+                                                            ".png" or ".jpg" or ".jpeg" or ".gif" or ".bmp" => "🖼️",
+                                                            _ => "📁"
+                                                        };
+                                                        var label = (a.Extension ?? string.Empty).TrimStart('.').ToUpperInvariant();
+                                                        if (string.IsNullOrWhiteSpace(label)) label = "FILE";
+
+                                                        icon.Background(Colors.White).Border(1).BorderColor("#D1D5DB")
+                                                            .AlignCenter().AlignMiddle()
+                                                            .Column(ic =>
+                                                            {
+                                                                ic.Item().Text(emoji).FontSize(12);
+                                                                ic.Item().Text(label).FontSize(8).FontColor("#6B7280");
+                                                            });
+                                                    }
+                                                });
+
+                                                r.ConstantItem(8);
+
+                                                r.RelativeItem().Column(info =>
+                                                {
+                                                    info.Item().Text(text =>
+                                                    {
+                                                        if (!string.IsNullOrWhiteSpace(a.Url))
+                                                            text.Hyperlink(a.Url, a.Url).FontSize(8).FontColor("#6B7280");
+                                                        else
+                                                            text.Span("N/A").FontSize(8).FontColor("#6B7280");
+                                                    });
+                                                });
+                                            });
+                                        }
+                                    });
+                                }, documentoIconBytes));
+                        }
+                    }, documentoIconBytes)
+            Called From: CrearContenidoPrincipalConSidebar
+            File Path: C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs
+            Line Number: 729
+
+
+      🔴 StyledBox
+      =============
+      Available Space: (Width: 175.000, Height: 625.200)
+      Space Plan: Wrap
+      Wrap Reason: Forwarded from child
+      -------------
+      Border Left: 0
+      Border Top: 0
+      Border Right: 0
+      Border Bottom: 0
+      Border Radius Top Left: 8
+      Border Radius Top Right: 8
+      Border Radius Bottom Left: 8
+      Border Radius Bottom Right: 8
+      Border Alignment: 0
+      Background Color: #F3F4F6
+      Background Gradient Angle: -
+      Border Color: #00000000
+      Border Gradient Angle: -
+      Shadow: -
+
+
+         🔴 Padding
+         ===========
+         Available Space: (Width: 175.000, Height: 625.200)
+         Space Plan: Wrap
+         Wrap Reason: Forwarded from child
+         -----------
+         Top: 12
+         Right: 12
+         Bottom: 12
+         Left: 12
+
+
+            🔴 Column
+            ==========
+            Available Space: (Width: 151.000, Height: 601.200)
+            Space Plan: Wrap
+            Wrap Reason: The available space is not sufficient for even partially rendering a single item.
+            ----------
+
+
+               ⚪️ Constrained
+               ===============
+               Content Direction: LeftToRight
+               Min Width: -
+               Max Width: -
+               Min Height: 6
+               Max Height: 6
+               Enforce Size When Empty: False
+
+
+               ⚪️ Padding
+               ===========
+               Top: 4
+               Right: 0
+               Bottom: 0
+               Left: 0
+
+
+               ⚪️ Row
+               =======
+               Content Direction: LeftToRight
+
+
+               ⚪️ Line
+               ========
+               Type: Horizontal
+               Color: #D1D5DB
+               Thickness: 1
+
+
+               ⚪️ Padding
+               ===========
+               Top: 4
+               Right: 0
+               Bottom: 0
+               Left: 0
+
+
+               ⚪️ Padding
+               ===========
+               Top: 4
+               Right: 0
+               Bottom: 0
+               Left: 0
+
+
+               🔴 Padding
+               ===========
+               Available Space: (Width: 151.000, Height: 601.200)
+               Space Plan: Wrap
+               Wrap Reason: Forwarded from child
+               -----------
+               Top: 8
+               Right: 0
+               Bottom: 0
+               Left: 0
+
+
+                  🔴 StyledBox
+                  =============
+                  Available Space: (Width: 151.000, Height: 593.200)
+                  Space Plan: Wrap
+                  Wrap Reason: Forwarded from child
+                  -------------
+                  Border Left: 0
+                  Border Top: 0
+                  Border Right: 0
+                  Border Bottom: 0
+                  Border Radius Top Left: 6
+                  Border Radius Top Right: 6
+                  Border Radius Bottom Left: 6
+                  Border Radius Bottom Right: 6
+                  Border Alignment: 0
+                  Background Color: #24364D
+                  Background Gradient Angle: -
+                  Border Color: #00000000
+                  Border Gradient Angle: -
+                  Shadow: -
+
+
+                     🔴 Padding
+                     ===========
+                     Available Space: (Width: 151.000, Height: 593.200)
+                     Space Plan: Wrap
+                     Wrap Reason: Forwarded from child
+                     -----------
+                     Top: 10
+                     Right: 10
+                     Bottom: 10
+                     Left: 10
+
+
+                        🔴 Column
+                        ==========
+                        Available Space: (Width: 131.000, Height: 573.200)
+                        Space Plan: Wrap
+                        Wrap Reason: The available space is not sufficient for even partially rendering a single item.
+                        ----------
+
+
+                           ⚪️ Alignment
+                           =============
+                           Vertical: -
+                           Horizontal: Center
+
+
+                           ⚪️ Alignment
+                           =============
+                           Vertical: -
+                           Horizontal: Center
+
+
+                           ⚪️ Padding
+                           ===========
+                           Top: 6
+                           Right: 0
+                           Bottom: 0
+                           Left: 0
+
+
+                           ⚪️ Padding
+                           ===========
+                           Top: 6
+                           Right: 0
+                           Bottom: 0
+                           Left: 0
+
+
+                           ⚪️ Alignment
+                           =============
+                           Vertical: -
+                           Horizontal: Center
+
+
+                           ⚪️ Padding
+                           ===========
+                           Top: 6
+                           Right: 0
+                           Bottom: 0
+                           Left: 0
+
+
+                           🔴 Padding
+                           ===========
+                           Available Space: (Width: 131.000, Height: 573.200)
+                           Space Plan: Wrap
+                           Wrap Reason: Forwarded from child
+                           -----------
+                           Top: 6
+                           Right: 0
+                           Bottom: 0
+                           Left: 0
+
+
+                              🔴 Row
+                              =======
+                              Available Space: (Width: 131.000, Height: 567.200)
+                              Space Plan: Wrap
+                              Wrap Reason: One of the items does not fit (even partially) in the available space.
+                              -------
+                              Content Direction: LeftToRight
+
+
+                                 🔴 Alignment
+                                 =============
+                                 Available Space: (Width: 16.000, Height: 567.200)
+                                 Space Plan: Wrap
+                                 Wrap Reason: Forwarded from child
+                                 -------------
+                                 Vertical: Middle
+                                 Horizontal: Center
+
+
+                                    🚨 TextBlock 🚨
+                                    ================
+                                    Available Space: (Width: 16.000, Height: 567.200)
+                                    Space Plan: Wrap
+                                    Wrap Reason: The available space is not sufficient to render even a single character.
+                                    ----------------
+                                    Alignment: Center
+                                    Content Direction: LeftToRight
+                                    Line Clamp: -
+                                    Line Clamp Ellipsis: -
+                                    Paragraph Spacing: 0
+                                    Paragraph First Line Indentation: 0
+                                    Text: ⚠
+
+
+                                 🟢 Empty
+                                 =========
+                                 Available Space: (Width: 4.000, Height: 567.200)
+                                 Space Plan: FullRender (Width: 0.000, Height: 0.000)
+                                 ---------
+
+
+                                 🟢 Alignment
+                                 =============
+                                 Available Space: (Width: 111.000, Height: 567.200)
+                                 Space Plan: FullRender (Width: 76.158, Height: 24.000)
+                                 -------------
+                                 Vertical: Middle
+                                 Horizontal: -
+
+
+                                    🟢 Column
+                                    ==========
+                                    Available Space: (Width: 111.000, Height: 567.200)
+                                    Space Plan: FullRender (Width: 76.158, Height: 24.000)
+                                    ----------
+
+
+                                       🟢 TextBlock
+                                       =============
+                                       Available Space: (Width: 111.000, Height: 567.200)
+                                       Space Plan: FullRender (Width: 40.500, Height: 9.600)
+                                       -------------
+                                       Alignment: Start
+                                       Content Direction: LeftToRight
+                                       Line Clamp: -
+                                       Line Clamp Ellipsis: -
+                                       Paragraph Spacing: 0
+                                       Paragraph First Line Indentation: 0
+                                       Text: EXCEDIDO
+
+
+                                       🟢 TextBlock
+                                       =============
+                                       Available Space: (Width: 111.000, Height: 557.600)
+                                       Space Plan: FullRender (Width: 76.158, Height: 14.400)
+                                       -------------
+                                       Alignment: Start
+                                       Content Direction: LeftToRight
+                                       Line Clamp: -
+                                       Line Clamp Ellipsis: -
+                                       Paragraph Spacing: 0
+                                       Paragraph First Line Indentation: 0
+                                       Text: $500.00 MXN
+
+
+               ⚪️ Padding
+               ===========
+               Top: 10
+               Right: 0
+               Bottom: 0
+               Left: 0
+
+
+               ⚪️ Padding
+               ===========
+               Top: 10
+               Right: 0
+               Bottom: 0
+               Left: 0
+
+
+Legend: 
+🚨 - Element that is likely the root cause of the layout issue based on library heuristics and prediction. 
+🔴 - Element that cannot be drawn due to the provided layout constraints. This element likely causes the layout issue, or one of its descendant children is responsible for the problem. 
+🟡 - Element that can be partially drawn on the page and will also be rendered on the consecutive page. In more complex layouts, this element may also cause issues or contain a child that is the actual root cause.
+🟢 - Element that is successfully and completely drawn on the page.
+⚪️ - Element that has not been drawn on the faulty page. Its children are omitted.
+
+
+This detailed information is generated because you run the application with a debugger attached or with the QuestPDF.Settings.EnableDebugging flag set to true. 
+   at QuestPDF.Drawing.DocumentGenerator.<RenderPass>g__ThrowLayoutException|11_2(<>c__DisplayClass11_0&)
+   at QuestPDF.Drawing.DocumentGenerator.RenderPass(PageContext pageContext, IDocumentCanvas canvas, ContainerElement content)
+   at QuestPDF.Drawing.DocumentGenerator.RenderDocument(IDocumentCanvas canvas, IDocument document, DocumentSettings settings)
+   at QuestPDF.Drawing.DocumentGenerator.GeneratePdf(SkWriteStream stream, IDocument document)
+   at QuestPDF.Fluent.GenerateExtensions.GeneratePdf(IDocument document, Stream stream)
+   at QuestPDF.Fluent.GenerateExtensions.GeneratePdf(IDocument document)
+   at velios.Api.Services.ReportePreeliminarService.ConstruirPdfAsync(ReporteMaterialidadDto reporte, Byte[] logoProveedorBytes) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs:line 620
+   at velios.Api.Services.ReportePreeliminarService.GenerarPdfPorTareaAsync(Int32 tareaId) in C:\Proyectos Inssoft\velios-services\Services\ReporteMaterialidadPreeliminar\Reportematerialidadpreeliminarservice.cs:line 148
+   at velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea(Int32 tareaId) in C:\Proyectos Inssoft\velios-services\Controllers\ReportePreeliminar\ReporteMaterialidadPreeliminarController.cs:line 23
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Program.<>c__DisplayClass0_0.<<<Main>$>b__8>d.MoveNext() in C:\Proyectos Inssoft\velios-services\Program.cs:line 289
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-10-19 17:05:29.230 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/ReporteMaterialidadPreeliminar/tarea/2864 - 500 null text/plain; charset=utf-8 4872.9338ms
+2026-10-19 17:05:43.603 [WRN] Hangfire.Server.BackgroundProcessingServer
+      Stopping the server due to DomainUnload or ProcessExit event...
+2026-10-19 17:05:43.605 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:7608:b0f75e2c caught stopping signal...
+2026-10-19 17:05:43.676 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:7608:b0f75e2c caught stopped signal...
+2026-10-19 17:05:43.707 [WRN] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:7608:b0f75e2c caught shutdown signal...
+2026-10-19 17:05:43.714 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:7608:b0f75e2c All dispatchers stopped
+2026-10-19 17:05:44.248 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:7608:b0f75e2c successfully reported itself as stopped in 523.7181 ms
+2026-10-19 17:05:44.250 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:7608:b0f75e2c has been stopped in total 636.3808 ms

@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Proyectos Inssoft\\velios-services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\models\\rutaesperada\\rutaesperadadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:models\\rutaesperada\\rutaesperadadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\reportematerialidadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\reportematerialidadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\controllers\\rutaesperada\\rutaesperadacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:controllers\\rutaesperada\\rutaesperadacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\reportematerialidadpreeliminar\\reportematerialidadpreeliminarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\reportematerialidadpreeliminar\\reportematerialidadpreeliminarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|c:\\proyectos inssoft\\velios-services\\services\\reportematerialidadpreeliminar\\reportelayout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E09E1487-B5CC-B41E-44A3-43E90D9847EE}|velios.Api.csproj|solutionrelative:services\\reportematerialidadpreeliminar\\reportelayout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,27 +35,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RutaEsperadaDTO.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Models\\RutaEsperada\\RutaEsperadaDTO.cs",
-              "RelativeDocumentMoniker": "Models\\RutaEsperada\\RutaEsperadaDTO.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Models\\RutaEsperada\\RutaEsperadaDTO.cs",
-              "RelativeToolTip": "Models\\RutaEsperada\\RutaEsperadaDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Title": "ReporteMaterialidadService.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadService.cs",
+              "RelativeDocumentMoniker": "Services\\ReporteMaterialidadService.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadService.cs",
+              "RelativeToolTip": "Services\\ReporteMaterialidadService.cs",
+              "ViewState": "AgIAAEUDAAAAAAAAAADgv1gDAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T06:49:21.474Z",
+              "WhenOpened": "2026-10-19T21:34:18.844Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "RutaEsperadaController.cs",
-              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\RutaEsperada\\RutaEsperadaController.cs",
-              "RelativeDocumentMoniker": "Controllers\\RutaEsperada\\RutaEsperadaController.cs",
-              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Controllers\\RutaEsperada\\RutaEsperadaController.cs",
-              "RelativeToolTip": "Controllers\\RutaEsperada\\RutaEsperadaController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Title": "Reportematerialidadpreeliminarservice.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadPreeliminar\\Reportematerialidadpreeliminarservice.cs",
+              "RelativeDocumentMoniker": "Services\\ReporteMaterialidadPreeliminar\\Reportematerialidadpreeliminarservice.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadPreeliminar\\Reportematerialidadpreeliminarservice.cs",
+              "RelativeToolTip": "Services\\ReporteMaterialidadPreeliminar\\Reportematerialidadpreeliminarservice.cs",
+              "ViewState": "AgIAAGQEAAAAAAAAAAAswJAEAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T06:48:57.315Z",
+              "WhenOpened": "2026-10-19T21:34:14.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReporteLayout.cs",
+              "DocumentMoniker": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadPreeliminar\\ReporteLayout.cs",
+              "RelativeDocumentMoniker": "Services\\ReporteMaterialidadPreeliminar\\ReporteLayout.cs",
+              "ToolTip": "C:\\Proyectos Inssoft\\velios-services\\Services\\ReporteMaterialidadPreeliminar\\ReporteLayout.cs",
+              "RelativeToolTip": "Services\\ReporteMaterialidadPreeliminar\\ReporteLayout.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-19T21:32:12.263Z",
               "EditorCaption": ""
             }
           ]

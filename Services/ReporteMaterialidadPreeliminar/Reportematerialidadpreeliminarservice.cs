@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.Json;
 using velios.Api.Models.ReporteMaterialidad;
 using velios.Api.Models.Tareas;
- 
+
 
 
 
@@ -371,7 +371,8 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                 await semAdj.WaitAsync();
                 try
                 {
-                    var ext = Path.GetExtension(url).ToLowerInvariant();
+                    var urlLimpia = url.Split('?')[0];
+                    var ext = Path.GetExtension(urlLimpia).ToLowerInvariant();
                     byte[]? bytes = null;
                     if (ext is ".png" or ".jpg" or ".jpeg" or ".gif" or ".bmp")
                         try { bytes = await DescargarImagenAsync(url); } catch { bytes = null; }
@@ -379,7 +380,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                     return new ArchivoAdjunto
                     {
                         Url = url,
-                        FileName = Path.GetFileName(url),
+                        FileName = Path.GetFileName(urlLimpia),
                         Extension = ext,
                         Bytes = bytes
                     };
@@ -478,7 +479,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                                             });
                                             r.ConstantItem(8);
                                             r.RelativeItem().AlignMiddle()
-                                                .Text(Path.GetFileName(evidencia.UrlArchivo))
+                                                .Text(ReporteLayout.Truncar(Path.GetFileName(evidencia.UrlArchivo!.Split('?')[0]), 70))
                                                 .SemiBold().FontSize(9).FontColor("#24364D");
                                         });
                                 }
@@ -486,7 +487,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
 
                             row.ConstantItem(12);
 
-                            row.ConstantItem(185).Background("#F3F4F6").CornerRadius(8).Padding(10).Column(right =>
+                            row.ConstantItem(185).ScaleToFit().Background("#F3F4F6").CornerRadius(8).Padding(10).Column(right =>
                             {
                                 right.Spacing(6);
 
@@ -517,13 +518,13 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                                     {
                                         r.ConstantItem(14).AlignTop().Text("👤").FontSize(9);
                                         r.ConstantItem(4);
-                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Usuario de registro", tarea.NombreOperador));
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Usuario de registro", ReporteLayout.Truncar(tarea.NombreOperador, 60)));
                                     });
                                     sec.Item().Row(r =>
                                     {
                                         r.ConstantItem(14).AlignTop().Text("📱").FontSize(9);
                                         r.ConstantItem(4);
-                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Equipo", evidencia.ModeloDispositivo));
+                                        r.RelativeItem().Element(x => CrearCampoLateral(x, "Equipo", ReporteLayout.Truncar(evidencia.ModeloDispositivo, 40)));
                                     });
                                     sec.Item().Row(r =>
                                     {
@@ -588,7 +589,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                                                 {
                                                     r.ConstantItem(10).Text("⊙").FontSize(9).FontColor("#F15A24");
                                                     r.ConstantItem(3);
-                                                    r.RelativeItem().Text(evidencia.DireccionFormateada)
+                                                    r.RelativeItem().Text(ReporteLayout.Truncar(evidencia.DireccionFormateada, 140))
                                                         .FontSize(7).FontColor("#374151").LineHeight(1.1f);
                                                 });
                                         }
@@ -601,7 +602,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                                             col.Item().Background(Colors.White).BorderTop(1).BorderColor("#D6DCE5")
                                                 .PaddingHorizontal(4).PaddingVertical(3).Text(text =>
                                                 {
-                                                    text.Hyperlink(mapsUrl, "Da clic aquí para ir a la ubicación en Google Maps")
+                                                    text.Hyperlink("Da clic aquí para ir a la ubicación en Google Maps", mapsUrl)
                                                         .FontSize(7).FontColor("#1D4ED8").Underline();
                                                 });
                                         }
@@ -644,6 +645,8 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
     // =========================================================================
     private static void CrearHeader(IContainer container, byte[]? logoBytes, string titulo, string subtitulo)
     {
+        var tit = ReporteLayout.Ajustar(subtitulo ?? "SIN TÍTULO", 110, 16, 10, 38);
+
         container.PaddingLeft(28).PaddingRight(10).PaddingTop(5).Column(column =>
         {
             column.Item().Row(row =>
@@ -680,7 +683,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                                 .Column(col =>
                                 {
                                     col.Item().Text(titulo).FontSize(10).SemiBold().FontColor("#6B7280");
-                                    col.Item().Text(subtitulo ?? "SIN TÍTULO").FontSize(16).Bold().FontColor("#24364D");
+                                    col.Item().Text(tit.Texto).FontSize(tit.Size).Bold().FontColor("#24364D");
                                 });
                         });
                     });
@@ -829,7 +832,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                                                     info.Item().Text(text =>
                                                     {
                                                         if (!string.IsNullOrWhiteSpace(a.Url))
-                                                            text.Hyperlink(a.Url, a.Url).FontSize(8).FontColor("#6B7280");
+                                                            text.Hyperlink(a.FileName, a.Url).FontSize(8).FontColor("#1D4ED8").Underline();
                                                         else
                                                             text.Span("N/A").FontSize(8).FontColor("#6B7280");
                                                     });
@@ -845,14 +848,15 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
             // =========================================================
             // SIDEBAR DERECHO
             // =========================================================
-            row.ConstantItem(175).Background("#F3F4F6").CornerRadius(8).Padding(12).Column(right =>
+            row.ConstantItem(175).ScaleToFit().Background("#F3F4F6").CornerRadius(8).Padding(12).Column(right =>
             {
                 right.Spacing(8);
 
                 right.Item().Height(6).Background("#24364D");
 
-                right.Item().PaddingTop(4).Text(TruncarTexto(tarea.NombreProyecto ?? "Sin plan de trabajo", 40))
-                    .SemiBold().FontSize(13).FontColor("#24364D");
+                var plan = ReporteLayout.Ajustar(tarea.NombreProyecto ?? "Sin plan de trabajo", 60, 13, 9, 20);
+                right.Item().PaddingTop(4).Text(plan.Texto)
+                    .SemiBold().FontSize(plan.Size).FontColor("#24364D");
 
                 right.Item().Row(r =>
                 {
@@ -883,7 +887,8 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                     r.ConstantItem(8);
                     r.RelativeItem().Column(c =>
                     {
-                        c.Item().Text(tarea.NombreOperador ?? "N/A").SemiBold().FontSize(11).FontColor("#24364D");
+                        var op = ReporteLayout.Ajustar(tarea.NombreOperador ?? "N/A", 45, 11, 8, 18);
+                        c.Item().Text(op.Texto).SemiBold().FontSize(op.Size).FontColor("#24364D");
                         c.Item().Text("Operador").FontSize(8).FontColor("#6B7280");
                     });
                 });
@@ -902,7 +907,8 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                     r.ConstantItem(8);
                     r.RelativeItem().Column(c =>
                     {
-                        c.Item().Text(tarea.NombreSupervisor ?? "N/A").SemiBold().FontSize(11).FontColor("#24364D");
+                        var sup = ReporteLayout.Ajustar(tarea.NombreSupervisor ?? "N/A", 45, 11, 8, 18);
+                        c.Item().Text(sup.Texto).SemiBold().FontSize(sup.Size).FontColor("#24364D");
                         c.Item().Text("Supervisor").FontSize(8).FontColor("#6B7280");
                     });
                 });
@@ -915,19 +921,23 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                 var diferencia = presupuesto - ejecutado;
                 var excedido = diferencia < 0;
 
+                var mPres = ReporteLayout.Ajustar(presupuesto > 0 ? $"${presupuesto:N2} {tarea.Moneda}" : "N/A", 30, 13, 8, 16);
+                var mEjec = ReporteLayout.Ajustar(ejecutado > 0 ? $"${ejecutado:N2} {tarea.Moneda}" : "N/A", 30, 13, 8, 16);
+                var mDif = ReporteLayout.Ajustar(presupuesto > 0 ? $"${Math.Abs(diferencia):N2} {tarea.Moneda}" : "N/A", 30, 12, 8, 14);
+
                 right.Item().PaddingTop(8).Background("#24364D").CornerRadius(6).Padding(10).Column(c =>
                 {
                     // Presupuesto asignado
                     c.Item().AlignCenter().Text("PRESUPUESTO").FontSize(9).FontColor(Colors.White).SemiBold();
-                    c.Item().AlignCenter().Text(presupuesto > 0 ? $"${presupuesto:N2} {tarea.Moneda}" : "N/A")
-                        .Bold().FontSize(13).FontColor(Colors.White);
+                    c.Item().AlignCenter().Text(mPres.Texto)
+                        .Bold().FontSize(mPres.Size).FontColor(Colors.White);
 
                     c.Item().PaddingTop(6).LineHorizontal(1).LineColor("#FFFFFF40");
 
                     // Ejecutado
                     c.Item().PaddingTop(6).AlignCenter().Text("EJECUTADO").FontSize(9).FontColor("#CBD5E1").SemiBold();
-                    c.Item().AlignCenter().Text(ejecutado > 0 ? $"${ejecutado:N2} {tarea.Moneda}" : "N/A")
-                        .Bold().FontSize(13).FontColor("#CBD5E1");
+                    c.Item().AlignCenter().Text(mEjec.Texto)
+                        .Bold().FontSize(mEjec.Size).FontColor("#CBD5E1");
 
                     c.Item().PaddingTop(6).LineHorizontal(1).LineColor("#FFFFFF40");
 
@@ -935,17 +945,16 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                     c.Item().PaddingTop(6).Row(r =>
                     {
                         r.ConstantItem(16).AlignMiddle().AlignCenter()
-                            .Text(excedido ? "⚠" : "✓").FontSize(12)
-                            .FontColor(excedido ? "#FCA5A5" : "#86EFAC");
+                            .Width(10).Height(10)
+                            .Background(excedido ? "#FCA5A5" : "#86EFAC")
+                            .CornerRadius(5);
                         r.ConstantItem(4);
                         r.RelativeItem().AlignMiddle().Column(col =>
                         {
                             col.Item().Text(excedido ? "EXCEDIDO" : "DISPONIBLE")
                                 .FontSize(8).FontColor(excedido ? "#FCA5A5" : "#86EFAC").SemiBold();
-                            col.Item().Text(presupuesto > 0
-                                    ? $"${Math.Abs(diferencia):N2} {tarea.Moneda}"
-                                    : "N/A")
-                                .Bold().FontSize(12)
+                            col.Item().Text(mDif.Texto)
+                                .Bold().FontSize(mDif.Size)
                                 .FontColor(excedido ? "#FCA5A5" : "#86EFAC");
                         });
                     });
@@ -961,8 +970,9 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                         r.ConstantItem(6);
                         r.RelativeItem().Column(c =>
                         {
-                            c.Item().Text(TruncarTexto(tarea.NombreCentroTrabajo ?? clienteDisplay, 35))
-                                .SemiBold().FontSize(13).FontColor("#24364D");
+                            var sucursal = ReporteLayout.Ajustar(tarea.NombreCentroTrabajo ?? clienteDisplay, 50, 13, 9, 16);
+                            c.Item().Text(sucursal.Texto)
+                                .SemiBold().FontSize(sucursal.Size).FontColor("#24364D");
                             c.Item().Text("Sucursal /CT").FontSize(9).FontColor("#6B7280");
                             c.Item().PaddingTop(4).Text(TruncarTexto(direccionDisplay, 70))
                                 .FontSize(8).FontColor("#374151");
@@ -1026,13 +1036,15 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
         byte[]? logoProveedorBytes,
         byte[]? carpetaIconBytes)
     {
+        var nomGrande = ReporteLayout.Ajustar(nombreProyecto, 45, 11, 8, 26);
+        var nomChico = ReporteLayout.Ajustar(nombreProyecto, 45, 9, 7, 26);
+        var dirFooter = ReporteLayout.Ajustar(direccionDisplay, 160, 8, 7, 90);
         container.PaddingLeft(28).Column(column =>
         {
             column.Item().PaddingBottom(4).Row(r =>
             {
                 r.RelativeItem().AlignMiddle().AlignCenter().Column(c =>
-                    c.Item().AlignCenter().Text(nombreProyecto).Bold().FontSize(11).FontColor("#24364D"));
-
+                    c.Item().AlignCenter().Text(nomGrande.Texto).Bold().FontSize(nomGrande.Size).FontColor("#24364D"));
                 r.ConstantItem(20).AlignMiddle().AlignCenter().Column(c =>
                     c.Item().Width(1).Height(22).Background("#BDBDBD"));
 
@@ -1061,9 +1073,8 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                         else
                             ic.Text("▭").FontSize(10).FontColor("#6B7280");
                     });
-                    eRow.ConstantItem(4);
                     eRow.RelativeItem().AlignMiddle()
-                        .Text(nombreProyecto).FontSize(9).SemiBold().FontColor("#6B7280");
+                 .Text(nomChico.Texto).FontSize(nomChico.Size).SemiBold().FontColor("#6B7280");
                 });
             });
 
@@ -1071,7 +1082,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
             {
                 row.RelativeItem().PaddingVertical(6).PaddingHorizontal(10).Row(r =>
                 {
-                    r.RelativeItem().AlignCenter().Text(direccionDisplay).FontSize(8).FontColor(Colors.White);
+                    r.RelativeItem().AlignCenter().Text(dirFooter.Texto).FontSize(dirFooter.Size).FontColor(Colors.White);
                     r.ConstantItem(115).AlignRight().Text(text =>
                     {
                         text.Span("PÁGINA ").FontSize(8).FontColor(Colors.White).Bold();
