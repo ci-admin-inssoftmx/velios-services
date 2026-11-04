@@ -140,6 +140,28 @@ public class AsistenciaController : ControllerBase
                             statusCode = 400
                         });
                     }
+
+                    if (string.Equals(tipoRegistro, "Salida", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var fechaReg = model.FechaRegistro.Date;
+                        var tieneEntrada = await _db.AsistenciaRegistros
+                            .AsNoTracking()
+                            .AnyAsync(r => r.TareaId == model.TareaId.Value
+                                        && r.TrabajadorId == model.TrabajadorId
+                                        && r.Fecha == fechaReg
+                                        && r.TipoRegistro.ToUpper() == "ENTRADA"
+                                        && !r.IsDeleted);
+
+                        if (!tieneEntrada)
+                        {
+                            return BadRequest(new ApiResponse<object>
+                            {
+                                success = false,
+                                message = "No hay una asistencia dinámica registrada hoy para esta tarea; no se puede registrar la salida.",
+                                statusCode = 400
+                            });
+                        }
+                    }
                 }
             }
             // ────────────────────────────────────────────
@@ -150,7 +172,8 @@ public class AsistenciaController : ControllerBase
                     r.TrabajadorId == model.TrabajadorId &&
                     r.Fecha == model.FechaRegistro.Date &&
                     r.TipoRegistro == tipoRegistro &&
-                    r.CentroTrabajoId == model.CentroTrabajoId && // <--- Agregado aquí
+                    r.CentroTrabajoId == model.CentroTrabajoId &&
+                    r.TareaId == model.TareaId &&   // ← NUEVO
                     r.Origen == origen &&
                     !r.IsDeleted);
 
@@ -369,15 +392,19 @@ public class AsistenciaController : ControllerBase
 
             var hoyLocal = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zonaMexico).Date;
 
-            var registro = await _db.AsistenciaRegistros
+            var registros = await _db.AsistenciaRegistros
                 .AsNoTracking()
                 .Where(a => a.TareaId == tareaId
                          && a.TrabajadorId == trabajadorId
                          && a.Fecha == hoyLocal
-                         && a.TipoRegistro == "Entrada"
                          && !a.IsDeleted)
                 .OrderByDescending(a => a.DateCreated)
-                .FirstOrDefaultAsync();
+                .ToListAsync();
+
+            var registro = registros.FirstOrDefault(a =>
+                string.Equals(a.TipoRegistro, "Entrada", StringComparison.OrdinalIgnoreCase));
+            var salida = registros.FirstOrDefault(a =>
+                string.Equals(a.TipoRegistro, "Salida", StringComparison.OrdinalIgnoreCase));
 
             return Ok(new ApiResponse<object>
             {
@@ -389,9 +416,10 @@ public class AsistenciaController : ControllerBase
                     tieneAsistencia = registro != null,
                     asistenciaRegistroId = registro?.AsistenciaRegistroId,
                     horaEntrada = registro?.HoraEntrada,
-                    latitud = registro?.Latitud,   // ← NUEVO
-                    longitud = registro?.Longitud  // ← NUEVO
-
+                    latitud = registro?.Latitud,
+                    longitud = registro?.Longitud,
+                    tieneSalida = salida != null,        // ← NUEVO
+                    horaSalida = salida?.HoraSalida      // ← NUEVO
                 }
             });
         }
