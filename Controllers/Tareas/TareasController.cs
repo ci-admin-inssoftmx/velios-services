@@ -360,6 +360,7 @@ public class TareasController : ControllerBase
                 })
                 .ToListAsync();
             // ─────────────────────────────────────────────────────────────────────
+            var ultimaRuta = await _tareaRutaRepository.ObtenerUltimaRutaPorTareaAsync(tarea.Tarea.TareaId);
             return Ok(new
             {
                 taskId = tarea.Tarea.TaskCode,
@@ -371,7 +372,8 @@ public class TareasController : ControllerBase
                 seguimientoRuta = new  // ← NUEVO
                 {
                     activo = tarea.Tarea.SeguimientoRutaActivo,
-                    rutaActiva = await _tareaRutaRepository.ObtenerRutaActivaAsync(tarea.Tarea.TareaId) != null
+                    rutaActiva = await _tareaRutaRepository.ObtenerRutaActivaAsync(tarea.Tarea.TareaId) != null,
+                    ultimaRutaId = ultimaRuta?.Id
                 },
 
                 createdAt = tarea.Tarea.DateCreated,
