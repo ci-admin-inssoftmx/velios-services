@@ -363,6 +363,7 @@ public class TareasController : ControllerBase
             var ultimaRuta = await _tareaRutaRepository.ObtenerUltimaRutaPorTareaAsync(tarea.Tarea.TareaId);
             return Ok(new
             {
+                tareaId = tarea.Tarea.TareaId,          // ← NUEVO: id numérico real
                 taskId = tarea.Tarea.TaskCode,
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
