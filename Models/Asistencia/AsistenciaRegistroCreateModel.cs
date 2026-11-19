@@ -61,4 +61,9 @@ public class AsistenciaRegistroCreateModel
 
     [MaxLength(500)]
     public string? Observacion { get; set; }
+
+    /// <summary>
+    /// Identificador de la tarea asociada a esta asistencia (opcional).
+    /// </summary>
+    public int? TareaId { get; set; }
 }

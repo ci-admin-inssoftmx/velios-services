@@ -13,7 +13,7 @@ public interface IReporteMaterialidadRepository
     Task<string?> ObtenerDireccionCentroTrabajoAsync(int? centroTrabajoId);
     Task<string?> ObtenerTelefonoCentroTrabajoAsync(int? centroTrabajoId);
     Task<string?> ObtenerNombreCentroTrabajoAsync(int? centroTrabajoId); // NUEVO
-
+    Task<string?> ObtenerNombreProveedorAsync(int? proveedorId);
 
     Task<ClienteReporteDto?> ObtenerClienteAsync(int clienteId);
     Task<List<EvidenciaReporteDto>> ObtenerEvidenciasPorTareaAsync(int tareaId);

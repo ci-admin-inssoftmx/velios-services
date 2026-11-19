@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog;
+using Serilog.Extensions.Logging;
+using Serilog.Extensions.Logging;
 using System.Text;
 using velios.Api.Data;
 using velios.Api.Models.Common;
@@ -15,9 +19,14 @@ using velios.Api.Services.ProveedoresDocs;
 using velios.Api.Services.Security;
 using velios.Api.Services.ServiciosCategoria;
 using velios.Api.Services.ServiciosProveedor;
+using Hangfire;
+using velios.Api.Services.BackgroundServices;
+using Serilog;
+using Serilog.Extensions.Logging;
+
 
 /// <summary>
-/// Punto de entrada de Velios API (Minimal Hosting .NET 6+).
+/// Punto de entrada de Velios API (Minimal Hosting .NET 6+)....
 /// 
 /// REGLA CLAVE:
 /// - Todo builder.Services.* debe ir ANTES de builder.Build()
@@ -25,7 +34,52 @@ using velios.Api.Services.ServiciosProveedor;
 /// </summary>
 var builder = WebApplication.CreateBuilder(args);
 
+var logsPath = Path.Combine(builder.Environment.ContentRootPath, "logs", "app-.txt");
+
+var serilogLogger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.File(
+        path: logsPath,
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 30,
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {SourceContext}{NewLine}      {Message:lj}{NewLine}{Exception}")
+    .CreateLogger();
+
+Console.WriteLine($"[Serilog] Logs escribiéndose en: {Path.GetDirectoryName(logsPath)}");
+
+
+builder.Services.AddScoped<ITareaRutaEsperadaRepository, TareaRutaEsperadaRepository>();
+
+
+builder.Logging.AddProvider(new SerilogLoggerProvider(serilogLogger, dispose: true));
+
+builder.Services.AddHttpClient<IGeocodingService, GeocodingService>();
+builder.Services.AddHttpClient<IRutasGoogleService, RutasGoogleService>(c => c.Timeout = TimeSpan.FromSeconds(15));
+builder.Services.AddScoped<ITrazadoCacheRepository, TrazadoCacheRepository>();
+builder.Services.AddScoped<ITrazadoRutaService, TrazadoRutaService>();
+
 #region ============================= CONFIGURACIÓN DE SERVICIOS =============================
+// Pegar junto al resto de registros de servicios en Program.cs
+// Hangfire: usa tu misma base de datos VELIOS como almacenamiento de jobs
+builder.Services.AddHangfire(config => config
+    .UseSqlServerStorage(builder.Configuration.GetConnectionString("VeliosConnection")));
+
+builder.Services.AddHangfireServer();
+
+builder.Services.AddScoped<GenerarReporteMaterialidadJob>();
+
+// Progreso (singleton: debe sobrevivir entre requests del mismo proceso)
+builder.Services.AddSingleton<IProgresoStore, ProgresoStore>();
+
+// Cache de reportes (scoped: usa la conexión Dapper por request, igual que tus otros repos)
+builder.Services.AddScoped<IReporteCacheRepository, ReporteCacheRepository>();
+
+// Almacenamiento: hoy local, mañana se cambia a AlmacenamientoS3Service sin tocar nada más
+builder.Services.AddScoped<IAlmacenamientoService, AlmacenamientoLocalService>();
+
+// Si sirven el reporte guardado desde wwwroot/reportes-generados, habilitar archivos estáticos
+// (probablemente ya lo tienen, pero por si no):
+// app.UseStaticFiles();
 
 // ------------------------------------------------------------
 // 1) Configuración de opciones (Settings)
@@ -40,6 +94,8 @@ builder.Services.AddScoped<IServicioProveedorService, ServicioProveedorService>(
 // 2) Registro de servicios (DI - Dependency Injection)
 // ------------------------------------------------------------
 
+builder.Services.AddScoped<ITareaRutaRepository, TareaRutaRepository>();
+builder.Services.AddScoped<ITareaRutaService, TareaRutaService>();
 // Email sender
 builder.Services.AddScoped<IEmailSender, BrevoSmtpEmailSender>();
 
@@ -53,9 +109,10 @@ builder.Services.AddSingleton<IPasswordHasher, LegacyPasswordHasher>();
 builder.Services.AddScoped<IProveedorDocumentService, ProveedorDocumentService>();
 
 // Registro del módulo de reporte de materialidad
-builder.Services.AddScoped<IReporteMaterialidadPreeliminarService, ReporteMaterialidadPreeliminarService>();
+builder.Services.AddScoped<IReporteMaterialidadPreeliminarService, ReportePreeliminarService>();
 builder.Services.AddScoped<IReporteMaterialidadRepository, ReporteMaterialidadRepository>();
 builder.Services.AddScoped<IReporteMaterialidadService, ReporteMaterialidadService>();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddHttpClient();
 
@@ -134,8 +191,18 @@ builder.Services.AddCors(opt =>
     opt.AddPolicy("LocalDevCors", p =>
         p.AllowAnyHeader()
          .AllowAnyMethod()
-         .AllowAnyOrigin());
+         .AllowAnyOrigin()
+         // 💡 PERMITE QUE JAVASCRIPT LEA EL TAMAÑO DEL ARCHIVO Y LAS CABECERAS PERSONALIZADAS
+         .WithExposedHeaders("Content-Length", "Content-Disposition", "X-Tiempo-Generacion"));
 });
+
+
+/// <summary>
+/// Registra el servicio en segundo plano encargado de procesar las notificaciones
+/// de manera periódica dentro del contenedor de inyección de dependencias.
+/// Cuando la aplicación inicie, crea y ejecuta este servicio en segundo plano.
+/// </summary>
+builder.Services.AddHostedService<NotificacionesBackgroundService>();
 
 #endregion
 
@@ -187,8 +254,28 @@ builder.Services.AddAuthorization();
 
 // ✅ A partir de aquí, ya NO se pueden modificar builder.Services
 var app = builder.Build();
+app.Logger.LogInformation("ENV: {Env} | RutaBase: {Ruta}",
+    app.Environment.EnvironmentName,
+    builder.Configuration["ReportesAlmacenamiento:RutaBase"]);
+app.UseHangfireDashboard("/hangfire");
+// Recurring job: pasa a Expirado los reportes Completado cuyo TTL ya venció,
+// liberando el índice único para que puedan regenerarse.
+RecurringJob.AddOrUpdate<IReporteCacheRepository>(
+    "expirar-reportes-cache-vencidos",
+    repo => repo.ExpirarVencidos(),
+    Cron.Hourly);
 
-app.UseStaticFiles();
+// Nota: se agrega Access-Control-Allow-Origin manualmente aquí (en vez de
+// mover app.UseCors() más arriba) porque reordenar UseCors rompió el login.
+// Este OnPrepareResponse resuelve el CORS de los archivos estáticos (PDFs
+// de reportes-generados) sin tocar el orden del resto del pipeline.
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        ctx.Context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+    }
+});
 
 app.UseStaticFiles(new StaticFileOptions
 {

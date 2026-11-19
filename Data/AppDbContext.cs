@@ -3,6 +3,7 @@ using velios.Api.Models.Asistencia;
 using velios.Api.Models.Clientes;
 using velios.Api.Models.CodigosPostales;
 using velios.Api.Models.Empleado;
+using velios.Api.Models.Notificaciones;
 using velios.Api.Models.Proveedores;
 using velios.Api.Models.Security;
 using velios.Api.Models.Tareas;
@@ -171,6 +172,17 @@ public class AppDbContext : DbContext
     public DbSet<TareaEvidencia> TareaEvidencias { get; set; }
     public DbSet<TareaTimeline> TareaTimeline { get; set; }
     public DbSet<GastoTarea> GastosTarea { get; set; }
+
+    public DbSet<Notificaciones> Notificaciones { get; set; }//Nuevo
+    public DbSet<CatEstatusNotificacion> CatEstatusNotificacion { get; set; } //Nuevo
+    public DbSet<CatTipoNotificacion> CatTipoNotificacion { get; set; } //Nuevo
+
+    public DbSet<CatTemplateNotificacion> CatTemplateNotificacion { get; set; } //Nuevo
+
+    public DbSet<CatEstatusGasto> CatEstatusGasto { get; set; } //Nuevo
+
+    public DbSet<ConfiguracionNotificacion> ConfiguracionNotificacion { get; set; } //Nuevo
+    
 
     // =========================================================
     // CONFIGURACIÓN DE MODELOS

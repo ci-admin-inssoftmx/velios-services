@@ -1,0 +1,340 @@
+2026-10-02 00:51:39.672 [INF] velios.Api
+      ENV: Development | RutaBase: C:\dev\velios-local\ReportesMaterialidad
+2026-10-02 00:51:39.795 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Start installing Hangfire SQL objects...
+2026-10-02 00:51:41.171 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Hangfire SQL objects installed.
+2026-10-02 00:51:42.346 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-10-02 00:51:42.538 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-10-02 00:51:42.766 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-10-02 00:51:42.769 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-10-02 00:51:42.857 [INF] Hangfire.BackgroundJobServer
+      Starting Hangfire Server using job storage: 'SQL Server: 54.39.102.101@VELIOS_DEV'
+2026-10-02 00:51:42.860 [INF] Hangfire.BackgroundJobServer
+      Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-10-02 00:51:42.862 [INF] Hangfire.BackgroundJobServer
+      Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-10-02 00:51:42.892 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-10-02 00:51:42.894 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-10-02 00:51:42.896 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-10-02 00:51:43.043 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:31964:9b679c00 successfully announced in 112.9011 ms
+2026-10-02 00:51:43.105 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:31964:9b679c00 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-10-02 00:51:43.337 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:31964:9b679c00 all the dispatchers started
+2026-10-02 00:51:58.491 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-10-02 00:51:58.719 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-10-02 00:51:58.853 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 372.3291ms
+2026-10-02 00:51:58.859 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-10-02 00:52:03.790 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-10-02 00:52:03.799 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-10-02 00:52:03.885 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 95.5829ms
+2026-10-02 00:52:03.894 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-10-02 00:52:03.899 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-10-02 00:52:03.901 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-10-02 00:52:03.905 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-10-02 00:52:03.910 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 12.5498ms
+2026-10-02 00:52:03.941 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 46.6766ms
+2026-10-02 00:52:03.991 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 93.6026ms
+2026-10-02 00:52:04.010 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/favicon-32x32.png - null null
+2026-10-02 00:52:04.012 [INF] velios.Api
+      Incoming: GET /swagger/favicon-32x32.png CT=null Len=null
+2026-10-02 00:52:04.030 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2026-10-02 00:52:04.033 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/favicon-32x32.png - 200 628 image/png 23.2811ms
+2026-10-02 00:52:27.669 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-10-02 00:52:27.678 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-10-02 00:52:27.681 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 50.1414ms
+2026-10-02 00:52:27.724 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - null null
+2026-10-02 00:52:27.754 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - null null
+2026-10-02 00:52:27.789 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui.css CT=null Len=null
+2026-10-02 00:52:27.791 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - null null
+2026-10-02 00:52:27.822 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-10-02 00:52:27.831 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-bundle.js CT=null Len=null
+2026-10-02 00:52:27.826 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-10-02 00:52:27.834 [INF] velios.Api
+      Incoming: GET /swagger/swagger-ui-standalone-preset.js CT=null Len=null
+2026-10-02 00:52:27.871 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-10-02 00:52:27.874 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-10-02 00:52:27.907 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 112.9298ms
+2026-10-02 00:52:27.914 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 118.3993ms
+2026-10-02 00:52:28.001 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2026-10-02 00:52:28.005 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-10-02 00:52:28.011 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui.css - 200 152035 text/css 314.6427ms
+2026-10-02 00:52:28.036 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-standalone-preset.js - 200 230007 text/javascript 253.2193ms
+2026-10-02 00:52:28.042 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 204.9078ms
+2026-10-02 00:52:28.052 [INF] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-10-02 00:52:28.056 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/swagger-ui-bundle.js - 200 1426050 text/javascript 328.7469ms
+2026-10-02 00:52:28.199 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-10-02 00:52:28.202 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-10-02 00:52:28.283 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 83.697ms
+2026-10-02 00:54:18.446 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 POST https://localhost:7132/api/Authenticate/Login - application/json 75
+2026-10-02 00:54:18.455 [INF] velios.Api
+      Incoming: POST /api/Authenticate/Login CT=application/json Len=75
+2026-10-02 00:54:18.470 [INF] Microsoft.AspNetCore.Cors.Infrastructure.CorsService
+      CORS policy execution successful.
+2026-10-02 00:54:18.515 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.AuthenticateController.Login (velios.Api)'
+2026-10-02 00:54:18.576 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[velios.Api.Models.Common.ApiResponse`1[velios.Api.Models.Auth.LoginDataResponse]]] Login(velios.Api.Models.Auth.LoginRequest) on controller velios.Api.Controllers.AuthenticateController (velios.Api).
+2026-10-02 00:54:19.281 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-02 00:54:19.285 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-02 00:54:19.287 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-02 00:54:19.290 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-02 00:54:19.293 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-10-02 00:54:19.935 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Models.Common.ApiResponse`1[[velios.Api.Models.Auth.LoginDataResponse, velios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-10-02 00:54:19.969 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.AuthenticateController.Login (velios.Api) in 1381.9376ms
+2026-10-02 00:54:19.972 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.AuthenticateController.Login (velios.Api)'
+2026-10-02 00:54:19.981 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 POST https://localhost:7132/api/Authenticate/Login - 200 null application/json; charset=utf-8 1560.2559ms
+2026-10-02 00:54:53.015 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/17/trazado - null null
+2026-10-02 00:54:53.028 [INF] velios.Api
+      Incoming: GET /api/rutas/17/trazado CT=null Len=null
+2026-10-02 00:54:53.077 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TrazadoRutaController.Obtener (velios.Api)'
+2026-10-02 00:54:53.084 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Obtener", controller = "TrazadoRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Obtener(Int32, System.Threading.CancellationToken) on controller TrazadoRutaController (velios.Api).
+2026-10-02 00:54:53.547 [INF] System.Net.Http.HttpClient.IRutasGoogleService.LogicalHandler
+      Start processing HTTP request POST https://routes.googleapis.com/directions/v2:computeRoutes
+2026-10-02 00:54:53.547 [INF] System.Net.Http.HttpClient.IRutasGoogleService.LogicalHandler
+      Start processing HTTP request POST https://routes.googleapis.com/directions/v2:computeRoutes
+2026-10-02 00:54:53.550 [INF] System.Net.Http.HttpClient.IRutasGoogleService.ClientHandler
+      Sending HTTP request POST https://routes.googleapis.com/directions/v2:computeRoutes
+2026-10-02 00:54:53.552 [INF] System.Net.Http.HttpClient.IRutasGoogleService.ClientHandler
+      Sending HTTP request POST https://routes.googleapis.com/directions/v2:computeRoutes
+2026-10-02 00:54:53.856 [INF] System.Net.Http.HttpClient.IRutasGoogleService.ClientHandler
+      Received HTTP response headers after 290.2741ms - 403
+2026-10-02 00:54:53.856 [INF] System.Net.Http.HttpClient.IRutasGoogleService.ClientHandler
+      Received HTTP response headers after 292.0198ms - 403
+2026-10-02 00:54:53.861 [INF] System.Net.Http.HttpClient.IRutasGoogleService.LogicalHandler
+      End processing HTTP request after 316.608ms - 403
+2026-10-02 00:54:53.861 [INF] System.Net.Http.HttpClient.IRutasGoogleService.LogicalHandler
+      End processing HTTP request after 316.604ms - 403
+2026-10-02 00:54:53.870 [WRN] RutasGoogleService
+      Routes API respondió 403: {
+  "error": {
+    "code": 403,
+    "message": "Routes API has not been used in project 524072276243 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/routes.googleapis.com/overview?project=524072276243 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.",
+    "status": "PERMISSION_DENIED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "SERVICE_DISABLED",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "routes.googleapis.com",
+          "serviceTitle": "Routes API",
+          "consumer": "projects/524072276243",
+          "activationUrl": "https://console.developers.google.com/apis/api/routes.googleapis.com/overview?project=524072276243",
+          "containerInfo": "524072276243"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "Routes API has not been used in project 524072276243 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/routes.googleapis.com/overview?project=524072276243 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.Help",
+        "links": [
+          {
+            "description": "Google developers console API activation",
+            "url": "https://console.developers.google.com/apis/api/routes.googleapis.com/overview?project=524072276243"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+2026-10-02 00:54:53.870 [WRN] RutasGoogleService
+      Routes API respondió 403: {
+  "error": {
+    "code": 403,
+    "message": "Routes API has not been used in project 524072276243 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/routes.googleapis.com/overview?project=524072276243 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.",
+    "status": "PERMISSION_DENIED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "SERVICE_DISABLED",
+        "domain": "googleapis.com",
+        "metadata": {
+          "containerInfo": "524072276243",
+          "consumer": "projects/524072276243",
+          "activationUrl": "https://console.developers.google.com/apis/api/routes.googleapis.com/overview?project=524072276243",
+          "service": "routes.googleapis.com",
+          "serviceTitle": "Routes API"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "Routes API has not been used in project 524072276243 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/routes.googleapis.com/overview?project=524072276243 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.Help",
+        "links": [
+          {
+            "description": "Google developers console API activation",
+            "url": "https://console.developers.google.com/apis/api/routes.googleapis.com/overview?project=524072276243"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+2026-10-02 00:54:53.875 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Services.TrazadoRuta.TrazadoRutaDto'.
+2026-10-02 00:54:53.882 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TrazadoRutaController.Obtener (velios.Api) in 795.9649ms
+2026-10-02 00:54:53.884 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TrazadoRutaController.Obtener (velios.Api)'
+2026-10-02 00:54:53.887 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/17/trazado - 200 null application/json; charset=utf-8 872.0346ms
+2026-10-02 13:29:38.441 [WRN] Hangfire.Server.ServerHeartbeatProcess
+      Server laptop-vgniigje:31964:9b679c00 encountered an exception while sending heartbeat
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+ ---> System.ComponentModel.Win32Exception (64): El nombre de red especificado ya no está disponible.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.Open(SqlConnectionOverrides overrides)
+   at Hangfire.SqlServer.SqlServerStorage.CreateAndOpenConnection() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 406
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection[TContext,TResult](DbConnection dedicatedConnection, Func`4 func, TContext context) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 291
+   at Hangfire.SqlServer.SqlServerConnection.Heartbeat(String serverId) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerConnection.cs:line 548
+   at Hangfire.Server.ServerHeartbeatProcess.Execute(BackgroundProcessContext context) in C:\projects\hangfire-525\src\Hangfire.Core\Server\ServerHeartbeatProcess.cs:line 50
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:64,State:0,Class:20
+2026-10-02 13:29:49.524 [INF] Hangfire.Server.ServerWatchdog
+      1 servers were removed due to timeout
+2026-10-02 13:29:57.615 [INF] Hangfire.Processing.BackgroundExecution
+      Execution DelayedJobScheduler recovered from the Faulted state after 00:00:22.1099026 and is in the Running state now
+2026-10-02 13:29:59.347 [INF] Hangfire.Processing.BackgroundExecution
+      Execution RecurringJobScheduler recovered from the Faulted state after 00:00:18.4361411 and is in the Running state now
+2026-10-02 13:30:08.617 [WRN] Hangfire.Server.ServerHeartbeatProcess
+      Server laptop-vgniigje:31964:9b679c00 was considered dead by other servers, restarting...
+2026-10-02 13:30:08.620 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:31964:9b679c00 caught restart signal...
+2026-10-02 13:30:08.772 [WRN] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:31964:9b679c00 stopped non-gracefully due to ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler. Outstanding work on those dispatchers could be aborted, and there can be delays in background processing. This server instance will be incorrectly shown as active for a while. To avoid non-graceful shutdowns, investigate what prevents from stopping gracefully and add CancellationToken support for those methods.
+2026-10-02 13:30:09.055 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:31964:9b679c00 successfully reported itself as stopped in 164.4279 ms
+2026-10-02 13:30:09.058 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:31964:9b679c00 has been stopped in total 327.9232 ms
+2026-10-02 13:30:09.174 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:31964:82416c6e successfully announced in 112.5427 ms
+2026-10-02 13:30:09.202 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:31964:82416c6e is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-10-02 13:30:09.582 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:31964:82416c6e all the dispatchers started
+2026-10-02 13:43:27.644 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/17/trazado - null null
+2026-10-02 13:43:27.649 [INF] velios.Api
+      Incoming: GET /api/rutas/17/trazado CT=null Len=null
+2026-10-02 13:43:27.653 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TrazadoRutaController.Obtener (velios.Api)'
+2026-10-02 13:43:27.656 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Obtener", controller = "TrazadoRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Obtener(Int32, System.Threading.CancellationToken) on controller TrazadoRutaController (velios.Api).
+2026-10-02 13:43:28.457 [INF] System.Net.Http.HttpClient.IRutasGoogleService.LogicalHandler
+      Start processing HTTP request POST https://routes.googleapis.com/directions/v2:computeRoutes
+2026-10-02 13:43:28.459 [INF] System.Net.Http.HttpClient.IRutasGoogleService.ClientHandler
+      Sending HTTP request POST https://routes.googleapis.com/directions/v2:computeRoutes
+2026-10-02 13:43:28.462 [INF] System.Net.Http.HttpClient.IRutasGoogleService.LogicalHandler
+      Start processing HTTP request POST https://routes.googleapis.com/directions/v2:computeRoutes
+2026-10-02 13:43:28.464 [INF] System.Net.Http.HttpClient.IRutasGoogleService.ClientHandler
+      Sending HTTP request POST https://routes.googleapis.com/directions/v2:computeRoutes
+2026-10-02 13:43:28.694 [INF] System.Net.Http.HttpClient.IRutasGoogleService.ClientHandler
+      Received HTTP response headers after 231.8656ms - 200
+2026-10-02 13:43:28.697 [INF] System.Net.Http.HttpClient.IRutasGoogleService.LogicalHandler
+      End processing HTTP request after 240.317ms - 200
+2026-10-02 13:43:28.706 [INF] System.Net.Http.HttpClient.IRutasGoogleService.ClientHandler
+      Received HTTP response headers after 239.1127ms - 200
+2026-10-02 13:43:28.709 [INF] System.Net.Http.HttpClient.IRutasGoogleService.LogicalHandler
+      End processing HTTP request after 246.6329ms - 200
+2026-10-02 13:43:28.850 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Services.TrazadoRuta.TrazadoRutaDto'.
+2026-10-02 13:43:28.855 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TrazadoRutaController.Obtener (velios.Api) in 1194.4016ms
+2026-10-02 13:43:28.858 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TrazadoRutaController.Obtener (velios.Api)'
+2026-10-02 13:43:28.861 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/17/trazado - 200 null application/json; charset=utf-8 1216.8245ms
+2026-10-02 13:46:06.474 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/rutas/17/trazado - null null
+2026-10-02 13:46:06.483 [INF] velios.Api
+      Incoming: GET /api/rutas/17/trazado CT=null Len=null
+2026-10-02 13:46:06.492 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'TrazadoRutaController.Obtener (velios.Api)'
+2026-10-02 13:46:06.496 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "Obtener", controller = "TrazadoRuta"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Obtener(Int32, System.Threading.CancellationToken) on controller TrazadoRutaController (velios.Api).
+2026-10-02 13:46:06.883 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor
+      Executing OkObjectResult, writing value of type 'velios.Api.Services.TrazadoRuta.TrazadoRutaDto'.
+2026-10-02 13:46:06.887 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action TrazadoRutaController.Obtener (velios.Api) in 387.6052ms
+2026-10-02 13:46:06.890 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'TrazadoRutaController.Obtener (velios.Api)'
+2026-10-02 13:46:06.893 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/rutas/17/trazado - 200 null application/json; charset=utf-8 443.418ms

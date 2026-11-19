@@ -7,6 +7,10 @@ public class TareaUpdateRequest
     public string? NewStatusCode { get; set; }
     public List<TimelineEventRequest>? TimelineEvents { get; set; }
     public DateTime UpdatedAt { get; set; }
+
+    public int? RutaId { get; set; }
+
+    public int EstatusTareaId { get; set; }
 }
 
 public class EvidenciaFotoRequest

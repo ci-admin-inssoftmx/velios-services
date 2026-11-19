@@ -10,6 +10,9 @@ public class Tarea
     [Column("TareaId")]
     public int TareaId { get; set; }
 
+    [Column("SeguimientoRutaActivo")]
+    public bool SeguimientoRutaActivo { get; set; }
+
     [Column("TaskCode")]
     [MaxLength(50)]
     public string TaskCode { get; set; } = string.Empty;
@@ -55,6 +58,9 @@ public class Tarea
     [MaxLength(10)]
     public string Moneda { get; set; } = "MXN";
 
+    [NotMapped]
+    public string? NombreProveedor { get; set; }
+
     [Column("DateCreated")]
     public DateTime DateCreated { get; set; }
 
@@ -67,9 +73,6 @@ public class Tarea
     [Column("IsDeleted")]
     public bool IsDeleted { get; set; }
 
-    [Column("Active")]
-    public bool Active { get; set; }
-
     [Column("ImagenUrl")]
     [MaxLength(500)]
     public string? ImagenUrl { get; set; }
@@ -79,4 +82,10 @@ public class Tarea
 
     [Column("PresupuestoUsado", TypeName = "decimal(18,2)")]
     public decimal? PresupuestoUsado { get; set; }
+
+    [Column("AsistenciaDinamicaActiva")]
+    public bool AsistenciaDinamicaActiva { get; set; }
+
+    [Column("PresupuestoFinalAutorizado", TypeName = "decimal(18,2)")]
+    public decimal? PresupuestoFinalAutorizado { get; set; }
 }

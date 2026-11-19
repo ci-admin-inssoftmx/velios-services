@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net.NetworkInformation;
 using velios.Api.Data;
 using velios.Api.Models.Clientes;
 using velios.Api.Models.Common;
+using velios.Api.Models.Notificaciones;
 using velios.Api.Models.Tareas;
 using velios.Api.Models.Tareas.Requests;
-
+using velios.Api.Utils;
+using static QRCoder.PayloadGenerator;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace velios.Api.Controllers;
 
 /// <summary>
@@ -24,11 +28,13 @@ public class TareasController : ControllerBase
 {
     private readonly AppDbContext _db;
     private readonly ILogger<TareasController> _logger;
+    private readonly ITareaRutaRepository _tareaRutaRepository;
 
-    public TareasController(AppDbContext db, ILogger<TareasController> logger)
+    public TareasController(AppDbContext db, ILogger<TareasController> logger, ITareaRutaRepository tareaRutaRepository)
     {
         _db = db;
         _logger = logger;
+        _tareaRutaRepository = tareaRutaRepository;
     }
 
     /// <summary>
@@ -53,7 +59,7 @@ public class TareasController : ControllerBase
             var query =
                 from t in _db.Tareas.AsNoTracking()
                 join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
-                join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
+                join e in _db.EstatusTareas.AsNoTracking().Where(e => e.Activo == true) on t.EstatusTareaId equals e.EstatusTareaId
                 join p in _db.ClienteProyectos.AsNoTracking()
                     on new { ProyectoId = t.ProyectoId, ClienteId = t.ClienteId }
                     equals new { ProyectoId = (int?)p.ProyectoId, ClienteId = p.ClienteId }
@@ -66,7 +72,7 @@ public class TareasController : ControllerBase
                 from tr in trGroup.DefaultIfEmpty()
                 join sv in _db.ProveedorTrabajadores.AsNoTracking() on t.SupervisorId equals sv.TrabajadorId into svGroup
                 from sv in svGroup.DefaultIfEmpty()
-                where !t.IsDeleted && !c.IsDeleted && t.Active
+                where !t.IsDeleted && !c.IsDeleted
                 select new { t, c, e, p, ct, tr, sv };
 
             // ── FILTRO POR USUARIO ──────────────────────────────────────────
@@ -86,6 +92,11 @@ public class TareasController : ControllerBase
                     title = x.t.Titulo,
                     description = x.t.Descripcion,
                     statusCode = x.e.Codigo,
+                    advance = x.e.Porcentaje,
+                    status = x.e.Nombre,
+                    statusId = x.e.EstatusTareaId,
+                    seguimientoRutaActivo = x.t.SeguimientoRutaActivo, // ← NUEVO
+                    asistenciaDinamicaActiva = x.t.AsistenciaDinamicaActiva, // ← NUEVO
                     planTrabajo = x.p != null ? x.p.Nombre : "SIN PLAN",
                     client = new
                     {
@@ -129,11 +140,37 @@ public class TareasController : ControllerBase
                     },
                     presupuestoAsignado = x.t.PresupuestoAsignado,
                     presupuestoUsado = x.t.PresupuestoUsado,
-                    presupuestoDisponible = x.t.PresupuestoDisponible
+                    presupuestoDisponible = x.t.PresupuestoDisponible,
+                    presupuestoFinalAutorizado = x.t.PresupuestoFinalAutorizado
                 }).ToListAsync();
 
             // ── GASTOS — se traen en una sola query con todos los TareaIds ──
+            // ── GASTOS — se traen en una sola query con todos los TareaIds ──
             var tareaIds = tareas.Select(x => x.tareaId).ToList();
+
+            // ── RUTAS ACTIVAS — se traen en una sola query con todos los TareaIds ──
+            var tareaIdsConRutaActiva = (await _tareaRutaRepository.ObtenerTareaIdsConRutaActivaAsync(tareaIds)).ToHashSet();
+            // ─────────────────────────────────────────────────────────────────────
+
+            //var gastosPorTarea = await _db.GastosTarea.AsNoTracking().Where(g => tareaIds.Contains(g.IdTarea));
+
+
+            // -------  Nueva lógica para historial de solicitudes de presupuesto excedido ----------
+            // 
+            // Se optienen los minutos que se toman en cuenta para determinar si el cliente no dio respuesta a una solicitud
+            //Por default deben ser 1440 minitos = 24 horas
+            var minutosSegundaNotificacion =
+                await GetMinutosSegundaNotificacionAsync();
+
+
+            // Se optiene el id del estatus del gasto con la clave SIN_RESPUESTA
+            var idEstatusGastoSinRespuesta =
+                await GetIdEstatusGastoSinRespuestaAsync(Constants.EstatusGasto.SIN_RESPUESTA);
+
+            //determina la fecha limite de acuerdo a minutosSegundaNotificacion
+            var fechaLimite = DateTime.Now.AddMinutes(
+                -minutosSegundaNotificacion);
+
 
             var gastosPorTarea = await _db.GastosTarea.AsNoTracking()
                 .Where(g => tareaIds.Contains(g.IdTarea))
@@ -157,7 +194,21 @@ public class TareasController : ControllerBase
                                 .Where(t => t.TrabajadorId == (long)g.RegisteredById)
                                 .Select(t => (t.Nombre + " " + t.ApellidoPaterno + " " + t.ApellidoMaterno).Trim())
                                 .FirstOrDefault()
-                            : null
+                            : null,
+                    execedePresupuesto = g.ExecedePresupuesto,
+                    idCatEstatusGasto = g.IdCatEstatusGasto,
+                    descripcionEstatus =
+                        _db.CatEstatusGasto
+                            .Where(p => g.IdCatEstatusGasto.HasValue &&
+                                        p.IdCatEstatusGasto == g.IdCatEstatusGasto.Value)
+                            .Select(p => p.Estatus)
+                            .FirstOrDefault() ?? string.Empty,
+                    fechaClienteRespuestaGasto = g.FechaClienteRespuestaGasto,
+                    excedeTiempoRespuesta =
+                        g.IdCatEstatusGasto == idEstatusGastoSinRespuesta &&
+                        g.ExecedePresupuesto == true &&
+                        g.FechaRegistro <= fechaLimite,
+                    minutosSegundaNotificacion
                 })
                 .ToListAsync();
             // ───────────────────────────────────────────────────────────────
@@ -170,24 +221,43 @@ public class TareasController : ControllerBase
                 t.title,
                 t.description,
                 t.statusCode,
+                t.advance,
+                t.status,
+                t.statusId,
                 t.planTrabajo,
                 t.client,
                 t.schedule,
                 t.trabajador,
                 t.supervisor,
                 t.centroTrabajo,
+                seguimientoRuta = new // ← NUEVO
+                {
+                    activo = t.seguimientoRutaActivo,
+                    rutaActiva = tareaIdsConRutaActiva.Contains(t.tareaId)
+                },
+                asistenciaDinamicaActiva = t.asistenciaDinamicaActiva, // ← NUEVO
                 presupuesto = new
                 {
                     presupuestoAsignado = t.presupuestoAsignado,
                     presupuestoUsado = t.presupuestoUsado,
                     presupuestoDisponible = t.presupuestoDisponible,
+                    presupuestoFinalAutorizado = t.presupuestoFinalAutorizado,
                     gastos = gastosPorTarea
                         .Where(g => g.IdTarea == t.tareaId)
                         .Select(g => new
                         {
                             g.idGasto,
                             g.gasto,
-                            g.fechaRegistro
+                            g.descripcion,
+                            g.nombreUsuario,
+                            g.fechaRegistro,
+                            g.execedePresupuesto,
+                            g.idCatEstatusGasto,
+                            g.descripcionEstatus,
+                            g.fechaClienteRespuestaGasto,
+                            g.excedeTiempoRespuesta,
+                            g.minutosSegundaNotificacion
+
                         }).ToList()
                 }
             }).ToList();
@@ -223,6 +293,23 @@ public class TareasController : ControllerBase
         var requestId = Guid.NewGuid().ToString();
         try
         {
+
+            // Se optienen los minutos que se toman en cuenta para determinar si el cliente no dio respuesta a una solicitud
+            //Por default deben ser 1440 minitos = 24 horas
+            var minutosSegundaNotificacion =
+                await GetMinutosSegundaNotificacionAsync();
+
+            // Se optiene el id del estatus del gasto con la clave SIN_RESPUESTA
+            var idEstatusGastoSinRespuesta =
+                await GetIdEstatusGastoSinRespuestaAsync(Constants.EstatusGasto.SIN_RESPUESTA);
+
+            //determina la fecha limite de acuerdo a minutosSegundaNotificacion
+            var fechaLimite = DateTime.Now.AddMinutes(
+                -minutosSegundaNotificacion);
+
+
+
+
             var tarea = await (
                 from t in _db.Tareas.AsNoTracking()
                 join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
@@ -269,6 +356,7 @@ public class TareasController : ControllerBase
                 {
                     type = x.Tipo ?? "IMAGE",
                     url = x.UrlArchivo ?? "",
+                    rutaId = x.RutaId, // ← NUEVO
                     mimeType = x.MimeType ?? null,
                     sizeInBytes = x.SizeBytes ?? null,
                     createdAt = x.DateCreated,
@@ -341,16 +429,44 @@ public class TareasController : ControllerBase
                                 .Where(t => t.TrabajadorId == (long)x.RegisteredById)
                                 .Select(t => (t.Nombre + " " + t.ApellidoPaterno + " " + t.ApellidoMaterno).Trim())
                                 .FirstOrDefault()
-                            : null
+                            : null,
+                    execedePresupuesto = x.ExecedePresupuesto,
+                    idCatEstatusGasto = x.IdCatEstatusGasto,
+                    descripcionEstatus =
+                        _db.CatEstatusGasto
+                            .Where(p => x.IdCatEstatusGasto.HasValue &&
+                                        p.IdCatEstatusGasto == x.IdCatEstatusGasto.Value)
+                            .Select(p => p.Estatus)
+                            .FirstOrDefault() ?? string.Empty,
+                    fechaClienteRespuestaGasto = x.FechaClienteRespuestaGasto,
+                    excedeTiempoRespuesta =
+                        x.IdCatEstatusGasto == idEstatusGastoSinRespuesta &&
+                        x.ExecedePresupuesto == true &&
+                        x.FechaRegistro <= fechaLimite,
+                    minutosSegundaNotificacion
                 })
                 .ToListAsync();
             // ─────────────────────────────────────────────────────────────────────
+            var ultimaRuta = await _tareaRutaRepository.ObtenerUltimaRutaPorTareaAsync(tarea.Tarea.TareaId);
             return Ok(new
             {
+                tareaId = tarea.Tarea.TareaId,          // ← NUEVO: id numérico real
                 taskId = tarea.Tarea.TaskCode,
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
                 statusCode = tarea.Estatus.Codigo,
+                status = tarea.Estatus.Nombre,
+                advance = tarea.Estatus.Porcentaje,
+                statusId = tarea.Estatus.EstatusTareaId,
+                seguimientoRutaActivo = tarea.Tarea.SeguimientoRutaActivo, // ← NUEVO
+                asistenciaDinamicaActiva = tarea.Tarea.AsistenciaDinamicaActiva, // ← NUEVO
+                seguimientoRuta = new  // ← NUEVO
+                {
+                    activo = tarea.Tarea.SeguimientoRutaActivo,
+                    rutaActiva = await _tareaRutaRepository.ObtenerRutaActivaAsync(tarea.Tarea.TareaId) != null,
+                    ultimaRutaId = ultimaRuta?.Id
+                },
+
                 createdAt = tarea.Tarea.DateCreated,
                 updatedAt = tarea.Tarea.DateModified,
                 client = new { name = tarea.Cliente.RazonSocial ?? tarea.Cliente.NombreComercial ?? "SIN NOMBRE" },
@@ -389,6 +505,7 @@ public class TareasController : ControllerBase
                     presupuestoAsignado = tarea.Tarea.PresupuestoAsignado,
                     presupuestoUsado = tarea.Tarea.PresupuestoUsado,
                     presupuestoDisponible = tarea.Tarea.PresupuestoDisponible,
+                    presupuestoFinalAutorizado = tarea.Tarea.PresupuestoFinalAutorizado,
                     gastos
                 }
                 // ─────────────────────────────────────────────────────────────────
@@ -434,7 +551,7 @@ public class TareasController : ControllerBase
 
             var tieneEvidencias = model.EvidencePhotos != null && model.EvidencePhotos.Any();
             var tieneObservacion = !string.IsNullOrWhiteSpace(model.Observations);
-            var tieneNuevoEstado = !string.IsNullOrWhiteSpace(model.NewStatusCode);
+            var tieneNuevoEstado = model.EstatusTareaId > 0;
 
             if (!tieneEvidencias && !tieneObservacion && !tieneNuevoEstado)
             {
@@ -470,45 +587,125 @@ public class TareasController : ControllerBase
                 });
             }
 
-            if (!string.IsNullOrWhiteSpace(model.NewStatusCode))
-            {
-                var nuevoEstatus = await _db.EstatusTareas
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(x => x.Codigo == model.NewStatusCode);
 
-                if (nuevoEstatus == null)
-                {
-                    return BadRequest(new
-                    {
-                        success = false,
-                        message = "statusCode inválido",
-                        errors = new[]
-                        {
-                            new
-                            {
-                                field = "newStatusCode",
-                                message = $"El código '{model.NewStatusCode}' no existe en el catálogo"
-                            }
-                        }
-                    });
-                }
 
-                tarea.EstatusTareaId = nuevoEstatus.EstatusTareaId;
-            }
+            tarea.EstatusTareaId = model.EstatusTareaId;
 
             if (!string.IsNullOrWhiteSpace(model.Observations))
             {
+                var createdBy = User?.Identity?.Name ?? "SYSTEM";
                 _db.TareaObservaciones.Add(new TareaObservacion
                 {
                     TareaId = tarea.TareaId,
                     Observacion = model.Observations.Trim(),
-                    CreatedBy = User?.Identity?.Name ?? "SYSTEM",
+                    CreatedBy = createdBy.Length > 100 ? createdBy.Substring(0, 100) : createdBy,
                     DateCreated = DateTime.UtcNow
                 });
             }
 
             if (model.EvidencePhotos != null && model.EvidencePhotos.Any())
             {
+                // RN-001: si la tarea requiere seguimiento de ruta, el request debe traer una ruta activa
+                if (tarea.SeguimientoRutaActivo)
+                {
+                    // Compatibilidad: si el cliente (p. ej. una versión anterior de la app) no envía rutaId,
+                    // se usa la ruta activa de la tarea. Solo puede haber una ruta activa por tarea
+                    // (IniciarRutaAsync lo impide), así que no hay ambigüedad. Si no existe ninguna ruta
+                    // activa, se mantiene el error original más abajo.
+                    if (model.RutaId is null)
+                    {
+                        var rutaActivaDeLaTarea = await _tareaRutaRepository.ObtenerRutaActivaAsync(tarea.TareaId);
+                        if (rutaActivaDeLaTarea != null)
+                        {
+                            model.RutaId = rutaActivaDeLaTarea.Id;
+                            _logger.LogInformation(
+                                "PUT tasks/{TaskId}: el cliente no envió rutaId; se usó la ruta activa {RutaId} de la tarea {TareaId}.",
+                                taskId, rutaActivaDeLaTarea.Id, tarea.TareaId);
+                        }
+                    }
+
+                    if (model.RutaId is null)
+                    {
+                        return BadRequest(new
+                        {
+                            success = false,
+                            message = "Esta tarea requiere iniciar una ruta antes de registrar evidencias.",
+                            errors = new[]
+                            {
+                    new { field = "rutaId", message = "rutaId es obligatorio para esta tarea." }
+                }
+
+
+                        });
+                    }
+
+                    var rutaActiva = await _tareaRutaRepository.RutaEstaActivaAsync(model.RutaId.Value, tarea.TareaId);
+                    if (!rutaActiva)
+                    {
+                        return BadRequest(new
+                        {
+                            success = false,
+                            message = "La ruta indicada no está activa.",
+                            errors = new[]
+                            {
+                    new { field = "rutaId", message = "Inicia o reanuda la ruta antes de continuar." }
+                }
+                        });
+                    }
+
+                }
+
+                // ── NUEVO: Asistencia dinámica — requiere asistencia registrada hoy antes de capturar evidencias ──
+                if (tarea.AsistenciaDinamicaActiva)
+                {
+                    if (tarea.TrabajadorId is null)
+                    {
+                        return BadRequest(new
+                        {
+                            success = false,
+                            message = "Esta tarea no tiene un trabajador asignado.",
+                            errors = new[]
+                            {
+                                new { field = "trabajadorId", message = "No se puede verificar la asistencia sin un trabajador asignado." }
+                            }
+                        });
+                    }
+
+                    TimeZoneInfo zonaMexico;
+                    try
+                    {
+                        zonaMexico = TimeZoneInfo.FindSystemTimeZoneById("America/Mexico_City");
+                    }
+                    catch (TimeZoneNotFoundException)
+                    {
+                        zonaMexico = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time (Mexico)");
+                    }
+
+                    var hoyLocal = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zonaMexico).Date;
+
+                    var tieneAsistencia = await _db.AsistenciaRegistros
+                        .AsNoTracking()
+                        .AnyAsync(a => a.TareaId == tarea.TareaId
+                                    && a.TrabajadorId == tarea.TrabajadorId.Value
+                                    && a.Fecha == hoyLocal
+                                    && a.TipoRegistro == "Entrada"
+                                    && !a.IsDeleted);
+
+                    if (!tieneAsistencia)
+                    {
+                        return BadRequest(new
+                        {
+                            success = false,
+                            message = "Esta tarea requiere registrar tu asistencia antes de capturar evidencias.",
+                            errors = new[]
+                            {
+                                new { field = "asistencia", message = "Registra tu asistencia dinámica antes de continuar." }
+                            }
+                        });
+                    }
+                }
+                // ──────────────────────────────────────────────────────────────────────────────
+
                 foreach (var item in model.EvidencePhotos)
                 {
                     _db.TareaEvidencias.Add(new TareaEvidencia
@@ -535,12 +732,13 @@ public class TareasController : ControllerBase
                         // --- NUEVOS CAMPOS ---
                         Comentario = item.Comentario?.Trim(),
                         Progreso = item.Progreso,
-                        EvidenceHash = item.EvidenceHash?.Trim(),           // ← NUEVO
-                        DeviceUniqueId = item.DeviceInfo?.DeviceUniqueId,   // ← NUEVO
-                        InstallationId = item.DeviceInfo?.InstallationId,   // ← NUEVO
-                        DeviceIdentifier = item.DeviceInfo?.DeviceIdentifier, // ← NUEVO
-                        IsPhysicalDevice = item.DeviceInfo?.IsPhysicalDevice, // ← NUEVO
-                        // ---------------------
+                        EvidenceHash = item.EvidenceHash?.Trim(),
+                        DeviceUniqueId = item.DeviceInfo?.DeviceUniqueId,
+                        InstallationId = item.DeviceInfo?.InstallationId,
+                        DeviceIdentifier = item.DeviceInfo?.DeviceIdentifier,
+                        IsPhysicalDevice = item.DeviceInfo?.IsPhysicalDevice,
+                        RutaId = model.RutaId, // ← NUEVO, RN-006
+                                               // ---------------------
                         DateCreated = DateTime.UtcNow
                     });
                 }
@@ -575,7 +773,9 @@ public class TareasController : ControllerBase
                     {
                         TareaId = tarea.TareaId,
                         TipoEventoTareaId = tipoEvento.TipoEventoTareaId,
-                        Descripcion = item.Description,
+                        Descripcion = item.Description?.Length > 500
+                                              ? item.Description.Substring(0, 500)
+                                              : item.Description,
                         ValorAnterior = item.PreviousValue,
                         ValorNuevo = item.NewValue,
                         PerformedBy = item.PerformedBy,
@@ -609,6 +809,18 @@ public class TareasController : ControllerBase
         }
     }
 
+
+    /// <summary>
+    /// Obtiene los mensajes de error de una excepción y de todas sus excepciones
+    /// internas asociadas.
+    /// </summary>
+    /// <param name="ex">
+    /// Excepción de la que se desean obtener los mensajes de error.
+    /// </param>
+    /// <returns>
+    /// Lista de mensajes correspondientes a la excepción principal y a cada una
+    /// de sus excepciones internas, en el orden en que se encuentran anidadas.
+    /// </returns>
     private static List<string> GetErrorMessages(Exception ex)
     {
         var errors = new List<string>();
@@ -621,5 +833,166 @@ public class TareasController : ControllerBase
         }
 
         return errors;
+    }
+    /// <summary>
+    /// Activa o desactiva el Seguimiento de ruta para una tarea, desde Web Proveedor.
+    /// </summary>
+    [HttpPut("{taskId}/seguimiento-ruta")]
+    public async Task<ActionResult<object>> ActualizarSeguimientoRuta(string taskId, [FromBody] bool activo)
+    {
+        try
+        {
+            var tarea = await _db.Tareas.FirstOrDefaultAsync(x => x.TaskCode == taskId && !x.IsDeleted);
+
+            if (tarea == null)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "Tarea no encontrada"
+                });
+            }
+
+            tarea.SeguimientoRutaActivo = activo;
+            tarea.DateModified = DateTime.UtcNow;
+
+            await _db.SaveChangesAsync();
+
+            return Ok(new
+            {
+                success = true,
+                message = activo ? "Seguimiento de ruta activado." : "Seguimiento de ruta desactivado.",
+                seguimientoRutaActivo = tarea.SeguimientoRutaActivo
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar seguimiento de ruta para tarea {TaskId}.", taskId);
+
+            return BadRequest(new
+            {
+                success = false,
+                message = "Ocurrió un error al actualizar la configuración de ruta",
+                errors = GetErrorMessages(ex)
+            });
+        }
+    }
+    /// <summary>
+    /// Activa o desactiva Asistencia dinámica para una tarea, desde Web Proveedor.
+    /// </summary>
+    [HttpPut("{taskId}/asistencia-dinamica")]
+    public async Task<ActionResult<object>> ActualizarAsistenciaDinamica(string taskId, [FromBody] bool activo)
+    {
+        try
+        {
+            var tarea = await _db.Tareas.FirstOrDefaultAsync(x => x.TaskCode == taskId && !x.IsDeleted);
+
+            if (tarea == null)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "Tarea no encontrada"
+                });
+            }
+
+            tarea.AsistenciaDinamicaActiva = activo;
+            tarea.DateModified = DateTime.UtcNow;
+
+            await _db.SaveChangesAsync();
+
+            return Ok(new
+            {
+                success = true,
+                message = activo ? "Asistencia dinámica activada." : "Asistencia dinámica desactivada.",
+                asistenciaDinamicaActiva = tarea.AsistenciaDinamicaActiva
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar asistencia dinámica para tarea {TaskId}.", taskId);
+
+            return BadRequest(new
+            {
+                success = false,
+                message = "Ocurrió un error al actualizar la configuración",
+                errors = GetErrorMessages(ex)
+            });
+        }
+    }
+
+    /// <summary>
+    /// Obtiene la cantidad de minutos configurada para determinar el tiempo de espera
+    /// antes de enviar una segunda notificación.
+    /// </summary>
+    /// <returns>
+    /// Cantidad de minutos configurada para la segunda notificación.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// Se produce cuando la configuración no existe o su valor no es un número entero
+    /// válido mayor que cero.
+    /// </exception>
+    private async Task<int> GetMinutosSegundaNotificacionAsync()
+    {
+        var configuracion = await _db.ConfiguracionNotificacion
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x =>
+                x.Clave == Constants.ConfiguracionNotificacion
+                    .TIEMPO_SEGUNDA_NOTIFICACION_MINUTOS);
+
+        return GetConfigInt(configuracion?.Valor);
+    }
+
+    /// <summary>
+    /// Convierte el valor de una configuración a un número entero válido.
+    /// </summary>
+    /// <param name="valor">
+    /// Valor de configuración que se desea convertir.
+    /// </param>
+    /// <returns>
+    /// Número entero obtenido a partir del valor proporcionado.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// Se produce cuando el valor no es un número entero válido o es menor o igual a cero.
+    /// </exception>
+    private int GetConfigInt(string? valor)
+    {
+        if (!int.TryParse(valor, out var resultado) || resultado <= 0)
+        {
+            throw new InvalidOperationException(
+                $"La configuración '{valor}' debe ser un número entero mayor a cero.");
+        }
+
+        return resultado;
+    }
+
+
+    /// <summary>
+    /// Obtiene el identificador del estatus de gasto correspondiente a la descripción
+    /// proporcionada.
+    /// </summary>
+    /// <param name="estatusDesc">
+    /// Descripción del estatus de gasto que se desea consultar.
+    /// </param>
+    /// <returns>
+    /// Identificador del estatus de gasto encontrado.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// Se produce cuando no existe un estatus de gasto con la descripción proporcionada.
+    /// </exception>
+    private async Task<int> GetIdEstatusGastoSinRespuestaAsync(string estatusDesc)
+    {
+        var estatus = await _db.CatEstatusGasto
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x =>
+                x.Estatus == estatusDesc);
+
+        if (estatus == null)
+        {
+            throw new InvalidOperationException(
+                $"No se encontró el estatus de gasto '{estatusDesc}'.");
+        }
+
+        return estatus.IdCatEstatusGasto;
     }
 }

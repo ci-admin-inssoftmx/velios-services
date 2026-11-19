@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿
+using Dapper;
 using Microsoft.Data.SqlClient;
 using velios.Api.Models.ServiciosCategoria;
 
@@ -69,12 +70,11 @@ namespace velios.Api.Services.ServiciosCategoria
         public async Task<int> GuardarSolicitudAsync(GuardarSolicitudRequest request)
         {
             const string sql = @"
-                INSERT INTO tb_SolicitudServicios
-                    (TareaId, ServicioId)
-                VALUES
-                    (@TareaId, @ServicioId);
-
-                SELECT SCOPE_IDENTITY();";
+            INSERT INTO tb_SolicitudServicios
+                (TareaId, ServicioId, FechaRegistro)
+            VALUES
+                (@TareaId, @ServicioId, GETDATE());
+            SELECT SCOPE_IDENTITY();";
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.ExecuteScalarAsync<int>(sql, new
@@ -98,9 +98,10 @@ namespace velios.Api.Services.ServiciosCategoria
 
             const string insertar = @"
                 INSERT INTO tb_SolicitudServicios
-                    (TareaId, ServicioId)
-                VALUES
-                    (@TareaId, @ServicioId)";
+                 (TareaId, ServicioId, FechaRegistro)
+                 VALUES
+                (@TareaId, @ServicioId, GETDATE())";
+
 
             const string actualizar = @"
                 UPDATE tb_SolicitudServicios
@@ -163,6 +164,17 @@ namespace velios.Api.Services.ServiciosCategoria
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryFirstOrDefaultAsync<SolicitudServicioModel>(sql, new { TareaId = tareaId });
+        }
+        public async Task<bool> ValidarTareaExisteAsync(int tareaId)
+        {
+            const string sql = @"
+        SELECT COUNT(1)
+        FROM tb_Tareas
+        WHERE TareaId = @TareaId AND IsDeleted = 0";
+
+            using var connection = new SqlConnection(_connectionString);
+            var existe = await connection.ExecuteScalarAsync<int>(sql, new { TareaId = tareaId });
+            return existe > 0;
         }
         public async Task<BuscadorJerarquiaResultado> BuscarJerarquiaAsync(string busqueda)
         {

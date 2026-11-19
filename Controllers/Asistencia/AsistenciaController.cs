@@ -5,6 +5,7 @@ using velios.Api.Data;
 using velios.Api.Models.Asistencia;
 using velios.Api.Models.Clientes;
 using velios.Api.Models.Common;
+using velios.Api.Models.Tareas;
 
 namespace velios.Api.Controllers;
 
@@ -102,12 +103,68 @@ public class AsistenciaController : ControllerBase
             {
                 return BadRequest(new ApiResponse<object>
                 {
-                    
+
                     success = false,
                     message = "Trabajador inválido.",
                     statusCode = 400
                 });
             }
+
+            // ── NUEVO: validación de Asistencia dinámica ──
+            Tarea? tarea = null;
+            if (model.TareaId.HasValue)
+            {
+                tarea = await _db.Tareas
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(t => t.TareaId == model.TareaId.Value && !t.IsDeleted);
+
+                if (tarea == null)
+                {
+                    return BadRequest(new ApiResponse<object>
+                    {
+                        success = false,
+                        message = "Tarea inválida.",
+                        statusCode = 400
+                    });
+                }
+
+                if (tarea.AsistenciaDinamicaActiva)
+                {
+                    // RN: no se requiere centro de trabajo fijo, pero sí una ubicación real (no coordenadas ficticias)
+                    if (model.Latitud is null || model.Longitud is null)
+                    {
+                        return BadRequest(new ApiResponse<object>
+                        {
+                            success = false,
+                            message = "Esta tarea permite asistencia dinámica, pero se requiere la ubicación actual del operador.",
+                            statusCode = 400
+                        });
+                    }
+
+                    if (string.Equals(tipoRegistro, "Salida", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var fechaReg = model.FechaRegistro.Date;
+                        var tieneEntrada = await _db.AsistenciaRegistros
+                            .AsNoTracking()
+                            .AnyAsync(r => r.TareaId == model.TareaId.Value
+                                        && r.TrabajadorId == model.TrabajadorId
+                                        && r.Fecha == fechaReg
+                                        && r.TipoRegistro.ToUpper() == "ENTRADA"
+                                        && !r.IsDeleted);
+
+                        if (!tieneEntrada)
+                        {
+                            return BadRequest(new ApiResponse<object>
+                            {
+                                success = false,
+                                message = "No hay una asistencia dinámica registrada hoy para esta tarea; no se puede registrar la salida.",
+                                statusCode = 400
+                            });
+                        }
+                    }
+                }
+            }
+            // ────────────────────────────────────────────
 
             var existeDuplicado = await _db.AsistenciaRegistros
                 .AsNoTracking()
@@ -115,7 +172,8 @@ public class AsistenciaController : ControllerBase
                     r.TrabajadorId == model.TrabajadorId &&
                     r.Fecha == model.FechaRegistro.Date &&
                     r.TipoRegistro == tipoRegistro &&
-                    r.CentroTrabajoId == model.CentroTrabajoId && // <--- Agregado aquí
+                    r.CentroTrabajoId == model.CentroTrabajoId &&
+                    r.TareaId == model.TareaId &&   // ← NUEVO
                     r.Origen == origen &&
                     !r.IsDeleted);
 
@@ -134,6 +192,7 @@ public class AsistenciaController : ControllerBase
             {
                 TrabajadorId = model.TrabajadorId,
                 CentroTrabajoId = model.CentroTrabajoId, // <--- Agregado aquí
+                TareaId = model.TareaId, // ← NUEVO
                 Fecha = model.FechaRegistro.Date,
                 HoraEntrada = model.HoraEntrada,
                 HoraSalida = model.HoraSalida,
@@ -161,6 +220,7 @@ public class AsistenciaController : ControllerBase
                     entity.AsistenciaRegistroId,
                     entity.TrabajadorId,
                     entity.CentroTrabajoId, // <--- Opcional: Incluirlo en la respuesta
+                    entity.TareaId, // ← NUEVO
                     entity.Fecha,
                     // ... resto de los campos
                 },
@@ -307,6 +367,69 @@ public class AsistenciaController : ControllerBase
                 message = "Error al consultar registros de asistencia.",
                 statusCode = 400,
                 errors = errors
+            });
+        }
+    }
+    /// <summary>
+    /// Verifica si un trabajador ya tiene una asistencia registrada hoy para una tarea específica.
+    /// Usado para habilitar/bloquear la captura de evidencias (Asistencia dinámica).
+    /// </summary>
+    [HttpGet("tiene-asistencia-hoy")]
+    public async Task<IActionResult> TieneAsistenciaHoy([FromQuery] int tareaId, [FromQuery] long trabajadorId)
+    {
+        try
+        {
+            // "Hoy" en hora de México, no UTC (Fecha se guarda en local, confirmado en BD)
+            TimeZoneInfo zonaMexico;
+            try
+            {
+                zonaMexico = TimeZoneInfo.FindSystemTimeZoneById("America/Mexico_City"); // Linux
+            }
+            catch (TimeZoneNotFoundException)
+            {
+                zonaMexico = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time (Mexico)"); // Windows
+            }
+
+            var hoyLocal = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zonaMexico).Date;
+
+            var registros = await _db.AsistenciaRegistros
+                .AsNoTracking()
+                .Where(a => a.TareaId == tareaId
+                         && a.TrabajadorId == trabajadorId
+                         && a.Fecha == hoyLocal
+                         && !a.IsDeleted)
+                .OrderByDescending(a => a.DateCreated)
+                .ToListAsync();
+
+            var registro = registros.FirstOrDefault(a =>
+                string.Equals(a.TipoRegistro, "Entrada", StringComparison.OrdinalIgnoreCase));
+            var salida = registros.FirstOrDefault(a =>
+                string.Equals(a.TipoRegistro, "Salida", StringComparison.OrdinalIgnoreCase));
+
+            return Ok(new ApiResponse<object>
+            {
+                success = true,
+                message = registro != null ? "Asistencia registrada." : "Sin asistencia registrada hoy.",
+                statusCode = 200,
+                data = new
+                {
+                    tieneAsistencia = registro != null,
+                    asistenciaRegistroId = registro?.AsistenciaRegistroId,
+                    horaEntrada = registro?.HoraEntrada,
+                    latitud = registro?.Latitud,
+                    longitud = registro?.Longitud,
+                    tieneSalida = salida != null,        // ← NUEVO
+                    horaSalida = salida?.HoraSalida      // ← NUEVO
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ApiResponse<object>
+            {
+                success = false,
+                message = "Error al verificar la asistencia.",
+                statusCode = 400
             });
         }
     }

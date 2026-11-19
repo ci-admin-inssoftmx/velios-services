@@ -12,6 +12,7 @@ public class TareaReporteDto
 
     public string? LogoUrlProveedor { get; set; }
     public string? NombreProveedor { get; set; }
+    public int? ProveedorId { get; set; }
 
     public string? DireccionCentroTrabajo { get; set; }
 

@@ -126,12 +126,14 @@ public class AuthenticateController : ControllerBase
 
         try
         {
-            var exists = await _db.Proveedores
-                .AnyAsync(x => x.CorreoContacto == email && !x.IsDeleted);
 
-            if (!exists)
+
+            var proveedor = await _db.Proveedores
+                .FirstOrDefaultAsync(x => x.CorreoContacto == email && !x.IsDeleted);
+
+            if (proveedor == null)
             {
-                var proveedor = new Proveedor
+                proveedor = new Proveedor
                 {
                     RFC = null,
                     CorreoContacto = email,
@@ -145,14 +147,23 @@ public class AuthenticateController : ControllerBase
             }
             else
             {
-                return Ok(new ApiResponse<bool>
+                bool cuentaTerminada =
+                    proveedor.PasswordSetAt != null &&
+                    !string.IsNullOrWhiteSpace(proveedor.PasswordHash);
+
+
+                if (cuentaTerminada)
                 {
-                    success = true,
-                    message = "El correo ya está registrado.",
-                    statusCode = 101,
-                    data = true
-                });
+                    return Ok(new ApiResponse<bool>
+                    {
+                        success = true,
+                        message = "El correo ya está registrado.",
+                        statusCode = 101,
+                        data = true
+                    });
+                }
             }
+
         }
         catch (Exception ex)
         {
@@ -246,6 +257,9 @@ public class AuthenticateController : ControllerBase
 
         try
         {
+
+            
+
             await _email.Send(email, subject, body);
         }
         catch (Exception ex)

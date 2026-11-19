@@ -26,4 +26,14 @@ public class GastoTarea
     [Column("RegisteredByType")]
     [MaxLength(50)]
     public string? RegisteredByType { get; set; }  // ← NUEVO
+
+    [Column("ExecedePresupuesto")]
+    public bool? ExecedePresupuesto { get; set; }  // ← NUEVO
+
+    [Column("idCatEstatusGasto")]
+    public int? IdCatEstatusGasto { get; set; }  // ← NUEVO
+
+    [Column("FechaClienteRespuestaGasto")]
+    public DateTime? FechaClienteRespuestaGasto { get; set; }  // ← NUEVO
+
 }
