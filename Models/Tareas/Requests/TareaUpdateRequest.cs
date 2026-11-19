@@ -9,6 +9,8 @@ public class TareaUpdateRequest
     public DateTime UpdatedAt { get; set; }
 
     public int? RutaId { get; set; }
+
+    public int EstatusTareaId { get; set; }
 }
 
 public class EvidenciaFotoRequest
