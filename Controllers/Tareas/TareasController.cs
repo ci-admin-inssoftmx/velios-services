@@ -10,6 +10,7 @@ using velios.Api.Models.Tareas;
 using velios.Api.Models.Tareas.Requests;
 using velios.Api.Utils;
 using static QRCoder.PayloadGenerator;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace velios.Api.Controllers;
 
 /// <summary>
@@ -58,7 +59,7 @@ public class TareasController : ControllerBase
             var query =
                 from t in _db.Tareas.AsNoTracking()
                 join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
-                join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
+                join e in _db.EstatusTareas.AsNoTracking().Where(e => e.Activo == true) on t.EstatusTareaId equals e.EstatusTareaId
                 join p in _db.ClienteProyectos.AsNoTracking()
                     on new { ProyectoId = t.ProyectoId, ClienteId = t.ClienteId }
                     equals new { ProyectoId = (int?)p.ProyectoId, ClienteId = p.ClienteId }
@@ -91,6 +92,9 @@ public class TareasController : ControllerBase
                     title = x.t.Titulo,
                     description = x.t.Descripcion,
                     statusCode = x.e.Codigo,
+                    advance = x.e.Porcentaje,
+                    status = x.e.Nombre,
+                    statusId = x.e.EstatusTareaId,
                     seguimientoRutaActivo = x.t.SeguimientoRutaActivo, // ← NUEVO
                     asistenciaDinamicaActiva = x.t.AsistenciaDinamicaActiva, // ← NUEVO
                     planTrabajo = x.p != null ? x.p.Nombre : "SIN PLAN",
@@ -158,7 +162,7 @@ public class TareasController : ControllerBase
             var minutosSegundaNotificacion =
                 await GetMinutosSegundaNotificacionAsync();
 
-            
+
             // Se optiene el id del estatus del gasto con la clave SIN_RESPUESTA
             var idEstatusGastoSinRespuesta =
                 await GetIdEstatusGastoSinRespuestaAsync(Constants.EstatusGasto.SIN_RESPUESTA);
@@ -217,6 +221,9 @@ public class TareasController : ControllerBase
                 t.title,
                 t.description,
                 t.statusCode,
+                t.advance,
+                t.status,
+                t.statusId,
                 t.planTrabajo,
                 t.client,
                 t.schedule,
@@ -245,7 +252,7 @@ public class TareasController : ControllerBase
                             g.nombreUsuario,
                             g.fechaRegistro,
                             g.execedePresupuesto,
-                            g.idCatEstatusGasto ,
+                            g.idCatEstatusGasto,
                             g.descripcionEstatus,
                             g.fechaClienteRespuestaGasto,
                             g.excedeTiempoRespuesta,
@@ -443,10 +450,14 @@ public class TareasController : ControllerBase
             var ultimaRuta = await _tareaRutaRepository.ObtenerUltimaRutaPorTareaAsync(tarea.Tarea.TareaId);
             return Ok(new
             {
+                tareaId = tarea.Tarea.TareaId,          // ← NUEVO: id numérico real
                 taskId = tarea.Tarea.TaskCode,
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
                 statusCode = tarea.Estatus.Codigo,
+                status = tarea.Estatus.Nombre,
+                advance = tarea.Estatus.Porcentaje,
+                statusId = tarea.Estatus.EstatusTareaId,
                 seguimientoRutaActivo = tarea.Tarea.SeguimientoRutaActivo, // ← NUEVO
                 asistenciaDinamicaActiva = tarea.Tarea.AsistenciaDinamicaActiva, // ← NUEVO
                 seguimientoRuta = new  // ← NUEVO
@@ -540,7 +551,7 @@ public class TareasController : ControllerBase
 
             var tieneEvidencias = model.EvidencePhotos != null && model.EvidencePhotos.Any();
             var tieneObservacion = !string.IsNullOrWhiteSpace(model.Observations);
-            var tieneNuevoEstado = !string.IsNullOrWhiteSpace(model.NewStatusCode);
+            var tieneNuevoEstado = model.EstatusTareaId > 0;
 
             if (!tieneEvidencias && !tieneObservacion && !tieneNuevoEstado)
             {
@@ -576,31 +587,9 @@ public class TareasController : ControllerBase
                 });
             }
 
-            if (!string.IsNullOrWhiteSpace(model.NewStatusCode))
-            {
-                var nuevoEstatus = await _db.EstatusTareas
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(x => x.Codigo == model.NewStatusCode);
 
-                if (nuevoEstatus == null)
-                {
-                    return BadRequest(new
-                    {
-                        success = false,
-                        message = "statusCode inválido",
-                        errors = new[]
-                        {
-                            new
-                            {
-                                field = "newStatusCode",
-                                message = $"El código '{model.NewStatusCode}' no existe en el catálogo"
-                            }
-                        }
-                    });
-                }
 
-                tarea.EstatusTareaId = nuevoEstatus.EstatusTareaId;
-            }
+            tarea.EstatusTareaId = model.EstatusTareaId;
 
             if (!string.IsNullOrWhiteSpace(model.Observations))
             {

@@ -17,4 +17,13 @@ public class EstatusTarea
     [Column("Nombre")]
     [MaxLength(100)]
     public string Nombre { get; set; } = string.Empty;
+
+    [Column("Activo")]
+    [MaxLength(100)]
+    public bool Activo { get; set; }
+
+
+    [Column("Porcentaje")]
+    [MaxLength(100)]
+    public decimal Porcentaje { get; set; }
 }
