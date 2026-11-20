@@ -27,6 +27,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
     private readonly IReporteMaterialidadRepository _repository;
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
+    private readonly IMapaRutaReporteService _mapaRutaService;
 
     // Caché de recursos estáticos (se cargan una sola vez por instancia)
     private static readonly object _resourceLock = new();
@@ -42,10 +43,12 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
     public ReportePreeliminarService(
         IReporteMaterialidadRepository repository,
         IHttpClientFactory httpClientFactory,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        IMapaRutaReporteService mapaRutaService)
     {
         _repository = repository;
         _configuration = configuration;
+        _mapaRutaService = mapaRutaService;
         QuestPDF.Settings.License = LicenseType.Community;
 
         _httpClient = httpClientFactory.CreateClient();
@@ -74,6 +77,11 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
         tarea.DireccionCentroTrabajo = await _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
         tarea.TelefonoCentroTrabajo = await _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
         tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
+
+        // Mapa de seguimiento de ruta (null si la tarea no tiene ruta). Si falla, el reporte sale sin esa página.
+        MapaRutaReporteDto? mapaRuta = null;
+        try { mapaRuta = await _mapaRutaService.GenerarAsync(tarea.TareaId); }
+        catch (Exception ex) { Console.WriteLine($"[ReportePreeliminar] Mapa de ruta omitido: {ex.Message}"); }
 
         var logoProveedorBytes = await logoProveedorTask;
         // Cachés por coordenadas
@@ -145,7 +153,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
             Resumen = ConstruirResumen(tarea)
         };
 
-        return await ConstruirPdfAsync(reporte, logoProveedorBytes);
+        return await ConstruirPdfAsync(reporte, logoProveedorBytes, mapaRuta);
     }
 
     private static ResumenReporteDto ConstruirResumen(TareaReporteDto tarea)
@@ -341,7 +349,7 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
         return texto.Length <= maxCaracteres ? texto : texto.Substring(0, maxCaracteres).TrimEnd() + "...";
     }
 
-    private async Task<byte[]> ConstruirPdfAsync(ReporteMaterialidadDto reporte, byte[]? logoProveedorBytes)
+    private async Task<byte[]> ConstruirPdfAsync(ReporteMaterialidadDto reporte, byte[]? logoProveedorBytes, MapaRutaReporteDto? mapaRuta)
     {
         CargarRecursosEstaticos();
 
@@ -414,6 +422,30 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
                 page.Footer().Element(c =>
                     CrearFooter(c, direccionDisplay, tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", _logoBytes, logoProveedorBytes, _carpetaIconBytes));
             });
+
+            // =========================================================
+            // PÁGINA 2: SEGUIMIENTO DE RUTA (solo si la tarea tiene ruta)
+            // =========================================================
+            if (mapaRuta is not null)
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(20);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(9).FontColor("#1F2937"));
+
+                    page.Background().Element(CrearFondoPagina);
+
+                    page.Header().Element(c =>
+CrearHeader(c, _logoBytes, "INFORME PRELIMINAR", "Seguimiento de Ruta"));
+                    page.Content().PaddingTop(10).Element(c =>
+                        CrearContenidoMapaRuta(c, mapaRuta, tarea, direccionDisplay, _documentoIconBytes, _carpetaIconBytes));
+
+                    page.Footer().Element(c =>
+                        CrearFooter(c, direccionDisplay, tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", _logoBytes, logoProveedorBytes, _carpetaIconBytes));
+                });
+            }
 
             // =========================================================
             // PÁGINAS DE EVIDENCIA
@@ -621,6 +653,205 @@ public class ReportePreeliminarService : IReporteMaterialidadPreeliminarService
         return document.GeneratePdf();
     }
 
+    private static void CrearContenidoMapaRuta(
+        IContainer container,
+        MapaRutaReporteDto mapa,
+        TareaReporteDto tarea,
+        string direccionDisplay,
+        byte[]? documentoIconBytes,
+        byte[]? carpetaIconBytes)
+    {
+        var fin = mapa.Finalizada && mapa.FechaFin.HasValue ? mapa.FechaFin.Value : DateTime.Now;
+        var duracion = fin - mapa.FechaInicio;
+        if (duracion < TimeSpan.Zero) duracion = TimeSpan.Zero;
+        var duracionTxt = duracion.TotalHours >= 1
+            ? $"{(int)duracion.TotalHours}h {duracion.Minutes}m"
+            : $"{duracion.Minutes}m";
+        var colorEstado = mapa.Finalizada ? "#16C60C" : "#F15A24";
+
+        container.PaddingLeft(28).ExtendVertical().Row(row =>
+        {
+            // ================= COLUMNA IZQUIERDA: título + mapa grande =================
+            row.RelativeItem(2.7f).PaddingRight(10).Column(left =>
+            {
+                left.Spacing(10);
+
+                left.Item().Row(r =>
+                {
+                    r.ConstantItem(34).Height(34).Border(1).BorderColor("#D1D5DB")
+                        .Background("#F9FAFB").AlignCenter().AlignMiddle()
+                        .Element(icon =>
+                        {
+                            if (documentoIconBytes is not null && documentoIconBytes.Length > 0)
+                                icon.Padding(6).Image(documentoIconBytes, ImageScaling.FitArea);
+                            else
+                                icon.Text("≡").FontSize(18).Bold().FontColor("#24364D");
+                        });
+                    r.ConstantItem(10);
+                    r.RelativeItem().AlignMiddle().Text("Detalle de Ruta")
+                        .SemiBold().FontSize(11).FontColor("#24364D");
+                });
+
+                left.Item().Border(1).BorderColor("#D6DCE5").Background(Colors.White)
+                    .CornerRadius(8).Padding(2)
+                    .Image(mapa.Imagen, ImageScaling.FitWidth);
+
+                if (!mapa.TieneMapaBase)
+                    left.Item().Text("Mapa base no disponible; se muestra solo el recorrido.")
+                        .FontSize(7.5f).FontColor("#6B7280");
+            });
+
+            // ================= SIDEBAR DERECHO =================
+            row.ConstantItem(175).ExtendVertical().Background("#F3F4F6").CornerRadius(8).Padding(10).Layers(layers =>
+            {
+                layers.PrimaryLayer().ScaleToFit().Column(right =>
+                {
+                    right.Spacing(8);
+
+                    right.Item().Height(5).Background("#24364D");
+
+                    var plan = ReporteLayout.Ajustar(tarea.NombreProyecto ?? "Sin plan de trabajo", 60, 12, 9, 20);
+                    right.Item().Text(plan.Texto)
+                        .SemiBold().FontSize(plan.Size).FontColor("#24364D");
+
+                    right.Item().Row(r =>
+                    {
+                        r.ConstantItem(15).AlignMiddle().AlignCenter().Element(ic =>
+                        {
+                            if (carpetaIconBytes is not null && carpetaIconBytes.Length > 0)
+                                ic.Image(carpetaIconBytes, ImageScaling.FitArea);
+                            else
+                                ic.Text("▭").FontSize(10).FontColor("#6B7280");
+                        });
+                        r.ConstantItem(4);
+                        r.RelativeItem().AlignMiddle().Text("Plan de trabajo").FontSize(8.5f).FontColor("#6B7280");
+                    });
+
+                    right.Item().LineHorizontal(1).LineColor("#D1D5DB");
+
+                    // ---- Línea de tiempo (un solo bloque para que no se separe) ----
+                    right.Item().Column(tl =>
+                    {
+                        void Hito(string fecha, string etiqueta, bool lleno, bool conLinea)
+                        {
+                            tl.Item().Row(r =>
+                            {
+                                r.ConstantItem(24).Column(c =>
+                                {
+                                    c.Item().AlignCenter().Element(el => el.Width(11).Height(11).Border(2)
+                                        .BorderColor(lleno ? "#16C60C" : "#94A3B8").CornerRadius(5.5f)
+                                        .Background(lleno ? "#16C60C" : Colors.White));
+                                    if (conLinea)
+                                        c.Item().AlignCenter().Element(line => line.Width(2).Height(24).Background("#E5E7EB"));
+                                });
+
+                                r.RelativeItem().Column(c =>
+                                {
+                                    c.Item().Text(fecha).SemiBold().FontSize(9.5f).FontColor("#24364D");
+                                    c.Item().Text(etiqueta).FontSize(8).FontColor("#6B7280");
+                                });
+                            });
+                        }
+
+                        Hito($"{mapa.FechaInicio:dd/MM/yyyy HH:mm}", "Inicio de ruta", false, true);
+                        Hito(mapa.Finalizada && mapa.FechaFin.HasValue ? $"{mapa.FechaFin.Value:dd/MM/yyyy HH:mm}" : "En curso",
+                            "Fin de ruta", mapa.Finalizada, false);
+                    });
+
+                    // ---- Recuadro oscuro ----
+                    right.Item().Background("#24364D").CornerRadius(6).Padding(10).Column(c =>
+                    {
+                        c.Item().AlignCenter().Text("TOTAL EVIDENCIAS").FontSize(9).Bold().FontColor(Colors.White);
+                        c.Item().AlignCenter().Text(mapa.TotalEvidencias.ToString()).Bold().FontSize(16).FontColor(Colors.White);
+                        c.Item().PaddingVertical(5).LineHorizontal(1).LineColor("#B5D334");
+                        c.Item().AlignCenter().Text(mapa.Finalizada ? "DURACIÓN TOTAL:" : "DURACIÓN ACTUAL:")
+                            .FontSize(9).Bold().FontColor(Colors.White);
+                        c.Item().AlignCenter().Text(duracionTxt).Bold().FontSize(14).FontColor(Colors.White);
+                    });
+
+                    // ---- Sucursal ----
+                    right.Item().Row(r =>
+                    {
+                        r.ConstantItem(18).AlignTop().Text("📍").FontSize(11).FontColor("#F15A24");
+                        r.ConstantItem(4);
+                        r.RelativeItem().Column(c =>
+                        {
+                            var sucursal = ReporteLayout.Ajustar(tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", 50, 11, 8, 18);
+                            c.Item().Text(sucursal.Texto).SemiBold().FontSize(sucursal.Size).FontColor("#24364D");
+                            c.Item().Text("Sucursal / CT").FontSize(8.5f).FontColor("#6B7280");
+                            c.Item().PaddingTop(2).Text(TruncarTexto(direccionDisplay, 70))
+                                .FontSize(7.5f).FontColor("#374151");
+                        });
+                    });
+
+                    right.Item().LineHorizontal(1).LineColor("#D1D5DB");
+
+                    // ---- Evidencias por punto (con icono de cantidad) ----
+                    const int maxPuntos = 8;
+                    var puntos = mapa.Puntos.Take(maxPuntos).ToList();
+                    if (puntos.Count > 0)
+                    {
+                        right.Item().Text("Evidencias por punto").SemiBold().FontSize(9).FontColor("#24364D");
+
+                        right.Item().Column(lista =>
+                        {
+                            lista.Spacing(4);
+                            foreach (var p in puntos)
+                            {
+                                lista.Item().Row(r =>
+                                {
+                                    r.ConstantItem(16).Height(16).Background("#FF5A2A").CornerRadius(8)
+                                        .AlignCenter().AlignMiddle()
+                                        .Text(p.Cantidad.ToString()).FontSize(7.5f).Bold().FontColor(Colors.White);
+                                    r.ConstantItem(6);
+                                    r.RelativeItem().AlignMiddle()
+                                        .Text($"{p.Hora:dd/MM/yyyy HH:mm}").FontSize(8).FontColor("#374151");
+                                });
+                            }
+                        });
+
+                        if (mapa.Puntos.Count > maxPuntos)
+                            right.Item().Text($"+ {mapa.Puntos.Count - maxPuntos} puntos más")
+                                .FontSize(7.5f).FontColor("#6B7280");
+
+                        right.Item().LineHorizontal(1).LineColor("#D1D5DB");
+                    }
+
+                    // ---- Simbología con iconos ----
+                    right.Item().Column(sim =>
+                    {
+                        sim.Spacing(4);
+
+                        void Leyenda(Action<IContainer> icono, string texto)
+                        {
+                            sim.Item().Row(r =>
+                            {
+                                r.ConstantItem(20).AlignMiddle().AlignCenter().Element(icono);
+                                r.ConstantItem(4);
+                                r.RelativeItem().AlignMiddle().Text(texto).FontSize(8).FontColor("#374151");
+                            });
+                        }
+
+                        Leyenda(el => el.Width(10).Height(10).Border(2).BorderColor("#111827").CornerRadius(5), "Inicio de ruta");
+                        Leyenda(el => el.Width(10).Height(10).Background("#111827"), "Fin de ruta");
+                        Leyenda(el => el.Width(18).Height(3).Background("#111827"), "Ruta real");
+                        Leyenda(el => el.Width(18).Height(3).Background("#7C3AED"), "Ruta planeada");
+                        Leyenda(el => el.Width(12).Height(12).Background("#FF5A2A").CornerRadius(6), "Evidencias en el punto");
+                    });
+
+                    // Espacio reservado para que el sello de estado no tape contenido
+                    right.Item().Height(34);
+                });
+
+                // Sello de estado, pegado al fondo del panel
+                layers.Layer().AlignBottom()
+                    .Border(2).BorderColor(colorEstado).Background(Colors.White).CornerRadius(6)
+                    .PaddingVertical(8).AlignCenter()
+                    .Text(mapa.Finalizada ? "RUTA FINALIZADA" : "RUTA EN CURSO")
+                    .Bold().FontSize(10).FontColor(colorEstado);
+            });
+        });
+    }
     // =========================================================================
     // FONDO DE PÁGINA
     // =========================================================================

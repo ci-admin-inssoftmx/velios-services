@@ -54,6 +54,7 @@ builder.Services.AddHttpClient<IGeocodingService, GeocodingService>();
 builder.Services.AddHttpClient<IRutasGoogleService, RutasGoogleService>(c => c.Timeout = TimeSpan.FromSeconds(15));
 builder.Services.AddScoped<ITrazadoCacheRepository, TrazadoCacheRepository>();
 builder.Services.AddScoped<ITrazadoRutaService, TrazadoRutaService>();
+builder.Services.AddScoped<IMapaRutaReporteService, MapaRutaReporteService>();
 
 #region ============================= CONFIGURACIÓN DE SERVICIOS =============================
 // Pegar junto al resto de registros de servicios en Program.cs
