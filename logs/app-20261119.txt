@@ -6963,3 +6963,860 @@ Error Number:10060,State:0,Class:20
       Server laptop-vgniigje:46948:df19c4cb is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
 2026-11-19 17:40:15.565 [INF] Hangfire.Server.BackgroundServerProcess
       Server laptop-vgniigje:46948:df19c4cb all the dispatchers started
+2026-11-19 18:11:55.682 [INF] velios.Api
+      ENV: Development | RutaBase: C:\dev\velios-local\ReportesMaterialidad
+2026-11-19 18:11:55.868 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Start installing Hangfire SQL objects...
+2026-11-19 18:11:57.629 [INF] Hangfire.SqlServer.SqlServerObjectsInstaller
+      Hangfire SQL objects installed.
+2026-11-19 18:11:58.889 [INF] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager
+      User profile is available. Using 'C:\Users\ja623\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-19 18:11:59.144 [WRN] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware
+      The WebRootPath was not found: C:\Proyectos Inssoft\velios-services\wwwroot. Static files may be unavailable.
+2026-11-19 18:11:59.477 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: https://localhost:7132
+2026-11-19 18:11:59.480 [INF] Microsoft.Hosting.Lifetime
+      Now listening on: http://localhost:5275
+2026-11-19 18:11:59.610 [INF] Hangfire.BackgroundJobServer
+      Starting Hangfire Server using job storage: 'SQL Server: 54.39.102.101@VELIOS_DEV'
+2026-11-19 18:11:59.614 [INF] Hangfire.BackgroundJobServer
+      Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-11-19 18:11:59.617 [INF] Hangfire.BackgroundJobServer
+      Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-11-19 18:11:59.686 [INF] Microsoft.Hosting.Lifetime
+      Application started. Press Ctrl+C to shut down.
+2026-11-19 18:11:59.689 [INF] Microsoft.Hosting.Lifetime
+      Hosting environment: Development
+2026-11-19 18:11:59.691 [INF] Microsoft.Hosting.Lifetime
+      Content root path: C:\Proyectos Inssoft\velios-services
+2026-11-19 18:11:59.823 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:44832:57eb2c45 successfully announced in 125.6041 ms
+2026-11-19 18:11:59.870 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:44832:57eb2c45 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-11-19 18:12:00.239 [INF] Hangfire.Server.BackgroundServerProcess
+      Server laptop-vgniigje:44832:57eb2c45 all the dispatchers started
+2026-11-19 18:17:00.393 [INF] Hangfire.Server.ServerWatchdog
+      1 servers were removed due to timeout
+2026-11-19 18:17:34.051 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/ - null null
+2026-11-19 18:17:34.391 [INF] velios.Api
+      Incoming: GET / CT=null Len=null
+2026-11-19 18:17:34.529 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/ - 404 null null 491.2455ms
+2026-11-19 18:17:34.535 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7132/, Response status code: 404
+2026-11-19 18:17:37.075 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.html - null null
+2026-11-19 18:17:37.087 [INF] velios.Api
+      Incoming: GET /swagger/index.html CT=null Len=null
+2026-11-19 18:17:37.226 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.html - 200 null text/html;charset=utf-8 150.5614ms
+2026-11-19 18:17:37.245 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/index.js - null null
+2026-11-19 18:17:37.250 [INF] velios.Api
+      Incoming: GET /swagger/index.js CT=null Len=null
+2026-11-19 18:17:37.254 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - null null
+2026-11-19 18:17:37.259 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/index.js - 200 null application/javascript;charset=utf-8 14.8537ms
+2026-11-19 18:17:37.290 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/_vs/browserLink - null null
+2026-11-19 18:17:37.377 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_framework/aspnetcore-browser-refresh.js - 200 14925 application/javascript; charset=utf-8 122.2405ms
+2026-11-19 18:17:37.419 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/_vs/browserLink - 200 null text/javascript; charset=UTF-8 155.4382ms
+2026-11-19 18:17:37.490 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - null null
+2026-11-19 18:17:37.493 [INF] velios.Api
+      Incoming: GET /swagger/v1/swagger.json CT=null Len=null
+2026-11-19 18:17:37.644 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 155.1334ms
+2026-11-19 18:17:52.321 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request starting HTTP/2 GET https://localhost:7132/api/ReporteMaterialidadPreeliminar/tarea/2775 - null null
+2026-11-19 18:17:52.335 [INF] velios.Api
+      Incoming: GET /api/ReporteMaterialidadPreeliminar/tarea/2775 CT=null Len=null
+2026-11-19 18:17:52.344 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executing endpoint 'velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api)'
+2026-11-19 18:17:52.401 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Route matched with {action = "GenerarPorTarea", controller = "ReporteMaterialidadPreeliminar"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GenerarPorTarea(Int32) on controller velios.Api.Controllers.ReporteMaterialidadPreeliminarController (velios.Api).
+2026-11-19 18:17:53.711 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-11-19 18:17:53.714 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Cliente'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-11-19 18:17:53.718 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-11-19 18:17:53.722 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-11-19 18:17:53.726 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Monto' on entity type 'ProveedorPresupuesto'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-11-19 18:17:54.927 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/proveedores/93/logo.png
+2026-11-19 18:17:54.933 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/proveedores/93/logo.png
+2026-11-19 18:17:55.944 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 998.1773ms - 200
+2026-11-19 18:17:55.948 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 1029.599ms - 200
+2026-11-19 18:17:55.985 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-11-19 18:17:55.990 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'NomclickCentroTrabajo'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-11-19 18:17:55.994 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Latitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-11-19 18:17:55.997 [WRN] Microsoft.EntityFrameworkCore.Model.Validation
+      No store type was specified for the decimal property 'Longitud' on entity type 'Proveedor'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-11-19 18:17:57.168 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:57.172 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:57.183 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios1/400/400
+2026-11-19 18:17:57.187 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios1/400/400
+2026-11-19 18:17:57.195 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios2/400/400
+2026-11-19 18:17:57.198 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios2/400/400
+2026-11-19 18:17:57.202 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios3/400/400
+2026-11-19 18:17:57.207 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios3/400/400
+2026-11-19 18:17:57.212 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios6/400/400
+2026-11-19 18:17:57.258 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios6/400/400
+2026-11-19 18:17:57.262 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios7/400/400
+2026-11-19 18:17:57.266 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios7/400/400
+2026-11-19 18:17:57.271 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios9/400/400
+2026-11-19 18:17:57.276 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios9/400/400
+2026-11-19 18:17:57.709 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 531.8614ms - 200
+2026-11-19 18:17:57.712 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 544.6889ms - 200
+2026-11-19 18:17:58.076 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 865.8183ms - 200
+2026-11-19 18:17:58.079 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 814.8527ms - 200
+2026-11-19 18:17:58.083 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 886.2112ms - 200
+2026-11-19 18:17:58.086 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 880.1662ms - 200
+2026-11-19 18:17:58.090 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 875.0798ms - 200
+2026-11-19 18:17:58.093 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 886.9144ms - 200
+2026-11-19 18:17:58.095 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 905.3025ms - 200
+2026-11-19 18:17:58.098 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 903.172ms - 200
+2026-11-19 18:17:58.175 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 893.5223ms - 200
+2026-11-19 18:17:58.178 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 908.1126ms - 200
+2026-11-19 18:17:58.223 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 951.6127ms - 200
+2026-11-19 18:17:58.226 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 963.8404ms - 200
+2026-11-19 18:17:58.902 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/8df723e8-f45a-4756-a7f7-eacd22a79f7b.jpg
+2026-11-19 18:17:58.906 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/8df723e8-f45a-4756-a7f7-eacd22a79f7b.jpg
+2026-11-19 18:17:58.913 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:58.916 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:58.926 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:58.930 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:58.937 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/adef07d0-e486-4789-9677-8e91e2381d13.jpg
+2026-11-19 18:17:58.941 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/adef07d0-e486-4789-9677-8e91e2381d13.jpg
+2026-11-19 18:17:58.944 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:58.947 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:58.951 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:58.955 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:58.959 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/fab55f25-cdf5-4c8d-b636-2fd70699343b.jpg
+2026-11-19 18:17:58.962 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/fab55f25-cdf5-4c8d-b636-2fd70699343b.jpg
+2026-11-19 18:17:58.995 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:58.999 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.004 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.008 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.012 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/9917c070-cb5b-4a50-a67f-cff6aa349055.jpg
+2026-11-19 18:17:59.016 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/9917c070-cb5b-4a50-a67f-cff6aa349055.jpg
+2026-11-19 18:17:59.019 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 106.4676ms - 200
+2026-11-19 18:17:59.024 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 121.1722ms - 200
+2026-11-19 18:17:59.028 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.031 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.063 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.069 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.074 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/bc71ddba-e012-4981-9933-064e460188e7.jpg
+2026-11-19 18:17:59.077 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/bc71ddba-e012-4981-9933-064e460188e7.jpg
+2026-11-19 18:17:59.081 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.084 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.088 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.092 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.095 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/02a2db98-7486-4c6f-8ca9-84079ad2d753.jpg
+2026-11-19 18:17:59.099 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/02a2db98-7486-4c6f-8ca9-84079ad2d753.jpg
+2026-11-19 18:17:59.102 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.107 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.111 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.114 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.118 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/f4a84222-adb0-4600-b2f6-cdd360b3d113.jpg
+2026-11-19 18:17:59.121 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/f4a84222-adb0-4600-b2f6-cdd360b3d113.jpg
+2026-11-19 18:17:59.125 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.128 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.131 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.134 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.140 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/0166db14-fcb2-4d55-908c-e4bda9f64a7e.jpg
+2026-11-19 18:17:59.170 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/0166db14-fcb2-4d55-908c-e4bda9f64a7e.jpg
+2026-11-19 18:17:59.176 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.180 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:17:59.185 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.189 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:17:59.355 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 435.2308ms - 200
+2026-11-19 18:17:59.360 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 445.7061ms - 200
+2026-11-19 18:17:59.394 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 435.4018ms - 200
+2026-11-19 18:17:59.397 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 446.168ms - 200
+2026-11-19 18:17:59.517 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 506.2851ms - 200
+2026-11-19 18:17:59.519 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 585.2616ms - 200
+2026-11-19 18:17:59.555 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 519.3801ms - 200
+2026-11-19 18:17:59.559 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 597.7863ms - 200
+2026-11-19 18:17:59.593 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 641.5006ms - 200
+2026-11-19 18:17:59.596 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 651.3493ms - 200
+2026-11-19 18:17:59.609 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 513.5098ms - 200
+2026-11-19 18:17:59.612 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 524.9932ms - 200
+2026-11-19 18:17:59.672 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 669.0478ms - 200
+2026-11-19 18:17:59.676 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 680.8815ms - 200
+2026-11-19 18:17:59.710 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 764.9706ms - 200
+2026-11-19 18:17:59.713 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 776.1501ms - 200
+2026-11-19 18:17:59.729 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 591.5281ms - 200
+2026-11-19 18:17:59.731 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 600.3603ms - 200
+2026-11-19 18:17:59.745 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 779.0167ms - 200
+2026-11-19 18:17:59.748 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 671.9837ms - 200
+2026-11-19 18:17:59.751 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 792.6245ms - 200
+2026-11-19 18:17:59.755 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 715.4722ms - 200
+2026-11-19 18:17:59.758 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 646.4854ms - 200
+2026-11-19 18:17:59.761 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 659.3845ms - 200
+2026-11-19 18:17:59.784 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 666.8114ms - 200
+2026-11-19 18:17:59.789 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 677.074ms - 200
+2026-11-19 18:17:59.815 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 623.8614ms - 200
+2026-11-19 18:17:59.819 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 634.1326ms - 200
+2026-11-19 18:17:59.841 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 715.4693ms - 200
+2026-11-19 18:17:59.845 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 821.9775ms - 200
+2026-11-19 18:17:59.847 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 742.672ms - 200
+2026-11-19 18:17:59.850 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 837.403ms - 200
+2026-11-19 18:17:59.852 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 726.6338ms - 200
+2026-11-19 18:17:59.889 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 756.8699ms - 200
+2026-11-19 18:17:59.893 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 811.6823ms - 200
+2026-11-19 18:17:59.925 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 718.9417ms - 200
+2026-11-19 18:17:59.957 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 855.1355ms - 200
+2026-11-19 18:17:59.961 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 792.221ms - 200
+2026-11-19 18:17:59.963 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 926.5894ms - 200
+2026-11-19 18:17:59.966 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 829.2304ms - 200
+2026-11-19 18:17:59.969 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 945.1592ms - 200
+2026-11-19 18:17:59.973 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 847.4369ms - 200
+2026-11-19 18:17:59.996 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 812.411ms - 200
+2026-11-19 18:18:00.000 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 825.5928ms - 200
+2026-11-19 18:18:00.006 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 917.4057ms - 200
+2026-11-19 18:18:00.010 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 928.7413ms - 200
+2026-11-19 18:18:00.112 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/d9f92f64-114d-445b-9f78-3256f769ca9e.jpg
+2026-11-19 18:18:00.116 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/d9f92f64-114d-445b-9f78-3256f769ca9e.jpg
+2026-11-19 18:18:00.121 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.125 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.129 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.132 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.201 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/a1b79603-ca51-448f-b294-02b4a64c3514.jpg
+2026-11-19 18:18:00.238 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/a1b79603-ca51-448f-b294-02b4a64c3514.jpg
+2026-11-19 18:18:00.242 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/061356e9-68c3-44db-9a37-da9e6652a407.jpg
+2026-11-19 18:18:00.247 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/061356e9-68c3-44db-9a37-da9e6652a407.jpg
+2026-11-19 18:18:00.251 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.256 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.260 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/56a58816-d702-456d-bfd7-0636b9c57167.jpg
+2026-11-19 18:18:00.264 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.269 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/56a58816-d702-456d-bfd7-0636b9c57167.jpg
+2026-11-19 18:18:00.275 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.278 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.281 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.285 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.291 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.295 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.299 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.304 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.309 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.319 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/d4f951b8-d1f8-4cb9-a5d0-17d54c8e875d.jpg
+2026-11-19 18:18:00.325 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/d4f951b8-d1f8-4cb9-a5d0-17d54c8e875d.jpg
+2026-11-19 18:18:00.329 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 208.73ms - 200
+2026-11-19 18:18:00.332 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/ae6ef9fc-cf31-4c5f-bb47-3c1bfccc5a64.jpg
+2026-11-19 18:18:00.336 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 223.304ms - 200
+2026-11-19 18:18:00.342 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.346 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/ae6ef9fc-cf31-4c5f-bb47-3c1bfccc5a64.jpg
+2026-11-19 18:18:00.350 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.353 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.357 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.360 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.363 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.367 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.370 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.462 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 219.6529ms - 200
+2026-11-19 18:18:00.466 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 264.8454ms - 200
+2026-11-19 18:18:00.520 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 392.0211ms - 200
+2026-11-19 18:18:00.525 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 403.372ms - 200
+2026-11-19 18:18:00.528 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 250.2155ms - 200
+2026-11-19 18:18:00.532 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 272.1839ms - 200
+2026-11-19 18:18:00.573 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 243.3821ms - 200
+2026-11-19 18:18:00.577 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 258.0732ms - 200
+2026-11-19 18:18:00.627 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 492.1969ms - 200
+2026-11-19 18:18:00.630 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 501.4955ms - 200
+2026-11-19 18:18:00.634 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 317.8937ms - 200
+2026-11-19 18:18:00.637 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 346.014ms - 200
+2026-11-19 18:18:00.671 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 283.8538ms - 200
+2026-11-19 18:18:00.675 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 335.4473ms - 200
+2026-11-19 18:18:00.678 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 402.2433ms - 200
+2026-11-19 18:18:00.681 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 349.7941ms - 200
+2026-11-19 18:18:00.719 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 416.5279ms - 200
+2026-11-19 18:18:00.723 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 366.3187ms - 200
+2026-11-19 18:18:00.726 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 441.7643ms - 200
+2026-11-19 18:18:00.755 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 390.685ms - 200
+2026-11-19 18:18:00.758 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 392.8528ms - 200
+2026-11-19 18:18:00.762 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 384.7342ms - 200
+2026-11-19 18:18:00.765 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 497.9484ms - 200
+2026-11-19 18:18:00.769 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 515.0669ms - 200
+2026-11-19 18:18:00.773 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 400.03ms - 200
+2026-11-19 18:18:00.776 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 463.1212ms - 200
+2026-11-19 18:18:00.778 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 534.9371ms - 200
+2026-11-19 18:18:00.781 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 409.8329ms - 200
+2026-11-19 18:18:00.805 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 496.9339ms - 200
+2026-11-19 18:18:00.839 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 522.5508ms - 200
+2026-11-19 18:18:00.842 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 478.2415ms - 200
+2026-11-19 18:18:00.846 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 475.6274ms - 200
+2026-11-19 18:18:00.849 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/0d8ede59-2b1d-4d99-a758-0ea8806f2cd6.jpg
+2026-11-19 18:18:00.852 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 585.2791ms - 200
+2026-11-19 18:18:00.856 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/0d8ede59-2b1d-4d99-a758-0ea8806f2cd6.jpg
+2026-11-19 18:18:00.860 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 498.8358ms - 200
+2026-11-19 18:18:00.864 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.867 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/aead7fac-ca09-4e14-accf-2039f763f266.jpg
+2026-11-19 18:18:00.905 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.909 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/aead7fac-ca09-4e14-accf-2039f763f266.jpg
+2026-11-19 18:18:00.914 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.916 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.919 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.924 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.928 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.931 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.961 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/0bce29e2-d768-446e-9df5-a95edc8eb684.jpg
+2026-11-19 18:18:00.964 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/0bce29e2-d768-446e-9df5-a95edc8eb684.jpg
+2026-11-19 18:18:00.967 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 102.3608ms - 200
+2026-11-19 18:18:00.971 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 124.8032ms - 200
+2026-11-19 18:18:00.975 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.978 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:00.983 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:00.986 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.039 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 125.197ms - 200
+2026-11-19 18:18:01.043 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 178.5003ms - 200
+2026-11-19 18:18:01.075 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 147.2333ms - 200
+2026-11-19 18:18:01.078 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 164.8823ms - 200
+2026-11-19 18:18:01.082 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 146.1714ms - 200
+2026-11-19 18:18:01.084 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 157.3573ms - 200
+2026-11-19 18:18:01.115 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 144.7213ms - 200
+2026-11-19 18:18:01.118 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 158.1235ms - 200
+2026-11-19 18:18:01.290 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/ff0bc3bd-2f44-4934-b06b-b9200a34ee2e.jpg
+2026-11-19 18:18:01.294 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios1/400/400
+2026-11-19 18:18:01.297 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://archivosvelios.adhw.com.mx/archivos/dev/TASK-2775/ff0bc3bd-2f44-4934-b06b-b9200a34ee2e.jpg
+2026-11-19 18:18:01.300 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 373.9643ms - 200
+2026-11-19 18:18:01.303 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 308.2805ms - 200
+2026-11-19 18:18:01.308 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 391.7229ms - 200
+2026-11-19 18:18:01.311 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 386.5795ms - 200
+2026-11-19 18:18:01.314 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 328.4192ms - 200
+2026-11-19 18:18:01.317 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 452.4475ms - 200
+2026-11-19 18:18:01.341 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios1/400/400
+2026-11-19 18:18:01.372 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.376 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.378 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 393.599ms - 200
+2026-11-19 18:18:01.381 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios3/400/400
+2026-11-19 18:18:01.384 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 408.9215ms - 200
+2026-11-19 18:18:01.388 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios3/400/400
+2026-11-19 18:18:01.421 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.425 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios2/400/400
+2026-11-19 18:18:01.428 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios4/400/400
+2026-11-19 18:18:01.431 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios5/400/400
+2026-11-19 18:18:01.434 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.437 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios4/400/400
+2026-11-19 18:18:01.470 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios5/400/400
+2026-11-19 18:18:01.474 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.478 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios2/400/400
+2026-11-19 18:18:01.481 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.484 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.488 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.491 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.494 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.498 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.501 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.504 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.507 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.539 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.543 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.572 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.575 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.577 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.580 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:01.582 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.585 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 123.6593ms - 200
+2026-11-19 18:18:01.589 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 147.1233ms - 200
+2026-11-19 18:18:01.592 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 302.2036ms - 200
+2026-11-19 18:18:01.595 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.598 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 207.2262ms - 200
+2026-11-19 18:18:01.600 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.604 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:01.626 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 279.5271ms - 200
+2026-11-19 18:18:01.630 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 341.2842ms - 200
+2026-11-19 18:18:01.652 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 227.6315ms - 200
+2026-11-19 18:18:01.656 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 280.0026ms - 200
+2026-11-19 18:18:01.702 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 154.4235ms - 200
+2026-11-19 18:18:01.707 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 125.8265ms - 200
+2026-11-19 18:18:01.710 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 324.73ms - 200
+2026-11-19 18:18:01.713 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 206.9186ms - 200
+2026-11-19 18:18:01.716 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 124.508ms - 200
+2026-11-19 18:18:01.718 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 203.3338ms - 200
+2026-11-19 18:18:01.722 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 396.5252ms - 200
+2026-11-19 18:18:01.725 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 208.5124ms - 200
+2026-11-19 18:18:01.728 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 338.9511ms - 200
+2026-11-19 18:18:01.757 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 205.7528ms - 200
+2026-11-19 18:18:01.760 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 132.2268ms - 200
+2026-11-19 18:18:01.791 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 154.9042ms - 200
+2026-11-19 18:18:01.822 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 183.4355ms - 200
+2026-11-19 18:18:01.827 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 199.1842ms - 200
+2026-11-19 18:18:01.859 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 388.5646ms - 200
+2026-11-19 18:18:01.866 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 437.2689ms - 200
+2026-11-19 18:18:01.905 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 383.3534ms - 200
+2026-11-19 18:18:01.939 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 373.2934ms - 200
+2026-11-19 18:18:01.968 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 390.6846ms - 200
+2026-11-19 18:18:01.992 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 462.9953ms - 200
+2026-11-19 18:18:01.996 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 535.5574ms - 200
+2026-11-19 18:18:01.999 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 570.8614ms - 200
+2026-11-19 18:18:02.002 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 414.3538ms - 200
+2026-11-19 18:18:02.006 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios8/400/400
+2026-11-19 18:18:02.010 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios7/400/400
+2026-11-19 18:18:02.012 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios8/400/400
+2026-11-19 18:18:02.015 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 507.3122ms - 200
+2026-11-19 18:18:02.018 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios7/400/400
+2026-11-19 18:18:02.022 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 494.8506ms - 200
+2026-11-19 18:18:02.025 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios6/400/400
+2026-11-19 18:18:02.029 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:02.032 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 542.4169ms - 200
+2026-11-19 18:18:02.055 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:02.059 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios6/400/400
+2026-11-19 18:18:02.091 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:02.122 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 456.7008ms - 200
+2026-11-19 18:18:02.155 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://picsum.photos/seed/velios9/400/400
+2026-11-19 18:18:02.159 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:02.162 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://picsum.photos/seed/velios9/400/400
+2026-11-19 18:18:02.164 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:02.167 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:02.171 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:02.174 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 693.847ms - 200
+2026-11-19 18:18:02.205 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:02.210 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:02.213 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 148.0772ms - 200
+2026-11-19 18:18:02.216 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/staticmap?*
+2026-11-19 18:18:02.219 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:02.254 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 194.87ms - 200
+2026-11-19 18:18:02.258 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:02.261 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:02.265 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      Start processing HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:02.289 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:02.324 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 275.384ms - 200
+2026-11-19 18:18:02.328 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Sending HTTP request GET https://maps.googleapis.com/maps/api/geocode/json?*
+2026-11-19 18:18:02.331 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 325.8686ms - 200
+2026-11-19 18:18:02.358 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 160.6034ms - 200
+2026-11-19 18:18:02.360 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 311.2974ms - 200
+2026-11-19 18:18:02.364 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 127.0709ms - 200
+2026-11-19 18:18:02.367 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 326.5421ms - 200
+2026-11-19 18:18:02.405 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 367.7275ms - 200
+2026-11-19 18:18:02.435 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 306.1962ms - 200
+2026-11-19 18:18:02.472 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 244.2689ms - 200
+2026-11-19 18:18:02.504 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 442.898ms - 200
+2026-11-19 18:18:02.509 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 182.1584ms - 200
+2026-11-19 18:18:02.543 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 254.3879ms - 200
+2026-11-19 18:18:02.546 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 179.5981ms - 200
+2026-11-19 18:18:02.560 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 382.3878ms - 200
+2026-11-19 18:18:02.563 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 290.5131ms - 200
+2026-11-19 18:18:02.566 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 439.7989ms - 200
+2026-11-19 18:18:02.571 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 294.2295ms - 200
+2026-11-19 18:18:02.575 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 370.2775ms - 200
+2026-11-19 18:18:02.578 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 105.5573ms - 200
+2026-11-19 18:18:02.581 [INF] System.Net.Http.HttpClient.Default.ClientHandler
+      Received HTTP response headers after 337.5698ms - 200
+2026-11-19 18:18:02.585 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 371.181ms - 200
+2026-11-19 18:18:02.588 [INF] System.Net.Http.HttpClient.Default.LogicalHandler
+      End processing HTTP request after 427.7381ms - 200
+2026-11-19 18:18:38.009 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.FileContentResultExecutor
+      Executing FileContentResult, sending file with download name 'reporte-materialidad-preeliminar-2775.pdf' ...
+2026-11-19 18:18:38.313 [INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker
+      Executed action velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api) in 45897.5141ms
+2026-11-19 18:18:38.317 [INF] Microsoft.AspNetCore.Routing.EndpointMiddleware
+      Executed endpoint 'velios.Api.Controllers.ReporteMaterialidadPreeliminarController.GenerarPorTarea (velios.Api)'
+2026-11-19 18:18:38.337 [INF] Microsoft.AspNetCore.Hosting.Diagnostics
+      Request finished HTTP/2 GET https://localhost:7132/api/ReporteMaterialidadPreeliminar/tarea/2775 - 200 5721668 application/pdf 46018.1112ms
+2026-11-19 19:14:22.367 [INF] Hangfire.Processing.BackgroundExecution
+      Execution DelayedJobScheduler recovered from the Faulted state after 00:00:16.8187624 and is in the Running state now
+2026-11-19 19:14:23.794 [INF] Hangfire.Processing.BackgroundExecution
+      Execution RecurringJobScheduler recovered from the Faulted state after 00:00:19.1836721 and is in the Running state now
+2026-11-19 19:14:48.833 [INF] Hangfire.Server.ServerWatchdog
+      1 servers were removed due to timeout
+2026-11-19 23:35:57.075 [WRN] Hangfire.Server.ServerHeartbeatProcess
+      Server laptop-vgniigje:44832:57eb2c45 encountered an exception while sending heartbeat
+Microsoft.Data.SqlClient.SqlException (0x80131904): A transport-level error has occurred when receiving results from the server. (provider: TCP Provider, error: 0 - Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.)
+ ---> System.ComponentModel.Win32Exception (10060): Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParserStateObject.ThrowExceptionAndWarning(Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParserStateObject.ReadSniError(TdsParserStateObject stateObj, UInt32 error)
+   at Microsoft.Data.SqlClient.TdsParserStateObject.ReadSniSyncOverAsync()
+   at Microsoft.Data.SqlClient.TdsParserStateObject.TryPrepareBuffer()
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) in /_/Dapper/SqlMapper.cs:line 2965
+   at Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) in /_/Dapper/SqlMapper.cs:line 654
+   at Hangfire.SqlServer.SqlServerConnection.<>c.<Heartbeat>b__23_0(SqlServerStorage storage, DbConnection connection, String serverId) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerConnection.cs:line 550
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection[TContext,TResult](DbConnection dedicatedConnection, Func`4 func, TContext context) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 287
+   at Hangfire.Server.ServerHeartbeatProcess.Execute(BackgroundProcessContext context) in C:\projects\hangfire-525\src\Hangfire.Core\Server\ServerHeartbeatProcess.cs:line 42
+ClientConnectionId:b155ba89-1545-4a0b-9aec-585de62554b1
+Error Number:10060,State:0,Class:20
+2026-11-19 23:36:01.493 [INF] Hangfire.Processing.BackgroundExecution
+      Execution Worker recovered from the Faulted state after 00:00:08.2010475 and is in the Running state now
+2026-11-19 23:36:04.932 [INF] Hangfire.Processing.BackgroundExecution
+      Execution DelayedJobScheduler recovered from the Faulted state after 00:00:17.9729720 and is in the Running state now
+2026-11-19 23:36:27.439 [INF] Hangfire.Server.ServerHeartbeatProcess
+      Server laptop-vgniigje:44832:57eb2c45 is now able to continue sending heartbeats
+2026-11-19 23:59:22.332 [INF] Hangfire.Processing.BackgroundExecution
+      Execution RecurringJobScheduler recovered from the Faulted state after 00:00:18.0526075 and is in the Running state now
+2026-11-19 23:59:23.357 [INF] Hangfire.Processing.BackgroundExecution
+      Execution DelayedJobScheduler recovered from the Faulted state after 00:00:19.6053836 and is in the Running state now

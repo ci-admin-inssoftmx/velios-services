@@ -33,8 +33,8 @@ public class MapaRutaReporteService : IMapaRutaReporteService
 {
     private const int Ancho = 448;     // px lógicos (Static Maps acepta hasta 640x640)
     private const int Alto = 640;
+    private const int Margen = 40;     // aire alrededor de la ruta
     private const int Escala = 2;      // scale=2 -> imagen de 1280x1280
-    private const int Margen = 90;     // aire alrededor de los puntos
     private const int MaxConcurrenciaFotos = 6;
     private static readonly TimeSpan Timeout = TimeSpan.FromSeconds(15);
 
@@ -88,10 +88,10 @@ public class MapaRutaReporteService : IMapaRutaReporteService
 
         var todos = recorrido.Concat(esperados).ToList();
         CalcularVista(todos, out var centroLat, out var centroLng, out var zoom);
+        var zoomBase = (int)Math.Floor(zoom); // Google solo da zoom entero
 
         // Mapa base y fotos de los pines en paralelo (solo HTTP, sin BD)
-        var baseTask = DescargarMapaBaseAsync(centroLat, centroLng, zoom);
-        var fotosTask = DescargarFotosAsync(grupos);
+        var baseTask = DescargarMapaBaseAsync(centroLat, centroLng, zoomBase); var fotosTask = DescargarFotosAsync(grupos);
         await Task.WhenAll(baseTask, fotosTask);
 
         var (baseMap, errorBase) = baseTask.Result;
@@ -101,7 +101,7 @@ public class MapaRutaReporteService : IMapaRutaReporteService
         byte[] imagen;
         try
         {
-            imagen = Dibujar(baseMap, centroLat, centroLng, zoom,
+            imagen = Dibujar(baseMap, centroLat, centroLng, zoom, zoomBase,
                 recorrido, esperados, cantidades, fotos, inicio, fin);
         }
         finally
@@ -129,44 +129,44 @@ public class MapaRutaReporteService : IMapaRutaReporteService
     }
 
     // ---------- Proyección Web Mercator ----------
-    private static double MercX(double lng, int z) => (lng + 180) / 360 * 256 * Math.Pow(2, z);
+    // ---------- Proyección Web Mercator (zoom fraccionario) ----------
+    private static double MercX(double lng, double z) => (lng + 180) / 360 * 256 * Math.Pow(2, z);
 
-    private static double MercY(double lat, int z)
+    private static double MercY(double lat, double z)
     {
         var s = Math.Clamp(Math.Sin(lat * Math.PI / 180), -0.9999, 0.9999);
         return (0.5 - Math.Log((1 + s) / (1 - s)) / (4 * Math.PI)) * 256 * Math.Pow(2, z);
     }
 
-    private static double InvLng(double x, int z) => x / (256 * Math.Pow(2, z)) * 360 - 180;
+    private static double InvLng(double x, double z) => x / (256 * Math.Pow(2, z)) * 360 - 180;
 
-    private static double InvLat(double y, int z)
+    private static double InvLat(double y, double z)
     {
         var n = Math.PI - 2 * Math.PI * y / (256 * Math.Pow(2, z));
         return 180 / Math.PI * Math.Atan(Math.Sinh(n));
     }
 
     private static void CalcularVista(List<(double Lat, double Lng)> pts,
-        out double centroLat, out double centroLng, out int zoom)
+        out double centroLat, out double centroLng, out double zoom)
     {
-        var zFinal = 3;
-        for (var z = 17; z >= 3; z--)
-        {
-            var ancho = pts.Max(p => MercX(p.Lng, z)) - pts.Min(p => MercX(p.Lng, z));
-            var alto = pts.Max(p => MercY(p.Lat, z)) - pts.Min(p => MercY(p.Lat, z));
-            if (ancho <= Ancho - 2 * Margen && alto <= Alto - 2 * Margen)
-            {
-                zFinal = z;
-                break;
-            }
-        }
+        var anchoUtil = Ancho - 2 * Margen;
+        var altoUtil = Alto - 2 * Margen;
 
-        var zl = zFinal;
-        var cx = (pts.Min(p => MercX(p.Lng, zl)) + pts.Max(p => MercX(p.Lng, zl))) / 2;
-        var cy = (pts.Min(p => MercY(p.Lat, zl)) + pts.Max(p => MercY(p.Lat, zl))) / 2;
+        // Extensión de la ruta a zoom 0; escala linealmente con 2^zoom
+        var ancho0 = pts.Max(p => MercX(p.Lng, 0)) - pts.Min(p => MercX(p.Lng, 0));
+        var alto0 = pts.Max(p => MercY(p.Lat, 0)) - pts.Min(p => MercY(p.Lat, 0));
 
-        centroLat = InvLat(cy, zl);
-        centroLng = InvLng(cx, zl);
-        zoom = zl;
+        double zFit = 18;
+        if (ancho0 > 1e-9) zFit = Math.Min(zFit, Math.Log2(anchoUtil / ancho0));
+        if (alto0 > 1e-9) zFit = Math.Min(zFit, Math.Log2(altoUtil / alto0));
+        var z = Math.Clamp(zFit, 3, 18);
+
+        var cx = (pts.Min(p => MercX(p.Lng, z)) + pts.Max(p => MercX(p.Lng, z))) / 2;
+        var cy = (pts.Min(p => MercY(p.Lat, z)) + pts.Max(p => MercY(p.Lat, z))) / 2;
+
+        centroLat = InvLat(cy, z);
+        centroLng = InvLng(cx, z);
+        zoom = z;
     }
 
     // ---------- Mapa base (Google Static Maps) ----------
@@ -286,8 +286,7 @@ public class MapaRutaReporteService : IMapaRutaReporteService
 
     // ---------- Dibujo con SkiaSharp ----------
     private static byte[] Dibujar(
-        SKBitmap? baseMap, double centroLat, double centroLng, int zoom,
-        List<(double Lat, double Lng)> recorrido,
+        SKBitmap? baseMap, double centroLat, double centroLng, double zoom, int zoomBase, List<(double Lat, double Lng)> recorrido,
         List<(double Lat, double Lng)> esperados,
         List<int> cantidades,
         List<SKBitmap?> fotos,
@@ -301,7 +300,14 @@ public class MapaRutaReporteService : IMapaRutaReporteService
 
         if (baseMap != null)
         {
-            canvas.DrawBitmap(baseMap, new SKRect(0, 0, anchoPx, altoPx));
+            // El mapa viene en zoom entero; se amplía desde el centro hasta el zoom de ajuste
+            var k = (float)Math.Pow(2, zoom - zoomBase);
+            canvas.Save();
+            canvas.Scale(k, k, anchoPx / 2f, altoPx / 2f);
+            using var imgBase = SKImage.FromBitmap(baseMap);
+            canvas.DrawImage(imgBase, new SKRect(0, 0, anchoPx, altoPx),
+                new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear));
+            canvas.Restore();
         }
         else
         {
@@ -418,5 +424,77 @@ public class MapaRutaReporteService : IMapaRutaReporteService
         using var image = SKImage.FromBitmap(bmp);
         using var data = image.Encode(SKEncodedImageFormat.Jpeg, 85);
         return data.ToArray();
+    }
+
+}
+/// <summary>Iconos de línea para el reporte, dibujados con SkiaSharp (PNG transparente, cacheados).</summary>
+public static class IconosReporte
+{
+    private static readonly Dictionary<string, byte[]> _cache = new();
+    private static readonly object _lock = new();
+
+    public static byte[] Camara(string hex) => Obtener("cam" + hex, c =>
+    {
+        using var p = Trazo(hex, 7);
+        c.DrawRoundRect(new SKRect(10, 26, 86, 80), 10, 10, p);
+        using var tapa = new SKPath();
+        tapa.MoveTo(30, 26); tapa.LineTo(37, 14); tapa.LineTo(59, 14); tapa.LineTo(66, 26);
+        c.DrawPath(tapa, p);
+        c.DrawCircle(48, 53, 14, p);
+    });
+
+    public static byte[] Reloj(string hex) => Obtener("rel" + hex, c =>
+    {
+        using var p = Trazo(hex, 7);
+        c.DrawCircle(48, 48, 34, p);
+        using var manecillas = new SKPath();
+        manecillas.MoveTo(48, 26); manecillas.LineTo(48, 48); manecillas.LineTo(63, 57);
+        c.DrawPath(manecillas, p);
+    });
+
+    public static byte[] Check(string hex) => Obtener("chk" + hex, c =>
+    {
+        using var p = Trazo(hex, 12);
+        using var path = new SKPath();
+        path.MoveTo(24, 50); path.LineTo(42, 68); path.LineTo(74, 32);
+        c.DrawPath(path, p);
+    });
+
+    public static byte[] Pin(string hex) => Obtener("pin" + hex, c =>
+    {
+        using var relleno = new SKPaint { IsAntialias = true, Color = SKColor.Parse(hex), Style = SKPaintStyle.Fill };
+        c.DrawCircle(48, 36, 26, relleno);
+        using var punta = new SKPath();
+        punta.MoveTo(25, 52); punta.LineTo(71, 52); punta.LineTo(48, 90); punta.Close();
+        c.DrawPath(punta, relleno);
+        using var hueco = new SKPaint { IsAntialias = true, Color = SKColors.White, Style = SKPaintStyle.Fill };
+        c.DrawCircle(48, 36, 10, hueco);
+    });
+
+    private static SKPaint Trazo(string hex, float ancho) => new()
+    {
+        IsAntialias = true,
+        Style = SKPaintStyle.Stroke,
+        StrokeWidth = ancho,
+        Color = SKColor.Parse(hex),
+        StrokeCap = SKStrokeCap.Round,
+        StrokeJoin = SKStrokeJoin.Round
+    };
+
+    private static byte[] Obtener(string clave, Action<SKCanvas> dibujar)
+    {
+        lock (_lock)
+        {
+            if (_cache.TryGetValue(clave, out var existente)) return existente;
+
+            using var bmp = new SKBitmap(96, 96);
+            using var canvas = new SKCanvas(bmp);
+            canvas.Clear(SKColors.Transparent);
+            dibujar(canvas);
+
+            using var img = SKImage.FromBitmap(bmp);
+            using var data = img.Encode(SKEncodedImageFormat.Png, 100);
+            return _cache[clave] = data.ToArray();
+        }
     }
 }

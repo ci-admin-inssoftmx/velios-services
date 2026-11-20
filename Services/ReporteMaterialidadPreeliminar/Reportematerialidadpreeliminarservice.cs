@@ -654,12 +654,12 @@ CrearHeader(c, _logoBytes, "INFORME PRELIMINAR", "Seguimiento de Ruta"));
     }
 
     private static void CrearContenidoMapaRuta(
-        IContainer container,
-        MapaRutaReporteDto mapa,
-        TareaReporteDto tarea,
-        string direccionDisplay,
-        byte[]? documentoIconBytes,
-        byte[]? carpetaIconBytes)
+    IContainer container,
+    MapaRutaReporteDto mapa,
+    TareaReporteDto tarea,
+    string direccionDisplay,
+    byte[]? documentoIconBytes,
+    byte[]? carpetaIconBytes)
     {
         var fin = mapa.Finalizada && mapa.FechaFin.HasValue ? mapa.FechaFin.Value : DateTime.Now;
         var duracion = fin - mapa.FechaInicio;
@@ -667,7 +667,17 @@ CrearHeader(c, _logoBytes, "INFORME PRELIMINAR", "Seguimiento de Ruta"));
         var duracionTxt = duracion.TotalHours >= 1
             ? $"{(int)duracion.TotalHours}h {duracion.Minutes}m"
             : $"{duracion.Minutes}m";
-        var colorEstado = mapa.Finalizada ? "#16C60C" : "#F15A24";
+
+        // Tiempo transcurrido desde el inicio de la ruta: "+12 min", "+1h 24m"
+        string Transcurrido(DateTime hora)
+        {
+            var t = hora - mapa.FechaInicio;
+            if (t < TimeSpan.Zero) t = TimeSpan.Zero;
+            return t.TotalHours >= 1 ? $"+{(int)t.TotalHours}h {t.Minutes:00}m" : $"+{(int)t.TotalMinutes} min";
+        }
+
+        var colorBorde = mapa.Finalizada ? "#22C55E" : "#F15A24";
+        var colorTexto = mapa.Finalizada ? "#15803D" : "#C2410C";
 
         container.PaddingLeft(28).ExtendVertical().Row(row =>
         {
@@ -701,157 +711,183 @@ CrearHeader(c, _logoBytes, "INFORME PRELIMINAR", "Seguimiento de Ruta"));
                         .FontSize(7.5f).FontColor("#6B7280");
             });
 
-            // ================= SIDEBAR DERECHO =================
-            row.ConstantItem(175).ExtendVertical().Background("#F3F4F6").CornerRadius(8).Padding(10).Layers(layers =>
+            // ================= SIDEBAR DERECHO (estilo web Velios) =================
+            row.ConstantItem(175).ExtendVertical().Background("#F3F4F6").CornerRadius(8).Padding(8).Layers(layers =>
             {
                 layers.PrimaryLayer().ScaleToFit().Column(right =>
                 {
                     right.Spacing(8);
 
-                    right.Item().Height(5).Background("#24364D");
-
-                    var plan = ReporteLayout.Ajustar(tarea.NombreProyecto ?? "Sin plan de trabajo", 60, 12, 9, 20);
-                    right.Item().Text(plan.Texto)
-                        .SemiBold().FontSize(plan.Size).FontColor("#24364D");
-
-                    right.Item().Row(r =>
-                    {
-                        r.ConstantItem(15).AlignMiddle().AlignCenter().Element(ic =>
+                    // ---- Simbología en tarjeta (icono arriba, etiqueta abajo) ----
+                    right.Item().Background(Colors.White).Border(1).BorderColor("#E5E7EB").CornerRadius(8)
+                        .PaddingVertical(6).PaddingHorizontal(4).Row(r =>
                         {
-                            if (carpetaIconBytes is not null && carpetaIconBytes.Length > 0)
-                                ic.Image(carpetaIconBytes, ImageScaling.FitArea);
-                            else
-                                ic.Text("▭").FontSize(10).FontColor("#6B7280");
+                            void Leyenda(Action<IContainer> icono, string texto)
+                            {
+                                r.RelativeItem().Column(c =>
+                                {
+                                    c.Item().Height(16).AlignCenter().AlignMiddle().Element(icono);
+                                    c.Item().PaddingTop(3).AlignCenter()
+                                        .Text(texto).FontSize(6).FontColor("#667489").AlignCenter();
+                                });
+                            }
+
+                            Leyenda(el => el.Width(12).Height(12).Background(Colors.White).Border(2.5f)
+                                .BorderColor("#111827").CornerRadius(6), "Inicio de ruta");
+                            Leyenda(el => el.Width(12).Height(12).Border(2.5f).BorderColor("#111827")
+                                .CornerRadius(3).Padding(2.5f).Background("#111827"), "Fin de ruta");
+                            Leyenda(el => el.Width(16).Height(2.5f).Background("#111827"), "Ruta real");
+                            Leyenda(el => el.Width(16).Height(2.5f).Background("#7C3AED"), "Ruta planeada");
+                            Leyenda(el => el.Width(14).Height(14).Background("#F26A1B").CornerRadius(4).Padding(2.5f)
+                                .Image(IconosReporte.Camara("#FFFFFF"), ImageScaling.FitArea), "Evidencia");
                         });
-                        r.ConstantItem(4);
-                        r.RelativeItem().AlignMiddle().Text("Plan de trabajo").FontSize(8.5f).FontColor("#6B7280");
-                    });
 
-                    right.Item().LineHorizontal(1).LineColor("#D1D5DB");
+                    // ---- Sucursal en tarjeta ----
+                    right.Item().Background(Colors.White).Border(1).BorderColor("#E5E7EB").CornerRadius(8)
+                        .Padding(8).Row(r =>
+                        {
+                            r.ConstantItem(14).AlignMiddle().Height(18)
+                                .Image(IconosReporte.Pin("#F26A1B"), ImageScaling.FitArea);
+                            r.ConstantItem(6);
+                            r.RelativeItem().Column(c =>
+                            {
+                                var sucursal = ReporteLayout.Ajustar(tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", 50, 11, 8, 18);
+                                c.Item().Text(sucursal.Texto).Bold().FontSize(sucursal.Size).FontColor("#24364D");
+                                c.Item().Text("Sucursal / CT").SemiBold().FontSize(7.5f).FontColor("#F26A1B");
+                                c.Item().PaddingTop(2).Text(TruncarTexto(direccionDisplay, 70))
+                                    .FontSize(7).FontColor("#667489");
+                            });
+                        });
 
-                    // ---- Línea de tiempo (un solo bloque para que no se separe) ----
-                    right.Item().Column(tl =>
+                    // ---- Línea de tiempo ----
+                    right.Item().PaddingHorizontal(2).Column(tl =>
                     {
-                        void Hito(string fecha, string etiqueta, bool lleno, bool conLinea)
+                        void Hito(Action<IContainer> punto, string fecha, string etiqueta, bool conLinea)
                         {
                             tl.Item().Row(r =>
                             {
-                                r.ConstantItem(24).Column(c =>
+                                r.ConstantItem(22).Column(c =>
                                 {
-                                    c.Item().AlignCenter().Element(el => el.Width(11).Height(11).Border(2)
-                                        .BorderColor(lleno ? "#16C60C" : "#94A3B8").CornerRadius(5.5f)
-                                        .Background(lleno ? "#16C60C" : Colors.White));
+                                    c.Item().AlignCenter().Element(punto);
                                     if (conLinea)
-                                        c.Item().AlignCenter().Element(line => line.Width(2).Height(24).Background("#E5E7EB"));
+                                        c.Item().AlignCenter().Element(line => line.Width(2).Height(18).Background("#D1D5DB"));
                                 });
-
+                                r.ConstantItem(4);
                                 r.RelativeItem().Column(c =>
                                 {
-                                    c.Item().Text(fecha).SemiBold().FontSize(9.5f).FontColor("#24364D");
-                                    c.Item().Text(etiqueta).FontSize(8).FontColor("#6B7280");
+                                    c.Item().Text(fecha).Bold().FontSize(9.5f).FontColor("#24364D");
+                                    c.Item().Text(etiqueta).FontSize(7.5f).FontColor("#667489");
                                 });
                             });
                         }
 
-                        Hito($"{mapa.FechaInicio:dd/MM/yyyy HH:mm}", "Inicio de ruta", false, true);
-                        Hito(mapa.Finalizada && mapa.FechaFin.HasValue ? $"{mapa.FechaFin.Value:dd/MM/yyyy HH:mm}" : "En curso",
-                            "Fin de ruta", mapa.Finalizada, false);
+                        Hito(el => el.Width(14).Height(14).Background(Colors.White).Border(3).BorderColor("#111827").CornerRadius(7),
+                            $"{mapa.FechaInicio:dd/MM/yyyy HH:mm}", "Inicio de ruta", true);
+
+                        Hito(el =>
+                        {
+                            if (mapa.Finalizada)
+                                el.Width(14).Height(14).Background("#22C55E").CornerRadius(7).Padding(3)
+                                    .Image(IconosReporte.Check("#FFFFFF"), ImageScaling.FitArea);
+                            else
+                                el.Width(14).Height(14).Background(Colors.White).Border(2).BorderColor("#94A3B8").CornerRadius(7);
+                        },
+                            mapa.Finalizada && mapa.FechaFin.HasValue ? $"{mapa.FechaFin.Value:dd/MM/yyyy HH:mm}" : "En curso",
+                            "Fin de ruta", false);
                     });
 
                     // ---- Recuadro oscuro ----
-                    right.Item().Background("#24364D").CornerRadius(6).Padding(10).Column(c =>
+                    right.Item().Background("#1B2B44").CornerRadius(10).PaddingVertical(10).PaddingHorizontal(10).Column(c =>
                     {
-                        c.Item().AlignCenter().Text("TOTAL EVIDENCIAS").FontSize(9).Bold().FontColor(Colors.White);
-                        c.Item().AlignCenter().Text(mapa.TotalEvidencias.ToString()).Bold().FontSize(16).FontColor(Colors.White);
-                        c.Item().PaddingVertical(5).LineHorizontal(1).LineColor("#B5D334");
-                        c.Item().AlignCenter().Text(mapa.Finalizada ? "DURACIÓN TOTAL:" : "DURACIÓN ACTUAL:")
-                            .FontSize(9).Bold().FontColor(Colors.White);
-                        c.Item().AlignCenter().Text(duracionTxt).Bold().FontSize(14).FontColor(Colors.White);
+                        c.Item().AlignCenter().Text("TOTAL EVIDENCIAS").FontSize(7.5f).Bold()
+                            .LetterSpacing(0.08f).FontColor("#CBD5E1");
+                        c.Item().AlignCenter().Text(mapa.TotalEvidencias.ToString()).Bold().FontSize(20).FontColor("#F5A524");
+                        c.Item().PaddingVertical(5).LineHorizontal(0.5f).LineColor("#475569");
+                        c.Item().AlignCenter().Text(mapa.Finalizada ? "DURACIÓN TOTAL" : "DURACIÓN ACTUAL")
+                            .FontSize(7.5f).Bold().LetterSpacing(0.08f).FontColor("#CBD5E1");
+                        c.Item().AlignCenter().Text(duracionTxt).Bold().FontSize(15).FontColor(Colors.White);
                     });
 
-                    // ---- Sucursal ----
-                    right.Item().Row(r =>
-                    {
-                        r.ConstantItem(18).AlignTop().Text("📍").FontSize(11).FontColor("#F15A24");
-                        r.ConstantItem(4);
-                        r.RelativeItem().Column(c =>
-                        {
-                            var sucursal = ReporteLayout.Ajustar(tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", 50, 11, 8, 18);
-                            c.Item().Text(sucursal.Texto).SemiBold().FontSize(sucursal.Size).FontColor("#24364D");
-                            c.Item().Text("Sucursal / CT").FontSize(8.5f).FontColor("#6B7280");
-                            c.Item().PaddingTop(2).Text(TruncarTexto(direccionDisplay, 70))
-                                .FontSize(7.5f).FontColor("#374151");
-                        });
-                    });
-
-                    right.Item().LineHorizontal(1).LineColor("#D1D5DB");
-
-                    // ---- Evidencias por punto (con icono de cantidad) ----
+                    // ---- Evidencias por punto ----
                     const int maxPuntos = 8;
                     var puntos = mapa.Puntos.Take(maxPuntos).ToList();
                     if (puntos.Count > 0)
                     {
-                        right.Item().Text("Evidencias por punto").SemiBold().FontSize(9).FontColor("#24364D");
-
-                        right.Item().Column(lista =>
+                        right.Item().Row(r =>
                         {
-                            lista.Spacing(4);
-                            foreach (var p in puntos)
-                            {
-                                lista.Item().Row(r =>
-                                {
-                                    r.ConstantItem(16).Height(16).Background("#FF5A2A").CornerRadius(8)
-                                        .AlignCenter().AlignMiddle()
-                                        .Text(p.Cantidad.ToString()).FontSize(7.5f).Bold().FontColor(Colors.White);
-                                    r.ConstantItem(6);
-                                    r.RelativeItem().AlignMiddle()
-                                        .Text($"{p.Hora:dd/MM/yyyy HH:mm}").FontSize(8).FontColor("#374151");
-                                });
-                            }
+                            r.RelativeItem().Text("EVIDENCIAS POR PUNTO").FontSize(6.5f).SemiBold()
+                                .LetterSpacing(0.06f).FontColor("#667489");
+                            r.AutoItem().Text($"{mapa.Puntos.Count} puntos · {mapa.FechaInicio:dd/MM/yyyy}")
+                                .FontSize(6.5f).FontColor("#667489");
                         });
+
+                        right.Item().Background(Colors.White).Border(1).BorderColor("#E5E7EB").CornerRadius(8)
+                            .PaddingHorizontal(5).PaddingVertical(2).Column(lista =>
+                            {
+                                for (var i = 0; i < puntos.Count; i++)
+                                {
+                                    var p = puntos[i];
+
+                                    if (i > 0)
+                                        lista.Item().LineHorizontal(0.5f).LineColor("#EEF0F3");
+
+                                    lista.Item().PaddingVertical(4).Row(r =>
+                                    {
+                                        // evidence__badge
+                                        r.ConstantItem(18).Height(18).Background("#F26A1B").CornerRadius(9)
+                                            .AlignCenter().AlignMiddle()
+                                            .Text(p.Cantidad.ToString()).Bold().FontSize(8).FontColor(Colors.White);
+                                        r.ConstantItem(5);
+
+                                        // evidence__body
+                                        r.RelativeItem().Column(c =>
+                                        {
+                                            c.Item().Text($"Punto {p.Orden}").Bold().FontSize(8.5f).FontColor("#24364D");
+                                            c.Item().Row(inf =>
+                                            {
+                                                inf.AutoItem().AlignMiddle().Width(7).Height(7)
+                                                    .Image(IconosReporte.Camara("#F26A1B"), ImageScaling.FitArea);
+                                                inf.ConstantItem(2);
+                                                inf.AutoItem().Text(p.Cantidad == 1 ? "1 evidencia" : $"{p.Cantidad} evidencias")
+                                                    .FontSize(6.5f).SemiBold().FontColor("#F26A1B");
+                                                inf.ConstantItem(3);
+                                                inf.AutoItem().Text("·").FontSize(6.5f).FontColor("#667489");
+                                                inf.ConstantItem(3);
+                                                inf.AutoItem().AlignMiddle().Width(7).Height(7)
+                                                    .Image(IconosReporte.Reloj("#667489"), ImageScaling.FitArea);
+                                                inf.ConstantItem(2);
+                                                inf.AutoItem().Text($"{p.Hora:HH:mm}").FontSize(6.5f).FontColor("#667489");
+                                            });
+                                        });
+
+                                        // evidence__elapsed
+                                        r.ConstantItem(3);
+                                        r.AutoItem().AlignMiddle().Background("#EEF0F3").CornerRadius(8)
+                                            .PaddingHorizontal(4).PaddingVertical(2)
+                                            .Text(Transcurrido(p.Hora)).FontSize(6.5f).SemiBold().FontColor("#667489");
+                                    });
+                                }
+                            });
 
                         if (mapa.Puntos.Count > maxPuntos)
                             right.Item().Text($"+ {mapa.Puntos.Count - maxPuntos} puntos más")
-                                .FontSize(7.5f).FontColor("#6B7280");
-
-                        right.Item().LineHorizontal(1).LineColor("#D1D5DB");
+                                .FontSize(7).FontColor("#667489");
                     }
 
-                    // ---- Simbología con iconos ----
-                    right.Item().Column(sim =>
-                    {
-                        sim.Spacing(4);
-
-                        void Leyenda(Action<IContainer> icono, string texto)
-                        {
-                            sim.Item().Row(r =>
-                            {
-                                r.ConstantItem(20).AlignMiddle().AlignCenter().Element(icono);
-                                r.ConstantItem(4);
-                                r.RelativeItem().AlignMiddle().Text(texto).FontSize(8).FontColor("#374151");
-                            });
-                        }
-
-                        Leyenda(el => el.Width(10).Height(10).Border(2).BorderColor("#111827").CornerRadius(5), "Inicio de ruta");
-                        Leyenda(el => el.Width(10).Height(10).Background("#111827"), "Fin de ruta");
-                        Leyenda(el => el.Width(18).Height(3).Background("#111827"), "Ruta real");
-                        Leyenda(el => el.Width(18).Height(3).Background("#7C3AED"), "Ruta planeada");
-                        Leyenda(el => el.Width(12).Height(12).Background("#FF5A2A").CornerRadius(6), "Evidencias en el punto");
-                    });
-
-                    // Espacio reservado para que el sello de estado no tape contenido
-                    right.Item().Height(34);
+                    // Espacio reservado para que el botón inferior no tape contenido
+                    right.Item().Height(46);
                 });
 
-                // Sello de estado, pegado al fondo del panel
+                // ---- .btn-finished: anclado al fondo ----
                 layers.Layer().AlignBottom()
-                    .Border(2).BorderColor(colorEstado).Background(Colors.White).CornerRadius(6)
-                    .PaddingVertical(8).AlignCenter()
+                    .Border(2).BorderColor(colorBorde).Background(Colors.White).CornerRadius(10)
+                    .PaddingVertical(11).AlignCenter()
                     .Text(mapa.Finalizada ? "RUTA FINALIZADA" : "RUTA EN CURSO")
-                    .Bold().FontSize(10).FontColor(colorEstado);
+                    .Bold().FontSize(9.5f).LetterSpacing(0.08f).FontColor(colorTexto);
             });
         });
     }
+
     // =========================================================================
     // FONDO DE PÁGINA
     // =========================================================================
