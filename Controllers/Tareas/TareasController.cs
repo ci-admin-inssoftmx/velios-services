@@ -589,15 +589,28 @@ public class TareasController : ControllerBase
                 // ── NUEVO: Asistencia dinámica — requiere asistencia registrada hoy antes de capturar evidencias ──
                 if (tarea.AsistenciaDinamicaActiva)
                 {
-                    if (tarea.TrabajadorId is null)
+                    var trabajadoresValidos = new List<long>();
+                    if (tarea.TrabajadorId.HasValue) trabajadoresValidos.Add(tarea.TrabajadorId.Value);
+                    if (tarea.SupervisorId.HasValue) trabajadoresValidos.Add(tarea.SupervisorId.Value);
+
+                    // Si el token JWT trae el claim del trabajador/usuario que hace la petición, incluirlo
+                    var claimId = User?.FindFirst("trabajadorId")?.Value
+                               ?? User?.FindFirst("TrabajadorId")?.Value
+                               ?? User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                    if (long.TryParse(claimId, out var usuarioActualId) && !trabajadoresValidos.Contains(usuarioActualId))
+                    {
+                        trabajadoresValidos.Add(usuarioActualId);
+                    }
+
+                    if (!trabajadoresValidos.Any())
                     {
                         return BadRequest(new
                         {
                             success = false,
-                            message = "Esta tarea no tiene un trabajador asignado.",
+                            message = "Esta tarea no tiene un trabajador o supervisor asignado.",
                             errors = new[]
                             {
-                                new { field = "trabajadorId", message = "No se puede verificar la asistencia sin un trabajador asignado." }
+                                new { field = "trabajadorId", message = "No se puede verificar la asistencia sin un responsable asignado." }
                             }
                         });
                     }
@@ -617,7 +630,7 @@ public class TareasController : ControllerBase
                     var tieneAsistencia = await _db.AsistenciaRegistros
                         .AsNoTracking()
                         .AnyAsync(a => a.TareaId == tarea.TareaId
-                                    && a.TrabajadorId == tarea.TrabajadorId.Value
+                                    && trabajadoresValidos.Contains(a.TrabajadorId)
                                     && a.Fecha == hoyLocal
                                     && a.TipoRegistro == "Entrada"
                                     && !a.IsDeleted);
