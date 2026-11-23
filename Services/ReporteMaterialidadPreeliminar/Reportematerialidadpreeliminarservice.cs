@@ -757,7 +757,8 @@ CrearHeader(c, _logoBytes, "INFORME PRELIMINAR", "Seguimiento de Ruta"));
                         content.Item().Element(x => CrearFilaSimple(x, "Razón Social", cliente.RazonSocial));
                         content.Item().Element(x => CrearFilaSimple(x, "Número de teléfono de la empresa",
                             !string.IsNullOrWhiteSpace(tarea.TelefonoCentroTrabajo) ? tarea.TelefonoCentroTrabajo : cliente.Telefono));
-                        content.Item().Element(x => CrearFilaSimple(x, "Email del supervisor", tarea.EmailSupervisor));
+                        content.Item().Element(x => CrearFilaSimple(x, "Email del supervisor",
+                            !string.IsNullOrWhiteSpace(cliente.Correo) ? cliente.Correo : "N/A"));
                     }, documentoIconBytes));
 
                 left.Item().Element(c =>
