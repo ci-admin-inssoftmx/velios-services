@@ -70,7 +70,6 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
                 TaskCode = t.TaskCode,
                 ClienteId = t.ClienteId,
                 ProyectoId = t.ProyectoId,
-                EmailSupervisor = supervisor != null ? supervisor.Correo : null,
                 Titulo = t.Titulo,
                 Descripcion = t.Descripcion,
 
@@ -157,6 +156,7 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
                 NombreComercial = c.NombreComercial,
                 RazonSocial = c.RazonSocial,
                 Telefono = c.TelefonoContacto,
+                Correo = c.CorreoContacto,
                 RFC = c.RFC
             })
             .FirstOrDefaultAsync();

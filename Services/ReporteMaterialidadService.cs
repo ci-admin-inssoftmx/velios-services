@@ -26,6 +26,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IConfiguration _configuration;
     private readonly HttpClient _httpClient;
+    private readonly IMapaRutaReporteService _mapaRutaService;
 
     private static readonly Lazy<byte[]?> _logoVeliosBytes = new(() => CargarRecursoEstatico("logo_velios.png"));
     private static readonly Lazy<byte[]?> _evidenceLogoBytes = new(() => CargarRecursoEstatico("Logoveliosevidence.png"));
@@ -36,13 +37,15 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
     private static readonly Lazy<byte[]?> _pdfIconBytes = new(() => CargarPdfIconEstatico());
 
     public ReporteMaterialidadService(
-        IReporteMaterialidadRepository repository,
-        IHttpClientFactory httpClientFactory,
-        IConfiguration configuration)
+    IReporteMaterialidadRepository repository,
+    IHttpClientFactory httpClientFactory,
+    IConfiguration configuration,
+    IMapaRutaReporteService mapaRutaService)
     {
         _repository = repository;
         _httpClientFactory = httpClientFactory;
         _configuration = configuration;
+        _mapaRutaService = mapaRutaService;
 
         _httpClient = _httpClientFactory.CreateClient("ReporteMaterialidad");
         _httpClient.Timeout = TimeSpan.FromSeconds(15);
@@ -72,6 +75,11 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         tarea.DireccionCentroTrabajo = await _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
         tarea.TelefonoCentroTrabajo = await _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
         tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
+        
+        // Mapa de seguimiento de ruta (null si la tarea no tiene ruta). Si falla, el reporte sale sin esa página.
+        MapaRutaReporteDto? mapaRuta = null;
+        try { mapaRuta = await _mapaRutaService.GenerarAsync(tarea.TareaId); }
+        catch (Exception ex) { Console.WriteLine($"[ReporteMaterialidad] Mapa de ruta omitido: {ex.Message}"); }
 
         using var semaforo = new SemaphoreSlim(MaxConcurrencia);
         using var semaforoArchivos = new SemaphoreSlim(MaxConcurrenciaArchivosPropios);
@@ -215,7 +223,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
             catch { qrBytes = null; }
         }
 
-        return ConstruirPdf(reporte, qrBytes, logoProveedorTask.Result, archivosTareaTask.Result);
+        return ConstruirPdf(reporte, qrBytes, logoProveedorTask.Result, archivosTareaTask.Result, mapaRuta);
     }
 
     private async Task<List<ArchivoAdjunto>> DescargarArchivosTareaAsync(string? imageUrlCsv, SemaphoreSlim semaforo)
@@ -494,7 +502,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         return texto.Length <= maxCaracteres ? texto : texto.Substring(0, maxCaracteres).TrimEnd() + "...";
     }
 
-    private byte[] ConstruirPdf(ReporteMaterialidadDto reporte, byte[]? qrBytes, byte[]? logoProveedorBytes, List<ArchivoAdjunto> archivosTarea)
+    private byte[] ConstruirPdf(ReporteMaterialidadDto reporte, byte[]? qrBytes, byte[]? logoProveedorBytes, List<ArchivoAdjunto> archivosTarea, MapaRutaReporteDto? mapaRuta)
     {
         var tarea = reporte.Tarea;
         var cliente = reporte.Cliente;
@@ -548,6 +556,30 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                 page.Footer().Element(c =>
                     CrearFooter(c, clienteDisplay, direccionDisplay, tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", logoBytes, qrBytes, logoProveedorBytes, carpetaIconBytes));
             });
+            // =========================================================
+            // PÁGINA 2: SEGUIMIENTO DE RUTA (solo si la tarea tiene ruta)
+            // =========================================================
+            if (mapaRuta is not null)
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(20);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(9).FontColor("#1F2937"));
+
+                    page.Background().Element(CrearFondoPagina);
+
+                    page.Header().Element(c =>
+                        CrearHeader(c, logoBytes, "INFORME DE TAREA", "Seguimiento de Ruta"));
+
+                    page.Content().PaddingTop(10).Element(c =>
+                        PaginaMapaRutaReporte.Contenido(c, mapaRuta, tarea, direccionDisplay, documentoIconBytes, carpetaIconBytes));
+
+                    page.Footer().Element(c =>
+                        CrearFooter(c, clienteDisplay, direccionDisplay, tarea.NombreCentroTrabajo ?? "Sin centro de trabajo", logoBytes, qrBytes, logoProveedorBytes, carpetaIconBytes));
+                });
+            }
 
             for (int i = 0; i < tarea.Evidencias.Count; i++)
             {
@@ -867,7 +899,8 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                         content.Item().Element(x => CrearFilaSimple(x, "Razón Social", cliente.RazonSocial));
                         content.Item().Element(x => CrearFilaSimple(x, "Número de teléfono de la empresa",
                             !string.IsNullOrWhiteSpace(tarea.TelefonoCentroTrabajo) ? tarea.TelefonoCentroTrabajo : cliente.Telefono));
-                        content.Item().Element(x => CrearFilaSimple(x, "Email del supervisor", tarea.EmailSupervisor));
+                        content.Item().Element(x => CrearFilaSimple(x, "Email del supervisor",
+                            !string.IsNullOrWhiteSpace(cliente.Correo) ? cliente.Correo : "N/A"));
 
                     }, documentoIconBytes));
 
