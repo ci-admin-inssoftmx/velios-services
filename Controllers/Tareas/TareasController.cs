@@ -55,7 +55,7 @@ public class TareasController : ControllerBase
             var query =
                 from t in _db.Tareas.AsNoTracking()
                 join c in _db.Clientes.AsNoTracking() on t.ClienteId equals c.ClienteId
-                join e in _db.EstatusTareas.AsNoTracking() on t.EstatusTareaId equals e.EstatusTareaId
+                join e in _db.EstatusTareas.AsNoTracking().Where(e => e.Activo == true) on t.EstatusTareaId equals e.EstatusTareaId
                 join p in _db.ClienteProyectos.AsNoTracking()
                     on new { ProyectoId = t.ProyectoId, ClienteId = t.ClienteId }
                     equals new { ProyectoId = (int?)p.ProyectoId, ClienteId = p.ClienteId }
@@ -88,6 +88,9 @@ public class TareasController : ControllerBase
                     title = x.t.Titulo,
                     description = x.t.Descripcion,
                     statusCode = x.e.Codigo,
+                    advance = x.e.Porcentaje,
+                    status = x.e.Nombre,
+                    statusId = x.e.EstatusTareaId,
                     seguimientoRutaActivo = x.t.SeguimientoRutaActivo, // ← NUEVO
                     asistenciaDinamicaActiva = x.t.AsistenciaDinamicaActiva, // ← NUEVO
                     planTrabajo = x.p != null ? x.p.Nombre : "SIN PLAN",
@@ -178,6 +181,9 @@ public class TareasController : ControllerBase
                 t.title,
                 t.description,
                 t.statusCode,
+                t.advance,
+                t.status,
+                t.statusId,
                 t.planTrabajo,
                 t.client,
                 t.schedule,
@@ -368,6 +374,9 @@ public class TareasController : ControllerBase
                 title = tarea.Tarea.Titulo,
                 description = tarea.Tarea.Descripcion,
                 statusCode = tarea.Estatus.Codigo,
+                status = tarea.Estatus.Nombre,
+                advance = tarea.Estatus.Porcentaje,
+                statusId = tarea.Estatus.EstatusTareaId,
                 seguimientoRutaActivo = tarea.Tarea.SeguimientoRutaActivo, // ← NUEVO
                 asistenciaDinamicaActiva = tarea.Tarea.AsistenciaDinamicaActiva, // ← NUEVO
                 seguimientoRuta = new  // ← NUEVO
