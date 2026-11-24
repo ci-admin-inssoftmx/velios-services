@@ -14,7 +14,7 @@ public interface IReporteMaterialidadRepository
     Task<string?> ObtenerTelefonoCentroTrabajoAsync(int? centroTrabajoId);
     Task<string?> ObtenerNombreCentroTrabajoAsync(int? centroTrabajoId); // NUEVO
     Task<string?> ObtenerNombreProveedorAsync(int? proveedorId);
-
+    Task<string?> ObtenerEmailSupervisorClienteAsync(int clienteId, int? centroTrabajoId);
     Task<ClienteReporteDto?> ObtenerClienteAsync(int clienteId);
     Task<List<EvidenciaReporteDto>> ObtenerEvidenciasPorTareaAsync(int tareaId);
 }
