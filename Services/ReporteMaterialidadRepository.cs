@@ -126,15 +126,14 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
                 WHERE e.IdEmpresa = {clienteId}
                   AND n.DescCatNivelPuesto = 'Supervisor'
                   AND (e.FechaBajaEmpresa IS NULL OR e.FechaBajaEmpresa > GETDATE())
-                  AND EXISTS (SELECT 1
-                              FROM STRING_SPLIT(s.IdLugarTrabajo, ',') x
-                              WHERE LTRIM(RTRIM(x.value)) = {centro})
-                ORDER BY e.IdEmpleado")
+                                ORDER BY CASE WHEN ',' + REPLACE(s.IdLugarTrabajo, ' ', '') + ',' LIKE '%,' + {centro} + ',%'
+                              THEN 0 ELSE 1 END,
+                         e.IdEmpleado")
                 .FirstOrDefaultAsync();
         }
-        catch
+        catch (Exception ex)
         {
-            // Si falla la consulta a Nomclick, el reporte debe seguir generándose
+            Console.WriteLine($"[ReporteMaterialidad] Email supervisor cliente falló: {ex.Message}");
             return null;
         }
     }
