@@ -431,7 +431,9 @@ public class TareasController : ControllerBase
     /// </summary>
     [HttpPut("{taskId}")]
     public async Task<ActionResult<object>> Update(string taskId, [FromBody] TareaUpdateRequest model)
+
     {
+        Tarea? tarea = null;
         try
         {
             if (model == null)
@@ -447,7 +449,7 @@ public class TareasController : ControllerBase
                 });
             }
 
-            var tarea = await _db.Tareas.FirstOrDefaultAsync(x => x.TaskCode == taskId && !x.IsDeleted);
+             tarea = await _db.Tareas.FirstOrDefaultAsync(x => x.TaskCode == taskId && !x.IsDeleted);
 
             if (tarea == null)
             {
@@ -744,11 +746,15 @@ public class TareasController : ControllerBase
         {
             _logger.LogError(ex, "Error al actualizar tarea {TaskId}.", taskId);
 
+            var errors = GetErrorMessages(ex);
+            var conn = _db.Database.GetDbConnection();
+            errors.Insert(0, $"DB: {conn.DataSource} / {conn.Database} | EstatusTareaId intentado: {tarea?.EstatusTareaId}");
+
             return BadRequest(new
             {
                 success = false,
                 message = "Ocurrió un error al actualizar la tarea",
-                errors = GetErrorMessages(ex)
+                errors
             });
         }
     }
