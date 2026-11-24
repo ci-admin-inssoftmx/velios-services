@@ -107,7 +107,37 @@ public class ReporteMaterialidadRepository : IReporteMaterialidadRepository
 
         return await query.FirstOrDefaultAsync();
     }
+    public async Task<string?> ObtenerEmailSupervisorClienteAsync(int clienteId, int? centroTrabajoId)
+    {
+        if (!centroTrabajoId.HasValue) return null;
 
+        try
+        {
+            var centro = centroTrabajoId.Value.ToString();
+
+            return await _nomclickContext.Database
+                .SqlQuery<string>($@"
+                SELECT TOP 1 dbo.decryptValue(e.EMail) AS Value
+                FROM dbo.tb_Empleados e
+                JOIN dbo.tb_CatNivelPuesto n
+                     ON n.IdCatNivelPuesto = e.IdCatNivelPuesto
+                JOIN dbo.tb_SegmentacionOrganizacionalEmpleado s
+                     ON s.IdEmpleado = e.IdEmpleado
+                WHERE e.IdEmpresa = {clienteId}
+                  AND n.DescCatNivelPuesto = 'Supervisor'
+                  AND (e.FechaBajaEmpresa IS NULL OR e.FechaBajaEmpresa > GETDATE())
+                  AND EXISTS (SELECT 1
+                              FROM STRING_SPLIT(s.IdLugarTrabajo, ',') x
+                              WHERE LTRIM(RTRIM(x.value)) = {centro})
+                ORDER BY e.IdEmpleado")
+                .FirstOrDefaultAsync();
+        }
+        catch
+        {
+            // Si falla la consulta a Nomclick, el reporte debe seguir generándose
+            return null;
+        }
+    }
     public async Task<string?> ObtenerDireccionCentroTrabajoAsync(int? centroTrabajoId)
     {
         if (!centroTrabajoId.HasValue) return null;
