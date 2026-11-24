@@ -1,4 +1,3 @@
-cat > .gitignore <<'EOF'
 # Visual Studio
 .vs/
 
@@ -21,12 +20,8 @@ Thumbs.db
 
 # Secrets (ajusta según tu proyecto)
 **/appsettings.Development.json
-EOF
-/.vs/velios.Api/v18/DocumentLayout.backup.json
-/.vs/velios.Api/v18/DocumentLayout.json
-/Properties/PublishProfiles/FolderProfile3.pubxml
 /appsettings.json
 
-
+# Logs
 logs/
-logs/app-20260729.txt
+*.log
