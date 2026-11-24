@@ -462,7 +462,7 @@ public class TareasController : ControllerBase
 
             var tieneEvidencias = model.EvidencePhotos != null && model.EvidencePhotos.Any();
             var tieneObservacion = !string.IsNullOrWhiteSpace(model.Observations);
-            var tieneNuevoEstado = !string.IsNullOrWhiteSpace(model.NewStatusCode);
+            var tieneNuevoEstado = model.EstatusTareaId > 0 || !string.IsNullOrWhiteSpace(model.NewStatusCode);
 
             if (!tieneEvidencias && !tieneObservacion && !tieneNuevoEstado)
             {
@@ -475,7 +475,7 @@ public class TareasController : ControllerBase
                         new
                         {
                             field = "request",
-                            message = "Debe enviar al menos uno de: evidencePhotos, observations o newStatusCode."
+                            message = "Debe enviar al menos uno de: evidencePhotos, observations, estatusTareaId o newStatusCode."
                         }
                     }
                 });
@@ -498,7 +498,32 @@ public class TareasController : ControllerBase
                 });
             }
 
-            if (!string.IsNullOrWhiteSpace(model.NewStatusCode))
+            if (model.EstatusTareaId > 0)
+            {
+                var existeEstatus = await _db.EstatusTareas
+                    .AsNoTracking()
+                    .AnyAsync(x => x.EstatusTareaId == model.EstatusTareaId);
+
+                if (!existeEstatus)
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "estatusTareaId inválido",
+                        errors = new[]
+                        {
+                            new
+                            {
+                                field = "estatusTareaId",
+                                message = $"El estatusTareaId '{model.EstatusTareaId}' no existe en el catálogo."
+                            }
+                        }
+                    });
+                }
+
+                tarea.EstatusTareaId = model.EstatusTareaId;
+            }
+            else if (!string.IsNullOrWhiteSpace(model.NewStatusCode))
             {
                 var nuevoEstatus = await _db.EstatusTareas
                     .AsNoTracking()
@@ -515,7 +540,7 @@ public class TareasController : ControllerBase
                             new
                             {
                                 field = "newStatusCode",
-                                message = $"El código '{model.NewStatusCode}' no existe en el catálogo"
+                                message = $"El código '{model.NewStatusCode}' no existe en el catálogo."
                             }
                         }
                     });
