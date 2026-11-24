@@ -75,7 +75,10 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
         tarea.DireccionCentroTrabajo = await _repository.ObtenerDireccionCentroTrabajoAsync(tarea.CentroTrabajoId);
         tarea.TelefonoCentroTrabajo = await _repository.ObtenerTelefonoCentroTrabajoAsync(tarea.CentroTrabajoId);
         tarea.NombreCentroTrabajo = await _repository.ObtenerNombreCentroTrabajoAsync(tarea.CentroTrabajoId);
-        
+        tarea.EmailSupervisor =
+    await _repository.ObtenerEmailSupervisorClienteAsync(tarea.ClienteId, tarea.CentroTrabajoId)
+    ?? cliente.Correo;
+
         // Mapa de seguimiento de ruta (null si la tarea no tiene ruta). Si falla, el reporte sale sin esa página.
         MapaRutaReporteDto? mapaRuta = null;
         try { mapaRuta = await _mapaRutaService.GenerarAsync(tarea.TareaId); }
@@ -900,7 +903,7 @@ public class ReporteMaterialidadService : IReporteMaterialidadService
                         content.Item().Element(x => CrearFilaSimple(x, "Número de teléfono de la empresa",
                             !string.IsNullOrWhiteSpace(tarea.TelefonoCentroTrabajo) ? tarea.TelefonoCentroTrabajo : cliente.Telefono));
                         content.Item().Element(x => CrearFilaSimple(x, "Email del supervisor",
-                            !string.IsNullOrWhiteSpace(cliente.Correo) ? cliente.Correo : "N/A"));
+                            !string.IsNullOrWhiteSpace(tarea.EmailSupervisor) ? tarea.EmailSupervisor : "N/A"));
 
                     }, documentoIconBytes));
 
